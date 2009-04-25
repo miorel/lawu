@@ -1,5 +1,6 @@
 package lawu.util.iterator;
 
+import lawu.dp.Iterator;
 import lawu.util.Filter;
 
 public class FilteredIterator<T> implements Iterator<T> {

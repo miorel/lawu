@@ -1,7 +1,6 @@
 package lawu.util.iterator;
 
-
-public class ArrayIterator<T> implements Iterator<T> {
+public class ArrayIterator<T> extends AbstractUniversalIterator<T> {
 	private final T[] array;
 	private int pointer;
 	

@@ -2,8 +2,7 @@ package lawu.util.iterator;
 
 import java.util.List;
 
-
-public class ListIterator<T> implements Iterator<T> {
+public class ListIterator<T> extends AbstractUniversalIterator<T> {
 	private final List<T> list;
 	private int pointer;
 	
