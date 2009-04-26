@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="dist" name="lawu">
+	<property name="src.dir" value="src"/>
+	<property name="doc.dir" value="doc"/>
+	<property name="bin.dir" value="bin"/>
+	<property name="dist.dir" value="dist"/>
+	
+	<property name="jar.name" value="${ant.project.name}.jar"/>
+	<property name="src.main" value="${ant.project.name}.RunApp"/>
+
+	<target name="clean-build" description="removes the build directory">
+		<delete dir="${bin.dir}"/>
+	</target>
+
+	<target name="clean-dist" description="removes the distribution directory">
+		<delete dir="${dist.dir}"/>
+	</target>
+	
+	<target name="clean-doc" description="removes the generated documentation directory">
+		<delete dir="${doc.dir}"/>
+	</target>
+	
+    <target name="clean" description="removes all rebuildable files" depends="clean-build,clean-dist,clean-doc"/>
+
+    <target name="bin" description="compiles the project">
+    	<mkdir dir="${bin.dir}"/>
+    	<depend srcdir="${src.dir}" destdir="${bin.dir}" closure="yes"/>
+        <javac srcdir="${src.dir}" destdir="${bin.dir}"/>
+    </target>
+	
+	<target name="src-dist-dir" description="creates a source distribution directory">
+		<mkdir dir="${dist.dir}"/>
+    	<copy todir="${dist.dir}/${ant.project.name}-src">
+    		<fileset dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**,.settings/**"/>
+    	</copy>
+	</target>
+	
+	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution" depends="src-dist-dir">	
+    	<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
+    		<tarfileset dir="${dist.dir}/${ant.project.name}-src" prefix="${ant.project.name}-src"/>
+    	</tar>
+	</target>
+	
+	<target name="src-dist-zip" description="creates a zipped source distribution" depends="src-dist-dir">	
+    	<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
+    		<zipfileset dir="${dist.dir}/${ant.project.name}-src" prefix="${ant.project.name}-src"/>
+    	</zip>
+	</target>
+	
+	<target name="src-dist" description="creates all the source distribution bundles"
+		depends="src-dist-dir,src-dist-tgz,src-dist-zip"/>
+
+	<target name="bin-dist" description="creates a binary distribution" depends="bin">
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/${jar.name}" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+	            <attribute name="Main-Class" value="${src.main}"/>
+			</manifest>
+	        <fileset dir="${bin.dir}"/>
+		</jar>
+	</target>
+	
+	<target name="doc" description="generates Javadocs for the project">
+		<javadoc
+			access="package"
+			author="false"
+			classpath="${lib.files}"
+			destdir="${doc.dir}"
+			doctitle="Title goes here"
+			nodeprecated="false"
+			nodeprecatedlist="false"
+			noindex="false"
+			nonavbar="false"
+			notree="false"
+			overview="javadoc-overview.html"
+			source="1.6"
+			sourcepath="src"
+			splitindex="true"
+			use="true"
+			version="false">
+			<link href="http://java.sun.com/javase/6/docs/api/"/>
+			<link href="http://download.java.net/media/jogl/builds/nightly/javadoc_public/"/>
+			<link href="http://www.javazoom.net/javalayer/docs/docs1.0/"/>
+		</javadoc>
+	</target>
+
+	<target name="doc-dist" description="creates an archive of the project documentation" depends="doc">	
+	    <zip destfile="${dist.dir}/${ant.project.name}-doc.zip">
+			<zipfileset dir="${doc.dir}" prefix="${ant.project.name}-doc"/>
+	   	</zip>
+	</target>
+	
+    <target name="dist" depends="src-dist,bin-dist,doc-dist"/>
+</project>
