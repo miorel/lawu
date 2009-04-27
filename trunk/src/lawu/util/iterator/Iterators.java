@@ -2,6 +2,7 @@ package lawu.util.iterator;
 
 import java.util.Enumeration;
 import java.util.List;
+import java.util.regex.MatchResult;
 
 import lawu.dp.Iterator;
 import lawu.util.Filter;
@@ -82,6 +83,14 @@ public class Iterators {
 	 */
 	public static UniversalIterator<Character> iterator(CharSequence sequence) {
 		return new CharacterIterator(sequence);
+	}
+
+	/**
+	 * @param match
+	 * @return
+	 */
+	public static UniversalIterator<String> iterator(MatchResult match) {
+		return new MatchResultIterator(match);
 	}
 	
 	/**
