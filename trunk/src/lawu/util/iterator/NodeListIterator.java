@@ -1,14 +1,12 @@
 package lawu.util.iterator;
 
-import lawu.dp.Iterator;
-
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
  * @author Miorel-Lucian Palii
  */
-public class NodeListIterator implements Iterator<Node> {
+public class NodeListIterator extends AbstractUniversalIterator<Node> {
 	private final NodeList list;
 	private int pointer;
 

@@ -10,16 +10,16 @@ import lawu.util.Mapper;
  * @param <U>
  */
 public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
-	private final Iterator<T> iterator;
 	private final Mapper<T, U> mapper;
+	private final Iterator<T> iterator;
 	
 	/**
-	 * @param iterator
 	 * @param mapper
+	 * @param iterator
 	 */
-	public MappingIterator(Iterator<T> iterator, Mapper<T, U> mapper) {
-		this.iterator = iterator;
+	public MappingIterator(Mapper<T, U> mapper, Iterator<T> iterator) {
 		this.mapper = mapper;
+		this.iterator = iterator;
 	}
 	
 	public void advance() {

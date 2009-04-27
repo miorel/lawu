@@ -1,29 +1,23 @@
 package lawu.util.iterator;
 
 import lawu.dp.Iterator;
-import lawu.util.Filter;
 
 /**
  * @author Miorel-Lucian Palii
  *
- * @param <T>
  */
-public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
-	private final Filter<T> filter;
+public class DelegatingIterator<T> extends AbstractUniversalIterator<T> {
 	private final Iterator<T> iterator;
 	
 	/**
-	 * @param filter
 	 * @param iterator
 	 */
-	public FilteredIterator(Filter<T> filter, Iterator<T> iterator) {
-		this.filter = filter;
+	public DelegatingIterator(Iterator<T> iterator) {
 		this.iterator = iterator;
 	}
-	
+
 	public void advance() {
-		do this.iterator.advance();
-		while(!this.filter.keep(this.iterator.current()));
+		this.iterator.advance();
 	}
 
 	public T current() {
@@ -36,7 +30,5 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 
 	public void reset() {
 		this.iterator.reset();
-		if(!this.filter.keep(this.iterator.current()))
-			advance();
 	}
 }
