@@ -77,6 +77,14 @@ public class Iterators {
 	}
 	
 	/**
+	 * @param sequence
+	 * @return
+	 */
+	public static UniversalIterator<Character> iterator(CharSequence sequence) {
+		return new CharacterIterator(sequence);
+	}
+	
+	/**
 	 * @param <T>
 	 * @param <U>
 	 * @param mapper
@@ -107,11 +115,21 @@ public class Iterators {
 		return filter(filter, iterator);
 	}
 
-	public static <T> UniversalIterator<T> join(Iterator<T>... iterators) {
-		return join(iterator(iterators));
-	}
-
+	/**
+	 * @param <T>
+	 * @param iterator
+	 * @return
+	 */
 	public static <T> UniversalIterator<T> join(Iterator<? extends Iterator<T>> iterator) {
 		return new JoiningIterator<T>(iterator);
+	}
+
+	/**
+	 * @param <T>
+	 * @param iterators
+	 * @return
+	 */
+	public static <T> UniversalIterator<T> join(Iterator<T>... iterators) {
+		return join(iterator(iterators));
 	}
 }
