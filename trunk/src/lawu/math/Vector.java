@@ -1,5 +1,7 @@
 package lawu.math;
 
+import lawu.Main;
+
 /**
  * A displacement in three-dimensional space.
  * 
@@ -62,7 +64,7 @@ public class Vector {
 	 * @return the x-coordinate
 	 */
 	public final double getX() {
-		return x;
+		return this.x;
 	}
 
 	/**
@@ -71,7 +73,7 @@ public class Vector {
 	 * @return the y-coordinate
 	 */
 	public final double getY() {
-		return y;
+		return this.y;
 	}
 
 	/**
@@ -80,26 +82,44 @@ public class Vector {
 	 * @return the z-coordinate
 	 */
 	public final double getZ() {
-		return z;
+		return this.z;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(this.x);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(this.y);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(this.z);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		boolean ret = false;
-		if (obj instanceof Vector) {
-			Vector vector = (Vector) obj;
-			ret = ((Double) vector.getX()).equals(getX())
-					&& ((Double) vector.getY()).equals(getY())
-					&& ((Double) vector.getZ()).equals(getZ());
+		if(this == obj)
+			ret = true;
+		else if(getClass() == obj.getClass()) {
+			Vector other = (Vector) obj;
+			ret = true;
+			if(Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x))
+				ret = false;
+			if(Double.doubleToLongBits(this.y) != Double.doubleToLongBits(other.y))
+				ret = false;
+			if(Double.doubleToLongBits(this.z) != Double.doubleToLongBits(other.z))
+				ret = false;
 		}
 		return ret;
 	}
-
-	public int hashCode() {
-		return ((Double) getX()).hashCode() ^ ((Double) getY()).hashCode()
-				^ ((Double) getZ()).hashCode(); 
-	}
-
+	
+	@Override
+	@SuppressWarnings("boxing")
 	public String toString() {
-		return String.format("(%.03f, %.03f, %.03f)", getX(), getY(), getZ());
+		return String.format(Main.getMessage("Vector.0"), getX(), getY(), getZ()); //$NON-NLS-1$
 	}
 }

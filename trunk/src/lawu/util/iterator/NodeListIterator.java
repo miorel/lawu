@@ -5,27 +5,33 @@ import lawu.dp.Iterator;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class NodeListIterator implements Iterator<Node> {
 	private final NodeList list;
 	private int pointer;
 
+	/**
+	 * @param list
+	 */
 	public NodeListIterator(NodeList list) {
 		this.list = list;
 	}
 
 	public void advance() {
-		++pointer;
+		++this.pointer;
 	}
 
 	public Node current() {
-		return list.item(pointer);
+		return this.list.item(this.pointer);
 	}
 
 	public boolean isDone() {
-		return pointer >= list.getLength();
+		return this.pointer >= this.list.getLength();
 	}
 
 	public void reset() {
-		pointer = 0;
+		this.pointer = 0;
 	}
 }

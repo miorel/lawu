@@ -2,36 +2,47 @@ package lawu.util.iterator;
 
 import lawu.dp.Iterator;
 
+/**
+ * @author Miorel-Lucian Palii
+ *
+ * @param <T>
+ */
 public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	private final Iterator<Iterator<T>> iterator;
 	
+	/**
+	 * @param iterator
+	 */
 	public JoiningIterator(Iterator<Iterator<T>> iterator) {
 		this.iterator = iterator;
 	}
 	
+	/**
+	 * @param iterators
+	 */
 	public JoiningIterator(Iterator<T>... iterators) {
 		this(new IteratorFactory().iterator(iterators));
 	}
 	
 	public void advance() {
-		while(iterator.current().isDone() && !iterator.isDone()) {
-			iterator.advance();
-			iterator.current().reset();
+		while(this.iterator.current().isDone() && !this.iterator.isDone()) {
+			this.iterator.advance();
+			this.iterator.current().reset();
 		}
-		iterator.current().advance();
+		this.iterator.current().advance();
 	}
 
 	public T current() {
-		return iterator.current().current();
+		return this.iterator.current().current();
 	}
 
 	public boolean isDone() {
-		return iterator.isDone();
+		return this.iterator.isDone();
 	}
 
 	public void reset() {
-		iterator.reset();
-		if(!iterator.isDone())
-			iterator.current().reset();
+		this.iterator.reset();
+		if(!this.iterator.isDone())
+			this.iterator.current().reset();
 	}
 }

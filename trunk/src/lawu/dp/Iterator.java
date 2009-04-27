@@ -8,15 +8,16 @@ package lawu.dp;
  * 
  * Use an iterator as follows:
  * 
- * <code>Iterator<SomeType> iter = someMethod();
- * for(iter.reset(); !iter.isDone(); iter.advance()) {
- *     // do something with iter.current()
- * }</code>
+ * <pre>
+ * Iterator&lt;SomeType&gt; iter = someMethod();
+ * or(iter.reset(); !iter.isDone(); iter.advance()) {
+ *    // do something with iter.current()
+ * 
+ * </pre>
  * 
  * @author Miorel-Lucian Palii
  * 
- * @param <T>
- *            the type over which this iterator iterates
+ * @param <T> the type over which this iterator iterates
  */
 public interface Iterator<T> {
 	/**

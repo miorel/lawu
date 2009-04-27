@@ -1,5 +1,12 @@
 package lawu.util.iterator;
 
+import lawu.util.iterator.UniversalIterator;
+
+/**
+ * @author Miorel-Lucian Palii
+ *
+ * @param <T>
+ */
 public abstract class AbstractUniversalIterator<T> implements UniversalIterator<T> {
 	public boolean hasNext() {
 		return !isDone();

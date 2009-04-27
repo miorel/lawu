@@ -4,11 +4,12 @@ package lawu.util;
  * @author Miorel-Lucian Palii
  *
  * @param <T>
+ * @param <U>
  */
-public interface Filter<T> {
+public interface Mapper<T, U> {
 	/**
 	 * @param element
 	 * @return
 	 */
-	public boolean keep(T element);
+	public U map(T element);
 }

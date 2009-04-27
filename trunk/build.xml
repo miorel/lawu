@@ -6,7 +6,7 @@
 	<property name="dist.dir" value="dist"/>
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
-	<property name="src.main" value="${ant.project.name}.RunApp"/>
+	<property name="src.main" value="${ant.project.name}.Main"/>
 
 	<target name="clean-build" description="removes the build directory">
 		<delete dir="${bin.dir}"/>
@@ -64,8 +64,7 @@
 	<target name="doc" description="generates Javadocs for the project">
 		<javadoc
 			access="package"
-			author="false"
-			classpath="${lib.files}"
+			author="true"
 			destdir="${doc.dir}"
 			doctitle="Title goes here"
 			nodeprecated="false"
@@ -80,8 +79,8 @@
 			use="true"
 			version="false">
 			<link href="http://java.sun.com/javase/6/docs/api/"/>
-			<link href="http://download.java.net/media/jogl/builds/nightly/javadoc_public/"/>
-			<link href="http://www.javazoom.net/javalayer/docs/docs1.0/"/>
+<!--		<link href="http://download.java.net/media/jogl/builds/nightly/javadoc_public/"/>
+			<link href="http://www.javazoom.net/javalayer/docs/docs1.0/"/> -->
 		</javadoc>
 	</target>
 
