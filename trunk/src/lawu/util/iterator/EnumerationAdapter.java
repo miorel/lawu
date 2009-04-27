@@ -21,6 +21,7 @@ public class EnumerationAdapter<T> extends AbstractUniversalIterator<T> {
 	public EnumerationAdapter(Enumeration<T> enumeration) {
 		this.list = new ArrayList<T>();
 		this.enumeration = enumeration;
+		reset();
 	}
 
 	public void advance() {

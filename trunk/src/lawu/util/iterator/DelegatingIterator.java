@@ -14,6 +14,7 @@ public class DelegatingIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	public DelegatingIterator(Iterator<T> iterator) {
 		this.iterator = iterator;
+		reset();
 	}
 
 	public void advance() {

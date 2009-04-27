@@ -8,6 +8,12 @@ import lawu.util.iterator.UniversalIterator;
  * @param <T>
  */
 public abstract class AbstractUniversalIterator<T> implements UniversalIterator<T> {
+	/**
+	 * 
+	 */
+	public AbstractUniversalIterator() {
+	}
+	
 	public boolean hasNext() {
 		return !isDone();
 	}

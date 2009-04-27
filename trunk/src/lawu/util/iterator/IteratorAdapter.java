@@ -22,6 +22,7 @@ public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	public IteratorAdapter(Iterator<T> iterator) {
 		this.list = new ArrayList<T>();
 		this.iterator = iterator;
+		reset();
 	}
 
 	public void advance() {

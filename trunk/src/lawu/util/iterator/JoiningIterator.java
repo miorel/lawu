@@ -15,6 +15,7 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	public JoiningIterator(Iterator<? extends Iterator<T>> iterator) {
 		this.iterator = iterator;
+		reset();
 	}
 	
 	public void advance() {

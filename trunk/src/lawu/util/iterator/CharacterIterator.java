@@ -15,6 +15,7 @@ public class CharacterIterator extends AbstractUniversalIterator<Character> {
 	 */
 	public CharacterIterator(CharSequence sequence) {
 		this.sequence = sequence;
+		reset();
 	}
 	
 	@Override

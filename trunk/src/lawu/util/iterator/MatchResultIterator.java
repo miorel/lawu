@@ -14,6 +14,7 @@ public class MatchResultIterator extends AbstractUniversalIterator<String> {
 	
 	public MatchResultIterator(MatchResult match) {
 		this.match = match;
+		reset();
 	}
 	
 	@Override

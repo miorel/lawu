@@ -20,6 +20,7 @@ public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
 	public MappingIterator(Mapper<T, U> mapper, Iterator<T> iterator) {
 		this.mapper = mapper;
 		this.iterator = iterator;
+		reset();
 	}
 	
 	public void advance() {

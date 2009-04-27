@@ -15,6 +15,7 @@ public class NodeListIterator extends AbstractUniversalIterator<Node> {
 	 */
 	public NodeListIterator(NodeList list) {
 		this.list = list;
+		reset();
 	}
 
 	public void advance() {

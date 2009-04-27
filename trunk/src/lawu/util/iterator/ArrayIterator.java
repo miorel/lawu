@@ -14,6 +14,7 @@ public class ArrayIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	public ArrayIterator(T... array) {
 		this.array = array;
+		reset();
 	}
 	
 	public void advance() {

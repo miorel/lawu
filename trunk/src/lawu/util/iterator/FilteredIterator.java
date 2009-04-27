@@ -19,6 +19,7 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	public FilteredIterator(Filter<T> filter, Iterator<T> iterator) {
 		this.filter = filter;
 		this.iterator = iterator;
+		reset();
 	}
 	
 	public void advance() {
