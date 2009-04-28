@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  * @author Miorel-Lucian Palii
  */
 public class Main {
-	private static final String BUNDLE_NAME = "msg"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "lawu.nls.message"; //$NON-NLS-1$
 	private static final ResourceBundle RESOURCE_BUNDLE;
 	
 	static {

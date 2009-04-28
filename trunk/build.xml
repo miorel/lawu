@@ -4,6 +4,7 @@
 	<property name="doc.dir" value="doc"/>
 	<property name="bin.dir" value="bin"/>
 	<property name="dist.dir" value="dist"/>
+	<property name="res.dir" value="res"/>
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
 	<property name="src.main" value="${ant.project.name}.Main"/>
@@ -31,7 +32,7 @@
 	<target name="src-dist-dir" description="creates a source distribution directory">
 		<mkdir dir="${dist.dir}"/>
     	<copy todir="${dist.dir}/${ant.project.name}-src">
-    		<fileset dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**,.settings/**"/>
+    		<fileset dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**"/>
     	</copy>
 	</target>
 	
@@ -58,6 +59,7 @@
 	            <attribute name="Main-Class" value="${src.main}"/>
 			</manifest>
 	        <fileset dir="${bin.dir}"/>
+			<fileset dir="${res.dir}"/>
 		</jar>
 	</target>
 	
@@ -72,15 +74,13 @@
 			noindex="false"
 			nonavbar="false"
 			notree="false"
-			overview="javadoc-overview.html"
+			overview="${src.dir}/overview.html"
 			source="1.6"
 			sourcepath="src"
 			splitindex="true"
 			use="true"
 			version="false">
 			<link href="http://java.sun.com/javase/6/docs/api/"/>
-<!--		<link href="http://download.java.net/media/jogl/builds/nightly/javadoc_public/"/>
-			<link href="http://www.javazoom.net/javalayer/docs/docs1.0/"/> -->
 		</javadoc>
 	</target>
 
@@ -90,5 +90,6 @@
 	   	</zip>
 	</target>
 	
-    <target name="dist" depends="src-dist,bin-dist,doc-dist"/>
+    <target name="dist" description="creates all distribution files"
+    	depends="src-dist,bin-dist,doc-dist"/>
 </project>
