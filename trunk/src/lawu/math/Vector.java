@@ -49,7 +49,7 @@ public class Vector {
 	}
 
 	/**
-	 * Constructs a vector with the same coordinates as the argument.
+	 * Constructs a vector that has the same coordinates as the argument.
 	 * 
 	 * @param vector
 	 *            the coordinates
@@ -63,7 +63,7 @@ public class Vector {
 	 * 
 	 * @return the x-coordinate
 	 */
-	public final double getX() {
+	public double getX() {
 		return this.x;
 	}
 
@@ -72,7 +72,7 @@ public class Vector {
 	 * 
 	 * @return the y-coordinate
 	 */
-	public final double getY() {
+	public double getY() {
 		return this.y;
 	}
 
@@ -81,10 +81,75 @@ public class Vector {
 	 * 
 	 * @return the z-coordinate
 	 */
-	public final double getZ() {
+	public double getZ() {
 		return this.z;
 	}
 
+	/**
+	 * Returns a new vector object which represents the result of adding this
+	 * vector and the argument.
+	 * 
+	 * @param vector addend
+	 * @return this + vector
+	 */
+	public Vector add(Vector vector) {
+		return new Vector(getX() + vector.getX(), getY() + vector.getY(),
+				getZ() + vector.getZ());
+	}
+
+	/**
+	 * Returns a new vector object which represents the result of subtracting
+	 * the argument from this vector.
+	 * 
+	 * @param vector subtrahend
+	 * @return this - vector
+	 */
+	public Vector subtract(Vector vector) {
+		return new Vector(getX() - vector.getX(), getY() - vector.getY(),
+				getZ() - vector.getZ());
+	}
+
+	/**
+	 * Returns a new vector object which represents the result of multiplying 
+	 * this vector by the scalar passed as an argument.
+	 * 
+	 * @param scalar factor 
+	 * @return this * scalar
+	 */
+	public Vector multiply(double scalar) {
+		return new Vector(getX() * scalar, getY() * scalar, getZ() * scalar);
+	}
+
+	/**
+	 * Returns a new vector object which represents the result of multiplying 
+	 * this vector by the inverse of the scalar passed as an argument.
+	 * 
+	 * @param scalar divisor 
+	 * @return this / scalar
+	 */
+	public Vector divide(double scalar) {
+		return new Vector(getX() / scalar, getY() / scalar, getZ() / scalar);
+	}
+	
+	/**
+	 * Returns a new vector object which has the same magnitude as this one but
+	 * the opposite direction. 
+	 * 
+	 * @return -this
+	 */
+	public Vector negate() {
+		return new Vector(-getX(), -getY(), -getZ());
+	}
+
+	/**
+	 * Computes the magnitude of this vector.
+	 * 
+	 * @return the magnitude of this vector
+	 */
+	public double magnitude() {
+		return Math.hypot(Math.hypot(getX(), getY()), getZ());
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -104,15 +169,11 @@ public class Vector {
 		boolean ret = false;
 		if(this == obj)
 			ret = true;
-		else if(getClass() == obj.getClass()) {
+		else if(obj instanceof Vector) {
 			Vector other = (Vector) obj;
-			ret = true;
-			if(Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x))
-				ret = false;
-			if(Double.doubleToLongBits(this.y) != Double.doubleToLongBits(other.y))
-				ret = false;
-			if(Double.doubleToLongBits(this.z) != Double.doubleToLongBits(other.z))
-				ret = false;
+			ret = Double.valueOf(this.x).equals(Double.valueOf(other.x))
+				&& Double.valueOf(this.y).equals(Double.valueOf(other.y))
+				&& Double.valueOf(this.z).equals(Double.valueOf(other.z));
 		}
 		return ret;
 	}
@@ -120,6 +181,6 @@ public class Vector {
 	@Override
 	@SuppressWarnings("boxing")
 	public String toString() {
-		return String.format(Main.getMessage("Vector.0"), getX(), getY(), getZ()); //$NON-NLS-1$
+		return String.format(Main.getString("Vector.0"), getX(), getY(), getZ()); //$NON-NLS-1$
 	}
 }

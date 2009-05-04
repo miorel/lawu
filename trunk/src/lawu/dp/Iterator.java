@@ -4,9 +4,7 @@ package lawu.dp;
  * The Gang of Four's favorite iterator interface. Abstracts the traversal of an
  * aggregate structure from the underlying representation. Note that method
  * names have been modified from those given by the Gang of Four but the
- * behavior is the same.
- * 
- * Use an iterator as follows:
+ * behavior is the same. Use an iterator as follows:
  * 
  * <pre>
  * Iterator&lt;SomeType&gt; iter = someMethod();
@@ -16,7 +14,6 @@ package lawu.dp;
  * </pre>
  * 
  * @author Miorel-Lucian Palii
- * 
  * @param <T> the type over which this iterator iterates
  */
 public interface Iterator<T> {

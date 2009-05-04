@@ -34,7 +34,7 @@ public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 		T ret = null;
 		if(this.pointer < this.list.size())
 			ret = this.list.get(this.pointer);
-		else {
+		else if(this.iterator.hasNext()) {
 			ret = this.iterator.next();
 			this.list.add(ret);
 		}

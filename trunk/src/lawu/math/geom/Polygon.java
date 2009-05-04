@@ -9,12 +9,16 @@ import lawu.util.iterator.UniversalIterator;
  */
 public interface Polygon {
 	/**
-	 * @return
+	 * Returns the number of vertices of this polygon.
+	 * 
+	 * @return the number of vertices
 	 */
 	public int getVertexCount();
 
 	/**
-	 * @return
+	 * Retrieves an iterator over this polygon's vertices.
+	 * 
+	 * @return an iterator over the vertices
 	 */
 	public UniversalIterator<Vector> getVertices();
 }

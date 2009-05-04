@@ -13,7 +13,7 @@ public class CloneableObject implements Cloneable {
 			ret = (CloneableObject) super.clone();
 		}
 		catch(CloneNotSupportedException e) {
-			throw new Error(Main.getMessage("CloneableObject.0"), e); //$NON-NLS-1$
+			throw new Error(Main.getString("CloneableObject.0"), e); //$NON-NLS-1$
 		}
 		return ret;
 	}

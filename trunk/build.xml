@@ -8,8 +8,10 @@
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
 	<property name="src.main" value="${ant.project.name}.Main"/>
-
-	<target name="clean-build" description="removes the build directory">
+	
+	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**"/>
+	
+	<target name="clean-bin" description="removes the build directory">
 		<delete dir="${bin.dir}"/>
 	</target>
 
@@ -21,35 +23,28 @@
 		<delete dir="${doc.dir}"/>
 	</target>
 	
-    <target name="clean" description="removes all rebuildable files" depends="clean-build,clean-dist,clean-doc"/>
-
+    <target name="clean" description="removes all rebuildable files" depends="clean-bin,clean-dist,clean-doc"/>
+	
     <target name="bin" description="compiles the project">
     	<mkdir dir="${bin.dir}"/>
     	<depend srcdir="${src.dir}" destdir="${bin.dir}" closure="yes"/>
         <javac srcdir="${src.dir}" destdir="${bin.dir}"/>
-    </target>
+    </target>	
 	
-	<target name="src-dist-dir" description="creates a source distribution directory">
-		<mkdir dir="${dist.dir}"/>
-    	<copy todir="${dist.dir}/${ant.project.name}-src">
-    		<fileset dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**"/>
-    	</copy>
-	</target>
-	
-	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution" depends="src-dist-dir">	
+	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution">	
     	<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
-    		<tarfileset dir="${dist.dir}/${ant.project.name}-src" prefix="${ant.project.name}-src"/>
+    		<tarfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
     	</tar>
 	</target>
 	
-	<target name="src-dist-zip" description="creates a zipped source distribution" depends="src-dist-dir">	
+	<target name="src-dist-zip" description="creates a zipped source distribution">	
     	<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
-    		<zipfileset dir="${dist.dir}/${ant.project.name}-src" prefix="${ant.project.name}-src"/>
+    		<zipfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
     	</zip>
 	</target>
 	
 	<target name="src-dist" description="creates all the source distribution bundles"
-		depends="src-dist-dir,src-dist-tgz,src-dist-zip"/>
+		depends="src-dist-tgz,src-dist-zip"/>
 
 	<target name="bin-dist" description="creates a binary distribution" depends="bin">
 		<mkdir dir="${dist.dir}"/>
