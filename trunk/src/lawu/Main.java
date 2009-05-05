@@ -1,6 +1,3 @@
-/**
- * 
- */
 package lawu;
 
 import java.awt.Desktop;

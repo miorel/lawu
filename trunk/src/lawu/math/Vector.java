@@ -1,5 +1,7 @@
 package lawu.math;
 
+import java.util.Comparator;
+
 import lawu.Main;
 
 /**
@@ -12,6 +14,14 @@ public class Vector {
 	private final double y;
 	private final double z;
 
+	public final static Comparator<Vector> MAGNITUDE_ORDER = new Comparator<Vector>() {
+		@Override
+		public int compare(Vector a, Vector b) {
+			return Double.valueOf(a.magnitude()).compareTo(
+					Double.valueOf(b.magnitude()));
+		}
+	};
+	
 	/**
 	 * Constructs a vector with the specified coordinates.
 	 * 

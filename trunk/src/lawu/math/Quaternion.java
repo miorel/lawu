@@ -1,5 +1,7 @@
 package lawu.math;
 
+import java.util.Comparator;
+
 /**
  * @author Miorel-Lucian Palii
  *
@@ -10,6 +12,14 @@ public class Quaternion {
 	private final double y;
 	private final double z;
 
+	public final static Comparator<Quaternion> MAGNITUDE_ORDER = new Comparator<Quaternion>() {
+		@Override
+		public int compare(Quaternion a, Quaternion b) {
+			return Double.valueOf(a.magnitude()).compareTo(
+					Double.valueOf(b.magnitude()));
+		}
+	};
+	
 	/**
 	 * Constructs a zero quaternion.
 	 */
