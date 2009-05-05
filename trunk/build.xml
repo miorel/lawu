@@ -75,7 +75,11 @@
 			splitindex="true"
 			use="true"
 			version="false">
+			
 			<link href="http://java.sun.com/javase/6/docs/api/"/>
+			<link href="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/"/>
+			
+			<doclet name="lawu.doclets.standard.Standard" path="${dist.dir}/${jar.name}"/>
 		</javadoc>
 	</target>
 

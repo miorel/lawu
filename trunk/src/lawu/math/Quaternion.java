@@ -1,6 +1,5 @@
 package lawu.math;
 
-
 /**
  * @author Miorel-Lucian Palii
  *
