@@ -1,0 +1,14 @@
+#summary A log of changes between versions of the project
+#labels Featured
+
+This page details the major changes and features that characterize each version of the project.
+
+== Version 0.0.1 ==
+  * iterator framework
+   * grep (filter) the elements of an iterator
+   * define a mapping of the elements of an iterator
+   * join two or more iterators
+   * adapt java.lang.Iterable, java.util.Iterator, java.util.Enumeration, or a Gang of Four iterator
+  * basic structural classes: Pair, Triple
+  * basic math utilities: Vector, Quaternion
+  * standard doclet code import
