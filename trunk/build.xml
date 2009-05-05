@@ -8,7 +8,7 @@
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
 	<property name="src.main" value="${ant.project.name}.Main"/>
-	
+		
 	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**"/>
 	
 	<target name="clean-bin" description="removes the build directory">
@@ -31,14 +31,16 @@
         <javac srcdir="${src.dir}" destdir="${bin.dir}"/>
     </target>	
 	
-	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution">	
+	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution">
+		<mkdir dir="${dist.dir}"/>
     	<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
     		<tarfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
     	</tar>
 	</target>
 	
 	<target name="src-dist-zip" description="creates a zipped source distribution">	
-    	<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
+		<mkdir dir="${dist.dir}"/>
+		<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
     		<zipfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
     	</zip>
 	</target>
@@ -58,7 +60,7 @@
 		</jar>
 	</target>
 	
-	<target name="doc" description="generates Javadocs for the project">
+	<target name="doc" description="generates Javadocs for the project" depends="bin-dist">
 		<javadoc
 			access="package"
 			author="true"
@@ -71,7 +73,7 @@
 			notree="false"
 			overview="${src.dir}/overview.html"
 			source="1.6"
-			sourcepath="src"
+			sourcepath="${src.dir}"
 			splitindex="true"
 			use="true"
 			version="false">
@@ -83,8 +85,10 @@
 		</javadoc>
 	</target>
 
-	<target name="doc-dist" description="creates an archive of the project documentation" depends="doc">	
-	    <zip destfile="${dist.dir}/${ant.project.name}-doc.zip">
+	<target name="doc-dist" description="creates an archive of the project documentation"
+		depends="doc">	
+		<mkdir dir="${dist.dir}"/>
+		<zip destfile="${dist.dir}/${ant.project.name}-doc.zip">
 			<zipfileset dir="${doc.dir}" prefix="${ant.project.name}-doc"/>
 	   	</zip>
 	</target>
