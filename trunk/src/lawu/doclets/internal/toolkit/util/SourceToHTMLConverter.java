@@ -1,16 +1,22 @@
-/*
- * @(#)SourceToHTMLConverter.java	1.22 06/04/07
- *
- * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
- * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package lawu.doclets.internal.toolkit.util;
 
-import lawu.doclets.internal.toolkit.*;
-import com.sun.javadoc.*;
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+import lawu.doclets.internal.toolkit.Configuration;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.Doc;
+import com.sun.javadoc.PackageDoc;
+import com.sun.javadoc.RootDoc;
+import com.sun.javadoc.SourcePosition;
 
 /**
  * Converts Java Source Code to HTML.
@@ -23,24 +29,22 @@ import java.util.*;
  * @since 1.4
  */
 public class SourceToHTMLConverter {
-    
-    /**
-     * The background color.
-     */
-    protected static final String BGCOLOR = "white";
-    
-    /**
-     * The line number color.
-     */
-    protected static final String LINE_NO_COLOR = "green";
-    
-    /**
-     * The number of trailing blank lines at the end of the page.
-     * This is inserted so that anchors at the bottom of small pages
-     * can be reached.
-     */
-    protected static final int NUM_BLANK_LINES = 60;
-    
+
+	/**
+	 * The background color.
+	 */
+	protected static final String BGCOLOR = "white";
+
+	/**
+	 * The line number color.
+	 */
+	protected static final String LINE_NO_COLOR = "green";
+
+	/**
+	 * The number of trailing blank lines at the end of the page. This is
+	 * inserted so that anchors at the bottom of small pages can be reached.
+	 */
+	protected static final int NUM_BLANK_LINES = 60;
     
     /**
      * Source is converted to HTML using static methods below.
@@ -142,7 +146,7 @@ public class SourceToHTMLConverter {
     private static void writeToFile(String output, String outputDir, String className, Configuration configuration) throws IOException {
         File dir = new File(outputDir);
         dir.mkdirs();
-        File newFile = new File(dir, className + ".html");
+        File newFile = new File(dir, className + ".html"); //$NON-NLS-1$
         configuration.message.notice("doclet.Generating_0", newFile.getPath());
         FileOutputStream fout = new FileOutputStream(newFile);
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fout));
@@ -159,15 +163,15 @@ public class SourceToHTMLConverter {
      */
     private static StringBuffer addLineNumbers(String s) {
         StringBuffer sb = new StringBuffer();
-        StringTokenizer st = new StringTokenizer(s, "\n", true);
+        StringTokenizer st = new StringTokenizer(s, "\n", true); //$NON-NLS-1$
         int lineno = 1;
         String current;
         while(st.hasMoreTokens()){
             current = st.nextToken();
-            sb.append(current.equals("\n") ?
+            sb.append(current.equals("\n") ? //$NON-NLS-1$
                     getHTMLLineNo(lineno) + current :
                     getHTMLLineNo(lineno) + current + st.nextToken());
-            lineno++;
+            ++lineno;
         }
         return sb;
     }
@@ -177,9 +181,9 @@ public class SourceToHTMLConverter {
      * @return the header to the output file
      */
     protected static String getHeader() {
-        StringBuffer result = new StringBuffer("<HTML>" + DocletConstants.NL);
-        result.append("<BODY BGCOLOR=\""+ BGCOLOR + "\">" + DocletConstants.NL);
-        result.append("<PRE>" + DocletConstants.NL);
+        StringBuilder result = new StringBuilder("<html>" + DocletConstants.NL);
+        result.append("<body bgcolor=\""+ BGCOLOR + "\">" + DocletConstants.NL);
+        result.append("<pre>" + DocletConstants.NL);
         return result.toString();
     }
     
@@ -192,8 +196,8 @@ public class SourceToHTMLConverter {
         for (int i = 0; i < NUM_BLANK_LINES; i++) {
             footer.append(DocletConstants.NL);
         }
-        footer.append("</PRE>" + DocletConstants.NL + "</BODY>" + 
-            DocletConstants.NL + "</HTML>" + DocletConstants.NL);
+        footer.append("</pre>" + DocletConstants.NL + "</body>" + 
+            DocletConstants.NL + "</html>" + DocletConstants.NL);
         return footer.toString();
     }
     
@@ -203,7 +207,7 @@ public class SourceToHTMLConverter {
      * @return the HTML code for the line
      */
     protected static String getHTMLLineNo(int lineno) {
-        StringBuffer result = new StringBuffer("<FONT color=\"" + LINE_NO_COLOR 
+        StringBuffer result = new StringBuffer("<font color=\"" + LINE_NO_COLOR 
             + "\">");
         if (lineno < 10) {
             result.append("00" + ((new Integer(lineno)).toString()));
@@ -212,7 +216,7 @@ public class SourceToHTMLConverter {
         } else {
             result.append((new Integer(lineno)).toString());
         }
-        result.append("</FONT>    ");
+        result.append("</font>    ");
         return result.toString();
     }
     
@@ -242,14 +246,11 @@ public class SourceToHTMLConverter {
      * @param docs the array of <code>Doc</code>s to add anchors for.
      * @param hash the <code>HashMap</code> to add to.
      */
-    protected static void addToHash(Doc[] docs, HashMap hash) {
-        if(docs == null) {
-            return;
-        }
-        for(int i = 0; i < docs.length; i++) {
-            hash.put(new Integer(docs[i].position().line()), getAnchor(docs[i]));
-        }
-    }
+    protected static void addToHash(Doc[] docs, HashMap<Integer, String> hash) {
+		if(docs != null)
+			for(Doc doc: docs)
+				hash.put(Integer.valueOf(doc.position().line()), getAnchor(doc));
+	}
     
     /**
      * Given a <code>Doc</code>, return an anchor for it.

@@ -7,12 +7,40 @@
 
 package lawu.doclets.internal.toolkit;
 
-import lawu.doclets.internal.toolkit.taglets.*;
-import lawu.doclets.internal.toolkit.util.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import lawu.doclets.internal.toolkit.builders.BuilderFactory;
-import com.sun.javadoc.*;
-import java.util.*;
-import java.io.*;
+import lawu.doclets.internal.toolkit.taglets.TagletManager;
+import lawu.doclets.internal.toolkit.util.ClassDocCatalog;
+import lawu.doclets.internal.toolkit.util.DocletConstants;
+import lawu.doclets.internal.toolkit.util.Extern;
+import lawu.doclets.internal.toolkit.util.Group;
+import lawu.doclets.internal.toolkit.util.MessageRetriever;
+import lawu.doclets.internal.toolkit.util.MetaKeywords;
+import lawu.doclets.internal.toolkit.util.Util;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.Doc;
+import com.sun.javadoc.DocErrorReporter;
+import com.sun.javadoc.PackageDoc;
+import com.sun.javadoc.RootDoc;
 
 /**
  * Configure the output based on the options. Doclets should sub-class
@@ -102,12 +130,12 @@ public abstract class Configuration {
     /**
      * The list of doc-file subdirectories to exclude
      */
-    protected Set excludedDocFileDirs;
+    protected Set<String> excludedDocFileDirs;
     
     /**
      * The list of qualifiers to exclude
      */
-    protected Set excludedQualifiers;
+    protected Set<String> excludedQualifiers;
     
     /**
      * The Root of the generated Program Structure from the Doclet API.
@@ -234,24 +262,21 @@ public abstract class Configuration {
      * Constructor. Constructs the message retriever with resource file.
      */
     public Configuration() {
-        message =
-            new MessageRetriever(this,
-            "lawu.doclets.internal.toolkit.resources.doclets");
-        excludedDocFileDirs = new HashSet();
-        excludedQualifiers = new HashSet();
+        message = new MessageRetriever(this, "lawu.doclets.internal.toolkit.resources.doclets");
+        excludedDocFileDirs = new HashSet<String>();
+        excludedQualifiers = new HashSet<String>();
     }
     
     /**
-     * Return the builder factory for this doclet.
-     *
-     * @return the builder factory for this doclet.
-     */
-    public BuilderFactory getBuilderFactory() {
-        if (builderFactory == null) {
-            builderFactory = new BuilderFactory(this);
-        }
-        return builderFactory;
-    }
+	 * Return the builder factory for this doclet.
+	 * 
+	 * @return the builder factory for this doclet.
+	 */
+	public BuilderFactory getBuilderFactory() {
+		if(this.builderFactory == null)
+			this.builderFactory = new BuilderFactory(this);
+		return this.builderFactory;
+	}
     
     /**
      * This method should be defined in all those doclets
@@ -311,14 +336,14 @@ public abstract class Configuration {
         DocErrorReporter reporter);
     
     private void initPackageArray() {
-        Set set = new HashSet(Arrays.asList(root.specifiedPackages()));
+        Set<PackageDoc> set = new HashSet<PackageDoc>(Arrays.asList(root.specifiedPackages()));
         ClassDoc[] classes = root.specifiedClasses();
         for (int i = 0; i < classes.length; i++) {
             set.add(classes[i].containingPackage());
         }
-        ArrayList results = new ArrayList(set);
+        ArrayList<PackageDoc> results = new ArrayList<PackageDoc>(set);
         Collections.sort(results);
-        packages = (PackageDoc[]) results.toArray(new PackageDoc[] {});
+        packages = results.toArray(new PackageDoc[] {});
     }
     
     /**
@@ -327,7 +352,7 @@ public abstract class Configuration {
      * @param options the two dimensional array of options.
      */
     public void setOptions(String[][] options) {
-        LinkedHashSet customTagStrs = new LinkedHashSet();
+        LinkedHashSet<String[]> customTagStrs = new LinkedHashSet<String[]>();
         for (int oi = 0; oi < options.length; ++oi) {
             String[] os = options[oi];
             String opt = os[0].toLowerCase();
@@ -423,13 +448,13 @@ public abstract class Configuration {
      * @param customTagStrs the set two dimentional arrays of strings.  These arrays contain
      * either -tag or -taglet arguments.
      */
-    private void initTagletManager(Set customTagStrs) {
+    private void initTagletManager(Set<String[]> customTagStrs) {
         tagletManager = tagletManager == null ? 
             new TagletManager(nosince, showversion, showauthor, message) : 
             tagletManager;
         String[] args;
-        for (Iterator it = customTagStrs.iterator(); it.hasNext(); ) {
-            args = (String[]) it.next();
+        for (Iterator<String[]> it = customTagStrs.iterator(); it.hasNext(); ) {
+            args = it.next();
             if (args[0].equals("-taglet")) {
                 tagletManager.addCustomTag(args[1], tagletpath);
                 continue;
@@ -458,7 +483,7 @@ public abstract class Configuration {
         }
     }
     
-    private void addToSet(Set s, String str){
+    private void addToSet(Set<String> s, String str){
         StringTokenizer st = new StringTokenizer(str, ":");
         String current;
         while(st.hasMoreTokens()){

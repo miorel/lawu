@@ -7,10 +7,40 @@
 
 package lawu.doclets.internal.toolkit.util;
 
-import com.sun.javadoc.*;
-import lawu.doclets.internal.toolkit.*;
-import java.util.*;
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+
+import lawu.doclets.internal.toolkit.Configuration;
+
+import com.sun.javadoc.AnnotationDesc;
+import com.sun.javadoc.AnnotationTypeDoc;
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.ExecutableMemberDoc;
+import com.sun.javadoc.MethodDoc;
+import com.sun.javadoc.PackageDoc;
+import com.sun.javadoc.Parameter;
+import com.sun.javadoc.ParameterizedType;
+import com.sun.javadoc.ProgramElementDoc;
+import com.sun.javadoc.SourcePosition;
+import com.sun.javadoc.Type;
+import com.sun.javadoc.TypeVariable;
 
 /**
  * Utilities Class for Doclets.
@@ -55,67 +85,63 @@ public class Util {
      * @return List       List of eligible members for whom
      *                    documentation is getting generated.
      */
-    public static List excludeDeprecatedMembersAsList(
+    public static List<ProgramElementDoc> excludeDeprecatedMembersAsList(
         ProgramElementDoc[] members) {
-        List list = new ArrayList();
-        for (int i = 0; i < members.length; i++) {
-            if (members[i].tags("deprecated").length == 0) {
-                list.add(members[i]);
-            }
-        }
+        List<ProgramElementDoc> list = new ArrayList<ProgramElementDoc>();
+        for(ProgramElementDoc p: members)
+            if(p.tags("deprecated").length == 0)
+                list.add(p);
         Collections.sort(list);
         return list;
     }
     
     /**
-     * Return the list of ProgramElementDoc objects as Array.
-     */
-    public static ProgramElementDoc[] toProgramElementDocArray(List list) {
-        ProgramElementDoc[] pgmarr = new ProgramElementDoc[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            pgmarr[i] = (ProgramElementDoc)(list.get(i));
-        }
-        return pgmarr;
-    }
+	 * Return the list of ProgramElementDoc objects as Array.
+	 */
+	public static ProgramElementDoc[] toProgramElementDocArray(
+			List<ProgramElementDoc> list) {
+		return list.toArray(new ProgramElementDoc[list.size()]);
+	}
     
     /**
-     * Return true if a non-public member found in the given array.
-     *
-     * @param  members Array of members to look into.
-     * @return boolean True if non-public member found, false otherwise.
-     */
-    public static boolean nonPublicMemberFound(ProgramElementDoc[] members) {
-        for (int i = 0; i < members.length; i++) {
-            if (!members[i].isPublic()) {
-                return true;
-            }
-        }
-        return false;
-    }
+	 * Return true if a non-public member found in the given array.
+	 * 
+	 * @param members Array of members to look into.
+	 * @return boolean True if non-public member found, false otherwise.
+	 */
+	public static boolean nonPublicMemberFound(ProgramElementDoc[] members) {
+		boolean ret = false;
+		for(ProgramElementDoc p : members)
+			if(!p.isPublic()) {
+				ret = true;
+				break;
+			}
+		return ret;
+	}
     
     /**
-     * Search for the given method in the given class.
-     *
-     * @param  cd        Class to search into.
-     * @param  method    Method to be searched.
-     * @return MethodDoc Method found, null otherwise.
-     */
-    public static MethodDoc findMethod(ClassDoc cd, MethodDoc method) {
-        MethodDoc[] methods = cd.methods();
-        for (int i = 0; i < methods.length; i++) {
-            if (executableMembersEqual(method, methods[i])) {
-                return methods[i];                
-                
-            }
-        }
-        return null;
-    }
+	 * Search for the given method in the given class.
+	 * 
+	 * @param cd Class to search into.
+	 * @param method Method to be searched.
+	 * @return MethodDoc Method found, null otherwise.
+	 */
+	public static MethodDoc findMethod(ClassDoc cd, MethodDoc method) {
+		MethodDoc ret = null;
+		for(MethodDoc m : cd.methods())
+			if(executableMembersEqual(method, m)) {
+				ret = m;
+				break;
+			}
+		return ret;
+	}
     
     /**
-     * @param member1 the first method to compare.
-     * @param member2 the second method to compare.
-     * @return true if member1 overrides/hides or is overriden/hidden by member2.  
-     */
+	 * @param member1 the first method to compare.
+	 * @param member2 the second method to compare.
+	 * @return true if member1 overrides/hides or is overridden/hidden by
+	 *         member2.
+	 */
     public static boolean executableMembersEqual(ExecutableMemberDoc member1,
             ExecutableMemberDoc member2) {
         if (! (member1 instanceof MethodDoc && member2 instanceof MethodDoc))
@@ -138,16 +164,14 @@ public class Util {
                         break;
                     }
                 }
-                if (j == targetParams.length) {
+                if (j == targetParams.length)
                     return true;
-                }                
             }
             return false;
-        } else {
-        	return method1.overrides(method2) ||
-                method2.overrides(method1) || 
-				member1 == member2;
         }
+		return method1.overrides(method2) ||
+		    method2.overrides(method1) || 
+			member1 == member2;
     }
     
     /**
@@ -165,9 +189,8 @@ public class Util {
             ExecutableMemberDoc ed1 = (ExecutableMemberDoc)doc1;
             ExecutableMemberDoc ed2 = (ExecutableMemberDoc)doc2;
             return executableMembersEqual(ed1, ed2);
-        } else {
-            return doc1.name().equals(doc2.name());
         }
+		return doc1.name().equals(doc2.name());
     }
     
     /**
@@ -176,25 +199,24 @@ public class Util {
      * @throws SecurityException
      * @throws IOException
      */
-    public static void copyFile(File destfile, File srcfile)
-        throws IOException {
-        byte[] bytearr = new byte[512];
-        int len = 0;
-        FileInputStream input = new FileInputStream(srcfile);
-        File destDir = destfile.getParentFile();
-        destDir.mkdirs();
-        FileOutputStream output = new FileOutputStream(destfile);
-        try {
-            while ((len = input.read(bytearr)) != -1) {
-                output.write(bytearr, 0, len);
-            }
-        } catch (FileNotFoundException exc) {
-        } catch (SecurityException exc) {
-        } finally {
-            input.close();
-            output.close();
-        }
-    }
+    public static void copyFile(File destfile, File srcfile) throws IOException {
+		byte[] bytearr = new byte[512];
+		int len = 0;
+		InputStream input = new FileInputStream(srcfile);
+		File destDir = destfile.getParentFile();
+		destDir.mkdirs();
+		OutputStream output = new FileOutputStream(destfile);
+		try {
+			while((len = input.read(bytearr)) != -1)
+				output.write(bytearr, 0, len);
+		}
+		catch(FileNotFoundException e) {}
+		catch(SecurityException e) {}
+		finally {
+			input.close();
+			output.close();
+		}
+	}
     
     /**
      * Copy the given directory contents from the source package directory
@@ -224,18 +246,17 @@ public class Util {
         try {
             File destdir = new File(dest);
             DirectoryManager.createDirectory(configuration, dest);
-            String[] files = srcdir.list();
-            for (int i = 0; i < files.length; i++) {
-                File srcfile = new File(srcdir, files[i]);
-                File destfile = new File(destdir, files[i]);
+            for(String file: srcdir.list()) {
+                File srcfile = new File(srcdir, file);
+                File destfile = new File(destdir, file);
                 if (srcfile.isFile()) {
                     if(destfile.exists() && ! overwrite) {
                         configuration.message.warning((SourcePosition) null,
-                                "doclet.Copy_Overwrite_warning",
+                                "doclet.Copy_Overwrite_warning", //$NON-NLS-1$
                                 srcfile.toString(), destdir.toString());
                     } else {
                         configuration.message.notice(
-                            "doclet.Copying_File_0_To_Dir_1",
+                            "doclet.Copying_File_0_To_Dir_1", //$NON-NLS-1$
                             srcfile.toString(), destdir.toString());
                         Util.copyFile(destfile, srcfile);
                     }
@@ -249,9 +270,11 @@ public class Util {
                     }
                 }
             }
-        } catch (SecurityException exc) {
+        }
+        catch(SecurityException e) {
             throw new DocletAbortException();
-        } catch (IOException exc) {
+        }
+        catch(IOException e) {
             throw new DocletAbortException();
         }
     }
@@ -284,10 +307,7 @@ public class Util {
         }
         //Make sure the doc-file being copied exists.
         File srcdir = new File(path + dirName);
-        if (! srcdir.exists()) {
-            return true;
-        }
-        return false;
+        return !srcdir.exists();
     }
     
     /**
@@ -330,7 +350,7 @@ public class Util {
     /**
      * Given a PackageDoc, return the source path for that package.
      * @param configuration The Configuration for the current Doclet.
-     * @param pkgDoc The package to seach the path for.
+     * @param pkgDoc The package to search the path for.
      * @return A string representing the path to the given package.
      */
     public static String getPackageSourcePath(Configuration configuration, 
@@ -339,7 +359,7 @@ public class Util {
             String pkgPath = DirectoryManager.getDirectoryPath(pkgDoc);
             String completePath = new SourcePath(configuration.sourcepath).
                 getDirectory(pkgPath) + DirectoryManager.URL_FILE_SEPERATOR;
-            //Make sure that both paths are using the same seperators.
+            //Make sure that both paths are using the same separators.
             completePath = Util.replaceText(completePath, File.separator, 
                     DirectoryManager.URL_FILE_SEPERATOR);
             pkgPath = Util.replaceText(pkgPath, File.separator, 
@@ -351,15 +371,15 @@ public class Util {
     }
     
     /**
-     * We want the list of types in alphabetical order.  However, types are not
-     * comparable.  We need a comparator for now. 
-     */
-    private static class TypeComparator implements Comparator {
-        public int compare(Object type1, Object type2) {
-            return ((Type) type1).qualifiedTypeName().toLowerCase().compareTo(
-                ((Type) type2).qualifiedTypeName().toLowerCase());
-        }
-    }
+	 * We want the list of types in alphabetical order. However, types are not
+	 * comparable. We need a comparator for now.
+	 */
+	private static class TypeComparator implements Comparator<Type> {
+		public int compare(Type type1, Type type2) {
+			return type1.qualifiedTypeName().compareToIgnoreCase(
+					type2.qualifiedTypeName());
+		}
+	}
     
     /**
      * For the class return all implemented interfaces including the
@@ -373,9 +393,9 @@ public class Util {
      * @param  sort if true, return list of interfaces sorted alphabetically.
      * @return List of all the required interfaces.
      */    
-    public static List getAllInterfaces(Type type, 
+    public static List<Type> getAllInterfaces(Type type, 
             Configuration configuration, boolean sort) {
-        Map results = sort ? new TreeMap() : new LinkedHashMap();
+        Map<ClassDoc, Type> results = sort ? new TreeMap<ClassDoc, Type>() : new LinkedHashMap<ClassDoc, Type>();
         Type[] interfaceTypes = null;
         Type superType = null;
         if (type instanceof ParameterizedType) {
@@ -398,14 +418,14 @@ public class Util {
                 continue;
             }
             results.put(interfaceClassDoc, interfaceType);
-            List superInterfaces = getAllInterfaces(interfaceType, configuration, sort);
-            for (Iterator iter = superInterfaces.iterator(); iter.hasNext(); ) {
-                Type t = (Type) iter.next();
+            List<Type> superInterfaces = getAllInterfaces(interfaceType, configuration, sort);
+            for (Iterator<Type> iter = superInterfaces.iterator(); iter.hasNext(); ) {
+                Type t = iter.next();
                 results.put(t.asClassDoc(), t);
             }
         } 
         if (superType == null)
-            return new ArrayList(results.values());
+            return new ArrayList<Type>(results.values());
         //Try walking the tree.
         addAllInterfaceTypes(results,  
             superType, 
@@ -413,18 +433,17 @@ public class Util {
                 ((ClassDoc) superType).interfaceTypes() :
                 ((ParameterizedType) superType).interfaceTypes(), 
             false, configuration);
-        List resultsList = new ArrayList(results.values());
-        if (sort) {
+        List<Type> resultsList = new ArrayList<Type>(results.values());
+        if(sort)
         	Collections.sort(resultsList, new TypeComparator());
-        }
         return resultsList;
     }
     
-    public static List getAllInterfaces(Type type, Configuration configuration) {
+    public static List<Type> getAllInterfaces(Type type, Configuration configuration) {
     	return getAllInterfaces(type, configuration, true);
     }
     
-    private static void findAllInterfaceTypes(Map results, ClassDoc c, boolean raw, 
+    private static void findAllInterfaceTypes(Map<ClassDoc, Type> results, ClassDoc c, boolean raw, 
             Configuration configuration) {
         Type superType = c.superclassType();
         if (superType == null)
@@ -436,7 +455,7 @@ public class Util {
                 raw, configuration);
     }
     
-    private static void findAllInterfaceTypes(Map results, ParameterizedType p, 
+    private static void findAllInterfaceTypes(Map<ClassDoc, Type> results, ParameterizedType p, 
             Configuration configuration) {
         Type superType = p.superclassType();
         if (superType == null)
@@ -448,7 +467,7 @@ public class Util {
                 false, configuration);
     }
     
-    private static void addAllInterfaceTypes(Map results, Type type, 
+    private static void addAllInterfaceTypes(Map<ClassDoc, Type> results, Type type, 
             Type[] interfaceTypes, boolean raw, 
             Configuration configuration) {
         for (int i = 0; i < interfaceTypes.length; i++) {
@@ -462,9 +481,9 @@ public class Util {
             if (raw)
                 interfaceType = interfaceType.asClassDoc();
             results.put(interfaceClassDoc, interfaceType);
-            List superInterfaces = getAllInterfaces(interfaceType, configuration);
-            for (Iterator iter = superInterfaces.iterator(); iter.hasNext(); ) {
-                Type superInterface = (Type) iter.next();
+            List<Type> superInterfaces = getAllInterfaces(interfaceType, configuration);
+            for (Iterator<Type> iter = superInterfaces.iterator(); iter.hasNext(); ) {
+                Type superInterface = iter.next();
                 results.put(superInterface.asClassDoc(), superInterface);
             }
         }
@@ -477,8 +496,8 @@ public class Util {
     }
     
     
-    public static List asList(ProgramElementDoc[] members) {
-        List list = new ArrayList();
+    public static List<ProgramElementDoc> asList(ProgramElementDoc[] members) {
+        List<ProgramElementDoc> list = new ArrayList<ProgramElementDoc>();
         for (int i = 0; i < members.length; i++) {
             list.add(members[i]);
         }
@@ -621,7 +640,7 @@ public class Util {
      * @return an array of tokens.
      */
     public static String[] tokenize(String s, char separator, int maxTokens) {
-        List tokens = new ArrayList();
+        List<String> tokens = new ArrayList<String>();
         StringBuilder  token = new StringBuilder ();
         boolean prevIsEscapeChar = false;
         for (int i = 0; i < s.length(); i += Character.charCount(i)) {
@@ -645,7 +664,7 @@ public class Util {
         if (token.length() > 0) {
             tokens.add(token.toString());
         }
-        return (String[]) tokens.toArray(new String[] {});
+        return tokens.toArray(new String[] {});
     }
     
     /**

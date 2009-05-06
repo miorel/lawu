@@ -31,12 +31,12 @@ public class PackageIndexWriter extends AbstractPackageIndexWriter {
      *
      * @see Group
      */
-    private Map groupPackageMap;
+    private Map<String, List<PackageDoc>> groupPackageMap;
 
     /**
      * List to store the order groups as specified on the command line.
      */
-    private List groupList;
+    //private List<String> groupList;
 
     /**
      * Construct the PackageIndexWriter. Also constructs the grouping
@@ -51,7 +51,6 @@ public class PackageIndexWriter extends AbstractPackageIndexWriter {
         super(configuration, filename);
         this.root = configuration.root;
         groupPackageMap = configuration.group.groupPackages(packages);
-        groupList = configuration.group.getGroupList();
     }
 
     /**
@@ -99,13 +98,12 @@ public class PackageIndexWriter extends AbstractPackageIndexWriter {
      * Depending upon the grouping information and their titles, generate
      * separate table indices for each package group.
      */
-    protected void generateIndex() {
-        for (int i = 0; i < groupList.size(); i++) {
-        String groupname = (String)groupList.get(i);
-        List list = (List)groupPackageMap.get(groupname);
+    @Override
+	protected void generateIndex() {
+        for (String groupname: configuration.group.getGroupList()) {
+        List<PackageDoc> list = (List<PackageDoc>) this.groupPackageMap.get(groupname);
             if (list != null && list.size() > 0) {
-                printIndexContents((PackageDoc[])list.
-                                       toArray(new PackageDoc[list.size()]),
+                printIndexContents(list.toArray(new PackageDoc[list.size()]),
                                     groupname);
             }
         }

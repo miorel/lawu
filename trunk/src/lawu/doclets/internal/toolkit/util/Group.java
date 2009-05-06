@@ -7,9 +7,19 @@
 
 package lawu.doclets.internal.toolkit.util;
 
-import lawu.doclets.internal.toolkit.*;
-import com.sun.javadoc.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+import lawu.doclets.internal.toolkit.Configuration;
+import lawu.util.iterator.Iterators;
+import lawu.util.iterator.UniversalIterator;
+
+import com.sun.javadoc.PackageDoc;
 
 /**
  * Process and manage grouping of packages, as specified by "-group" option on
@@ -43,24 +53,24 @@ public class Group {
     /**
      * Map of regular expressions with the corresponding group name.
      */
-    private Map regExpGroupMap = new HashMap();
+    private Map<String, String> regExpGroupMap = new HashMap<String, String>();
 
     /**
      * List of regular expressions sorted according to the length. Regular
      * expression with longest length will be first in the sorted order.
      */
-    private List sortedRegExpList = new ArrayList();
+    private List<String> sortedRegExpList = new ArrayList<String>();
 
     /**
      * List of group names in the same order as given on the command line.
      */
-    private List groupList = new ArrayList();
+    private List<String> groupList = new ArrayList<String>();
 
     /**
      * Map of non-regular expressions(possible package names) with the
      * corresponding group name.
      */
-    private Map pkgNameGroupMap = new HashMap();
+    private Map<String, String> pkgNameGroupMap = new HashMap<String, String>();
 
     /**
      * The global configuration information for this run.
@@ -72,9 +82,9 @@ public class Group {
      * the compare method in the implementing class is doing the reverse
      * comparison.
      */
-    private static class MapKeyComparator implements Comparator {
-        public int compare(Object key1, Object key2) {
-            return ((String)key2).length() - ((String)key1).length();
+    private class MapKeyComparator implements Comparator<String> {
+        public int compare(String key1, String key2) {
+            return key2.length() - key1.length();
         }
     }
 
@@ -139,16 +149,17 @@ public class Group {
      * Search if the given map has given the package format.
      *
      * @param map Map to be searched.
-     * @param pkgFormat The pacakge format to search.
+     * @param pkgFormat The package format to search.
      *
      * @return true if package name format found in the map, else false.
      */
-    boolean foundGroupFormat(Map map, String pkgFormat) {
-        if (map.containsKey(pkgFormat)) {
-            configuration.message.error("doclet.Same_package_name_used", pkgFormat);
-            return true;
+    boolean foundGroupFormat(Map<String, String> map, String pkgFormat) {
+    	boolean ret = false;
+        if(map.containsKey(pkgFormat)) {
+            this.configuration.message.error("doclet.Same_package_name_used", pkgFormat);
+            ret = true;
         }
-        return false;
+        return ret;
     }
 
     /**
@@ -164,30 +175,29 @@ public class Group {
      *
      * @param packages Packages specified on the command line.
      */
-    public Map groupPackages(PackageDoc[] packages) {
-        Map groupPackageMap = new HashMap();
+    public Map<String, List<PackageDoc>> groupPackages(PackageDoc[] packages) {
+        Map<String, List<PackageDoc>> groupPackageMap = new HashMap<String, List<PackageDoc>>();
         String defaultGroupName =
             (pkgNameGroupMap.isEmpty() && regExpGroupMap.isEmpty())?
                 configuration.message.getText("doclet.Packages") :
                 configuration.message.getText("doclet.Other_Packages");
         // if the user has not used the default group name, add it
-        if (!groupList.contains(defaultGroupName)) {
-            groupList.add(defaultGroupName);
-        }
-        for (int i = 0; i < packages.length; i++) {
-            PackageDoc pkg = packages[i];
+        if(!this.groupList.contains(defaultGroupName))
+            this.groupList.add(defaultGroupName);
+        
+        for(PackageDoc pkg: packages) {
             String pkgName = pkg.name();
-            String groupName = (String)pkgNameGroupMap.get(pkgName);
+            String groupName = this.pkgNameGroupMap.get(pkgName);
             // if this package is not explicitly assigned to a group,
             // try matching it to group specified by regular expression
-            if (groupName == null) {
+            if(groupName == null)
                 groupName = regExpGroupName(pkgName);
-            }
+            
             // if it is in neither group map, put it in the default
             // group
-            if (groupName == null) {
+            if (groupName == null)
                 groupName = defaultGroupName;
-            }
+            
             getPkgList(groupPackageMap, groupName).add(pkg);
         }
         return groupPackageMap;
@@ -201,26 +211,26 @@ public class Group {
      * expression list.
      */
     String regExpGroupName(String pkgName) {
-        for (int j = 0; j < sortedRegExpList.size(); j++) {
-            String regexp = (String)sortedRegExpList.get(j);
-            if (pkgName.startsWith(regexp)) {
-                return (String)regExpGroupMap.get(regexp);
-            }
-        }
-        return null;
-    }
+		String ret = null;
+		for(String regexp: this.sortedRegExpList)
+			if(pkgName.startsWith(regexp)) {
+				ret = this.regExpGroupMap.get(regexp);
+				break;
+			}
+		return ret;
+	}
 
     /**
      * For the given group name, return the package list, on which it is mapped.
      * Create a new list, if not found.
      *
-     * @param map Map to be searched for gorup name.
+     * @param map Map to be searched for group name.
      * @param groupname Group name to search.
      */
-    List getPkgList(Map map, String groupname) {
-        List list = (List)map.get(groupname);
+    List<PackageDoc> getPkgList(Map<String, List<PackageDoc>> map, String groupname) {
+        List<PackageDoc> list = map.get(groupname);
         if (list == null) {
-            list = new ArrayList();
+            list = new ArrayList<PackageDoc>();
             map.put(groupname, list);
         }
         return list;
@@ -230,8 +240,8 @@ public class Group {
      * Return the list of groups, in the same order as specified
      * on the command line.
      */
-    public List getGroupList() {
-        return groupList;
+    public UniversalIterator<String> getGroupList() {
+        return Iterators.iterator(this.groupList);
     }
 }
         

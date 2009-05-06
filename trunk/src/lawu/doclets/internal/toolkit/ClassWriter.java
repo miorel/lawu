@@ -5,11 +5,11 @@
  * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
 
-
 package lawu.doclets.internal.toolkit;
 
-import java.io.*;
-import com.sun.javadoc.*;
+import java.io.IOException;
+
+import com.sun.javadoc.ClassDoc;
 
 /**
  * The interface for writing class output.
@@ -23,98 +23,97 @@ import com.sun.javadoc.*;
  */
 
 public interface ClassWriter {
-    
-    /**
-     * Write the header of the page.
-     * @param header the header to write.
-     */
-    public void writeHeader(String header);
-    
-    /**
-     * Write the class tree documentation.
-     */
-    public void writeClassTree();
-    
-    /**
-     * Write all implemented interfaces if this is a class.
-     */
-    public void writeImplementedInterfacesInfo();
-    
-    /**
-     * Write all super interfaces if this is an interface.
-     */
-    public void writeSuperInterfacesInfo();
-    
-    /**
-     * Write the type parameter information.
-     */
-    public void writeTypeParamInfo();
-    
-    /**
-     * Write all the classes that extend this one.
-     */
-    public void writeSubClassInfo();
-    
-    /**
-     * Write all the interfaces that extend this one.
-     */
-    public void writeSubInterfacesInfo();
-    
-    /**
-     * If this is an interface, write all classes that implement this
-     * interface.
-     */
-    public void writeInterfaceUsageInfo ();
-    
-    /**
-     * If this is an inner class or interface, write the enclosing class or
-     * interface.
-     */
-    public void writeNestedClassInfo ();
-    
-    /**
-     * If this class is deprecated, write the appropriate information.
-     */
-    public void writeClassDeprecationInfo ();
-    
-    /**
-     * Write the signature of the current class.
-     *
-     * @param modifiers the modifiers for the signature.
-     */
-    public void writeClassSignature(String modifiers);  
-    
-    /**
-     * Build the class description.
-     */
-    public void writeClassDescription();
-    
-    /**
-     * Write the tag information for the current class.
-     */
-    public void writeClassTagInfo();
-    
-    /**
-     * Write the footer of the page.
-     */
-    public void writeFooter();
-    
-    /**
-     * Close the writer.
-     */
-    public void close() throws IOException;
-    
-    /**
-     * Return the classDoc being documented.
-     *
-     * @return the classDoc being documented.
-     */
-    public ClassDoc getClassDoc();
-    
-    /**
-     * Perform any operations that are necessary when the member summary
-     * finished building.
-     */
-    public void completeMemberSummaryBuild();
-}
 
+	/**
+	 * Write the header of the page.
+	 * 
+	 * @param header the header to write.
+	 */
+	public void writeHeader(String header);
+
+	/**
+	 * Write the class tree documentation.
+	 */
+	public void writeClassTree();
+
+	/**
+	 * Write all implemented interfaces if this is a class.
+	 */
+	public void writeImplementedInterfacesInfo();
+
+	/**
+	 * Write all super interfaces if this is an interface.
+	 */
+	public void writeSuperInterfacesInfo();
+
+	/**
+	 * Write the type parameter information.
+	 */
+	public void writeTypeParamInfo();
+
+	/**
+	 * Write all the classes that extend this one.
+	 */
+	public void writeSubClassInfo();
+
+	/**
+	 * Write all the interfaces that extend this one.
+	 */
+	public void writeSubInterfacesInfo();
+
+	/**
+	 * If this is an interface, write all classes that implement this interface.
+	 */
+	public void writeInterfaceUsageInfo();
+
+	/**
+	 * If this is an inner class or interface, write the enclosing class or
+	 * interface.
+	 */
+	public void writeNestedClassInfo();
+
+	/**
+	 * If this class is deprecated, write the appropriate information.
+	 */
+	public void writeClassDeprecationInfo();
+
+	/**
+	 * Write the signature of the current class.
+	 * 
+	 * @param modifiers the modifiers for the signature.
+	 */
+	public void writeClassSignature(String modifiers);
+
+	/**
+	 * Build the class description.
+	 */
+	public void writeClassDescription();
+
+	/**
+	 * Write the tag information for the current class.
+	 */
+	public void writeClassTagInfo();
+
+	/**
+	 * Write the footer of the page.
+	 */
+	public void writeFooter();
+
+	/**
+	 * Close the writer.
+	 */
+	public void close() throws IOException;
+
+	/**
+	 * Return the classDoc being documented.
+	 * 
+	 * @return the classDoc being documented.
+	 */
+	public ClassDoc getClassDoc();
+
+	/**
+	 * Perform any operations that are necessary when the member summary
+	 * finished building.
+	 */
+	public void completeMemberSummaryBuild();
+}
