@@ -81,7 +81,7 @@
 			<link href="http://java.sun.com/javase/6/docs/api/"/>
 			<link href="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/"/>
 			
-			<doclet name="lawu.doclets.standard.Standard" path="${dist.dir}/${jar.name}"/>
+			<doclet name="lawu.doclets.formats.html.HtmlDoclet" path="${dist.dir}/${jar.name}"/>
 		</javadoc>
 	</target>
 
