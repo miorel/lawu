@@ -7,12 +7,25 @@
 
 package lawu.doclets.formats.html;
 
-import lawu.doclets.internal.toolkit.util.*;
-import lawu.doclets.internal.toolkit.taglets.*;
-
-import com.sun.javadoc.*;
-import java.util.*;
 import java.lang.reflect.Modifier;
+import java.util.Iterator;
+import java.util.List;
+
+import lawu.doclets.internal.toolkit.taglets.DeprecatedTaglet;
+import lawu.doclets.internal.toolkit.util.Util;
+import lawu.doclets.internal.toolkit.util.VisibleMemberMap;
+import lawu.util.iterator.UniversalIterator;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.ConstructorDoc;
+import com.sun.javadoc.ExecutableMemberDoc;
+import com.sun.javadoc.FieldDoc;
+import com.sun.javadoc.MemberDoc;
+import com.sun.javadoc.MethodDoc;
+import com.sun.javadoc.ProgramElementDoc;
+import com.sun.javadoc.SourcePosition;
+import com.sun.javadoc.Tag;
+import com.sun.javadoc.Type;
 
 /**
  * The base class for member writers.
@@ -366,21 +379,22 @@ public abstract class AbstractMemberWriter {
 
     protected void navSummaryLink(List members, 
             VisibleMemberMap visibleMemberMap) {
-        if (members.size() > 0) {
-            printNavSummaryLink(null, true);
-            return;
-        } else {
-            ClassDoc icd = classdoc.superclass();
-            while (icd != null) {
-                List inhmembers = visibleMemberMap.getMembersFor(icd);
-                if (inhmembers.size() > 0) {
-                    printNavSummaryLink(icd, true);
-                    return;
-                }
-                icd = icd.superclass();
-            }
-        }
-        printNavSummaryLink(null, false);
+        if(members.size() > 0)
+			printNavSummaryLink(null, true);
+		else {
+			ClassDoc icd = classdoc.superclass();
+			while(icd != null) {
+				UniversalIterator<ProgramElementDoc> inhmembers = visibleMemberMap
+						.getMembersFor(icd);
+				inhmembers.reset();
+				if(!inhmembers.isDone()) {
+					printNavSummaryLink(icd, true);
+					return;
+				}
+				icd = icd.superclass();
+			}
+			printNavSummaryLink(null, false);
+		}
     }
 
     protected void serialWarning(SourcePosition pos, String key, String a1, String a2) {
@@ -389,7 +403,7 @@ public abstract class AbstractMemberWriter {
         }
     }
 
-    public ProgramElementDoc[] eligibleMembers(ProgramElementDoc[] members) {
+    public UniversalIterator<ProgramElementDoc> eligibleMembers(UniversalIterator<ProgramElementDoc> members) {
         return nodepr? Util.excludeDeprecatedMembers(members): members;
     }
 

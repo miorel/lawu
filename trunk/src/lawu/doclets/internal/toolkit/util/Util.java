@@ -28,6 +28,8 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import lawu.doclets.internal.toolkit.Configuration;
+import lawu.util.iterator.Iterators;
+import lawu.util.iterator.UniversalIterator;
 
 import com.sun.javadoc.AnnotationDesc;
 import com.sun.javadoc.AnnotationTypeDoc;
@@ -70,10 +72,9 @@ public class Util {
      * @return ProgramElementDoc[] Array of eligible members for whom
      *                             documentation is getting generated.
      */
-    public static ProgramElementDoc[] excludeDeprecatedMembers(
-        ProgramElementDoc[] members) {
-        return
-            toProgramElementDocArray(excludeDeprecatedMembersAsList(members));
+    public static UniversalIterator<ProgramElementDoc> excludeDeprecatedMembers(
+        UniversalIterator<ProgramElementDoc> members) {
+        return Iterators.iterator(toProgramElementDocArray(excludeDeprecatedMembersAsList(members)));
     }
     
     /**
@@ -86,7 +87,7 @@ public class Util {
      *                    documentation is getting generated.
      */
     public static List<ProgramElementDoc> excludeDeprecatedMembersAsList(
-        ProgramElementDoc[] members) {
+        UniversalIterator<ProgramElementDoc> members) {
         List<ProgramElementDoc> list = new ArrayList<ProgramElementDoc>();
         for(ProgramElementDoc p: members)
             if(p.tags("deprecated").length == 0)

@@ -7,12 +7,18 @@
 
 package lawu.doclets.formats.html;
 
-import lawu.doclets.internal.toolkit.*;
-import lawu.doclets.internal.toolkit.util.*;
-import lawu.doclets.internal.toolkit.taglets.*;
-import com.sun.javadoc.*;
-import java.util.*;
-import java.io.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import lawu.doclets.internal.toolkit.ConstructorWriter;
+import lawu.doclets.internal.toolkit.MemberSummaryWriter;
+import lawu.doclets.internal.toolkit.taglets.DeprecatedTaglet;
+import lawu.doclets.internal.toolkit.util.VisibleMemberMap;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.ConstructorDoc;
+import com.sun.javadoc.ProgramElementDoc;
 
 /**
  * Writes constructor documentation.
@@ -32,19 +38,17 @@ public class ConstructorWriterImpl extends AbstractExecutableMemberWriter
      * @param writer The writer for the class that the constructors belong to.
      * @param classDoc the class being documented.
      */
-    public ConstructorWriterImpl(SubWriterHolderWriter writer,
-            ClassDoc classDoc) {
-        super(writer, classDoc);
-        VisibleMemberMap visibleMemberMap = new VisibleMemberMap(classDoc, 
-            VisibleMemberMap.CONSTRUCTORS, configuration().nodeprecated);
-        List constructors = new ArrayList(visibleMemberMap.getMembersFor(classDoc));
-        for (int i = 0; i < constructors.size(); i++) {
-            if (((ProgramElementDoc)(constructors.get(i))).isProtected() ||
-                ((ProgramElementDoc)(constructors.get(i))).isPrivate()) {
-                setFoundNonPubConstructor(true);                   
-            }
-        } 
-    }
+	public ConstructorWriterImpl(SubWriterHolderWriter writer, ClassDoc classDoc) {
+		super(writer, classDoc);
+		VisibleMemberMap visibleMemberMap = new VisibleMemberMap(classDoc,
+				VisibleMemberMap.CONSTRUCTORS, configuration().nodeprecated);
+		List<ProgramElementDoc> constructors = new ArrayList<ProgramElementDoc>();
+		for(ProgramElementDoc p: visibleMemberMap.getMembersFor(classDoc)) {
+			constructors.add(p);
+			if(p.isProtected() || p.isPrivate())
+				setFoundNonPubConstructor(true);
+		}
+	}
     
     /**
      * Construct a new ConstructorWriterImpl.

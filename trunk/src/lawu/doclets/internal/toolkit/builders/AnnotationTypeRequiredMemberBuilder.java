@@ -10,7 +10,10 @@ package lawu.doclets.internal.toolkit.builders;
 
 import lawu.doclets.internal.toolkit.util.*;
 import lawu.doclets.internal.toolkit.*;
+import lawu.util.iterator.UniversalIterator;
+
 import com.sun.javadoc.*;
+
 import java.util.*;
 import java.lang.reflect.*;
 
@@ -44,7 +47,7 @@ public class AnnotationTypeRequiredMemberBuilder extends AbstractMemberBuilder {
     /**
      * The list of members being documented.
      */
-    protected List members;
+    protected List<ProgramElementDoc> members;
     
     /**
      * The index of the current member that is being documented at this point 
@@ -79,8 +82,9 @@ public class AnnotationTypeRequiredMemberBuilder extends AbstractMemberBuilder {
         builder.writer = writer;
         builder.visibleMemberMap = new VisibleMemberMap(classDoc, 
             VisibleMemberMap.ANNOTATION_TYPE_MEMBER_REQUIRED, configuration.nodeprecated);
-        builder.members = new ArrayList(
-            builder.visibleMemberMap.getMembersFor(classDoc));
+        builder.members = new ArrayList<ProgramElementDoc>();
+        for(ProgramElementDoc p: builder.visibleMemberMap.getMembersFor(classDoc))
+        	builder.members.add(p);
         if (configuration.getMemberComparator() != null) {
             Collections.sort(builder.members, 
                 configuration.getMemberComparator());
@@ -117,8 +121,8 @@ public class AnnotationTypeRequiredMemberBuilder extends AbstractMemberBuilder {
      * @param classDoc the {@link ClassDoc} we want to check.
      * @return a list of members that will be documented.
      */
-    public List members(ClassDoc classDoc) {
-        return visibleMemberMap.getMembersFor(classDoc);
+    public UniversalIterator<ProgramElementDoc> members(ClassDoc classDoc) {
+        return this.visibleMemberMap.getMembersFor(classDoc);
     }
     
     /**
@@ -127,7 +131,7 @@ public class AnnotationTypeRequiredMemberBuilder extends AbstractMemberBuilder {
      * @return the visible member map for the members of this class.
      */
     public VisibleMemberMap getVisibleMemberMap() {
-        return visibleMemberMap;
+        return this.visibleMemberMap;
     }
     
     /**

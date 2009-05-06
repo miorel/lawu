@@ -7,11 +7,19 @@
 
 package lawu.doclets.internal.toolkit.builders;
 
-import lawu.doclets.internal.toolkit.util.*;
-import lawu.doclets.internal.toolkit.*;
-import com.sun.javadoc.*;
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import lawu.doclets.internal.toolkit.Configuration;
+import lawu.doclets.internal.toolkit.ConstructorWriter;
+import lawu.doclets.internal.toolkit.util.VisibleMemberMap;
+import lawu.util.iterator.UniversalIterator;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.ConstructorDoc;
+import com.sun.javadoc.ProgramElementDoc;
 
 /**
  * Builds documentation for a constructor.
@@ -54,7 +62,7 @@ public class ConstructorBuilder extends AbstractMemberBuilder {
 	/**
 	 * The constructors being documented.
 	 */
-	private List constructors;
+	private List<ProgramElementDoc> constructors;
 
 	/**
 	 * Construct a new ConstructorBuilder.
@@ -86,7 +94,10 @@ public class ConstructorBuilder extends AbstractMemberBuilder {
 				VisibleMemberMap.CONSTRUCTORS,
 				configuration.nodeprecated);
 		builder.constructors =
-			new ArrayList(builder.visibleMemberMap.getMembersFor(classDoc));
+			new ArrayList<ProgramElementDoc>();
+		for(ProgramElementDoc p: builder.visibleMemberMap.getMembersFor(classDoc)) {
+			builder.constructors.add(p);
+		}
 		for (int i = 0; i < builder.constructors.size(); i++) {
 			if (((ProgramElementDoc) (builder.constructors.get(i)))
 				.isProtected()
@@ -140,8 +151,8 @@ public class ConstructorBuilder extends AbstractMemberBuilder {
 	 *
 	 * @return a list of constructors that will be documented.
 	 */
-	public List members(ClassDoc classDoc) {
-		return visibleMemberMap.getMembersFor(classDoc);
+	public UniversalIterator<ProgramElementDoc> members(ClassDoc classDoc) {
+		return this.visibleMemberMap.getMembersFor(classDoc);
 	}
 
 	/**
@@ -150,7 +161,7 @@ public class ConstructorBuilder extends AbstractMemberBuilder {
 	 * @return the constructor writer for this builder.
 	 */
 	public ConstructorWriter getWriter() {
-		return writer;
+		return this.writer;
 	}
 
 	/**

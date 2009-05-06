@@ -9,7 +9,10 @@ package lawu.doclets.internal.toolkit.builders;
 
 import lawu.doclets.internal.toolkit.util.*;
 import lawu.doclets.internal.toolkit.*;
+import lawu.util.iterator.UniversalIterator;
+
 import com.sun.javadoc.*;
+
 import java.util.*;
 import java.lang.reflect.*;
 
@@ -122,7 +125,7 @@ public class FieldBuilder extends AbstractMemberBuilder {
 	 * @param classDoc the {@link ClassDoc} we want to check.
 	 * @return a list of fields that will be documented.
 	 */
-	public List members(ClassDoc classDoc) {
+	public UniversalIterator<ProgramElementDoc> members(ClassDoc classDoc) {
 		return visibleMemberMap.getMembersFor(classDoc);
 	}
 

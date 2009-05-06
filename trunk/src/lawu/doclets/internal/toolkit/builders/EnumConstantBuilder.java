@@ -7,11 +7,19 @@
 
 package lawu.doclets.internal.toolkit.builders;
 
-import lawu.doclets.internal.toolkit.util.*;
-import lawu.doclets.internal.toolkit.*;
-import com.sun.javadoc.*;
-import java.util.*;
-import java.lang.reflect.*;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import lawu.doclets.internal.toolkit.Configuration;
+import lawu.doclets.internal.toolkit.EnumConstantWriter;
+import lawu.doclets.internal.toolkit.util.VisibleMemberMap;
+import lawu.util.iterator.UniversalIterator;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.FieldDoc;
+import com.sun.javadoc.ProgramElementDoc;
 
 /**
  * Builds documentation for a enum constants.
@@ -43,7 +51,7 @@ public class EnumConstantBuilder extends AbstractMemberBuilder {
 	/**
 	 * The list of enum constants being documented.
 	 */
-	private List enumConstants;
+	private List<ProgramElementDoc> enumConstants;
 
 	/**
 	 * The index of the current enum constant that is being documented at this point 
@@ -68,24 +76,20 @@ public class EnumConstantBuilder extends AbstractMemberBuilder {
 	 * @param classDoc the class whoses members are being documented.
 	 * @param writer the doclet specific writer.
 	 */
-	public static EnumConstantBuilder getInstance(
-		Configuration configuration,
-		ClassDoc classDoc,
-		EnumConstantWriter writer) {
+	public static EnumConstantBuilder getInstance(Configuration configuration,
+			ClassDoc classDoc, EnumConstantWriter writer) {
 		EnumConstantBuilder builder = new EnumConstantBuilder(configuration);
 		builder.classDoc = classDoc;
 		builder.writer = writer;
-		builder.visibleMemberMap =
-			new VisibleMemberMap(
-				classDoc,
-				VisibleMemberMap.ENUM_CONSTANTS,
-				configuration.nodeprecated);
-		builder.enumConstants =
-			new ArrayList(builder.visibleMemberMap.getMembersFor(classDoc));
-		if (configuration.getMemberComparator() != null) {
-			Collections.sort(
-				builder.enumConstants,
-				configuration.getMemberComparator());
+		builder.visibleMemberMap = new VisibleMemberMap(classDoc,
+				VisibleMemberMap.ENUM_CONSTANTS, configuration.nodeprecated);
+		builder.enumConstants = new ArrayList<ProgramElementDoc>();
+		for(ProgramElementDoc p : builder.visibleMemberMap
+				.getMembersFor(classDoc))
+			builder.enumConstants.add(p);
+		if(configuration.getMemberComparator() != null) {
+			Collections.sort(builder.enumConstants, configuration
+					.getMemberComparator());
 		}
 		return builder;
 	}
@@ -100,16 +104,13 @@ public class EnumConstantBuilder extends AbstractMemberBuilder {
 	/**
 	 * {@inheritDoc}
 	 */
-	public void invokeMethod(
-		String methodName,
-		Class[] paramClasses,
-		Object[] params)
-		throws Exception {
-		if (DEBUG) {
-			configuration.root.printError(
-				"DEBUG: " + this.getClass().getName() + "." + methodName);
+	public void invokeMethod(String methodName, Class[] paramClasses,
+			Object[] params) throws Exception {
+		if(DEBUG) {
+			configuration.root.printError("DEBUG: " + getClass().getName()
+					+ "." + methodName);
 		}
-		Method method = this.getClass().getMethod(methodName, paramClasses);
+		Method method = getClass().getMethod(methodName, paramClasses);
 		method.invoke(this, params);
 	}
 
@@ -121,7 +122,7 @@ public class EnumConstantBuilder extends AbstractMemberBuilder {
 	 * @param classDoc the {@link ClassDoc} we want to check.
 	 * @return a list of enum constants that will be documented.
 	 */
-	public List members(ClassDoc classDoc) {
+	public UniversalIterator<ProgramElementDoc> members(ClassDoc classDoc) {
 		return visibleMemberMap.getMembersFor(classDoc);
 	}
 
@@ -172,7 +173,7 @@ public class EnumConstantBuilder extends AbstractMemberBuilder {
 	 */
 	public void buildEnumConstantHeader() {
 		writer.writeEnumConstantHeader(
-			(FieldDoc) enumConstants.get(currentEnumConstantsIndex),
+			(FieldDoc) this.enumConstants.get(currentEnumConstantsIndex),
 			currentEnumConstantsIndex == 0);
 	}
 
@@ -222,7 +223,7 @@ public class EnumConstantBuilder extends AbstractMemberBuilder {
 	 * Build the overall footer.
 	 */
 	public void buildFooter() {
-		writer.writeFooter(classDoc);
+		this.writer.writeFooter(this.classDoc);
 	}
 
 	/**
@@ -231,6 +232,6 @@ public class EnumConstantBuilder extends AbstractMemberBuilder {
 	 * @return the enum constant writer for this builder.
 	 */
 	public EnumConstantWriter getWriter() {
-		return writer;
+		return this.writer;
 	}
 }

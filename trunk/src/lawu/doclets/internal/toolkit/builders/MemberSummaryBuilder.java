@@ -328,10 +328,12 @@ public class MemberSummaryBuilder extends AbstractMemberBuilder {
                 Util.isLinkable(inhclass, configuration))) {
                 continue;
             }
-            if (inhclass == classDoc) {
+            if (inhclass == classDoc)
                 continue;
-            }
-            List inhmembers = visibleMemberMap.getMembersFor(inhclass);
+            
+            List<ProgramElementDoc> inhmembers = new ArrayList<ProgramElementDoc>();
+            for(ProgramElementDoc p: visibleMemberMap.getMembersFor(inhclass))
+            	inhmembers.add(p);
             if (inhmembers.size() > 0) {
                 Collections.sort(inhmembers);
                 writer.writeInheritedMemberSummaryHeader(inhclass);
@@ -340,7 +342,7 @@ public class MemberSummaryBuilder extends AbstractMemberBuilder {
                         inhclass.isPackagePrivate() && 
                             ! Util.isLinkable(inhclass, configuration) ?
                             classDoc : inhclass,
-                        (ProgramElementDoc) inhmembers.get(j),
+                        inhmembers.get(j),
                         j == 0,
                         j == inhmembers.size() - 1);
                 }
