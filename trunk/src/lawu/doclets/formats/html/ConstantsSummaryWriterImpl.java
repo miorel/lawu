@@ -54,7 +54,7 @@ public class ConstantsSummaryWriterImpl extends HtmlDocletWriter
         hr();
         
         center();
-        h1(); printText("doclet.Constants_Summary"); h1End();
+        beginH1(); printText("doclet.Constants_Summary"); endH1();
         centerEnd();
         
         hr(4, "noshade");
@@ -75,14 +75,14 @@ public class ConstantsSummaryWriterImpl extends HtmlDocletWriter
      */
     public void writeContentsHeader() {
         bold(configuration.getText("doclet.Contents"));
-        ul();
+        beginUl();
     }
     
     /**
      * {@inheritDoc}
      */
     public void writeContentsFooter() {
-        ulEnd();
+        endUl();
         println();
     }
     

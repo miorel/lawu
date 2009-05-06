@@ -7,40 +7,32 @@
 
 package lawu.doclets.formats.html.markup;
 
-import lawu.doclets.internal.toolkit.*;
-import lawu.doclets.internal.toolkit.util.*;
-import java.io.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
+import lawu.doclets.internal.toolkit.Configuration;
+import lawu.doclets.internal.toolkit.util.DocletConstants;
+import lawu.doclets.internal.toolkit.util.Util;
 
 /**
  * Class for the Html format code generation.
- * Initilizes PrintWriter with FileWriter, to enable print
+ * Initializes PrintWriter with FileWriter, to enable print
  * related methods to generate the code to the named File through FileWriter.
  *
  * @since 1.2
  * @author Atul M Dambalkar
  */
 public class HtmlWriter extends PrintWriter {
-    
     /**
-     * Name of the file, to which this writer is writing to.
-     */
-    protected final String htmlFilename;
-
-    /**
-     * The window title of this file
-     */
-    protected String winTitle;
-
-    /**
-     * URL file separator string("/").
-     */
-    public static final String fileseparator =
-         DirectoryManager.URL_FILE_SEPERATOR;
+	 * The window title of this file
+	 */
+	private String winTitle;
     
     /**
      * The configuration
      */
-    protected Configuration configuration;
+    private Configuration configuration;
 
     /**
      * Constructor.
@@ -60,68 +52,71 @@ public class HtmlWriter extends PrintWriter {
                       throws IOException, UnsupportedEncodingException {
         super(Util.genWriter(configuration, path, filename, docencoding));
         this.configuration = configuration;
-        htmlFilename = filename;
+    }
+
+    protected Configuration getConfiguration() {
+    	return this.configuration;
+    }
+    
+    /**
+     * Prints the &lt;html&gt; tag. Add a newline character at the end.
+     */
+    public void beginHtml() {
+        println("<html>"); //$NON-NLS-1$
     }
 
     /**
-     * Print &lt;HTML&gt; tag. Add a newline character at the end.
+     * Prints the &lt;/html&gt; tag. Add a newline character at the end.
      */
-    public void html() {
-        println("<HTML>");
+    public void endHtml() {
+        println("</html>"); //$NON-NLS-1$
     }
 
     /**
-     * Print &lt;/HTML&gt; tag. Add a newline character at the end.
+     * Print the script code to be embedded before the  &lt;/HEAD&gt; tag.
      */
-    public void htmlEnd() {
-        println("</HTML>");
-    }
-
-    /**
-     * Print the script code to be embeded before the  &lt;/HEAD&gt; tag.
-     */
-    protected void printWinTitleScript(String winTitle){
-        if(winTitle != null && winTitle.length() > 0) {
-            script();
+    protected void printWinTitleScript(String winTitle1){
+        if(winTitle1 != null && winTitle1.length() > 0) {
+            beginScript();
             println("function windowTitle()");
             println("{");
             println("    if (location.href.indexOf('is-external=true') == -1) {");
-            println("        parent.document.title=\"" + winTitle + "\";");
+            println("        parent.document.title=\"" + winTitle1 + "\";");
             println("    }");
             println("}");
-            scriptEnd();
+            endScript();
             noScript();
             noScriptEnd();
         }
     }
 
     /**
-     * Print the Javascript &lt;SCRIPT&gt; start tag with its type
+     * Prints the Javascript &lt;script&gt; start tag with its type
      * attribute.
      */
-    public void script() {
-        println("<SCRIPT type=\"text/javascript\">");
+    public void beginScript() {
+        println("<script type=\"text/javascript\">");
     }
 
     /**
-     * Print the Javascript &lt;/SCRIPT&gt; end tag.
+     * Prints the Javascript &lt;/script&gt; end tag.
      */
-    public void scriptEnd() {
-        println("</SCRIPT>");
+    public void endScript() {
+        println("</script>");
     }
     
     /**
-     * Print the Javascript &lt;NOSCRIPT&gt; start tag.
+     * Print the Javascript &lt;noscript&gt; start tag.
      */
     public void noScript() {
-        println("<NOSCRIPT>");
+        println("<noscript>");
     }
 
     /**
-     * Print the Javascript &lt;/NOSCRIPT&gt; end tag.
+     * Print the Javascript &lt;/noscript&gt; end tag.
      */
     public void noScriptEnd() {
-        println("</NOSCRIPT>");
+        println("</noscript>");
     }
 
     /**
@@ -138,7 +133,7 @@ public class HtmlWriter extends PrintWriter {
     }
 
     /**
-     * Print &lt;BODY BGCOLOR="bgcolor"&gt;, including JavaScript
+     * Print &lt;body bgcolor="bgcolor"&gt;, including JavaScript
      * "onload" call to load windowtitle script.  This script shows the name
      * of the document in the window title bar when frames are on.
      *
@@ -146,10 +141,9 @@ public class HtmlWriter extends PrintWriter {
      * @param includeScript  boolean set true if printing windowtitle script
      */
     public void body(String bgcolor, boolean includeScript) {
-        print("<BODY BGCOLOR=\"" + bgcolor + "\"");
-        if (includeScript) {
+        print(String.format("<body bgcolor=\"%s\"", bgcolor));
+        if(includeScript)
             print(getWindowTitleOnload());
-        }
         println(">");
     }
 
@@ -157,14 +151,14 @@ public class HtmlWriter extends PrintWriter {
      * Print &lt;/BODY&gt; tag. Add a newline character at the end.
      */
     public void bodyEnd() {
-        println("</BODY>");
+        println("</body>");
     }
 
     /**
      * Print &lt;TITLE&gt; tag. Add a newline character at the end.
      */
     public void title() {
-        println("<TITLE>");
+        println("<title>");
     }
 
     /**
@@ -182,29 +176,29 @@ public class HtmlWriter extends PrintWriter {
     /**
      * Print &lt;/TITLE&gt; tag. Add a newline character at the end.
      */
-    public void titleEnd() {
-        println("</TITLE>");
+    public void endTitle() {
+        println("</title>"); //$NON-NLS-1$
     }
 
     /**
      * Print &lt;UL&gt; tag. Add a newline character at the end.
      */
-    public void ul() {
-        println("<UL>");
+    public void beginUl() {
+        println("<ul>"); //$NON-NLS-1$
     }
 
     /**
      * Print &lt;/UL&gt; tag. Add a newline character at the end.
      */
-    public void ulEnd() {
-        println("</UL>");
+    public void endUl() {
+        println("</ul>"); //$NON-NLS-1$
     }
 
     /**
      * Print &lt;LI&gt; tag.
      */
     public void li() {
-        print("<LI>");
+        print("<li>"); //$NON-NLS-1$
     }
 
     /**
@@ -213,21 +207,21 @@ public class HtmlWriter extends PrintWriter {
      * @param type Type string.
      */
     public void li(String type) {
-        print("<LI TYPE=\"" + type + "\">");
+        print("<li type=\"" + type + "\">");  //$NON-NLS-1$
     }
 
     /**
      * Print &lt;H1&gt; tag. Add a newline character at the end.
      */
-    public void h1() {
-        println("<H1>");
+    public void beginH1() {
+        println("<h1>");
     }
 
     /**
      * Print &lt;/H1&gt; tag. Add a newline character at the end.
      */
-    public void h1End() {
-        println("</H1>");
+    public void endH1() {
+        println("</h1>");
     }
 
     /**
@@ -237,9 +231,9 @@ public class HtmlWriter extends PrintWriter {
      * @param text Text to be printed with &lt;H1&gt; format.
      */
     public void h1(String text) {
-        h1();
+        beginH1();
         println(text);
-        h1End();
+        endH1();
     }
 
     /**
@@ -936,14 +930,14 @@ public class HtmlWriter extends PrintWriter {
      * @param align the align attribute.
      */
     public void thAlignNowrap(String align) {
-        print("<TH ALIGN=\"" + align + "\" NOWRAP>");
+        print("<th align=\"" + align + "\" NOWRAP>");
     }
     
     /**
      * Print &lt;/TH&gt; tag. Add a newline character at the end.
      */
     public void thEnd() {
-        println("</TH>");
+        println("</th>");
     }
 
     /**
@@ -952,7 +946,7 @@ public class HtmlWriter extends PrintWriter {
      * @param i integer.
      */
     public void tdColspan(int i) {
-        print("<TD COLSPAN=" + i + ">");
+        print("<td colspan=" + i + ">");
     }
 
     /**
@@ -962,7 +956,7 @@ public class HtmlWriter extends PrintWriter {
      * @param stylename String stylename.
      */
     public void tdBgcolorStyle(String color, String stylename) {
-        print("<TD BGCOLOR=\"" + color + "\" CLASS=\"" + stylename + "\">");
+        print("<td bgcolor=\"" + color + "\" class=\"" + stylename + "\">");
     }
  
     /**
@@ -973,7 +967,7 @@ public class HtmlWriter extends PrintWriter {
      * @param stylename String stylename.
      */
     public void tdColspanBgcolorStyle(int i, String color, String stylename) {
-        print("<TD COLSPAN=" + i + " BGCOLOR=\"" + color + "\" CLASS=\"" +
+        print("<td colspan=" + i + " bgcolor=\"" + color + "\" class=\"" +
               stylename + "\">");
     }
 
@@ -984,7 +978,7 @@ public class HtmlWriter extends PrintWriter {
      * @param align String align.
      */
     public void tdAlign(String align) {
-        print("<TD ALIGN=\"" + align + "\">");
+        print("<td align=\"" + align + "\">");
     }
 
     /**
@@ -994,7 +988,7 @@ public class HtmlWriter extends PrintWriter {
      * @param stylename    String stylename.
      */
     public void tdVAlignClass(String align, String stylename) {
-        print("<TD VALIGN=\"" + align + "\" CLASS=\"" + stylename + "\">");
+        print("<td valign=\"" + align + "\" class=\"" + stylename + "\">");
     }
 
     /**
@@ -1003,7 +997,7 @@ public class HtmlWriter extends PrintWriter {
      * @param valign String valign.
      */
     public void tdVAlign(String valign) {
-        print("<TD VALIGN=\"" + valign + "\">");
+        print("<td valign=\"" + valign + "\">");
     }
 
     /**
@@ -1013,7 +1007,7 @@ public class HtmlWriter extends PrintWriter {
      * @param valign  String valign.
      */
     public void tdAlignVAlign(String align, String valign) {
-        print("<TD ALIGN=\"" + align + "\" VALIGN=\"" + valign + "\">");
+        print("<td align=\"" + align + "\" valign=\"" + valign + "\">");
     }
 
     /**
@@ -1023,7 +1017,7 @@ public class HtmlWriter extends PrintWriter {
      * @param rowspan  integer rowspan.
      */
     public void tdAlignRowspan(String align, int rowspan) {
-        print("<TD ALIGN=\"" + align + "\" ROWSPAN=" + rowspan + ">");
+        print("<td align=\"" + align + "\" rowspan=" + rowspan + ">");
     }
 
     /**
@@ -1043,14 +1037,14 @@ public class HtmlWriter extends PrintWriter {
      * Print &lt;BLOCKQUOTE&gt; tag. Add a newline character at the end.
      */
     public void blockquote() {
-        println("<BLOCKQUOTE>");
+        println("<blockquote>");
     }
 
     /**
      * Print &lt;/BLOCKQUOTE&gt; tag. Add a newline character at the end.
      */
     public void blockquoteEnd() {
-        println("</BLOCKQUOTE>");
+        println("</blockquote>");
     }
 
     /**
@@ -1074,14 +1068,14 @@ public class HtmlWriter extends PrintWriter {
     /**
      * Print &lt;NOFRAMES&gt; tag. Add a newline character at the end.
      */
-    public void noFrames() {
-        println("<NOFRAMES>");
+    public void beginNoFrames() {
+        println("<noframes>");
     }
 
     /**
      * Print &lt;/NOFRAMES&gt; tag. Add a newline character at the end.
      */
-    public void noFramesEnd() {
-        println("</NOFRAMES>");
+    public void endNoFrames() {
+        println("</noframes>");
     }
 }

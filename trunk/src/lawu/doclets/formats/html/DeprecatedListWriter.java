@@ -94,11 +94,11 @@ public class DeprecatedListWriter extends SubWriterHolderWriter {
         writeHeader();
         
         bold(configuration.getText("doclet.Contents"));
-        ul();
+        beginUl();
         for (int i = 0; i < DeprecatedAPIListBuilder.NUM_TYPES; i++) {
             writeIndexLink(deprapi, i);
         }
-        ulEnd();
+        endUl();
         println();
         
         for (int i = 0; i < DeprecatedAPIListBuilder.NUM_TYPES; i++) {

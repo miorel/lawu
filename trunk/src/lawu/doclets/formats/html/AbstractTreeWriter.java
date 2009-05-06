@@ -81,7 +81,7 @@ public abstract class AbstractTreeWriter extends HtmlDocletWriter {
     protected void generateLevelInfo(ClassDoc parent, List list, 
             boolean isEnum) {
         if (list.size() > 0) {
-            ul();
+            beginUl();
             for (int i = 0; i < list.size(); i++) {
                 ClassDoc local = (ClassDoc)list.get(i);
                 printPartialInfo(local);
@@ -89,7 +89,7 @@ public abstract class AbstractTreeWriter extends HtmlDocletWriter {
                 generateLevelInfo(local, classtree.subs(local, isEnum), 
                     isEnum);   // Recurse
             }
-            ulEnd();
+            endUl();
         }
     }
 

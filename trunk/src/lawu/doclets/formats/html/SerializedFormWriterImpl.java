@@ -44,9 +44,9 @@ public class SerializedFormWriterImpl extends SubWriterHolderWriter
         navLinks(true);
         hr();
         center();
-        h1();
+        beginH1();
         print(header);
-        h1End();
+        endH1();
         centerEnd();
     }
         

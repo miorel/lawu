@@ -155,8 +155,7 @@ public class AnnotationTypeBuilder extends AbstractBuilder {
         StringBuffer modifiers = new StringBuffer(
             annotationTypeDoc.modifiers() + " ");
         writer.writeAnnotationTypeSignature(
-            Util.replaceText(
-                modifiers.toString(), "interface", "@interface"));
+                modifiers.toString().replace("interface", "@interface"));
     }
     
     /**

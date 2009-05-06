@@ -73,7 +73,7 @@ public class HelpWriter extends HtmlDocletWriter {
      * help information also will not get generated.
      */
     protected void printHelpFileContents() {
-        center(); h1(); printText("doclet.Help_line_1"); h1End(); centerEnd();
+        center(); beginH1(); printText("doclet.Help_line_1"); endH1(); centerEnd();
         printText("doclet.Help_line_2");
         if (configuration.createoverview) {
             h3(); printText("doclet.Overview"); h3End();
@@ -85,18 +85,18 @@ public class HelpWriter extends HtmlDocletWriter {
         }
         h3(); printText("doclet.Package"); h3End();
         blockquote(); p(); printText("doclet.Help_line_4");
-        ul();
+        beginUl();
         li(); printText("doclet.Interfaces_Italic");
         li(); printText("doclet.Classes");
         li(); printText("doclet.Enums");
         li(); printText("doclet.Exceptions");
         li(); printText("doclet.Errors");
         li(); printText("doclet.AnnotationTypes");
-        ulEnd();
+        endUl();
         blockquoteEnd();
         h3(); printText("doclet.Help_line_5"); h3End();
         blockquote(); p(); printText("doclet.Help_line_6");
-        ul();
+        beginUl();
         li(); printText("doclet.Help_line_7");
         li(); printText("doclet.Help_line_8");
         li(); printText("doclet.Help_line_9");
@@ -112,7 +112,7 @@ public class HelpWriter extends HtmlDocletWriter {
         li(); printText("doclet.Field_Detail");
         li(); printText("doclet.Constructor_Detail");
         li(); printText("doclet.Method_Detail");
-        ulEnd();
+        endUl();
         printText("doclet.Help_line_13");
         blockquoteEnd();
         
@@ -120,25 +120,25 @@ public class HelpWriter extends HtmlDocletWriter {
         blockquoteEnd();
         h3(); printText("doclet.AnnotationType"); h3End();
         blockquote(); p(); printText("doclet.Help_annotation_type_line_1");
-        ul();
+        beginUl();
         li(); printText("doclet.Help_annotation_type_line_2");
         li(); printText("doclet.Help_annotation_type_line_3");
         li(); printText("doclet.Annotation_Type_Required_Member_Summary");
         li(); printText("doclet.Annotation_Type_Optional_Member_Summary");
         li(); printText("doclet.Annotation_Type_Member_Detail");
-        ulEnd();
+        endUl();
         blockquoteEnd();
         
         //Enums
         blockquoteEnd();
         h3(); printText("doclet.Enum"); h3End();
         blockquote(); p(); printText("doclet.Help_enum_line_1");
-        ul();
+        beginUl();
         li(); printText("doclet.Help_enum_line_2");
         li(); printText("doclet.Help_enum_line_3");
         li(); printText("doclet.Enum_Constant_Summary");
         li(); printText("doclet.Enum_Constant_Detail");
-        ulEnd();
+        endUl();
         blockquoteEnd();
         
         if (configuration.classuse) {
@@ -153,10 +153,10 @@ public class HelpWriter extends HtmlDocletWriter {
             printText("doclet.Help_line_17_with_tree_link",
                  getHyperLink("overview-tree.html",
                  configuration.getText("doclet.Class_Hierarchy")));
-            ul();
+            beginUl();
             li(); printText("doclet.Help_line_18");
             li(); printText("doclet.Help_line_19");
-            ulEnd();
+            endUl();
             blockquoteEnd();
         }
         if (!(configuration.nodeprecatedlist ||

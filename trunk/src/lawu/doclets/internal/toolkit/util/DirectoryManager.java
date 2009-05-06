@@ -7,9 +7,12 @@
 
 package lawu.doclets.internal.toolkit.util;
 
-import lawu.doclets.internal.toolkit.*;
-import com.sun.javadoc.*;
-import java.io.*;
+import java.io.File;
+
+import lawu.doclets.internal.toolkit.Configuration;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.PackageDoc;
 
 
 /**
@@ -28,10 +31,10 @@ public class DirectoryManager {
     /**
      * The file separator string, "/", used in the formation of the URL path.
      */
-    public static final String URL_FILE_SEPERATOR = "/";
+    public static final char URL_FILE_SEPARATOR = '/';
 
     /**
-     * Never instaniated.
+     * Never instantiated.
      */
     private DirectoryManager() {
     }
@@ -43,10 +46,7 @@ public class DirectoryManager {
      * @see #getPath(String)
      */
     public static String createPathString(PackageDoc pd) {
-        if (pd == null) {
-            return "";
-        }
-        return getPath(pd.name());
+    	return pd == null ? "" : getPath(pd.name()); //$NON-NLS-1$
     }
 
     /**
@@ -56,11 +56,7 @@ public class DirectoryManager {
      * @see #getPath(String)
      */
     public static String createPathString(ClassDoc cd) {
-        if (cd == null) {
-            return "";
-        }
-        PackageDoc pd = cd.containingPackage();
-        return (pd == null)? "": getPath(pd.name());
+    	return cd == null ? "" : createPathString(cd.containingPackage()); //$NON-NLS-1$
     }
 
     /**
@@ -98,22 +94,12 @@ public class DirectoryManager {
      * @return       the platform-dependent directory path for the package
      */
     public static String getDirectoryPath(String packageName) {
-        if (packageName == null || packageName.length() == 0) {
-            return "";
-        }
-        StringBuffer pathstr = new StringBuffer();
-        for (int i = 0; i < packageName.length(); i++) {
-            char ch = packageName.charAt(i);
-            if (ch == '.') {
-                pathstr.append(URL_FILE_SEPERATOR);
-            } else {
-                pathstr.append(ch);
-            }
-        }
-        if (pathstr.length() > 0 && ! pathstr.toString().endsWith(URL_FILE_SEPERATOR)) {
-            pathstr.append(URL_FILE_SEPERATOR);
-        }
-        return pathstr.toString();
+        if (packageName == null || packageName.length() == 0)
+            return "";       
+        String pathStr = packageName.replace('.', URL_FILE_SEPARATOR);
+        if (pathStr.length() > 0 && pathStr.charAt(pathStr.length() - 1) != URL_FILE_SEPARATOR)
+            pathStr += URL_FILE_SEPARATOR;
+        return pathStr;
     }
 
     /**
@@ -130,19 +116,9 @@ public class DirectoryManager {
      * @return       the String URL path
      */
     public static String getPath(String name) {
-        if (name == null || name.length() == 0) {
+        if (name == null || name.length() == 0)
             return "";
-        }
-        StringBuffer pathstr = new StringBuffer();
-        for (int i = 0; i < name.length(); i++) {
-            char ch = name.charAt(i);
-            if (ch == '.') {
-                pathstr.append(URL_FILE_SEPERATOR);
-            } else {
-                pathstr.append(ch);
-            }
-        }
-        return pathstr.toString();
+        return name.replace('.', URL_FILE_SEPARATOR);
     }
 
     /**
@@ -166,7 +142,7 @@ public class DirectoryManager {
         StringBuffer pathstr = new StringBuffer();
         pathstr.append(getRelativePath(from));
         pathstr.append(getPath(to));
-        pathstr.append(URL_FILE_SEPERATOR);
+        pathstr.append(URL_FILE_SEPARATOR);
         return pathstr.toString();
     }
 
@@ -208,10 +184,10 @@ public class DirectoryManager {
         for (int i = 0; i < from.length(); i++) {
             char ch = from.charAt(i);
             if (ch == '.') {
-                pathstr.append(".." + URL_FILE_SEPERATOR);
+                pathstr.append(".." + URL_FILE_SEPARATOR);
             }
         }
-        pathstr.append(".." + URL_FILE_SEPERATOR);
+        pathstr.append(".." + URL_FILE_SEPARATOR);
         return pathstr.toString();
     }
 
@@ -279,7 +255,7 @@ public class DirectoryManager {
         String pathstr = createPathString(pd);
         if (pathstr.length() > 0) {
             buf.append(pathstr);
-            buf.append(URL_FILE_SEPERATOR);
+            buf.append(URL_FILE_SEPARATOR);
         }
         buf.append(filename);
         return buf.toString();

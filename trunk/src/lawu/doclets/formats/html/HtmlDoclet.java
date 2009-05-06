@@ -1,18 +1,25 @@
-/*
- * @(#)HtmlDoclet.java	1.90 05/11/17
- *
- * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
- * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
 package lawu.doclets.formats.html;
 
-import lawu.doclets.internal.toolkit.*;
-import lawu.doclets.internal.toolkit.builders.*;
-import lawu.doclets.internal.toolkit.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 
-import com.sun.javadoc.*;
-import java.util.*;
-import java.io.*;
+import lawu.doclets.internal.toolkit.AbstractDoclet;
+import lawu.doclets.internal.toolkit.builders.AbstractBuilder;
+import lawu.doclets.internal.toolkit.util.ClassTree;
+import lawu.doclets.internal.toolkit.util.DocletAbortException;
+import lawu.doclets.internal.toolkit.util.DocletConstants;
+import lawu.doclets.internal.toolkit.util.IndexBuilder;
+import lawu.doclets.internal.toolkit.util.SourceToHTMLConverter;
+import lawu.doclets.internal.toolkit.util.Util;
+import lawu.util.Files;
+
+import com.sun.javadoc.AnnotationTypeDoc;
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.DocErrorReporter;
+import com.sun.javadoc.PackageDoc;
+import com.sun.javadoc.RootDoc;
+import com.sun.javadoc.SourcePosition;
 
 /**
  * The class with "start" method, calls individual Writers.
@@ -23,12 +30,10 @@ import java.io.*;
  *
  */
 public class HtmlDoclet extends AbstractDoclet {
-    
     /**
      * The global configuration information for this run.
      */
-    public ConfigurationImpl configuration = 
-        (ConfigurationImpl) configuration();
+    public ConfigurationImpl configuration = configuration();
     
     /**
      * The "start" method as required by Javadoc.
@@ -47,7 +52,8 @@ public class HtmlDoclet extends AbstractDoclet {
      * Override this method to use a different
      * configuration.
      */
-    public Configuration configuration() {
+    @Override
+	public ConfigurationImpl configuration() {
         return ConfigurationImpl.getInstance();
     }
     
@@ -88,41 +94,36 @@ public class HtmlDoclet extends AbstractDoclet {
         performCopy(configdestdir, configstylefile);
         Util.copyResourceFile(configuration, "inherit.gif", false);
         // do early to reduce memory footprint
-        if (configuration.classuse) {
+        if (configuration.classuse)
             ClassUseWriter.generate(configuration, classtree);
-        }
+        
         IndexBuilder indexbuilder = new IndexBuilder(configuration, nodeprecated);
         
-        if (configuration.createtree) {
+        if (configuration.createtree)
             TreeWriter.generate(configuration, classtree);
-        }
+        
         if (configuration.createindex) {
-            if (configuration.splitindex) {
+            if (configuration.splitindex)
                 SplitIndexWriter.generate(configuration, indexbuilder);
-            } else {
+            else
                 SingleIndexWriter.generate(configuration, indexbuilder);
-            }
         }
         
-        if (!(configuration.nodeprecatedlist || nodeprecated)) {
+        if (!(configuration.nodeprecatedlist || nodeprecated))
             DeprecatedListWriter.generate(configuration);
-        }
         
         AllClassesFrameWriter.generate(configuration,
             new IndexBuilder(configuration, nodeprecated, true));
         
         FrameOutputWriter.generate(configuration);
         
-        if (configuration.createoverview) {
+        if (configuration.createoverview)
             PackageIndexWriter.generate(configuration);
-        }
         if (configuration.helpfile.length() == 0 &&
-            !configuration.nohelp) {
+            !configuration.nohelp)
             HelpWriter.generate(configuration);
-        }
-        if (configuration.stylesheetfile.length() == 0) {
+        if (configuration.stylesheetfile.length() == 0)
             StylesheetWriter.generate(configuration);
-        }
     }
     
     /**
@@ -131,9 +132,8 @@ public class HtmlDoclet extends AbstractDoclet {
     protected void generateClassFiles(ClassDoc[] arr, ClassTree classtree) {
         Arrays.sort(arr);
         for(int i = 0; i < arr.length; i++) {
-            if (!(configuration.isGeneratedDoc(arr[i]) && arr[i].isIncluded())) {
+            if (!(configuration.isGeneratedDoc(arr[i]) && arr[i].isIncluded()))
                 continue;
-            }
             ClassDoc prev = (i == 0)?
                 null:
                 arr[i-1];
@@ -166,9 +166,8 @@ public class HtmlDoclet extends AbstractDoclet {
      */
     protected void generatePackageFiles(ClassTree classtree) throws Exception {
         PackageDoc[] packages = configuration.packages;
-        if (packages.length > 1) {
+        if (packages.length > 1) 
             PackageIndexFrameWriter.generate(configuration);
-        }        
         PackageDoc prev = null, next;
         for(int i = 0; i < packages.length; i++) {
             PackageFrameWriter.generate(configuration, packages[i]);
@@ -198,7 +197,7 @@ public class HtmlDoclet extends AbstractDoclet {
      */
     public static int optionLength(String option) {
         // Construct temporary configuration for check
-        return (ConfigurationImpl.getInstance()).optionLength(option);
+        return ConfigurationImpl.getInstance().optionLength(option);
     }
     
     /**
@@ -235,18 +234,16 @@ public class HtmlDoclet extends AbstractDoclet {
                         notice((SourcePosition) null, 
                             "doclet.Copying_File_0_To_File_1",
                             helpstylefile.toString(), desthelpfile.toString());
-                    Util.copyFile(desthelpfile, helpstylefile);
+                    Files.copy(helpstylefile, desthelpfile);
                 }
             }
-        } catch (IOException exc) {
+        }
+        catch(IOException e) {
             configuration.message.
                 error((SourcePosition) null, 
                     "doclet.perform_copy_exception_encountered",
-                    exc.toString());
+                    e.toString());
             throw new DocletAbortException();
         }
     }
 }
-
-
-

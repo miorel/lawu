@@ -238,17 +238,17 @@ public class ClassBuilder extends AbstractBuilder {
             modifiers.append("enum ");
             int index;
             if ((index = modifiers.indexOf("abstract")) >= 0) {
-                modifiers.delete(index, index + (new String("abstract")).length());
+                modifiers.delete(index, index + "abstract".length());
                 modifiers = new StringBuffer(
-                    Util.replaceText(modifiers.toString(), "  ", " "));
+                    modifiers.toString().replaceAll(" {2,}", " "));
             }
             if ((index = modifiers.indexOf("final")) >= 0) {
-                modifiers.delete(index, index + (new String("final")).length());
+                modifiers.delete(index, index + "final".length());
                 modifiers = new StringBuffer(
-                    Util.replaceText(modifiers.toString(), "  ", " "));
+                    modifiers.toString().replaceAll(" {2,}", " "));
             }
-        //} else if (classDoc.isAnnotationType()) {
-            //modifiers.append("@interface ");
+//        } else if (classDoc.isAnnotationType()) {
+//            modifiers.append("@interface ");
         } else if (! isInterface) {          
             modifiers.append("class ");
         }

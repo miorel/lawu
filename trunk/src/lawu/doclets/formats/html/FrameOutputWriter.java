@@ -83,7 +83,7 @@ public class FrameOutputWriter extends HtmlDocletWriter {
      * client. Also provide links to the non-frame version documentation.
      */
     protected void printFrameWarning() {
-        noFrames();
+        beginNoFrames();
         h2();
         printText("doclet.Frame_Alert");
         h2End();
@@ -94,7 +94,7 @@ public class FrameOutputWriter extends HtmlDocletWriter {
         printHyperLink(configuration.topFile,
             configuration.getText("doclet.Non_Frame_Version"));
         println("");
-        noFramesEnd();
+        endNoFrames();
     }
 
     /**

@@ -128,7 +128,7 @@ public abstract class AbstractMemberWriter {
         if ((member.isField() || member.isMethod()) &&
             writer instanceof ClassWriterImpl &&
              ((ClassWriterImpl) writer).getClassDoc().isInterface()) {
-            mod = Util.replaceText(mod, "public", "").trim();
+            mod = mod.replace("public", "").trim();
         }
         if(mod.length() > 0) {
             print(mod);
