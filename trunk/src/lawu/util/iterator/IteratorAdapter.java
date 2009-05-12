@@ -1,51 +1,35 @@
-/**
- * 
- */
 package lawu.util.iterator;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import lawu.dp.Iterator;
 
 /**
  * @author Miorel-Lucian Palii
  *
  */
 public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
-	private final List<T> list;
 	private final Iterator<T> iterator;
-	private int pointer;
-
+	
 	/**
 	 * @param iterator
 	 */
 	public IteratorAdapter(Iterator<T> iterator) {
-		this.list = new ArrayList<T>();
 		this.iterator = iterator;
 		reset();
 	}
 
 	public void advance() {
-		++this.pointer;
-		current();
+		this.iterator.advance();
 	}
 
 	public T current() {
-		T ret = null;
-		if(this.pointer < this.list.size())
-			ret = this.list.get(this.pointer);
-		else if(this.iterator.hasNext()) {
-			ret = this.iterator.next();
-			this.list.add(ret);
-		}
-		return ret;
+		return this.iterator.current();
 	}
 
 	public boolean isDone() {
-		return this.pointer >= this.list.size() && !this.iterator.hasNext();
+		return this.iterator.isDone();
 	}
 
 	public void reset() {
-		this.pointer = 0;
+		this.iterator.reset();
 	}
 }

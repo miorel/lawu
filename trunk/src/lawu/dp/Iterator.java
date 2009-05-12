@@ -8,9 +8,9 @@ package lawu.dp;
  * 
  * <pre>
  * Iterator&lt;SomeType&gt; iter = someMethod();
- * or(iter.reset(); !iter.isDone(); iter.advance()) {
+ * for(iter.reset(); !iter.isDone(); iter.advance()) {
  *    // do something with iter.current()
- * 
+ * }
  * </pre>
  * 
  * @author Miorel-Lucian Palii

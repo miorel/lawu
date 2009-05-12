@@ -9,14 +9,14 @@ import lawu.util.Filter;
  * @param <T>
  */
 public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
-	private final Filter<T> filter;
-	private final Iterator<T> iterator;
+	private final Filter<? super T> filter;
+	private final Iterator<? extends T> iterator;
 	
 	/**
 	 * @param filter
 	 * @param iterator
 	 */
-	public FilteredIterator(Filter<T> filter, Iterator<T> iterator) {
+	public FilteredIterator(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		this.filter = filter;
 		this.iterator = iterator;
 		reset();

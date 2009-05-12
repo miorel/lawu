@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import lawu.doclets.internal.toolkit.builders.AbstractBuilder;
 import lawu.doclets.internal.toolkit.builders.BuilderFactory;
+import lawu.doclets.internal.toolkit.util.ClassDocCatalog;
 import lawu.doclets.internal.toolkit.util.ClassTree;
 import lawu.doclets.internal.toolkit.util.DocletConstants;
 import lawu.doclets.internal.toolkit.util.PackageListWriter;
@@ -22,45 +23,24 @@ import com.sun.javadoc.RootDoc;
  * @author Jamie Ho
  */
 public abstract class AbstractDoclet {
-
 	/**
 	 * The global configuration information for this run.
 	 */
 	private Configuration configuration = configuration();
 
 	/**
-	 * The method that starts the execution of the doclet.
+	 * Indicates that this doclet supports the 1.5 language features.
 	 * 
-	 * @param doclet the doclet to start the execution for.
-	 * @param root the {@link RootDoc} that points to the source to document.
-	 * @return true if the doclet executed without error. False otherwise.
-	 */
-	public boolean start(AbstractDoclet doclet, RootDoc root) {
-		boolean ret = true;
-		this.configuration.root = root;
-		try {
-			doclet.startGeneration(root);
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-			ret = false;
-		}
-		return ret;
-	}
-
-	/**
-	 * Indicate that this doclet supports the 1.5 language features.
-	 * 
-	 * @return JAVA_1_5, indicating that the new features are supported.
+	 * @return JAVA_1_5, indicating that the new features are supported
 	 */
 	public static LanguageVersion languageVersion() {
 		return LanguageVersion.JAVA_1_5;
 	}
 
 	/**
-	 * Create the configuration instance and returns it.
+	 * Creates the configuration instance and returns it.
 	 * 
-	 * @return the configuration of the doclet.
+	 * @return the configuration of the doclet
 	 */
 	public abstract Configuration configuration();
 
@@ -72,38 +52,47 @@ public abstract class AbstractDoclet {
 	 * 
 	 * @see com.sun.javadoc.RootDoc
 	 */
-	private void startGeneration(RootDoc root) throws Exception {
-		if(root.classes().length == 0) {
-			this.configuration.message
-					.error("doclet.No_Public_Classes_To_Document"); //$NON-NLS-1$
-			return;
-		}
-		this.configuration.setOptions();
-		this.configuration.getDocletSpecificMsg().notice(
-				"doclet.build_version", //$NON-NLS-1$
-				this.configuration.getDocletSpecificBuildDate());
-		ClassTree classtree = new ClassTree(this.configuration,
-				this.configuration.nodeprecated);
+	protected boolean generate(RootDoc root) {
+		this.configuration.root = root;
+		boolean ret = true;
+		try {
+			if(root.classes().length == 0)
+				this.configuration.message.error("doclet.No_Public_Classes_To_Document"); //$NON-NLS-1$
+			else {
+				this.configuration.setOptions();
+				this.configuration.getDocletSpecificMsg().notice(
+						"doclet.build_version", //$NON-NLS-1$
+						this.configuration.getDocletSpecificBuildDate());
+				ClassTree classtree = new ClassTree(this.configuration,
+						this.configuration.nodeprecated);
 
-		generateClassFiles(root, classtree);
-		if(this.configuration.sourcepath != null
-				&& this.configuration.sourcepath.length() > 0) {
-			StringTokenizer pathTokens = new StringTokenizer(
-					this.configuration.sourcepath, File.pathSeparator);
-			boolean first = true;
-			while(pathTokens.hasMoreTokens()) {
-				Util.copyDocFiles(this.configuration, pathTokens.nextToken()
-						+ File.separator, DocletConstants.DOC_FILES_DIR_NAME,
-						first);
-				first = false;
+				generateClassFiles(root, classtree);
+				if(this.configuration.sourcepath != null
+						&& this.configuration.sourcepath.length() > 0) {
+					StringTokenizer pathTokens = new StringTokenizer(
+							this.configuration.sourcepath, File.pathSeparator);
+					boolean first = true;
+					while(pathTokens.hasMoreTokens()) {
+						Util.copyDocFiles(this.configuration, pathTokens
+								.nextToken()
+								+ File.separator,
+								DocletConstants.DOC_FILES_DIR_NAME, first);
+						first = false;
+					}
+				}
+
+				PackageListWriter.generate(this.configuration);
+				generatePackageFiles(classtree);
+
+				generateOtherFiles(root, classtree);
+				this.configuration.tagletManager.printReport();
 			}
 		}
-
-		PackageListWriter.generate(this.configuration);
-		generatePackageFiles(classtree);
-
-		generateOtherFiles(root, classtree);
-		this.configuration.tagletManager.printReport();
+		catch(Exception e) {
+			e.printStackTrace();
+			ret = false;
+		}
+		return ret;
 	}
 
 	/**
@@ -147,10 +136,8 @@ public abstract class AbstractDoclet {
 	 */
 	protected void generateClassFiles(RootDoc root, ClassTree classtree) {
 		generateClassFiles(classtree);
-		PackageDoc[] packages = root.specifiedPackages();
-		for(int i = 0; i < packages.length; i++) {
-			generateClassFiles(packages[i].allClasses(), classtree);
-		}
+		for(PackageDoc p: root.specifiedPackages())
+			generateClassFiles(p.allClasses(), classtree);
 	}
 
 	/**
@@ -160,11 +147,8 @@ public abstract class AbstractDoclet {
 	 * @param classtree the data structure representing the class tree.
 	 */
 	private void generateClassFiles(ClassTree classtree) {
-		String[] packageNames = this.configuration.classDocCatalog
-				.packageNames();
-		for(int packageNameIndex = 0; packageNameIndex < packageNames.length; packageNameIndex++) {
-			generateClassFiles(this.configuration.classDocCatalog
-					.allClasses(packageNames[packageNameIndex]), classtree);
-		}
+		ClassDocCatalog c = this.configuration.classDocCatalog;
+		for(String packageName: c.packageNames())
+			generateClassFiles(c.allClasses(packageName), classtree);
 	}
 }

@@ -1,10 +1,3 @@
-/*
- * @(#)Configuration.java	1.62 05/11/17
- *
- * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
- * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package lawu.doclets.internal.toolkit;
 
 import java.io.ByteArrayOutputStream;
@@ -23,6 +16,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -459,9 +453,8 @@ public abstract class Configuration {
                 tagletManager.addCustomTag(args[1], tagletpath);
                 continue;
             }
-            String[] tokens = Util.tokenize(args[1], 
-                TagletManager.SIMPLE_TAGLET_OPT_SEPERATOR, 3);            
-            if (tokens.length == 1) {
+            List<String> tokens = Util.tokenize(args[1], TagletManager.SIMPLE_TAGLET_OPT_SEPERATOR, 3);            
+            if(tokens.size() == 1) {
                 String tagName = args[1];
                 if (tagletManager.isKnownCustomTag(tagName)) {
                     //reorder a standard tag
@@ -472,11 +465,11 @@ public abstract class Configuration {
                     heading.setCharAt(0, Character.toUpperCase(tagName.charAt(0)));
                     tagletManager.addNewSimpleCustomTag(tagName, heading.toString(), "a");
                 }
-            } else if (tokens.length == 2) {
+            } else if (tokens.size() == 2) {
                 //Add simple taglet without heading, probably to excluding it in the output.
-                tagletManager.addNewSimpleCustomTag(tokens[0], tokens[1], "");
-            } else if (tokens.length >= 3) {
-                tagletManager.addNewSimpleCustomTag(tokens[0], tokens[2], tokens[1]);
+                tagletManager.addNewSimpleCustomTag(tokens.get(0), tokens.get(1), "");
+            } else if (tokens.size() >= 3) {
+                tagletManager.addNewSimpleCustomTag(tokens.get(0), tokens.get(2), tokens.get(1));
             } else {
                 message.error("doclet.Error_invalid_custom_tag_argument", args[1]);
             }
@@ -493,7 +486,7 @@ public abstract class Configuration {
     }
     
     /**
-     * Add a traliling file separator, if not found or strip off extra trailing
+     * Add a trailing file separator, if not found or strip off extra trailing
      * file separators if any.
      *
      * @param path Path under consideration.
@@ -560,11 +553,9 @@ public abstract class Configuration {
                 encoding = os[1];
             }
         }
-        if (!docencodingfound && encoding.length() > 0) {
-            if (!checkOutputFileEncoding(encoding, reporter)) {
+        if (!docencodingfound && encoding.length() > 0)
+            if (!checkOutputFileEncoding(encoding, reporter))
                 return false;
-            }
-        }
         return true;
     }
     
@@ -577,21 +568,22 @@ public abstract class Configuration {
      */
     private boolean checkOutputFileEncoding(String docencoding, 
             DocErrorReporter reporter) {
-        OutputStream ost= new ByteArrayOutputStream();
+        OutputStream ost = new ByteArrayOutputStream();
         OutputStreamWriter osw = null;
         try {
             osw = new OutputStreamWriter(ost, docencoding);
-        } catch (UnsupportedEncodingException exc) {
+        }
+        catch(UnsupportedEncodingException e) {
             reporter.printError(getText("doclet.Encoding_not_supported", 
                 docencoding));
             return false;
-        } finally {
+        }
+        finally {
             try {
-                if (osw != null) {
+                if(osw != null)
                     osw.close();
-                }
-            } catch (IOException exc) {
             }
+            catch (IOException e) {}
         }
         return true;
     }
@@ -602,11 +594,7 @@ public abstract class Configuration {
      * @param docfilesubdir the doc-files subdirectory to check.
      */
     public boolean shouldExcludeDocFileDir(String docfilesubdir){
-        if (excludedDocFileDirs.contains(docfilesubdir)) {
-            return true;
-        } else {
-            return false;
-        }
+        return excludedDocFileDirs.contains(docfilesubdir);
     }
     
     /**
@@ -636,41 +624,51 @@ public abstract class Configuration {
      */
     public String getClassName(ClassDoc cd) {        
         PackageDoc pd = cd.containingPackage();
-        if (pd != null && shouldExcludeQualifier(cd.containingPackage().name())) {
-            return cd.name();
-        } else {
-            return cd.qualifiedName();
-        }
+        String ret;
+        if (pd != null && shouldExcludeQualifier(cd.containingPackage().name()))
+            ret = cd.name();
+        else
+            ret = cd.qualifiedName();
+        return ret;
     }
     
     public String getText(String key) {
+    	String ret;
         try {
             //Check the doclet specific properties file.
-            return getDocletSpecificMsg().getText(key);
-        } catch (Exception e) {
-            //Check the shared properties file.
-            return message.getText(key);
+            ret = getDocletSpecificMsg().getText(key);
         }
+        catch(Exception e) {
+            //Check the shared properties file.
+            ret = message.getText(key);
+        }
+        return ret;
     }
     
     public String getText(String key, String a1) {
-        try {
+        String ret;
+    	try {
             //Check the doclet specific properties file.
-            return getDocletSpecificMsg().getText(key, a1);
-        } catch (Exception e) {
-            //Check the shared properties file.
-            return message.getText(key, a1);
+            ret = getDocletSpecificMsg().getText(key, a1);
         }
+        catch(Exception e) {
+            //Check the shared properties file.
+            ret = message.getText(key, a1);
+        }
+        return ret;
     }
     
     public String getText(String key, String a1, String a2) {
+    	String ret;
         try {
             //Check the doclet specific properties file.
-            return getDocletSpecificMsg().getText(key, a1, a2);
-        } catch (Exception e) {
-            //Check the shared properties file.
-            return message.getText(key, a1, a2);
+            ret = getDocletSpecificMsg().getText(key, a1, a2);
         }
+        catch(Exception e) {
+            //Check the shared properties file.
+            ret = message.getText(key, a1, a2);
+        }
+        return ret;
     }
     
     public String getText(String key, String a1, String a2, String a3) {
@@ -689,10 +687,7 @@ public abstract class Configuration {
      * -nodeprecated is not used or @deprecated tag is not used.
      */
     public boolean isGeneratedDoc(Doc doc) {
-        if (!nodeprecated) {
-            return true;
-        }
-        return (doc.tags("deprecated")).length == 0;
+        return !nodeprecated || doc.tags("deprecated").length == 0; 
     }
     
     /**
@@ -721,5 +716,3 @@ public abstract class Configuration {
      */
     public abstract Comparator getMemberComparator();
 }
-
-

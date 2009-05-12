@@ -1,6 +1,6 @@
 package lawu.util.iterator;
 
-import lawu.util.iterator.UniversalIterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author Miorel-Lucian Palii
@@ -19,6 +19,8 @@ public abstract class AbstractUniversalIterator<T> implements UniversalIterator<
 	}
 
 	public T next() {
+		if(isDone())
+			throw new NoSuchElementException("");
 		T ret = current();
 		advance();
 		return ret;

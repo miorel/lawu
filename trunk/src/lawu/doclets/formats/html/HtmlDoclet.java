@@ -44,7 +44,7 @@ public class HtmlDoclet extends AbstractDoclet {
      */
     public static boolean start(RootDoc root) {
         HtmlDoclet doclet = new HtmlDoclet();
-        return doclet.start(doclet, root);
+        return doclet.generate(root);
     }
     
     /**
@@ -67,18 +67,18 @@ public class HtmlDoclet extends AbstractDoclet {
      *
      * @see com.sun.javadoc.RootDoc
      */
-    protected void generateOtherFiles(RootDoc root, ClassTree classtree) 
+    @Override
+	protected void generateOtherFiles(RootDoc root, ClassTree classtree) 
             throws Exception {
         super.generateOtherFiles(root, classtree);
-        if (configuration.linksource) {
+        if (this.configuration.linksource) {
             if (configuration.destDirName.length() > 0) {
                 SourceToHTMLConverter.convertRoot(configuration,
                     root, configuration.destDirName + File.separator
                     + DocletConstants.SOURCE_OUTPUT_DIR_NAME);
-            } else {
+            } else
                 SourceToHTMLConverter.convertRoot(configuration,
                     root, DocletConstants.SOURCE_OUTPUT_DIR_NAME);
-            }
         }
         
         if (configuration.topFile.length() == 0) {
@@ -239,7 +239,7 @@ public class HtmlDoclet extends AbstractDoclet {
             }
         }
         catch(IOException e) {
-            configuration.message.
+        	this.configuration.message.
                 error((SourcePosition) null, 
                     "doclet.perform_copy_exception_encountered",
                     e.toString());

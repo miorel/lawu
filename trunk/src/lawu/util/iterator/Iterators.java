@@ -1,5 +1,6 @@
 package lawu.util.iterator;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,21 +25,22 @@ import org.w3c.dom.NodeList;
  * <p>
  * For example, the <code>iterator()</code> method comes in numerous flavors.
  * Its intent is to give the most logical iterator based on the argument(s). The
- * method not only supports "obvious" iterables, such as Lists and arrays, but
- * can also be used to iterate over the matching groups of a MatchResult, the
- * characters of a CharSequence, the Nodes in a NodeList, and hopefully
- * (eventually) anything else over which it may be philosophically desirable to
- * iterate. Design pattern addicts rejoice: calling <code>iterator()</code> with
- * no arguments will return a null iterator (not <code>null</code>, silly, just
- * an iterator with has no elements). Similarly, calling it with a single
- * element will return a single element iterator.
+ * method not only supports "obvious" iterables, such as <code>List</code>s and
+ * arrays, but can also be used to iterate over the matching groups of a
+ * <code>MatchResult</code>, the characters of a <code>CharSequence</code>, the
+ * <code>Node</code>s in a <code>NodeList</code>, and hopefully (eventually)
+ * anything else over which it may be philosophically desirable to iterate.
+ * Design pattern addicts rejoice: calling <code>iterator()</code> with no
+ * arguments will return a null iterator (not <code>null</code>, silly, just an
+ * iterator with has no elements). Similarly, calling it with a single element
+ * will return a single element iterator.
  * </p>
  * 
  * <p>
  * In addition to providing a variety of iterators, this class comes with
  * methods for concisely accomplishing some common tasks, such as sorting,
- * filtering, joining multiple iterators, or defining a mapping for all elements
- * of a traversal from one type onto another. A neat trick is to:
+ * filtering, joining multiple iterators, or defining mapping involving all
+ * elements of a traversal. A neat trick is to:
  * 
  * <pre>
  * import static lawu.util.iterator.Iterators.*;
@@ -61,6 +63,12 @@ import org.w3c.dom.NodeList;
  * @author Miorel-Lucian Palii
  */
 public class Iterators {
+	/**
+	 * There is no need to instantiate this class.
+	 */
+	private Iterators() {
+	}
+	
 	/**
 	 * Returns an iterator over the passed elements or element array.
 	 * 
@@ -91,7 +99,7 @@ public class Iterators {
 	 * @return an universal iterator
 	 */
 	public static <T> UniversalIterator<T> iterator(Iterator<T> iterator) {
-		return new DelegatingIterator<T>(iterator);
+		return new IteratorAdapter<T>(iterator);
 	}
 
 	/**
@@ -116,7 +124,7 @@ public class Iterators {
 	 * @return an universal iterator
 	 */
 	public static <T> UniversalIterator<T> iterator(java.util.Iterator<T> iterator) {
-		return new IteratorAdapter<T>(iterator);
+		return new JIteratorAdapter<T>(iterator);
 	}
 
 	/**
@@ -131,7 +139,7 @@ public class Iterators {
 	 * @return an universal iterator
 	 */
 	public static <T> UniversalIterator<T> iterator(Enumeration<T> enumeration) {
-		return new EnumerationAdapter<T>(enumeration);
+		return new JEnumerationAdapter<T>(enumeration);
 	}
 
 	/**
@@ -166,6 +174,24 @@ public class Iterators {
 	}
 
 	/**
+	 * Returns an iterator over all the files in the directory hierarchy with
+	 * the specified root. That is, this method is similar to the Unix
+	 * <code>find</code> utility: if the <code>File</code> given to this method
+	 * is a directory, the returned iterator will recurse through the directory
+	 * tree in a depth-first manner. If the argument represents a normal file,
+	 * the iterator will have a single element, the <code>File</code> itself.
+	 * Directory tree nodes on the same level will be traversed in
+	 * lexicographical order based on path, in a system-dependent manner
+	 * (case-sensitive on Windows, case-insensitive on Unix).
+	 * 
+	 * @param file root of the directory hierarchy to traverse
+	 * @return an iterator over the directory hierarchy
+	 */
+	public static UniversalIterator<File> iterator(File file) {
+		return new FileIterator(file);
+	}
+	
+	/**
 	 * Maps the elements of a traversal using the specified mapping function.
 	 * The mapping is done lazily, i.e. the backing mapper does not get to see
 	 * the elements of the mapped traversal until the returned iterator is
@@ -180,58 +206,73 @@ public class Iterators {
 	 *            iterator iterates )
 	 * @param mapper the mapping function
 	 * @param iterator the traversal to map
-	 * @return
+	 * @return an iterator that performs the same traversal as the input but
+	 *         which applies the mapping function to each element before
+	 *         returning it
 	 */
-	public static <T, U> UniversalIterator<U> map(Mapper<T, U> mapper, Iterator<T> iterator) {
+	public static <T, U> UniversalIterator<U> map(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
 		return new MappingIterator<T, U>(mapper, iterator);
 	}
 
 	/**
+	 * Keeps only those elements of a traversal which pass the specified filter.
+	 * 
 	 * @param <T> the type over which the returned iterator iterates
-	 * @param filter
-	 * @param iterator
-	 * @return
+	 * @param filter the filtering method
+	 * @param iterator the traversal to filter
+	 * @return an iterator that gives only those elements of the input which
+	 *         pass the specified filter
 	 */
-	public static <T> UniversalIterator<T> filter(Filter<T> filter, Iterator<T> iterator) {
+	public static <T> UniversalIterator<T> filter(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		return new FilteredIterator<T>(filter, iterator);
 	}
 
 	/**
 	 * Unix-esque synonym for <code>filter()</code>.
 	 * 
-	 * @param <T>
-	 * @param filter
-	 * @param iterator
-	 * @return
+	 * @param <T> the type over which the returned iterator iterates
+	 * @param filter the filtering method
+	 * @param iterator the traversal to filter
+	 * @return an iterator that gives only those elements of the input which
+	 *         pass the specified filter
 	 */
-	public static <T> UniversalIterator<T> grep(Filter<T> filter, Iterator<T> iterator) {
+	public static <T> UniversalIterator<T> grep(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		return filter(filter, iterator);
 	}
 
 	/**
-	 * @param <T>
-	 * @param iterator
-	 * @return
+	 * Unfolds an iterator of iterators by joining the elements of its elements
+	 * into a single iterator.
+	 * 
+	 * @param <T> the type over which the iteration takes place
+	 * @param iterator the iterator to unfold
+	 * @return an iterator over all the elements of the given iterators
 	 */
-	public static <T> UniversalIterator<T> join(Iterator<? extends Iterator<T>> iterator) {
+	public static <T> UniversalIterator<T> join(Iterator<? extends Iterator<? extends T>> iterator) {
 		return new JoiningIterator<T>(iterator);
 	}
 
 	/**
-	 * @param <T>
-	 * @param iterators
-	 * @return
+	 * Joins the specified iterators into a single one.
+	 * 
+	 * @param <T> the type over which the iteration takes place
+	 * @param iterators the iterators to join
+	 * @return an iterator over all the elements of the given iterators
 	 */
-	public static <T> UniversalIterator<T> join(Iterator<T>... iterators) {
+	public static <T> UniversalIterator<T> join(Iterator<? extends T>... iterators) {
 		return join(iterator(iterators));
 	}
 
 	/**
-	 * @param <T>
-	 * @param iterator
-	 * @return
+	 * Orders a traversal using the default comparison method.
+	 * 
+	 * @param <T> the type over which the iteration takes place
+	 * @param iterator the traversal to sort
+	 * @return an iterator which gives the same elements as the input but sorted
+	 *         in order according to the default comparison method of the input
+	 *         type
 	 */
-	public static <T extends Comparable<T>> UniversalIterator<T> sort(Iterator<T> iterator) {
+	public static <T extends Comparable<T>> UniversalIterator<T> sort(Iterator<? extends T> iterator) {
 		List<T> list = new ArrayList<T>();
 		for(iterator.reset(); !iterator.isDone(); iterator.advance())
 			list.add(iterator.current());
@@ -240,11 +281,15 @@ public class Iterators {
 	}
 
 	/**
-	 * @param <T>
-	 * @param iterator
-	 * @return
+	 * Orders a traversal using the specified comparison method.
+	 * 
+	 * @param <T> the type over which the iteration takes place
+	 * @param comparator comparison method
+	 * @param iterator the traversal to sort
+	 * @return an iterator which gives the same elements as the input but sorted
+	 *         in order according to the given comparison method
 	 */
-	public static <T> UniversalIterator<T> sort(Iterator<T> iterator, Comparator<T> comparator) {
+	public static <T> UniversalIterator<T> sort(Comparator<? super T> comparator, Iterator<? extends T> iterator) {
 		List<T> list = new ArrayList<T>();
 		for(iterator.reset(); !iterator.isDone(); iterator.advance())
 			list.add(iterator.current());

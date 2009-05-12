@@ -33,8 +33,8 @@ public class HtmlSerialFieldWriter extends FieldWriterImpl
         super(writer, classdoc);
     }
     
-    public List members(ClassDoc cd) {
-        return Util.asList(cd.serializableFields());
+    public FieldDoc[] members(ClassDoc cd) {
+        return cd.serializableFields();
     }
     
     protected void printTypeLinkNoDimension(Type type) {

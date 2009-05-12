@@ -8,12 +8,12 @@ import lawu.dp.Iterator;
  * @param <T>
  */
 public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
-	private final Iterator<? extends Iterator<T>> iterator;
+	private final Iterator<? extends Iterator<? extends T>> iterator;
 	
 	/**
 	 * @param iterator
 	 */
-	public JoiningIterator(Iterator<? extends Iterator<T>> iterator) {
+	public JoiningIterator(Iterator<? extends Iterator<? extends T>> iterator) {
 		this.iterator = iterator;
 		reset();
 	}

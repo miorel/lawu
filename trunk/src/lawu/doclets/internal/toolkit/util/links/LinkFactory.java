@@ -1,13 +1,9 @@
-/*
- * @(#)LinkFactory.java	1.8 05/11/17
- *
- * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
- * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package lawu.doclets.internal.toolkit.util.links;
 
-import com.sun.javadoc.*;
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.Doc;
+import com.sun.javadoc.Type;
+import com.sun.javadoc.WildcardType;
 
 /**
  * A factory that constructs links from given link information.
@@ -16,7 +12,6 @@ import com.sun.javadoc.*;
  * @since 1.5
  */
 public abstract class LinkFactory {
-    
     /**
      * Return an empty instance of the link output object.
      *
@@ -93,13 +88,11 @@ public abstract class LinkFactory {
                     linkOutput.append(type.typeName());
                     linkOutput.append(getTypeParameterLinks(linkInfo));
                     return linkOutput;
-                } else { 
-                    linkInfo.classDoc = type.asClassDoc();
-                    linkOutput = getClassLink((LinkInfo) linkInfo);
-                    if (linkInfo.includeTypeAsSepLink) {
-                        linkOutput.append(getTypeParameterLinks(linkInfo, false));
-                    }
                 }
+				linkInfo.classDoc = type.asClassDoc();
+				linkOutput = getClassLink(linkInfo);
+				if (linkInfo.includeTypeAsSepLink)
+				    linkOutput.append(getTypeParameterLinks(linkInfo, false));
             }
             
             if (linkInfo.isVarArg) {
@@ -118,7 +111,7 @@ public abstract class LinkFactory {
             return linkOutput;
         } else if (linkInfo.classDoc != null) {
             //Just a class link
-            LinkOutput linkOutput = getClassLink((LinkInfo) linkInfo);
+            LinkOutput linkOutput = getClassLink(linkInfo);
             if (linkInfo.includeTypeAsSepLink) {
                 linkOutput.append(getTypeParameterLinks(linkInfo, false));
             }

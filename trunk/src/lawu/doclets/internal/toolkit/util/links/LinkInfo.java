@@ -1,14 +1,10 @@
-/*
- * @(#)LinkInfo.java	1.6 05/11/30
- *
- * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
- * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package lawu.doclets.internal.toolkit.util.links;
 
-import com.sun.javadoc.*;
 import lawu.doclets.internal.toolkit.Configuration;
+
+import com.sun.javadoc.ClassDoc;
+import com.sun.javadoc.ExecutableMemberDoc;
+import com.sun.javadoc.Type;
 
 /**
  * Encapsulates information about a link.
@@ -16,8 +12,7 @@ import lawu.doclets.internal.toolkit.Configuration;
  * @author Jamie Ho
  * @since 1.5
  */
-public abstract class LinkInfo {
-    
+public abstract class LinkInfo {    
     /**
      * The ClassDoc we want to link to.  Null if we are not linking
      * to a ClassDoc.
@@ -122,13 +117,14 @@ public abstract class LinkInfo {
      * @return the label for this class link.
      */
     public String getClassLinkLabel(Configuration configuration) {
-        if (label != null && label.length() > 0) {
-            return label;
-        } else if (isLinkable()) {
-            return classDoc.name();
-        } else {
-            return configuration.getClassName(classDoc);
-        }
+    	String ret = null;
+        if(this.label != null && this.label.length() > 0)
+			ret = this.label;
+		else if(isLinkable())
+			ret = this.classDoc.name();
+		else
+			ret = configuration.getClassName(this.classDoc);
+		return ret;
     }
 }
 

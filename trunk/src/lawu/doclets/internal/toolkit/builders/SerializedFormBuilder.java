@@ -382,14 +382,12 @@ public class SerializedFormBuilder extends AbstractBuilder {
      * @param classDoc the class to print the overview for.
      */
     public void buildFieldSerializationOverview(ClassDoc classDoc) {
-        if (classDoc.definesSerializableFields()) {
-            FieldDoc serialPersistentField =
-                (FieldDoc)((Util.asList(classDoc.serializableFields()).get(0)));
+        if(classDoc.definesSerializableFields()) {
+            FieldDoc serialPersistentField = classDoc.serializableFields()[0];
             String comment = serialPersistentField.commentText();
-            if (comment.length() > 0) {
-                fieldWriter.writeHeader(
-                    configuration.getText("doclet.Serialized_Form_class"));
-                if (!configuration.nocomment) {
+            if(comment.length() > 0) {
+                fieldWriter.writeHeader(configuration.getText("doclet.Serialized_Form_class"));
+                if(!configuration.nocomment) {
                     fieldWriter.writeMemberDeprecatedInfo(serialPersistentField);
                     fieldWriter.writeMemberDescription(serialPersistentField);
                     fieldWriter.writeMemberTags(serialPersistentField);

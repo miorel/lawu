@@ -7,10 +7,10 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.lang.annotation.Documented;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -195,51 +195,48 @@ public class Util {
 	 */
 	public static void copyDocFiles(Configuration configuration, String path,
 			String dir, boolean overwrite) {
-		if(checkCopyDocFilesErrors(configuration, path, dir)) {
-			return;
-		}
-		String destname = configuration.docFileDestDirName;
-		File srcdir = new File(path + dir);
-		if(destname.length() > 0
-				&& destname.charAt(destname.length() - 1) != DirectoryManager.URL_FILE_SEPARATOR) {
-			destname += DirectoryManager.URL_FILE_SEPARATOR;
-		}
-		String dest = destname + dir;
-		try {
-			File destdir = new File(dest);
-			DirectoryManager.createDirectory(configuration, dest);
-			for(String file : srcdir.list()) {
-				File srcfile = new File(srcdir, file);
-				File destfile = new File(destdir, file);
-				if(srcfile.isFile()) {
-					if(destfile.exists() && !overwrite) {
-						configuration.message.warning((SourcePosition) null,
-								"doclet.Copy_Overwrite_warning", //$NON-NLS-1$
-								srcfile.toString(), destdir.toString());
+		if(!checkCopyDocFilesErrors(configuration, path, dir)) {
+			String destname = configuration.docFileDestDirName;
+			File srcdir = new File(path + dir);
+			if(destname.length() > 0
+					&& destname.charAt(destname.length() - 1) != DirectoryManager.URL_FILE_SEPARATOR)
+				destname += DirectoryManager.URL_FILE_SEPARATOR;
+			String dest = destname + dir;
+			try {
+				File destdir = new File(dest);
+				DirectoryManager.createDirectory(configuration, dest);
+				for(String file: srcdir.list()) {
+					File srcfile = new File(srcdir, file);
+					File destfile = new File(destdir, file);
+					if(srcfile.isFile()) {
+						if(destfile.exists() && !overwrite) {
+							configuration.message.warning(
+									(SourcePosition) null,
+									"doclet.Copy_Overwrite_warning", //$NON-NLS-1$
+									srcfile.toString(), destdir.toString());
+						}
+						else {
+							configuration.message.notice(
+									"doclet.Copying_File_0_To_Dir_1", //$NON-NLS-1$
+									srcfile.toString(), destdir.toString());
+							Files.copy(srcfile, destfile);
+						}
 					}
-					else {
-						configuration.message.notice(
-								"doclet.Copying_File_0_To_Dir_1", //$NON-NLS-1$
-								srcfile.toString(), destdir.toString());
-						Files.copy(srcfile, destfile);
-					}
-				}
-				else if(srcfile.isDirectory()) {
-					if(configuration.copydocfilesubdirs
-							&& !configuration.shouldExcludeDocFileDir(srcfile
-									.getName())) {
-						copyDocFiles(configuration, path, dir
-								+ DirectoryManager.URL_FILE_SEPARATOR
-								+ srcfile.getName(), overwrite);
+					else if(srcfile.isDirectory()) {
+						if(configuration.copydocfilesubdirs && !configuration.shouldExcludeDocFileDir(srcfile.getName())) {
+							copyDocFiles(configuration, path, dir
+									+ DirectoryManager.URL_FILE_SEPARATOR
+									+ srcfile.getName(), overwrite);
+						}
 					}
 				}
 			}
-		}
-		catch(SecurityException e) {
-			throw new DocletAbortException();
-		}
-		catch(IOException e) {
-			throw new DocletAbortException();
+			catch(SecurityException e) {
+				throw new DocletAbortException();
+			}
+			catch(IOException e) {
+				throw new DocletAbortException();
+			}
 		}
 	}
 
@@ -287,11 +284,10 @@ public class Util {
 	 */
 	public static void copyResourceFile(Configuration configuration,
 			String resourcefile, boolean overwrite) {
-		String destdir = configuration.destDirName;
-		String destresourcesdir = destdir + "resources";
+		String destresourcesdir = configuration.destDirName + "resources";
 		DirectoryManager.createDirectory(configuration, destresourcesdir);
 		File destfile = new File(destresourcesdir, resourcefile);
-		if(!destfile.exists() || overwrite) {
+		if(!destfile.exists() || overwrite)
 			try {
 				InputStream in = Util.class.getResourceAsStream("resources/"
 						+ resourcefile);
@@ -299,7 +295,6 @@ public class Util {
 					Files.copy(in, destfile);
 			}
 			catch(Throwable t) {}
-		}
 	}
 
 	/**
@@ -311,6 +306,7 @@ public class Util {
 	 */
 	public static String getPackageSourcePath(Configuration configuration,
 			PackageDoc pkgDoc) {
+		String ret = ""; //$NON-NLS-1$
 		try {
 			String pkgPath = DirectoryManager.getDirectoryPath(pkgDoc);
 			String completePath = new SourcePath(configuration.sourcepath)
@@ -321,11 +317,10 @@ public class Util {
 					Character.toString(DirectoryManager.URL_FILE_SEPARATOR));
 			pkgPath = pkgPath.replace(File.separator,
 					Character.toString(DirectoryManager.URL_FILE_SEPARATOR));
-			return completePath.substring(0, completePath.indexOf(pkgPath));
+			ret = completePath.substring(0, completePath.indexOf(pkgPath));
 		}
-		catch(Exception e) {
-			return "";
-		}
+		catch(Exception e) {}
+		return ret;
 	}
 
 	/**
@@ -369,21 +364,16 @@ public class Util {
 			superType = type.asClassDoc().superclassType();
 		}
 
-		for(int i = 0; i < interfaceTypes.length; i++) {
-			Type interfaceType = interfaceTypes[i];
+		for(Type interfaceType: interfaceTypes) {
 			ClassDoc interfaceClassDoc = interfaceType.asClassDoc();
 			if(!(interfaceClassDoc.isPublic() || (configuration == null || isLinkable(
 					interfaceClassDoc, configuration)))) {
 				continue;
 			}
 			results.put(interfaceClassDoc, interfaceType);
-			List<Type> superInterfaces = getAllInterfaces(interfaceType,
-					configuration, sort);
-			for(Iterator<Type> iter = superInterfaces.iterator(); iter
-					.hasNext();) {
-				Type t = iter.next();
+			List<Type> superInterfaces = getAllInterfaces(interfaceType, configuration, sort);
+			for(Type t: superInterfaces)
 				results.put(t.asClassDoc(), t);
-			}
 		}
 		if(superType == null)
 			return new ArrayList<Type>(results.values());
@@ -428,8 +418,7 @@ public class Util {
 	private static void addAllInterfaceTypes(Map<ClassDoc, Type> results,
 			Type type, Type[] interfaceTypes, boolean raw,
 			Configuration configuration) {
-		for(int i = 0; i < interfaceTypes.length; i++) {
-			Type interfaceType = interfaceTypes[i];
+		for(Type interfaceType: interfaceTypes) {
 			ClassDoc interfaceClassDoc = interfaceType.asClassDoc();
 			if(!(interfaceClassDoc.isPublic() || (configuration != null && isLinkable(
 					interfaceClassDoc, configuration)))) {
@@ -438,13 +427,8 @@ public class Util {
 			if(raw)
 				interfaceType = interfaceType.asClassDoc();
 			results.put(interfaceClassDoc, interfaceType);
-			List<Type> superInterfaces = getAllInterfaces(interfaceType,
-					configuration);
-			for(Iterator<Type> iter = superInterfaces.iterator(); iter
-					.hasNext();) {
-				Type superInterface = iter.next();
+			for(Type superInterface: getAllInterfaces(interfaceType, configuration))
 				results.put(superInterface.asClassDoc(), superInterface);
-			}
 		}
 		if(type instanceof ParameterizedType)
 			findAllInterfaceTypes(results, (ParameterizedType) type,
@@ -453,14 +437,6 @@ public class Util {
 			findAllInterfaceTypes(results, (ClassDoc) type, raw, configuration);
 		else
 			findAllInterfaceTypes(results, (ClassDoc) type, true, configuration);
-	}
-
-	public static List<ProgramElementDoc> asList(ProgramElementDoc[] members) {
-		List<ProgramElementDoc> list = new ArrayList<ProgramElementDoc>();
-		for(int i = 0; i < members.length; i++) {
-			list.add(members[i]);
-		}
-		return list;
 	}
 
 	/**
@@ -501,10 +477,8 @@ public class Util {
 	 */
 	public static String escapeHtmlChars(String s) {
 		String result = s;
-		for(int i = 0; i < HTML_ESCAPE_CHARS.length; i++) {
-			result = result.replace(HTML_ESCAPE_CHARS[i][0],
-					HTML_ESCAPE_CHARS[i][1]);
-		}
+		for(String[] rep: HTML_ESCAPE_CHARS)
+			result = result.replace(rep[0], rep[1]);
 		return result;
 	}
 
@@ -538,12 +512,10 @@ public class Util {
 		}
 		if(docencoding == null) {
 			OutputStreamWriter oswriter = new OutputStreamWriter(fos);
-			docencoding = oswriter.getEncoding();
+			oswriter.getEncoding();
 			return oswriter;
 		}
-		else {
-			return new OutputStreamWriter(fos, docencoding);
-		}
+		return new OutputStreamWriter(fos, docencoding);
 	}
 
 	/**
@@ -554,14 +526,14 @@ public class Util {
 	 * @return true return true if it should be documented and false otherwise.
 	 */
 	public static boolean isDocumentedAnnotation(AnnotationTypeDoc annotationDoc) {
-		AnnotationDesc[] annotationDescList = annotationDoc.annotations();
-		for(int i = 0; i < annotationDescList.length; i++) {
-			if(annotationDescList[i].annotationType().qualifiedName().equals(
-					java.lang.annotation.Documented.class.getName())) {
-				return true;
+		boolean ret = false;
+		for(AnnotationDesc ad: annotationDoc.annotations())
+			if(ad.annotationType().qualifiedName().equals(
+					Documented.class.getName())) {
+				ret = true;
+				break;
 			}
-		}
-		return false;
+		return ret;
 	}
 
 	/**
@@ -576,7 +548,7 @@ public class Util {
 	 *            last token.
 	 * @return an array of tokens.
 	 */
-	public static String[] tokenize(String s, char separator, int maxTokens) {
+	public static List<String> tokenize(String s, char separator, int maxTokens) {
 		List<String> tokens = new ArrayList<String>();
 		StringBuilder token = new StringBuilder();
 		boolean prevIsEscapeChar = false;
@@ -601,10 +573,9 @@ public class Util {
 				token.appendCodePoint(currentChar);
 			}
 		}
-		if(token.length() > 0) {
+		if(token.length() > 0)
 			tokens.add(token.toString());
-		}
-		return tokens.toArray(new String[] {});
+		return tokens;
 	}
 
 	/**
@@ -636,9 +607,8 @@ public class Util {
 	 */
 	public static Type getFirstVisibleSuperClass(ClassDoc classDoc,
 			Configuration configuration) {
-		if(classDoc == null) {
+		if(classDoc == null)
 			return null;
-		}
 		Type sup = classDoc.superclassType();
 		ClassDoc supClassDoc = classDoc.superclass();
 		while(sup != null
@@ -650,10 +620,7 @@ public class Util {
 			sup = supClassDoc.superclassType();
 			supClassDoc = supClassDoc.superclass();
 		}
-		if(classDoc.equals(supClassDoc)) {
-			return null;
-		}
-		return sup;
+		return classDoc.equals(supClassDoc) ? null : sup;
 	}
 
 	/**
@@ -666,19 +633,15 @@ public class Util {
 	 */
 	public static ClassDoc getFirstVisibleSuperClassCD(ClassDoc classDoc,
 			Configuration configuration) {
-		if(classDoc == null) {
+		if(classDoc == null)
 			return null;
-		}
 		ClassDoc supClassDoc = classDoc.superclass();
 		while(supClassDoc != null
 				&& (!(supClassDoc.isPublic() || isLinkable(supClassDoc,
 						configuration)))) {
 			supClassDoc = supClassDoc.superclass();
 		}
-		if(classDoc.equals(supClassDoc)) {
-			return null;
-		}
-		return supClassDoc;
+		return classDoc.equals(supClassDoc) ? null : supClassDoc;
 	}
 
 	/**
@@ -691,27 +654,20 @@ public class Util {
 	 */
 	public static String getTypeName(Configuration config, ClassDoc cd,
 			boolean lowerCaseOnly) {
-		String typeName = "";
-		if(cd.isOrdinaryClass()) {
-			typeName = "doclet.Class";
-		}
-		else if(cd.isInterface()) {
-			typeName = "doclet.Interface";
-		}
-		else if(cd.isException()) {
-			typeName = "doclet.Exception";
-		}
-		else if(cd.isError()) {
-			typeName = "doclet.Error";
-		}
-		else if(cd.isAnnotationType()) {
-			typeName = "doclet.AnnotationType";
-		}
-		else if(cd.isEnum()) {
-			typeName = "doclet.Enum";
-		}
-		return config
-				.getText(lowerCaseOnly ? typeName.toLowerCase() : typeName);
+		String typeName = ""; //$NON-NLS-1$
+		if(cd.isOrdinaryClass())
+			typeName = "doclet.Class"; //$NON-NLS-1$
+		else if(cd.isInterface())
+			typeName = "doclet.Interface"; //$NON-NLS-1$
+		else if(cd.isException())
+			typeName = "doclet.Exception"; //$NON-NLS-1$
+		else if(cd.isError())
+			typeName = "doclet.Error"; //$NON-NLS-1$
+		else if(cd.isAnnotationType())
+			typeName = "doclet.AnnotationType"; //$NON-NLS-1$
+		else if(cd.isEnum())
+			typeName = "doclet.Enum"; //$NON-NLS-1$
+		return config.getText(lowerCaseOnly ? typeName.toLowerCase() : typeName);
 	}
 
 	/**
@@ -722,9 +678,9 @@ public class Util {
 	 */
 	public static void replaceTabs(int tabLength, StringBuffer s) {
 		int index, col;
-		StringBuffer whitespace;
+		StringBuilder whitespace;
 		while((index = s.indexOf("\t")) != -1) {
-			whitespace = new StringBuffer();
+			whitespace = new StringBuilder();
 			col = index;
 			do {
 				whitespace.append(" ");
@@ -741,9 +697,7 @@ public class Util {
 	 */
 	public static void setEnumDocumentation(Configuration configuration,
 			ClassDoc classDoc) {
-		MethodDoc[] methods = classDoc.methods();
-		for(int j = 0; j < methods.length; j++) {
-			MethodDoc currentMethod = methods[j];
+		for(MethodDoc currentMethod: classDoc.methods()) {
 			if(currentMethod.name().equals("values")
 					&& currentMethod.parameters().length == 0) {
 				currentMethod.setRawCommentText(configuration.getText(
@@ -769,16 +723,16 @@ public class Util {
 	 * @return true if the given Doc is deprecated.
 	 */
 	public static boolean isDeprecated(ProgramElementDoc doc) {
-		if(doc.tags("deprecated").length > 0) {
-			return true;
-		}
-		AnnotationDesc[] annotationDescList = doc.annotations();
-		for(int i = 0; i < annotationDescList.length; i++) {
-			if(annotationDescList[i].annotationType().qualifiedName().equals(
-					java.lang.Deprecated.class.getName())) {
-				return true;
-			}
-		}
-		return false;
+		boolean ret = false;
+		if(doc.tags("deprecated").length > 0) //$NON-NLS-1$
+			ret = true;
+		else
+			for(AnnotationDesc ad : doc.annotations())
+				if(ad.annotationType().qualifiedName().equals(
+						Deprecated.class.getName())) {
+					ret = true;
+					break;
+				}
+		return ret;
 	}
 }

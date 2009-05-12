@@ -1,13 +1,6 @@
-/*
- * @(#)LinkOutputImpl.java	1.3 05/11/17
- *
- * Copyright 2006 Sun Microsystems, Inc. All rights reserved.
- * SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- */
-
 package lawu.doclets.formats.html;
 
-import lawu.doclets.internal.toolkit.util.links.*;
+import lawu.doclets.internal.toolkit.util.links.LinkOutput;
 
 /**
  * Stores output of a link.
@@ -15,34 +8,28 @@ import lawu.doclets.internal.toolkit.util.links.*;
  * @author Jamie Ho
  * @since 1.5
  */
-public class LinkOutputImpl implements LinkOutput {
-    
+public class LinkOutputImpl implements LinkOutput {    
     /**
      * The output of the link.
      */
-    public StringBuffer output;
+    private StringBuilder output;
     
     /**
      * Construct a new LinkOutputImpl.
      */
     public LinkOutputImpl() {
-        output = new StringBuffer();
+        this.output = new StringBuilder();
     }
     
     /**
      * {@inheritDoc}
      */
     public void append(Object o) {
-        output.append(o instanceof String ? 
-            (String) o : ((LinkOutputImpl)o).toString()); 
+        this.output.append(o.toString()); 
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    public String toString() {
-        return output.toString();
-    }
-    
+    @Override
+	public String toString() {
+        return this.output.toString();
+    }    
 }
-
