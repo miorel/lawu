@@ -15,6 +15,9 @@
 package lawu.util.iterator;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -82,7 +85,7 @@ public class Iterators {
 	 */
 	private Iterators() {
 	}
-	
+
 	/**
 	 * Returns an iterator over the passed elements or element array.
 	 * 
@@ -129,9 +132,8 @@ public class Iterators {
 
 	/**
 	 * Adapts a Java <code>Iterator</code> to a <code>UniversalIterator</code>.
-	 * This method should be avoided if possible because Java iterators do not
-	 * provide a <code>reset()</code>-like method, so emulating it requires
-	 * copying references to all the elements during the traversal.
+	 * Because Java iterators do not provide a <code>reset()</code>-like method,
+	 * the returned iterator will not be resettable.
 	 * 
 	 * @param <T> the type over which the iteration takes place
 	 * @param iterator adaptee
@@ -143,10 +145,9 @@ public class Iterators {
 
 	/**
 	 * Adapts an <code>Enumeration</code> to a <code>UniversalIterator</code>.
-	 * This method should be avoided if possible because
-	 * <code>Enumeration</code>s do not provide a <code>reset()</code>-like
-	 * method, so emulating it requires copying references to all the elements
-	 * during the traversal.
+	 * Because <code>Enumeration</code>s do not provide a
+	 * <code>reset()</code>-like method, the returned iterator will not be
+	 * resettable.
 	 * 
 	 * @param <T> the type over which the iteration takes place
 	 * @param enumeration adaptee
@@ -202,7 +203,15 @@ public class Iterators {
 	 * @return an iterator over the directory hierarchy
 	 */
 	public static UniversalIterator<File> iterator(File file) {
-		return new FileIterator(file);
+		return new FileHierarchyIterator(file);
+	}
+
+	public static UniversalIterator<String> iterator(Reader reader) {
+		return new ReaderIterator(reader);
+	}
+	
+	public static UniversalIterator<String> iterator(InputStream stream) {
+		return iterator(new InputStreamReader(stream));
 	}
 	
 	/**
@@ -224,7 +233,7 @@ public class Iterators {
 	 *         which applies the mapping function to each element before
 	 *         returning it
 	 */
-	public static <T, U> UniversalIterator<U> map(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
+	public static <T, U> UniversalIterator<U> map(	Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
 		return new MappingIterator<T, U>(mapper, iterator);
 	}
 
@@ -250,7 +259,7 @@ public class Iterators {
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
 	 */
-	public static <T> UniversalIterator<T> grep(Filter<? super T> filter, Iterator<? extends T> iterator) {
+	public static <T> UniversalIterator<T> grep(Filter<? super T> filter,	Iterator<? extends T> iterator) {
 		return filter(filter, iterator);
 	}
 

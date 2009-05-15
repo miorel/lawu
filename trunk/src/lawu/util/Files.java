@@ -24,6 +24,9 @@ import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
 
 public class Files {
+	private Files() {
+	}
+	
     public static void copy(File source, File destination) throws IOException {
 		FileInputStream sourceStream = new FileInputStream(source);
 		destination.getParentFile().mkdirs();

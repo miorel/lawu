@@ -25,6 +25,7 @@ import lawu.util.Filter;
 public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	private final Filter<? super T> filter;
 	private final Iterator<? extends T> iterator;
+	private boolean beginning;
 	
 	/**
 	 * @param filter
@@ -33,12 +34,14 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	public FilteredIterator(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		this.filter = filter;
 		this.iterator = iterator;
+		this.beginning = false;
 		reset();
 	}
 	
 	public void advance() {
+		this.beginning = false;
 		do this.iterator.advance();
-		while(!this.filter.keep(this.iterator.current()));
+		while(!this.iterator.isDone() && !this.filter.keep(this.iterator.current()));
 	}
 
 	public T current() {
@@ -50,8 +53,11 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	}
 
 	public void reset() {
-		this.iterator.reset();
-		if(!this.filter.keep(this.iterator.current()))
-			advance();
+		if(!this.beginning) { 
+			this.iterator.reset();
+			if(!this.filter.keep(this.iterator.current()))
+				advance();
+			this.beginning = true;
+		}
 	}
 }

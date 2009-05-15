@@ -14,39 +14,26 @@
  */
 package lawu.chem;
 
-import lawu.math.Vector;
+import java.util.ArrayList;
+import java.util.List;
+
+import lawu.dp.Iterator;
+import lawu.util.iterator.Iterators;
+import lawu.util.iterator.UniversalIterator;
 
 /**
  * @author Miorel-Lucian Palii
  */
-public class Atom {
-	private final Element element;
-	private final Vector position;
-	private final double occupancy;
+public class Structure {
+	private final List<Atom> atoms;
 	
-	public Atom(Element element) {
-		this(element, new Vector());
+	public Structure(Iterator<Atom> atoms) {
+		this.atoms = new ArrayList<Atom>();
+		for(atoms.reset(); !atoms.isDone(); atoms.advance())
+			this.atoms.add(atoms.current());
 	}
 	
-	public Atom(Element element, Vector position) {
-		this(element, position, 1.0);
-	}
-	
-	public Atom(Element element, Vector position, double occupancy) {
-		this.element = element;
-		this.position = position;
-		this.occupancy = occupancy;
-	}
-	
-	public Element getElement() {
-		return this.element;
-	}
-	
-	public Vector getPosition() {
-		return this.position;
-	}
-	
-	public double getOccupancy() {
-		return this.occupancy;
+	public UniversalIterator<Atom> getAtoms() {
+		return Iterators.iterator(this.atoms);
 	}
 }

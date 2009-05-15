@@ -14,41 +14,42 @@
  */
 package lawu.util.iterator;
 
-import java.util.Enumeration;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 
 import lawu.dp.UnresettableIteratorException;
 
 /**
  * @author Miorel-Lucian Palii
  */
-public class JEnumerationAdapter<T> extends AbstractUniversalIterator<T> {
-	private final Enumeration<T> enumeration;
-	private T current;
+public class ReaderIterator extends AbstractUniversalIterator<String> {
+	private final BufferedReader reader;
+	private String current;
 	private boolean beginning;
 	private boolean done;
-	
-	/**
-	 * @param enumeration
-	 */
-	public JEnumerationAdapter(Enumeration<T> enumeration) {
-		this.enumeration = enumeration;
+
+	public ReaderIterator(Reader reader) {
+		this.reader = new BufferedReader(reader);
+		this.done = false;
 		advance();
 		this.beginning = true;
 	}
 
 	public void advance() {
-		this.beginning = false;
-		if(this.enumeration.hasMoreElements()) {
-			this.current = this.enumeration.nextElement();
-			this.done = false;
-		}
-		else {
-			this.current = null;
+		if(!this.done) {
+			this.beginning = false;
 			this.done = true;
+			try {
+				if((this.current = this.reader.readLine()) != null)
+					this.done = false;
+			}
+			catch(IOException e) {
+			}
 		}
 	}
 
-	public T current() {
+	public String current() {
 		return this.current;
 	}
 
@@ -56,7 +57,7 @@ public class JEnumerationAdapter<T> extends AbstractUniversalIterator<T> {
 		return this.done;
 	}
 
-	public void reset() throws UnresettableIteratorException{
+	public void reset() throws UnresettableIteratorException {
 		if(!this.beginning)
 			throw new UnresettableIteratorException("");
 	}

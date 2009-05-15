@@ -60,7 +60,7 @@
 		</jar>
 	</target>
 	
-	<target name="doc" description="generates Javadocs for the project" depends="bin-dist">
+	<target name="doc" description="generates Javadocs for the project">
 		<javadoc
 			access="package"
 			author="true"

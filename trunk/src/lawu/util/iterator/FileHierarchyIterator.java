@@ -23,11 +23,11 @@ import lawu.dp.Iterator;
 /**
  * @author Miorel-Lucian Palii
  */
-public class FileIterator extends AbstractUniversalIterator<File> {
+public class FileHierarchyIterator extends AbstractUniversalIterator<File> {
 	private final Stack<Iterator<File>> iterators;
 	private final File root;
 
-	public FileIterator(File file) {
+	public FileHierarchyIterator(File file) {
 		this.root = file;
 		this.iterators = new Stack<Iterator<File>>();
 		reset();

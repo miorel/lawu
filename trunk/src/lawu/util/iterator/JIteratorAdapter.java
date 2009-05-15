@@ -14,49 +14,51 @@
  */
 package lawu.util.iterator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+
+import lawu.dp.UnresettableIteratorException;
 
 /**
  * @author Miorel-Lucian Palii
  *
  */
 public class JIteratorAdapter<T> extends AbstractUniversalIterator<T> {
-	private final List<T> list;
 	private final Iterator<T> iterator;
-	private int pointer;
-
+	private T current;
+	private boolean beginning;
+	private boolean done;
+	
 	/**
 	 * @param iterator
 	 */
 	public JIteratorAdapter(Iterator<T> iterator) {
-		this.list = new ArrayList<T>();
 		this.iterator = iterator;
-		reset();
+		advance();
+		this.beginning = true;
 	}
 
 	public void advance() {
-		++this.pointer;
-		current();
+		this.beginning = false;
+		if(this.iterator.hasNext()) {
+			this.current = this.iterator.next();
+			this.done = false;
+		}
+		else {
+			this.current = null;
+			this.done = true;
+		}
 	}
 
 	public T current() {
-		T ret = null;
-		if(this.pointer < this.list.size())
-			ret = this.list.get(this.pointer);
-		else if(this.iterator.hasNext()) {
-			ret = this.iterator.next();
-			this.list.add(ret);
-		}
-		return ret;
+		return this.current;
 	}
 
 	public boolean isDone() {
-		return this.pointer >= this.list.size() && !this.iterator.hasNext();
+		return this.done;
 	}
 
-	public void reset() {
-		this.pointer = 0;
+	public void reset() throws UnresettableIteratorException{
+		if(!this.beginning)
+			throw new UnresettableIteratorException("");
 	}
 }

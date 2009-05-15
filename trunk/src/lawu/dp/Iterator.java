@@ -34,7 +34,7 @@ public interface Iterator<T> {
 	/**
 	 * Moves this iterator to the beginning of the traversal.
 	 */
-	public void reset();
+	public void reset() throws UnresettableIteratorException;
 
 	/**
 	 * Checks whether or not this iterator has exhausted all the elements of its

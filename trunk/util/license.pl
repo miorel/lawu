@@ -27,7 +27,7 @@ EOF
 
 find(sub {
 	my $file = $File::Find::name;
-	return unless -f && $file !~ /\b\.svn\b/;
+	return unless -f && $file !~ /\.svn/;
 	print "Processing $file\n";
 	if(/\.java$/i) {
 	my $fh;
