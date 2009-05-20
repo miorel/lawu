@@ -14,17 +14,31 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Model {
-// COLUMNS     DATA TYPE       FIELD       DEFINITION
-// -------------------------------------------------------------
-//  1 - 6      Record name     "MODEL "
-// 11 - 14     Integer         serial      Model serial number.
-	public Model() {
+//	private Integer serial;
+
+	private final static Pattern pattern = Pattern.compile("\\AMODEL \\Z"); //$NON-NLS-1$
+	private final static String format = "MODEL "; //$NON-NLS-1$
+
+	public Model(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Model serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

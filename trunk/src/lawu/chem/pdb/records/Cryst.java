@@ -14,24 +14,88 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Cryst {
-// COLUMNS      DATA TYPE            FIELD        DEFINITION
-// ----------------------------------------------------------
-//  1 -  6      Record name          "CRYST1"
-//  7 - 15      Real(9.3)            a            a (Angstroms).
-// 16 - 24      Real(9.3)            b            b (Angstroms).
-// 25 - 33      Real(9.3)            c            c (Angstroms).
-// 34 - 40      Real(7.2)            alpha        alpha (degrees).
-// 41 - 47      Real(7.2)            beta         beta (degrees).
-// 48 - 54      Real(7.2)            gamma        gamma (degrees).
-// 56 - 66      LString              sGroup       Space group.
-// 67 - 70      Integer              z            Z value.
-	public Cryst() {
+//	private int n;
+//	private Real(9.3) a;
+//	private Real(9.3) b;
+//	private Real(9.3) c;
+//	private Real(7.2) alpha;
+//	private Real(7.2) beta;
+//	private Real(7.2) gamma;
+//	private LString sGroup;
+//	private Integer z;
+
+	private final static Pattern pattern = Pattern.compile("\\ACRYST(\\d)\\Z"); //$NON-NLS-1$
+	private final static String format = "CRYST%d"; //$NON-NLS-1$
+
+	public Cryst(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * a (Angstroms).
+	 */
+//	public Real(9.3) a() {
+//		return a;
+//	}
+
+	/**
+	 * b (Angstroms).
+	 */
+//	public Real(9.3) b() {
+//		return b;
+//	}
+
+	/**
+	 * c (Angstroms).
+	 */
+//	public Real(9.3) c() {
+//		return c;
+//	}
+
+	/**
+	 * alpha (degrees).
+	 */
+//	public Real(7.2) alpha() {
+//		return alpha;
+//	}
+
+	/**
+	 * beta (degrees).
+	 */
+//	public Real(7.2) beta() {
+//		return beta;
+//	}
+
+	/**
+	 * gamma (degrees).
+	 */
+//	public Real(7.2) gamma() {
+//		return gamma;
+//	}
+
+	/**
+	 * Space group.
+	 */
+//	public LString sGroup() {
+//		return sGroup;
+//	}
+
+	/**
+	 * Z value.
+	 */
+//	public Integer z() {
+//		return z;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

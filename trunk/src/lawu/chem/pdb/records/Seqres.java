@@ -14,40 +14,151 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Seqres {
-// COLUMNS      DATA TYPE       FIELD          DEFINITION
-// -------------------------------------------------------------------
-//  1 -  6      Record name     "SEQRES"
-//  9 - 10      Integer         serNum         Serial number of the SEQRES record
-//                                                 for the current chain. Starts at 1
-//                                                 and increments by one each line.
-//                                                 Reset to 1 for each chain.
-// 12           Character       chainID        Chain identifier. This may be any
-//                                                 single legal character, including a
-//                                                 blank which is used if there is
-//                                                 only one chain.
-// 14 - 17      Integer         numRes         Number of residues in the chain.
-//                                                 This value is repeated on every
-//                                                 record.
-// 20 - 22      Residue name    resName        Residue name.
-// 24 - 26      Residue name    resName        Residue name.
-// 28 - 30      Residue name    resName        Residue name.
-// 32 - 34      Residue name    resName        Residue name.
-// 36 - 38      Residue name    resName        Residue name.
-// 40 - 42      Residue name    resName        Residue name.
-// 44 - 46      Residue name    resName        Residue name.
-// 48 - 50      Residue name    resName        Residue name.
-// 52 - 54      Residue name    resName        Residue name.
-// 56 - 58      Residue name    resName        Residue name.
-// 60 - 62      Residue name    resName        Residue name.
-// 64 - 66      Residue name    resName        Residue name.
-// 68 - 70      Residue name    resName        Residue name.
-	public Seqres() {
+//	private Integer serNum;
+//	private Character chainID;
+//	private Integer numRes;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+//	private Residue name resName;
+
+	private final static Pattern pattern = Pattern.compile("\\ASEQRES\\Z"); //$NON-NLS-1$
+	private final static String format = "SEQRES"; //$NON-NLS-1$
+
+	public Seqres(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Serial number of the SEQRES record for the current chain. Starts at 1 and increments by one each line. Reset to 1 for each chain.
+	 */
+//	public Integer serNum() {
+//		return serNum;
+//	}
+
+	/**
+	 * Chain identifier. This may be any single legal character, including a blank which is used if there is only one chain.
+	 */
+//	public Character chainID() {
+//		return chainID;
+//	}
+
+	/**
+	 * Number of residues in the chain. This value is repeated on every record.
+	 */
+//	public Integer numRes() {
+//		return numRes;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

@@ -14,27 +14,72 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Mtrix {
-// COLUMNS       DATA TYPE          FIELD           DEFINITION
-// --------------------------------------------------------------
-//  1 - 6        Record name        "MTRIXn"        n=1, 2, or 3
-//  8 - 10       Integer            serial          Serial number.
-// 11 - 20       Real(10.6)         m[n][1]         Mn1
-// 21 - 30       Real(10.6)         m[n][2]         Mn2
-// 31 - 40       Real(10.6)         m[n][3]         Mn3
-// 46 - 55       Real(10.5)         v[n]            Vn
-// 60            Integer            iGiven         1 if coordinates for the
-//                                                 representations which are
-//                                                 approximately related by the
-//                                                 transformations of the molecule are
-//                                                 contained in the entry.  Otherwise,
-//                                                 blank.
-	public Mtrix() {
+//	private int n;
+//	private Integer serial;
+//	private Real(10.6) m[n][1];
+//	private Real(10.6) m[n][2];
+//	private Real(10.6) m[n][3];
+//	private Real(10.5) v[n];
+//	private Integer iGiven         1;
+
+	private final static Pattern pattern = Pattern.compile("\\AMTRIX(\\d)\\Z"); //$NON-NLS-1$
+	private final static String format = "MTRIX%d"; //$NON-NLS-1$
+
+	public Mtrix(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Mn1
+	 */
+//	public Real(10.6) m[n][1]() {
+//		return m[n][1];
+//	}
+
+	/**
+	 * Mn2
+	 */
+//	public Real(10.6) m[n][2]() {
+//		return m[n][2];
+//	}
+
+	/**
+	 * Mn3
+	 */
+//	public Real(10.6) m[n][3]() {
+//		return m[n][3];
+//	}
+
+	/**
+	 * Vn
+	 */
+//	public Real(10.5) v[n]() {
+//		return v[n];
+//	}
+
+	/**
+	 *  if coordinates for the epresentations which are pproximately related by the ransformations of the molecule are ontained in the entry. Otherwise, lank.
+	 */
+//	public Integer iGiven         1() {
+//		return iGiven         1;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

@@ -14,21 +14,63 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Tvect {
-// COLUMNS     DATA TYPE       FIELD       DEFINITION
-// ---------------------------------------------------
-//  1 -  6     Record name     "TVECT "
-//  8 - 10     Integer         serial      Serial number.
-// 11 - 20     Real(10.5)      t[1]        Components of translation vector.
-// 21 - 30     Real(10.5)      t[2]        Components of translation vector.
-// 31 - 40     Real(10.5)      t[3]        Components of translation vector.
-// 41 - 70     String          text        Comment.
-	public Tvect() {
+//	private Integer serial;
+//	private Real(10.5) t[1];
+//	private Real(10.5) t[2];
+//	private Real(10.5) t[3];
+//	private String text;
+
+	private final static Pattern pattern = Pattern.compile("\\ATVECT \\Z"); //$NON-NLS-1$
+	private final static String format = "TVECT "; //$NON-NLS-1$
+
+	public Tvect(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Components of translation vector.
+	 */
+//	public Real(10.5) t[1]() {
+//		return t[1];
+//	}
+
+	/**
+	 * Components of translation vector.
+	 */
+//	public Real(10.5) t[2]() {
+//		return t[2];
+//	}
+
+	/**
+	 * Components of translation vector.
+	 */
+//	public Real(10.5) t[3]() {
+//		return t[3];
+//	}
+
+	/**
+	 * Comment.
+	 */
+//	public String text() {
+//		return text;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

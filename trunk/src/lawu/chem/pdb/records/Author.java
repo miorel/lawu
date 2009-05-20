@@ -14,20 +14,39 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Author {
-// COLUMNS       DATA TYPE      FIELD         DEFINITION                             
-// -------------------------------------------------------
-//  1 -  6       Record name    "AUTHOR"                                             
-//  9 - 10       Continuation   continuation  Allows concatenation 
-//                                            of multiple records
-// 11 - 70       List           authorList    List of the author names, 
-//                                            separated by commas.
-	public Author() {
+//	private Continuation continuation;
+//	private List authorList;
+
+	private final static Pattern pattern = Pattern.compile("\\AAUTHOR\\Z"); //$NON-NLS-1$
+	private final static String format = "AUTHOR"; //$NON-NLS-1$
+
+	public Author(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Allows concatenation of multiple records
+	 */
+//	public Continuation continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * List of the author names, separated by commas.
+	 */
+//	public List authorList() {
+//		return authorList;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

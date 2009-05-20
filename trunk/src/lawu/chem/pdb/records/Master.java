@@ -14,31 +14,112 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Master {
-// COLUMNS    DATA TYPE      FIELD         DEFINITION
-// -------------------------------------------------------------------
-//  1 -  6    Record name    "MASTER"
-// 11 - 15    Integer        numRemark     Number of REMARK records
-// 16 - 20    Integer        "0"
-// 21 - 25    Integer        numHet        Number of HET records
-// 26 - 30    Integer        numHelix      Number of HELIX records
-// 31 - 35    Integer        numSheet      Number of SHEET records
-// 36 - 40    Integer        numTurn       Number of TURN records
-// 41 - 45    Integer        numSite       Number of SITE records
-// 46 - 50    Integer        numXform      Number of coordinate 
-//                                         transformation
-//                                         records (ORIGX+SCALE+MTRIX)
-// 51 - 55    Integer        numCoord      Number of atomic coordinate 
-//                                         records (ATOM+HETATM)
-// 56 - 60    Integer        numTer        Number of TER records
-// 61 - 65    Integer        numConect     Number of CONECT records
-// 66 - 70    Integer        numSeq        Number of SEQRES records
-	public Master() {
+//	private Integer numRemark;
+//	private Integ er        "0";
+//	private Integer numHet;
+//	private Integer numHelix;
+//	private Integer numSheet;
+//	private Integer numTurn;
+//	private Integer numSite;
+//	private Integer numXform;
+//	private Integer numCoord;
+//	private Integer numTer;
+//	private Integer numConect;
+//	private Integer numSeq;
+
+	private final static Pattern pattern = Pattern.compile("\\AMASTER\\Z"); //$NON-NLS-1$
+	private final static String format = "MASTER"; //$NON-NLS-1$
+
+	public Master(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Number of REMARK records
+	 */
+//	public Integer numRemark() {
+//		return numRemark;
+//	}
+
+	/**
+	 * Number of HET records
+	 */
+//	public Integer numHet() {
+//		return numHet;
+//	}
+
+	/**
+	 * Number of HELIX records
+	 */
+//	public Integer numHelix() {
+//		return numHelix;
+//	}
+
+	/**
+	 * Number of SHEET records
+	 */
+//	public Integer numSheet() {
+//		return numSheet;
+//	}
+
+	/**
+	 * Number of TURN records
+	 */
+//	public Integer numTurn() {
+//		return numTurn;
+//	}
+
+	/**
+	 * Number of SITE records
+	 */
+//	public Integer numSite() {
+//		return numSite;
+//	}
+
+	/**
+	 * Number of coordinate transformation records (ORIGX+SCALE+MTRIX)
+	 */
+//	public Integer numXform() {
+//		return numXform;
+//	}
+
+	/**
+	 * Number of atomic coordinate records (ATOM+HETATM)
+	 */
+//	public Integer numCoord() {
+//		return numCoord;
+//	}
+
+	/**
+	 * Number of TER records
+	 */
+//	public Integer numTer() {
+//		return numTer;
+//	}
+
+	/**
+	 * Number of CONECT records
+	 */
+//	public Integer numConect() {
+//		return numConect;
+//	}
+
+	/**
+	 * Number of SEQRES records
+	 */
+//	public Integer numSeq() {
+//		return numSeq;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

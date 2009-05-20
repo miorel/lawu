@@ -14,36 +14,48 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Remark {
-// COLUMNS        DATA TYPE       FIELD          DEFINITION                         
-// -------------------------------------------------------------------------------
-//  1 -  6        Record name     "REMARK"                                          
-// 10             LString(1)      "1"                                               
-// 13 - 16        LString(4)      "AUTH"         Appears on all continuation records
-// 17 - 18        Continuation    continuation   Allows a long list of authors.     
-// 20 - 70        List            authorList     List of the authors.               
-// 
-// COLUMNS        DATA TYPE       FIELD          DEFINITION                         
-// -------------------------------------------------------------------------------
-//  1 -  6        Record name     "REMARK"                                          
-// 10             LString(1)      "1"                                               
-// 13 - 16        LString(4)      "TITL"         Appears on all continuation records
-// 17 - 18        Continuation    continuation   Permits long titles.               
-// 20 - 70        LString         title          Title of the article. 
-// 
-// COLUMNS        DATA TYPE       FIELD          DEFINITION                         
-// -------------------------------------------------------------------------------
-//  1 -  6        Record name     "REMARK"                                          
-// 10             LString(1)      "1"                                               
-// 13 - 16        LString(4)      "TITL"         Appears on all continuation records
-// 17 - 18        Continuation    continuation   Permits long titles.               
-// 20 - 70        LString         title          Title of the article.
-	public Remark() {
+//	private LString(1) "1";
+//	private LString(4) "AUTH";
+//	private Continuation continuation;
+//	private List authorList;
+
+	private final static Pattern pattern = Pattern.compile("\\AREMARK\\Z"); //$NON-NLS-1$
+	private final static String format = "REMARK"; //$NON-NLS-1$
+
+	public Remark(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Appears on all continuation records
+	 */
+//	public LString(4) "AUTH"() {
+//		return "AUTH";
+//	}
+
+	/**
+	 * Allows a long list of authors.
+	 */
+//	public Continuation continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * List of the authors.
+	 */
+//	public List authorList() {
+//		return authorList;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

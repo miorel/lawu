@@ -14,30 +14,111 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Sprsde {
-// COLUMNS       DATA TYPE      FIELD         DEFINITION                             
-// ----------------------------------------------------------------------------------
-//  1 -  6       Record name    "SPRSDE"                                             
-//  9 - 10       Continuation   continuation  Allows for multiple ID codes.          
-// 12 - 20       Date           sprsdeDate    Date this entry superseded the         
-//                                            listed entries. This field is not      
-//                                            copied on continuations.               
-// 22 - 25       IDcode         idCode        ID code of this entry.  This field     
-//                                            is not copied on continuations.        
-// 32 - 35       IDcode         sIdCode       ID code of a superseded entry.         
-// 37 - 40       IDcode         sIdCode       ID code of a superseded entry.         
-// 42 - 45       IDcode         sIdCode       ID code of a superseded entry.         
-// 47 - 50       IDcode         sIdCode       ID code of a superseded entry.         
-// 52 - 55       IDcode         sIdCode       ID code of a superseded entry.         
-// 57 - 60       IDcode         sIdCode       ID code of a superseded entry.         
-// 62 - 65       IDcode         sIdCode       ID code of a superseded entry.         
-// 67 - 70       IDcode         sIdCode       ID code of a superseded entry.         
-	public Sprsde() {
+//	private Continuation continuation;
+//	private Date sprsdeDate;
+//	private IDcode idCode;
+//	private IDcode sIdCode;
+//	private IDcode sIdCode;
+//	private IDcode sIdCode;
+//	private IDcode sIdCode;
+//	private IDcode sIdCode;
+//	private IDcode sIdCode;
+//	private IDcode sIdCode;
+//	private IDcode sIdCode;
+
+	private final static Pattern pattern = Pattern.compile("\\ASPRSDE\\Z"); //$NON-NLS-1$
+	private final static String format = "SPRSDE"; //$NON-NLS-1$
+
+	public Sprsde(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Allows for multiple ID codes.
+	 */
+//	public Continuation continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * Date this entry superseded the listed entries. This field is not copied on continuations.
+	 */
+//	public Date sprsdeDate() {
+//		return sprsdeDate;
+//	}
+
+	/**
+	 * ID code of this entry. This field is not copied on continuations.
+	 */
+//	public IDcode idCode() {
+//		return idCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
+
+	/**
+	 * ID code of a superseded entry.
+	 */
+//	public IDcode sIdCode() {
+//		return sIdCode;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

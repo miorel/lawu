@@ -14,21 +14,39 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Expdta {
-// COLUMNS       DATA TYPE      FIELD         DEFINITION                          
-// -------------------------------------------------------
-//  1 -  6       Record name    "EXPDTA"                                          
-//  9 - 10       Continuation   continuation  Allows concatenation 
-//                                            of multiple records
-// 11 - 70       SList          technique     The experimental technique(s) 
-//                                            with optional comment describing 
-//                                            the sample or experiment. 
-	public Expdta() {
+//	private Continuation continuation;
+//	private SList technique;
+
+	private final static Pattern pattern = Pattern.compile("\\AEXPDTA\\Z"); //$NON-NLS-1$
+	private final static String format = "EXPDTA"; //$NON-NLS-1$
+
+	public Expdta(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Allows concatenation of multiple records
+	 */
+//	public Continuation continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * The experimental technique(s) with optional comment describing the sample or experiment.
+	 */
+//	public SList technique() {
+//		return technique;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

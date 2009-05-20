@@ -14,20 +14,56 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Origx {
-// COLUMNS    DATA TYPE        FIELD       DEFINITION
-// ---------------------------------------------------
-//  1 -  6    Record name      "ORIGXn"    n=1, 2, or 3
-// 11 - 20    Real(10.6)       o[n][1]     On1
-// 21 - 30    Real(10.6)       o[n][2]     On2
-// 31 - 40    Real(10.6)       o[n][3]     On3
-// 46 - 55    Real(10.5)       t[n]        Tn
-	public Origx() {
+//	private int n;
+//	private Real(10.6) o[n][1];
+//	private Real(10.6) o[n][2];
+//	private Real(10.6) o[n][3];
+//	private Real(10.5) t[n];
+
+	private final static Pattern pattern = Pattern.compile("\\AORIGX(\\d)\\Z"); //$NON-NLS-1$
+	private final static String format = "ORIGX%d"; //$NON-NLS-1$
+
+	public Origx(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * On1
+	 */
+//	public Real(10.6) o[n][1]() {
+//		return o[n][1];
+//	}
+
+	/**
+	 * On2
+	 */
+//	public Real(10.6) o[n][2]() {
+//		return o[n][2];
+//	}
+
+	/**
+	 * On3
+	 */
+//	public Real(10.6) o[n][3]() {
+//		return o[n][3];
+//	}
+
+	/**
+	 * Tn
+	 */
+//	public Real(10.5) t[n]() {
+//		return t[n];
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

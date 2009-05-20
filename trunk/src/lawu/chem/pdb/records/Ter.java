@@ -14,22 +14,63 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Ter {
-// COLUMNS     DATA TYPE         FIELD           DEFINITION
-// ------------------------------------------------------
-//  1 - 6      Record name       "TER     "
-//  7 - 11     Integer           serial          Serial number.
-// 18 - 20     Residue name      resName         Residue name.
-// 22          Character         chainID         Chain identifier.
-// 23 - 26     Integer           resSeq          Residue sequence 
-//                                               number.
-// 27          AChar             iCode           Insertion code.
-	public Ter() {
+//	private Integer serial;
+//	private Residue name resName;
+//	private Character chainID;
+//	private Integer resSeq;
+//	private AChar iCode;
+
+	private final static Pattern pattern = Pattern.compile("\\ATER   \\Z"); //$NON-NLS-1$
+	private final static String format = "TER   "; //$NON-NLS-1$
+
+	public Ter(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID() {
+//		return chainID;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer resSeq() {
+//		return resSeq;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar iCode() {
+//		return iCode;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

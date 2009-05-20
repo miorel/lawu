@@ -14,21 +14,47 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Hetsyn {
-// COLUMNS    DATA TYPE       FIELD           DEFINITION
-// --------------------------------------------------------
-//  1 -  6    Record name     "HETSYN"
-//  9 - 10    Continuation    continuation    Allows concatenation of
-//                                            multiple records.
-// 12 - 14    LString(3)      hetID           Het identifier,
-//                                            right-justified.
-// 16 - 70    SList           hetSynonyms     List of synonyms.
-	public Hetsyn() {
+//	private Continuation continuation;
+//	private LString(3) hetID;
+//	private SList hetSynonyms;
+
+	private final static Pattern pattern = Pattern.compile("\\AHETSYN\\Z"); //$NON-NLS-1$
+	private final static String format = "HETSYN"; //$NON-NLS-1$
+
+	public Hetsyn(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Allows concatenation of multiple records.
+	 */
+//	public Continuation continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * Het identifier, right-justified.
+	 */
+//	public LString(3) hetID() {
+//		return hetID;
+//	}
+
+	/**
+	 * List of synonyms.
+	 */
+//	public SList hetSynonyms() {
+//		return hetSynonyms;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

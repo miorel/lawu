@@ -14,21 +14,63 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Conect {
-// COLUMNS       DATA TYPE       FIELD         DEFINITION
-// -------------------------------------------------------
-//  1 -  6       Record name     "CONECT"
-//  7 - 11       Integer         serial        Atom serial number
-// 12 - 16       Integer         serial        Serial number of bonded atom
-// 17 - 21       Integer         serial        Serial number of bonded atom
-// 22 - 26       Integer         serial        Serial number of bonded atom
-// 27 - 31       Integer         serial        Serial number of bonded atom
-	public Conect() {
+//	private Integer serial;
+//	private Integer serial;
+//	private Integer serial;
+//	private Integer serial;
+//	private Integer serial;
+
+	private final static Pattern pattern = Pattern.compile("\\ACONECT\\Z"); //$NON-NLS-1$
+	private final static String format = "CONECT"; //$NON-NLS-1$
+
+	public Conect(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Atom serial number
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Serial number of bonded atom
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Serial number of bonded atom
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Serial number of bonded atom
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Serial number of bonded atom
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

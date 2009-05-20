@@ -14,19 +14,47 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Caveat {
-// COLUMNS      DATA TYPE        FIELD               DEFINITION
-// ----------------------------------------------------------------------
-//  1 - 6       Record name      "CAVEAT"
-//  9 - 10      Continuation     continuation      Allows concatenation of multiple records.
-// 12 - 15      IDcode           idCode            PDB ID code of this entry.
-// 20 - 70      String           comment           Free text giving the reason for the CAVEAT.
-	public Caveat() {
+//	private Continuation continuation      Al;
+//	private IDcode idCode            PD;
+//	private String comment           Fr;
+
+	private final static Pattern pattern = Pattern.compile("\\ACAVEAT\\Z"); //$NON-NLS-1$
+	private final static String format = "CAVEAT"; //$NON-NLS-1$
+
+	public Caveat(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * lows concatenation of multiple records.
+	 */
+//	public Continuation continuation      Al() {
+//		return continuation      Al;
+//	}
+
+	/**
+	 * B ID code of this entry.
+	 */
+//	public IDcode idCode            PD() {
+//		return idCode            PD;
+//	}
+
+	/**
+	 * ee text giving the reason for the CAVEAT.
+	 */
+//	public String comment           Fr() {
+//		return comment           Fr;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

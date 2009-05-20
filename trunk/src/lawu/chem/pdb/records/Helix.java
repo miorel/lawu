@@ -14,41 +14,127 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Helix {
-// COLUMNS       DATA TYPE        FIELD        DEFINITION
-// --------------------------------------------------------------------
-//  1 -  6       Record name      "HELIX "
-//  8 - 10       Integer          serNum       Serial number of the helix.
-//                                             This starts at 1 and increases
-//                                             incrementally.
-// 12 - 14       LString(3)       helixID      Helix identifier. In addition
-//                                             to a serial number, each helix is
-//                                             given an alphanumeric character
-//                                             helix identifier.
-// 16 - 18       Residue name     initResName  Name of the initial residue.
-// 20            Character        initChainID  Chain identifier for the chain
-//                                             containing this helix.
-// 22 - 25       Integer          initSeqNum   Sequence number of the initial
-//                                             residue.
-// 26            AChar            initICode    Insertion code of the initial
-//                                             residue.
-// 28 - 30       Residue name     endResName   Name of the terminal residue of
-//                                             the helix.
-// 32            Character        endChainID   Chain identifier for the chain
-//                                             containing this helix.
-// 34 - 37       Integer          endSeqNum    Sequence number of the terminal
-//                                             residue.
-// 38            AChar            endICode     Insertion code of the terminal
-//                                             residue.
-// 39 - 40       Integer          helixClass   Helix class (see below).
-// 41 - 70       String           comment      Comment about this helix.
-// 72 - 76       Integer          length       Length of this helix.
-	public Helix() {
+//	private Integer serNum;
+//	private LString(3) helixID;
+//	private Residue name initResName;
+//	private Character initChainID;
+//	private Integer initSeqNum;
+//	private AChar initICode;
+//	private Residue name endResName;
+//	private Character endChainID;
+//	private Integer endSeqNum;
+//	private AChar endICode;
+//	private Integer helixClass;
+//	private String comment;
+//	private Integer length;
+
+	private final static Pattern pattern = Pattern.compile("\\AHELIX \\Z"); //$NON-NLS-1$
+	private final static String format = "HELIX "; //$NON-NLS-1$
+
+	public Helix(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Serial number of the helix. This starts at 1 and increases incrementally.
+	 */
+//	public Integer serNum() {
+//		return serNum;
+//	}
+
+	/**
+	 * Helix identifier. In addition to a serial number, each helix is given an alphanumeric character helix identifier.
+	 */
+//	public LString(3) helixID() {
+//		return helixID;
+//	}
+
+	/**
+	 * Name of the initial residue.
+	 */
+//	public Residue name initResName() {
+//		return initResName;
+//	}
+
+	/**
+	 * Chain identifier for the chain containing this helix.
+	 */
+//	public Character initChainID() {
+//		return initChainID;
+//	}
+
+	/**
+	 * Sequence number of the initial residue.
+	 */
+//	public Integer initSeqNum() {
+//		return initSeqNum;
+//	}
+
+	/**
+	 * Insertion code of the initial residue.
+	 */
+//	public AChar initICode() {
+//		return initICode;
+//	}
+
+	/**
+	 * Name of the terminal residue of the helix.
+	 */
+//	public Residue name endResName() {
+//		return endResName;
+//	}
+
+	/**
+	 * Chain identifier for the chain containing this helix.
+	 */
+//	public Character endChainID() {
+//		return endChainID;
+//	}
+
+	/**
+	 * Sequence number of the terminal residue.
+	 */
+//	public Integer endSeqNum() {
+//		return endSeqNum;
+//	}
+
+	/**
+	 * Insertion code of the terminal residue.
+	 */
+//	public AChar endICode() {
+//		return endICode;
+//	}
+
+	/**
+	 * Helix class (see below).
+	 */
+//	public Integer helixClass() {
+//		return helixClass;
+//	}
+
+	/**
+	 * Comment about this helix.
+	 */
+//	public String comment() {
+//		return comment;
+//	}
+
+	/**
+	 * Length of this helix.
+	 */
+//	public Integer length() {
+//		return length;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

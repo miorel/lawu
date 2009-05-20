@@ -14,23 +14,71 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Het {
-// COLUMNS     DATA TYPE     FIELD         DEFINITION
-// ------------------------------------------------------
-//  1 -  6     Record name   "HET      "
-//  8 - 10     LString(3)    hetID         Het identifier, right-justified.
-// 13          Character     ChainID       Chain identifier.
-// 14 - 17     Integer       seqNum        Sequence number.
-// 18          AChar         iCode         Insertion code.
-// 21 - 25     Integer       numHetAtoms   Number of HETATM records for the
-//                                         group present in the entry.
-// 31 - 70     String        text          Text describing Het group.
-	public Het() {
+//	private LString(3) hetID;
+//	private Character ChainID;
+//	private Integer seqNum;
+//	private AChar iCode;
+//	private Integer numHetAtoms;
+//	private String text;
+
+	private final static Pattern pattern = Pattern.compile("\\AHET   \\Z"); //$NON-NLS-1$
+	private final static String format = "HET   "; //$NON-NLS-1$
+
+	public Het(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Het identifier, right-justified.
+	 */
+//	public LString(3) hetID() {
+//		return hetID;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character ChainID() {
+//		return ChainID;
+//	}
+
+	/**
+	 * Sequence number.
+	 */
+//	public Integer seqNum() {
+//		return seqNum;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar iCode() {
+//		return iCode;
+//	}
+
+	/**
+	 * Number of HETATM records for the group present in the entry.
+	 */
+//	public Integer numHetAtoms() {
+//		return numHetAtoms;
+//	}
+
+	/**
+	 * Text describing Het group.
+	 */
+//	public String text() {
+//		return text;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

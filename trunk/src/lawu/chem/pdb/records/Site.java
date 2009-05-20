@@ -14,54 +14,175 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Site {
-// COLUMNS       DATA TYPE         FIELD            DEFINITION
-// ------------------------------------------------------------------------
-//  1 -  6       Record name       "SITE    "
-//  8 - 10       Integer           seqNum      Sequence number.
-// 12 - 14       LString(3)        siteID      Site name.
-// 16 - 17       Integer           numRes      Number of residues comprising 
-//                                             site.
-// 19 - 21       Residue name      resName1    Residue name for first residue
-//                                             comprising site.
-// 23            Character         chainID1    Chain identifier for first residue
-//                                             comprising site.
-// 24 - 27       Integer           seq1        Residue sequence number for first
-//                                             residue comprising site.
-// 28            AChar             iCode1      Insertion code for first residue
-//                                             comprising site.
-// 30 - 32       Residue name      resName2    Residue name for second residue
-//                                             comprising site.
-// 34            Character         chainID2    Chain identifier for second 
-//                                             residue
-//                                             comprising site.
-// 35 - 38       Integer           seq2        Residue sequence number for second
-//                                             residue comprising site.
-// 39            AChar             iCode2      Insertion code for second residue
-//                                             comprising site.
-// 41 - 43       Residue name      resName3    Residue name for third residue
-//                                             comprising site.
-// 45            Character         chainID3    Chain identifier for third residue
-//                                             comprising site.
-// 46 - 49       Integer           seq3        Residue sequence number for third
-//                                             residue comprising site.
-// 50            AChar             iCode3      Insertion code for third residue
-//                                             comprising site.
-// 52 - 54       Residue name      resName4    Residue name for fourth residue
-//                                             comprising site.
-// 56            Character         chainID4    Chain identifier for fourth 
-//                                             residue
-//                                             comprising site.
-// 57 - 60       Integer           seq4        Residue sequence number for fourth
-//                                             residue comprising site.
-// 61            AChar             iCode4      Insertion code for fourth residue
-//                                             comprising site.
-	public Site() {
+//	private Integer seqNum      Seque;
+//	private LString(3) siteID      Site;
+//	private Integer numRes      Numbe;
+//	private Residue name resName1    Resid;
+//	private Character chainID1    Chain;
+//	private Integer seq1        Resid;
+//	private AChar iCode1      Inser;
+//	private Residue name resName2    Resid;
+//	private Character chainID2    Chain;
+//	private Integer seq2        Resid;
+//	private AChar iCode2      Inser;
+//	private Residue name resName3    Resid;
+//	private Character chainID3    Chain;
+//	private Integer seq3        Resid;
+//	private AChar iCode3      Inser;
+//	private Residue name resName4    Resid;
+//	private Character chainID4    Chain;
+//	private Integer seq4        Resid;
+//	private AChar iCode4      Inser;
+
+	private final static Pattern pattern = Pattern.compile("\\ASITE  \\Z"); //$NON-NLS-1$
+	private final static String format = "SITE  "; //$NON-NLS-1$
+
+	public Site(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * nce number.
+	 */
+//	public Integer seqNum      Seque() {
+//		return seqNum      Seque;
+//	}
+
+	/**
+	 * name.
+	 */
+//	public LString(3) siteID      Site() {
+//		return siteID      Site;
+//	}
+
+	/**
+	 * r of residues comprising
+	 */
+//	public Integer numRes      Numbe() {
+//		return numRes      Numbe;
+//	}
+
+	/**
+	 * ue name for first residue ising site.
+	 */
+//	public Residue name resName1    Resid() {
+//		return resName1    Resid;
+//	}
+
+	/**
+	 *  identifier for first residue ising site.
+	 */
+//	public Character chainID1    Chain() {
+//		return chainID1    Chain;
+//	}
+
+	/**
+	 * ue sequence number for first ue comprising site.
+	 */
+//	public Integer seq1        Resid() {
+//		return seq1        Resid;
+//	}
+
+	/**
+	 * tion code for first residue ising site.
+	 */
+//	public AChar iCode1      Inser() {
+//		return iCode1      Inser;
+//	}
+
+	/**
+	 * ue name for second residue ising site.
+	 */
+//	public Residue name resName2    Resid() {
+//		return resName2    Resid;
+//	}
+
+	/**
+	 *  identifier for second ue ising site.
+	 */
+//	public Character chainID2    Chain() {
+//		return chainID2    Chain;
+//	}
+
+	/**
+	 * ue sequence number for second ue comprising site.
+	 */
+//	public Integer seq2        Resid() {
+//		return seq2        Resid;
+//	}
+
+	/**
+	 * tion code for second residue ising site.
+	 */
+//	public AChar iCode2      Inser() {
+//		return iCode2      Inser;
+//	}
+
+	/**
+	 * ue name for third residue ising site.
+	 */
+//	public Residue name resName3    Resid() {
+//		return resName3    Resid;
+//	}
+
+	/**
+	 *  identifier for third residue ising site.
+	 */
+//	public Character chainID3    Chain() {
+//		return chainID3    Chain;
+//	}
+
+	/**
+	 * ue sequence number for third ue comprising site.
+	 */
+//	public Integer seq3        Resid() {
+//		return seq3        Resid;
+//	}
+
+	/**
+	 * tion code for third residue ising site.
+	 */
+//	public AChar iCode3      Inser() {
+//		return iCode3      Inser;
+//	}
+
+	/**
+	 * ue name for fourth residue ising site.
+	 */
+//	public Residue name resName4    Resid() {
+//		return resName4    Resid;
+//	}
+
+	/**
+	 *  identifier for fourth ue ising site.
+	 */
+//	public Character chainID4    Chain() {
+//		return chainID4    Chain;
+//	}
+
+	/**
+	 * ue sequence number for fourth ue comprising site.
+	 */
+//	public Integer seq4        Resid() {
+//		return seq4        Resid;
+//	}
+
+	/**
+	 * tion code for fourth residue ising site.
+	 */
+//	public AChar iCode4      Inser() {
+//		return iCode4      Inser;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

@@ -14,34 +14,135 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Sigatm {
-// COLUMNS      DATA TYPE       FIELD       DEFINITION
-// -----------------------------------------------------------------------
-//  1 -  6      Record name     "SIGATM"
-//  7 - 11      Integer         serial       Atom serial number.
-// 13 - 16      Atom            name         Atom name.
-// 17           Character       altLoc       Alternate location indicator.
-// 18 - 20      Residue name    resName      Residue name.
-// 22           Character       chainID      Chain identifier.
-// 23 - 26      Integer         resSeq       Residue sequence number.
-// 27           AChar           iCode        Insertion code.
-// 31 - 38      Real(8.3)       sigX         Standard deviations of the stored
-//                                           coordinates (Angstroms).
-// 39 - 46      Real(8.3)       sigY         Standard deviations of the stored
-//                                           coordinates (Angstroms).
-// 47 - 54      Real(8.3)       sigZ         Standard deviations of the stored
-//                                           coordinates (Angstroms).
-// 55 - 60      Real(6.2)       sigOcc       Standard deviation of occupancy.
-// 61 - 66      Real(6.2)       sigTemp      Standard deviation of temperature
-//                                           factor.
-// 77 - 78      LString(2)      element      Element symbol, right-justified.
-// 79 - 80      LString(2)      charge       Charge on the atom.
-	public Sigatm() {
+//	private Integer serial;
+//	private Atom name;
+//	private Character altLoc;
+//	private Residue name resName;
+//	private Character chainID;
+//	private Integer resSeq;
+//	private AChar iCode;
+//	private Real(8.3) sigX;
+//	private Real(8.3) sigY;
+//	private Real(8.3) sigZ;
+//	private Real(6.2) sigOcc;
+//	private Real(6.2) sigTemp;
+//	private LString(2) element;
+//	private LString(2) charge;
+
+	private final static Pattern pattern = Pattern.compile("\\ASIGATM\\Z"); //$NON-NLS-1$
+	private final static String format = "SIGATM"; //$NON-NLS-1$
+
+	public Sigatm(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 *  Atom serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 *  Atom name.
+	 */
+//	public Atom name() {
+//		return name;
+//	}
+
+	/**
+	 *  Alternate location indicator.
+	 */
+//	public Character altLoc() {
+//		return altLoc;
+//	}
+
+	/**
+	 *  Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 *  Chain identifier.
+	 */
+//	public Character chainID() {
+//		return chainID;
+//	}
+
+	/**
+	 *  Residue sequence number.
+	 */
+//	public Integer resSeq() {
+//		return resSeq;
+//	}
+
+	/**
+	 *  Insertion code.
+	 */
+//	public AChar iCode() {
+//		return iCode;
+//	}
+
+	/**
+	 *  Standard deviations of the stored coordinates (Angstroms).
+	 */
+//	public Real(8.3) sigX() {
+//		return sigX;
+//	}
+
+	/**
+	 *  Standard deviations of the stored coordinates (Angstroms).
+	 */
+//	public Real(8.3) sigY() {
+//		return sigY;
+//	}
+
+	/**
+	 *  Standard deviations of the stored coordinates (Angstroms).
+	 */
+//	public Real(8.3) sigZ() {
+//		return sigZ;
+//	}
+
+	/**
+	 *  Standard deviation of occupancy.
+	 */
+//	public Real(6.2) sigOcc() {
+//		return sigOcc;
+//	}
+
+	/**
+	 *  Standard deviation of temperature factor.
+	 */
+//	public Real(6.2) sigTemp() {
+//		return sigTemp;
+//	}
+
+	/**
+	 *  Element symbol, right-justified.
+	 */
+//	public LString(2) element() {
+//		return element;
+//	}
+
+	/**
+	 *  Charge on the atom.
+	 */
+//	public LString(2) charge() {
+//		return charge;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

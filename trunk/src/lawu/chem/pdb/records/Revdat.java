@@ -14,33 +14,95 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Revdat {
-// COLUMNS    DATA TYPE      FIELD         DEFINITION                             
-// --------------------------------------------------------
-//  1 -  6    Record name    "REVDAT"                                             
-//  8 - 10    Integer        modNum        Modification number.                   
-// 11 - 12    Continuation   continuation  Allows concatenation of multiple records
-// 14 - 22    Date           modDate       Date of modification (or release for   
-//                                         new entries).  This is not repeated    
-//                                         on continuation lines.                 
-// 24 - 28    String(5)      modId         Identifies this particular             
-//                                         modification.  It links to the         
-//                                         archive used internally by PDB.        
-//                                         This is not repeated on continuation lines
-// 32         Integer        modType       An integer identifying the type of     
-//                                         modification.  In case of revisions    
-//                                         with more than one possible modType,   
-//                                         the highest value applicable will be assigned
-// 40 - 45    LString(6)     record        Name of the modified record.           
-// 47 - 52    LString(6)     record        Name of the modified record.           
-// 54 - 59    LString(6)     record        Name of the modified record.           
-// 61 - 66    LString(6)     record        Name of the modified record.
-	public Revdat() {
+//	private Integer modNum;
+//	private Continuation continuation;
+//	private Date modDate;
+//	private String(5) modId;
+//	private Integer modType;
+//	private LString(6) record;
+//	private LString(6) record;
+//	private LString(6) record;
+//	private LString(6) record;
+
+	private final static Pattern pattern = Pattern.compile("\\AREVDAT\\Z"); //$NON-NLS-1$
+	private final static String format = "REVDAT"; //$NON-NLS-1$
+
+	public Revdat(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Modification number.
+	 */
+//	public Integer modNum() {
+//		return modNum;
+//	}
+
+	/**
+	 * Allows concatenation of multiple records
+	 */
+//	public Continuation continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * Date of modification (or release for new entries). This is not repeated on continuation lines.
+	 */
+//	public Date modDate() {
+//		return modDate;
+//	}
+
+	/**
+	 * Identifies this particular modification. It links to the archive used internally by PDB. This is not repeated on continuation lines
+	 */
+//	public String(5) modId() {
+//		return modId;
+//	}
+
+	/**
+	 * An integer identifying the type of modification. In case of revisions with more than one possible modType, the highest value applicable will be assigned
+	 */
+//	public Integer modType() {
+//		return modType;
+//	}
+
+	/**
+	 * Name of the modified record.
+	 */
+//	public LString(6) record() {
+//		return record;
+//	}
+
+	/**
+	 * Name of the modified record.
+	 */
+//	public LString(6) record() {
+//		return record;
+//	}
+
+	/**
+	 * Name of the modified record.
+	 */
+//	public LString(6) record() {
+//		return record;
+//	}
+
+	/**
+	 * Name of the modified record.
+	 */
+//	public LString(6) record() {
+//		return record;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

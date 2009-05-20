@@ -14,19 +14,39 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Keywds {
-// COLUMNS        DATA TYPE       FIELD          DEFINITION                         
-// ---------------------------------------------------------------------------------
-//  1 -  6        Record name     "KEYWDS"                                          
-//  9 - 10        Continuation    continuation   Allows concatenation of records if necessary
-// 11 - 70        List            keywds         Comma-separated list of keywords   
-//                                               relevant to the entry.            
-	public Keywds() {
+//	private Continuation continuation;
+//	private List keywds;
+
+	private final static Pattern pattern = Pattern.compile("\\AKEYWDS\\Z"); //$NON-NLS-1$
+	private final static String format = "KEYWDS"; //$NON-NLS-1$
+
+	public Keywds(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Allows concatenation of records if necessary
+	 */
+//	public Continuation continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * Comma-separated list of keywords relevant to the entry.
+	 */
+//	public List keywds() {
+//		return keywds;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

@@ -14,27 +14,111 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Obslte {
-// COLUMNS    DATA TYPE          FIELD               DEFINITION
-// -----------------------------------------------------------------------------
-//  1 -  6    Record name      "OBSLTE"
-//  9 - 10    Continuation     continuation  Allows concatenation of multiple records
-// 12 - 20    Date             repDate       Date that this entry was replaced.
-// 22 - 25    IDcode           idCode        ID code of this entry.
-// 32 - 35    IDcode           rIdCode       ID code of entry that replaced this one.
-// 37 - 40    IDcode           rIdCode       ID code of entry that replaced this one.
-// 42 - 45    IDcode           rIdCode       ID code of entry that replaced this one.
-// 47 - 50    IDcode           rIdCode       ID code of entry that replaced this one.
-// 52 - 55    IDcode           rIdCode       ID code of entry that replaced this one.
-// 57 - 60    IDcode           rIdCode       ID code of entry that replaced this one.
-// 62 - 65    IDcode           rIdCode       ID code of entry that replaced this one.
-// 67 - 70    IDcode           rIdCode       ID code of entry that replaced this one.
-	public Obslte() {
+//	private Continuation     co ntinuation  Allows c;
+//	private Date             re pDate       Date tha;
+//	private IDcode           id Code        ID code;
+//	private IDcode           rI dCode       ID code;
+//	private IDcode           rI dCode       ID code;
+//	private IDcode           rI dCode       ID code;
+//	private IDcode           rI dCode       ID code;
+//	private IDcode           rI dCode       ID code;
+//	private IDcode           rI dCode       ID code;
+//	private IDcode           rI dCode       ID code;
+//	private IDcode           rI dCode       ID code;
+
+	private final static Pattern pattern = Pattern.compile("\\AOBSLTE\\Z"); //$NON-NLS-1$
+	private final static String format = "OBSLTE"; //$NON-NLS-1$
+
+	public Obslte(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * oncatenation of multiple records
+	 */
+//	public Continuation     co ntinuation  Allows c() {
+//		return ntinuation  Allows c;
+//	}
+
+	/**
+	 * t this entry was replaced.
+	 */
+//	public Date             re pDate       Date tha() {
+//		return pDate       Date tha;
+//	}
+
+	/**
+	 * of this entry.
+	 */
+//	public IDcode           id Code        ID code() {
+//		return Code        ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
+
+	/**
+	 * of entry that replaced this one.
+	 */
+//	public IDcode           rI dCode       ID code() {
+//		return dCode       ID code;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

@@ -14,40 +14,127 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Dbref {
-// COLUMNS       DATA TYPE          FIELD          DEFINITION
-// ----------------------------------------------------------------
-//  1 - 6        Record name        "DBREF "
-//  8 - 11       IDcode             idCode         ID code of this entry.
-// 13            Character          chainID        Chain identifier.
-// 15 - 18       Integer            seqBegin       Initial sequence number 
-//                                                 of the PDB sequence segment.
-// 19            AChar              insertBegin    Initial insertion code 
-//                                                 of the PDB sequence segment.
-// 21 - 24       Integer            seqEnd         Ending sequence number 
-//                                                 of the PDB sequence segment.
-// 25            AChar              insertEnd      Ending insertion code 
-//                                                 of the PDB sequence segment.
-// 27 - 32       LString            database       Sequence database name. 
-// 34 - 41       LString            dbAccession    Sequence database accession code.
-// 43 - 54      LString            dbIdCode        Sequence database 
-//                                                 identification code.
-// 56 - 60      Integer            dbseqBegin      Initial sequence number of the
-//                                                 database seqment.
-// 61           AChar              idbnsBeg        Insertion code of initial residue
-//                                                 of the segment, if PDB is the
-//                                                 reference.
-// 63 - 67      Integer            dbseqEnd        Ending sequence number of the
-//                                                 database segment.
-// 68           AChar              dbinsEnd        Insertion code of the ending
-//                                                 residue of the segment, if PDB is
-//                                                 the reference.
-	public Dbref() {
+//	private IDcode idCode;
+//	private Character chainID;
+//	private Integer seqBegin;
+//	private AChar insertBegin;
+//	private Integer seqEnd;
+//	private AChar insertEnd;
+//	private LString database;
+//	private LString dbAccession;
+//	private String            d bIdCode;
+//	private nteger            d bseqBegin;
+//	private Char              i dbnsBeg;
+//	private nteger            d bseqEnd;
+//	private Char              d binsEnd;
+
+	private final static Pattern pattern = Pattern.compile("\\ADBREF \\Z"); //$NON-NLS-1$
+	private final static String format = "DBREF "; //$NON-NLS-1$
+
+	public Dbref(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * ID code of this entry.
+	 */
+//	public IDcode idCode() {
+//		return idCode;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID() {
+//		return chainID;
+//	}
+
+	/**
+	 * Initial sequence number of the PDB sequence segment.
+	 */
+//	public Integer seqBegin() {
+//		return seqBegin;
+//	}
+
+	/**
+	 * Initial insertion code of the PDB sequence segment.
+	 */
+//	public AChar insertBegin() {
+//		return insertBegin;
+//	}
+
+	/**
+	 * Ending sequence number of the PDB sequence segment.
+	 */
+//	public Integer seqEnd() {
+//		return seqEnd;
+//	}
+
+	/**
+	 * Ending insertion code of the PDB sequence segment.
+	 */
+//	public AChar insertEnd() {
+//		return insertEnd;
+//	}
+
+	/**
+	 * Sequence database name.
+	 */
+//	public LString database() {
+//		return database;
+//	}
+
+	/**
+	 * Sequence database accession code.
+	 */
+//	public LString dbAccession() {
+//		return dbAccession;
+//	}
+
+	/**
+	 * Sequence database identification code.
+	 */
+//	public String            d bIdCode() {
+//		return bIdCode;
+//	}
+
+	/**
+	 * Initial sequence number of the database seqment.
+	 */
+//	public nteger            d bseqBegin() {
+//		return bseqBegin;
+//	}
+
+	/**
+	 * Insertion code of initial residue of the segment, if PDB is the reference.
+	 */
+//	public Char              i dbnsBeg() {
+//		return dbnsBeg;
+//	}
+
+	/**
+	 * Ending sequence number of the database segment.
+	 */
+//	public nteger            d bseqEnd() {
+//		return bseqEnd;
+//	}
+
+	/**
+	 * Insertion code of the ending residue of the segment, if PDB is the reference.
+	 */
+//	public Char              d binsEnd() {
+//		return binsEnd;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

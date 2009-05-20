@@ -14,27 +14,111 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Ssbond {
-// COLUMNS        DATA TYPE       FIELD         DEFINITION
-// -------------------------------------------------------------------
-//  1 -  6        Record name     "SSBOND"
-//  8 - 10        Integer         serNum       Serial number.
-// 12 - 14        LString(3)      "CYS"        Residue name.
-// 16             Character       chainID1     Chain identifier.
-// 18 - 21        Integer         seqNum1      Residue sequence number.
-// 22             AChar           icode1       Insertion code.
-// 26 - 28        LString(3)      "CYS"        Residue name.
-// 30             Character       chainID2     Chain identifier.
-// 32 - 35        Integer         seqNum2      Residue sequence number.
-// 36             AChar           icode2       Insertion code.
-// 60 - 65        SymOP           sym1         Symmetry oper for 1st resid
-// 67 - 72        SymOP           sym2         Symmetry oper for 2nd resid
-	public Ssbond() {
+//	private Integer serNum       S;
+//	private LString(3) "CYS"        R;
+//	private Character chainID1     C;
+//	private Integer seqNum1      R;
+//	private AChar icode1       I;
+//	private LString(3) "CYS"        R;
+//	private Character chainID2     C;
+//	private Integer seqNum2      R;
+//	private AChar icode2       I;
+//	private SymOP sym1         S;
+//	private SymOP sym2         S;
+
+	private final static Pattern pattern = Pattern.compile("\\ASSBOND\\Z"); //$NON-NLS-1$
+	private final static String format = "SSBOND"; //$NON-NLS-1$
+
+	public Ssbond(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * erial number.
+	 */
+//	public Integer serNum       S() {
+//		return serNum       S;
+//	}
+
+	/**
+	 * esidue name.
+	 */
+//	public LString(3) "CYS"        R() {
+//		return "CYS"        R;
+//	}
+
+	/**
+	 * hain identifier.
+	 */
+//	public Character chainID1     C() {
+//		return chainID1     C;
+//	}
+
+	/**
+	 * esidue sequence number.
+	 */
+//	public Integer seqNum1      R() {
+//		return seqNum1      R;
+//	}
+
+	/**
+	 * nsertion code.
+	 */
+//	public AChar icode1       I() {
+//		return icode1       I;
+//	}
+
+	/**
+	 * esidue name.
+	 */
+//	public LString(3) "CYS"        R() {
+//		return "CYS"        R;
+//	}
+
+	/**
+	 * hain identifier.
+	 */
+//	public Character chainID2     C() {
+//		return chainID2     C;
+//	}
+
+	/**
+	 * esidue sequence number.
+	 */
+//	public Integer seqNum2      R() {
+//		return seqNum2      R;
+//	}
+
+	/**
+	 * nsertion code.
+	 */
+//	public AChar icode2       I() {
+//		return icode2       I;
+//	}
+
+	/**
+	 * ymmetry oper for 1st resid
+	 */
+//	public SymOP sym1         S() {
+//		return sym1         S;
+//	}
+
+	/**
+	 * ymmetry oper for 2nd resid
+	 */
+//	public SymOP sym2         S() {
+//		return sym2         S;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

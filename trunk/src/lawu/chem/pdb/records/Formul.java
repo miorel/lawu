@@ -14,21 +14,63 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Formul {
-// COLUMNS     DATA TYPE       FIELD          DEFINITION
-// -------------------------------------------------------
-//  1 -  6     Record name     "FORMUL"
-//  9 - 10     Integer         compNum        Component number.
-// 13 - 15     LString(3)      hetID          Het identifier.
-// 17 - 18     Integer         continuation   Continuation number.
-// 19          Character       asterisk       "*" for water.
-// 20 - 70     String          text           Chemical formula.
-	public Formul() {
+//	private Integer compNum;
+//	private LString(3) hetID;
+//	private Integer continuation;
+//	private Character asterisk;
+//	private String text;
+
+	private final static Pattern pattern = Pattern.compile("\\AFORMUL\\Z"); //$NON-NLS-1$
+	private final static String format = "FORMUL"; //$NON-NLS-1$
+
+	public Formul(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Component number.
+	 */
+//	public Integer compNum() {
+//		return compNum;
+//	}
+
+	/**
+	 * Het identifier.
+	 */
+//	public LString(3) hetID() {
+//		return hetID;
+//	}
+
+	/**
+	 * Continuation number.
+	 */
+//	public Integer continuation() {
+//		return continuation;
+//	}
+
+	/**
+	 * "*" for water.
+	 */
+//	public Character asterisk() {
+//		return asterisk;
+//	}
+
+	/**
+	 * Chemical formula.
+	 */
+//	public String text() {
+//		return text;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

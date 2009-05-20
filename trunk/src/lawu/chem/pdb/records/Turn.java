@@ -14,36 +14,111 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Turn {
-// COLUMNS      DATA TYPE        FIELD         DEFINITION
-// --------------------------------------------------------------------
-//  1 -  6      Record name      "TURN "
-//  8 - 10      Integer          seq           Turn number; starts with 1 and
-//                                             increments by one.
-// 12 - 14      LString(3)       turnId        Turn identifier
-// 16 - 18      Residue name     initResName   Residue name of initial residue in
-//                                             turn.
-// 20           Character        initChainId   Chain identifier for the chain
-//                                             containing this turn.
-// 21 - 24      Integer          initSeqNum    Sequence number of initial residue
-//                                             in turn.
-// 25           AChar            initICode     Insertion code of initial residue 
-//                                             in turn.
-// 27 - 29      Residue name     endResName    Residue name of terminal residue 
-//                                             of turn.
-// 31           Character        endChainId    Chain identifier for the chain
-//                                             containing this turn.
-// 32 - 35      Integer          endSeqNum     Sequence number of terminal 
-//                                             residue of turn.
-// 36           AChar            endICode      Insertion code of terminal residue
-//                                             of turn.
-// 41 - 70      String           comment       Associated comment.
-	public Turn() {
+//	private Integer seq;
+//	private LString(3) turnId;
+//	private Residue name initResName;
+//	private Character initChainId;
+//	private Integer initSeqNum;
+//	private AChar initICode;
+//	private Residue name endResName;
+//	private Character endChainId;
+//	private Integer endSeqNum;
+//	private AChar endICode;
+//	private String comment;
+
+	private final static Pattern pattern = Pattern.compile("\\ATURN  \\Z"); //$NON-NLS-1$
+	private final static String format = "TURN  "; //$NON-NLS-1$
+
+	public Turn(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Turn number; starts with 1 and increments by one.
+	 */
+//	public Integer seq() {
+//		return seq;
+//	}
+
+	/**
+	 * Turn identifier
+	 */
+//	public LString(3) turnId() {
+//		return turnId;
+//	}
+
+	/**
+	 * Residue name of initial residue in turn.
+	 */
+//	public Residue name initResName() {
+//		return initResName;
+//	}
+
+	/**
+	 * Chain identifier for the chain containing this turn.
+	 */
+//	public Character initChainId() {
+//		return initChainId;
+//	}
+
+	/**
+	 * Sequence number of initial residue in turn.
+	 */
+//	public Integer initSeqNum() {
+//		return initSeqNum;
+//	}
+
+	/**
+	 * Insertion code of initial residue in turn.
+	 */
+//	public AChar initICode() {
+//		return initICode;
+//	}
+
+	/**
+	 * Residue name of terminal residue of turn.
+	 */
+//	public Residue name endResName() {
+//		return endResName;
+//	}
+
+	/**
+	 * Chain identifier for the chain containing this turn.
+	 */
+//	public Character endChainId() {
+//		return endChainId;
+//	}
+
+	/**
+	 * Sequence number of terminal residue of turn.
+	 */
+//	public Integer endSeqNum() {
+//		return endSeqNum;
+//	}
+
+	/**
+	 * Insertion code of terminal residue of turn.
+	 */
+//	public AChar endICode() {
+//		return endICode;
+//	}
+
+	/**
+	 * Associated comment.
+	 */
+//	public String comment() {
+//		return comment;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

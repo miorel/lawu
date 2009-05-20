@@ -14,33 +14,135 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Atom {
-// COLUMNS      DATA TYPE        FIELD      DEFINITION
-// ------------------------------------------------------
-//  1 -  6      Record name      "ATOM    "
-//  7 - 11      Integer          serial     Atom serial number.
-// 13 - 16      Atom             name       Atom name.
-// 17           Character        altLoc     Alternate location indicator.
-// 18 - 20      Residue name     resName    Residue name.
-// 22           Character        chainID    Chain identifier.
-// 23 - 26      Integer          resSeq     Residue sequence number.
-// 27           AChar            iCode      Code for insertion of residues.
-// 31 - 38      Real(8.3)        x          Orthogonal coordinates for X in 
-//                                          Angstroms
-// 39 - 46      Real(8.3)        y          Orthogonal coordinates for Y in 
-//                                          Angstroms
-// 47 - 54      Real(8.3)        z          Orthogonal coordinates for Z in 
-//                                          Angstroms
-// 55 - 60      Real(6.2)        occupancy  Occupancy.
-// 61 - 66      Real(6.2)        tempFactor Temperature factor.
-// 77 - 78      LString(2)       element    Element symbol, right-justified.
-// 79 - 80      LString(2)       charge     Charge on the atom.
-	public Atom() {
+//	private Integer serial;
+//	private Atom name;
+//	private Character altLoc;
+//	private Residue name resName;
+//	private Character chainID;
+//	private Integer resSeq;
+//	private AChar iCode;
+//	private Real(8.3) x;
+//	private Real(8.3) y;
+//	private Real(8.3) z;
+//	private Real(6.2) occupancy;
+//	private Real(6.2) tempFactor;
+//	private LString(2) element;
+//	private LString(2) charge;
+
+	private final static Pattern pattern = Pattern.compile("\\AATOM  \\Z"); //$NON-NLS-1$
+	private final static String format = "ATOM  "; //$NON-NLS-1$
+
+	public Atom(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Atom serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Atom name.
+	 */
+//	public Atom name() {
+//		return name;
+//	}
+
+	/**
+	 * Alternate location indicator.
+	 */
+//	public Character altLoc() {
+//		return altLoc;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID() {
+//		return chainID;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer resSeq() {
+//		return resSeq;
+//	}
+
+	/**
+	 * Code for insertion of residues.
+	 */
+//	public AChar iCode() {
+//		return iCode;
+//	}
+
+	/**
+	 * Orthogonal coordinates for X in Angstroms
+	 */
+//	public Real(8.3) x() {
+//		return x;
+//	}
+
+	/**
+	 * Orthogonal coordinates for Y in Angstroms
+	 */
+//	public Real(8.3) y() {
+//		return y;
+//	}
+
+	/**
+	 * Orthogonal coordinates for Z in Angstroms
+	 */
+//	public Real(8.3) z() {
+//		return z;
+//	}
+
+	/**
+	 * Occupancy.
+	 */
+//	public Real(6.2) occupancy() {
+//		return occupancy;
+//	}
+
+	/**
+	 * Temperature factor.
+	 */
+//	public Real(6.2) tempFactor() {
+//		return tempFactor;
+//	}
+
+	/**
+	 * Element symbol, right-justified.
+	 */
+//	public LString(2) element() {
+//		return element;
+//	}
+
+	/**
+	 * Charge on the atom.
+	 */
+//	public LString(2) charge() {
+//		return charge;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

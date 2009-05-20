@@ -14,31 +14,143 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Anisou {
-// COLUMNS     DATA TYPE         FIELD          DEFINITION
-// --------------------------------------------------------
-//  1 - 6      Record name       "ANISOU"
-//  7 - 11     Integer           serial         Atom serial number.
-// 13 - 16     Atom              name           Atom name.
-// 17          Character         altLoc         Alternate location indicator
-// 18 - 20     Residue name      resName        Residue name.
-// 22          Character         chainID        Chain identifier.
-// 23 - 26     Integer           resSeq         Residue sequence number.
-// 27          AChar             iCode          Insertion code.
-// 29 - 35     Integer           u[0][0]        U(1,1)
-// 36 - 42     Integer           u[1][1]        U(2,2)
-// 43 - 49     Integer           u[2][2]        U(3,3)
-// 50 - 56     Integer           u[0][1]        U(1,2)
-// 57 - 63     Integer           u[0][2]        U(1,3)
-// 64 - 70     Integer           u[1][2]        U(2,3)
-// 77 - 78     LString(2)        element        Element symbol, right-justified.
-// 79 - 80     LString(2)        charge         Charge on the atom.
-	public Anisou() {
+//	private Integer serial;
+//	private Atom name;
+//	private Character altLoc;
+//	private Residue name resName;
+//	private Character chainID;
+//	private Integer resSeq;
+//	private AChar iCode;
+//	private Integer u[0][0];
+//	private Integer u[1][1];
+//	private Integer u[2][2];
+//	private Integer u[0][1];
+//	private Integer u[0][2];
+//	private Integer u[1][2];
+//	private LString(2) element;
+//	private LString(2) charge;
+
+	private final static Pattern pattern = Pattern.compile("\\AANISOU\\Z"); //$NON-NLS-1$
+	private final static String format = "ANISOU"; //$NON-NLS-1$
+
+	public Anisou(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Atom serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Atom name.
+	 */
+//	public Atom name() {
+//		return name;
+//	}
+
+	/**
+	 * Alternate location indicator
+	 */
+//	public Character altLoc() {
+//		return altLoc;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID() {
+//		return chainID;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer resSeq() {
+//		return resSeq;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar iCode() {
+//		return iCode;
+//	}
+
+	/**
+	 * U(1,1)
+	 */
+//	public Integer u[0][0]() {
+//		return u[0][0];
+//	}
+
+	/**
+	 * U(2,2)
+	 */
+//	public Integer u[1][1]() {
+//		return u[1][1];
+//	}
+
+	/**
+	 * U(3,3)
+	 */
+//	public Integer u[2][2]() {
+//		return u[2][2];
+//	}
+
+	/**
+	 * U(1,2)
+	 */
+//	public Integer u[0][1]() {
+//		return u[0][1];
+//	}
+
+	/**
+	 * U(1,3)
+	 */
+//	public Integer u[0][2]() {
+//		return u[0][2];
+//	}
+
+	/**
+	 * U(2,3)
+	 */
+//	public Integer u[1][2]() {
+//		return u[1][2];
+//	}
+
+	/**
+	 * Element symbol, right-justified.
+	 */
+//	public LString(2) element() {
+//		return element;
+//	}
+
+	/**
+	 * Charge on the atom.
+	 */
+//	public LString(2) charge() {
+//		return charge;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

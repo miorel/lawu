@@ -14,31 +14,143 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Siguij {
-// COLUMNS      DATA TYPE        FIELD         DEFINITION
-// ------------------------------------------------------------
-//  1 - 6       Record name      "SIGUIJ"
-//  7 - 11      Integer          serial        Atom serial number.
-// 13 - 16      Atom             name          Atom name.
-// 17           Character        altLoc        Alternate location indicator.
-// 18 - 20      Residue name     resName       Residue name.
-// 22           Character        chainID       Chain identifier.
-// 23 - 26      Integer          resSeq        Residue sequence number.
-// 27           AChar            iCode         Insertion code.
-// 29 - 35      Integer          sig[1][1]     Sigma U(1,1)
-// 36 - 42      Integer          sig[2][2]     Sigma U(2,2)
-// 43 - 49      Integer          sig[3][3]     Sigma U(3,3)
-// 50 - 56      Integer          sig[1][2]     Sigma U(1,2)
-// 57 - 63      Integer          sig[1][3]     Sigma U(1,3)
-// 64 - 70      Integer          sig[2][3]     Sigma U(2,3)
-// 77 - 78      LString(2)       element       Element symbol, right-justified.
-// 79 - 80      LString(2)       charge        Charge on the atom.
-	public Siguij() {
+//	private Integer serial;
+//	private Atom name;
+//	private Character altLoc;
+//	private Residue name resName;
+//	private Character chainID;
+//	private Integer resSeq;
+//	private AChar iCode;
+//	private Integer sig[1][1];
+//	private Integer sig[2][2];
+//	private Integer sig[3][3];
+//	private Integer sig[1][2];
+//	private Integer sig[1][3];
+//	private Integer sig[2][3];
+//	private LString(2) element;
+//	private LString(2) charge;
+
+	private final static Pattern pattern = Pattern.compile("\\ASIGUIJ\\Z"); //$NON-NLS-1$
+	private final static String format = "SIGUIJ"; //$NON-NLS-1$
+
+	public Siguij(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Atom serial number.
+	 */
+//	public Integer serial() {
+//		return serial;
+//	}
+
+	/**
+	 * Atom name.
+	 */
+//	public Atom name() {
+//		return name;
+//	}
+
+	/**
+	 * Alternate location indicator.
+	 */
+//	public Character altLoc() {
+//		return altLoc;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName() {
+//		return resName;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID() {
+//		return chainID;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer resSeq() {
+//		return resSeq;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar iCode() {
+//		return iCode;
+//	}
+
+	/**
+	 * Sigma U(1,1)
+	 */
+//	public Integer sig[1][1]() {
+//		return sig[1][1];
+//	}
+
+	/**
+	 * Sigma U(2,2)
+	 */
+//	public Integer sig[2][2]() {
+//		return sig[2][2];
+//	}
+
+	/**
+	 * Sigma U(3,3)
+	 */
+//	public Integer sig[3][3]() {
+//		return sig[3][3];
+//	}
+
+	/**
+	 * Sigma U(1,2)
+	 */
+//	public Integer sig[1][2]() {
+//		return sig[1][2];
+//	}
+
+	/**
+	 * Sigma U(1,3)
+	 */
+//	public Integer sig[1][3]() {
+//		return sig[1][3];
+//	}
+
+	/**
+	 * Sigma U(2,3)
+	 */
+//	public Integer sig[2][3]() {
+//		return sig[2][3];
+//	}
+
+	/**
+	 * Element symbol, right-justified.
+	 */
+//	public LString(2) element() {
+//		return element;
+//	}
+
+	/**
+	 * Charge on the atom.
+	 */
+//	public LString(2) charge() {
+//		return charge;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

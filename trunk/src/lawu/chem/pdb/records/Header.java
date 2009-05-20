@@ -14,21 +14,47 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Header {
-// COLUMNS      DATA TYPE      FIELD             DEFINITION
-// ---------------------------------------------------------------------------
-//  1 -  6      Record name    "HEADER"
-// 11 - 50      String(40)     classification    Classifies the molecule(s)
-// 51 - 59      Date           depDate           Deposition date. 
-//                                               This is the date the coordinates were 
-//                                               received by the PDB
-// 63 - 66      IDcode         idCode            This identifier is unique within the PDB
-	public Header() {
+//	private String(40) classification;
+//	private Date depDate;
+//	private IDcode idCode;
+
+	private final static Pattern pattern = Pattern.compile("\\AHEADER\\Z"); //$NON-NLS-1$
+	private final static String format = "HEADER"; //$NON-NLS-1$
+
+	public Header(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Classifies the molecule(s)
+	 */
+//	public String(40) classification() {
+//		return classification;
+//	}
+
+	/**
+	 * Deposition date. This is the date the coordinates were received by the PDB
+	 */
+//	public Date depDate() {
+//		return depDate;
+//	}
+
+	/**
+	 * This identifier is unique within the PDB
+	 */
+//	public IDcode idCode() {
+//		return idCode;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

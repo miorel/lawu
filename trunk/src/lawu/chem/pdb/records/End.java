@@ -14,16 +14,23 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class End {
-// COLUMNS              DATA TYPE          FIELD     DEFINITION
-// -------------------------------------------------------
-//  1 -     6           Record name        "END    "
-	public End() {
+
+	private final static Pattern pattern = Pattern.compile("\\AEND   \\Z"); //$NON-NLS-1$
+	private final static String format = "END   "; //$NON-NLS-1$
+
+	public End(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

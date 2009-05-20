@@ -14,27 +14,111 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Cispep {
-// COLUMNS       DATA TYPE        FIELD         DEFINITION
-// -------------------------------------------------------------
-//  1 -  6       Record name      "CISPEP"
-//  8 - 10       Integer          serNum        Record serial number.
-// 12 - 14       LString(3)       pep1          Residue name.
-// 16            Character        chainID1      Chain identifier.
-// 18 - 21       Integer          seqNum1       Residue sequence number.
-// 22            AChar            icode1        Insertion code.
-// 26 - 28       LString(3)       pep2          Residue name.
-// 30            Character        chainID2      Chain identifier.
-// 32 - 35       Integer          seqNum2       Residue sequence number.
-// 36            AChar            icode2        Insertion code.
-// 44 - 46       Integer          modNum        Identifies the specific model.
-// 54 - 59       Real(6.2)        measure       Measure of the angle in degrees.
-	public Cispep() {
+//	private Integer serNum;
+//	private LString(3) pep1;
+//	private Character chainID1;
+//	private Integer seqNum1;
+//	private AChar icode1;
+//	private LString(3) pep2;
+//	private Character chainID2;
+//	private Integer seqNum2;
+//	private AChar icode2;
+//	private Integer modNum;
+//	private Real(6.2) measure;
+
+	private final static Pattern pattern = Pattern.compile("\\ACISPEP\\Z"); //$NON-NLS-1$
+	private final static String format = "CISPEP"; //$NON-NLS-1$
+
+	public Cispep(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Record serial number.
+	 */
+//	public Integer serNum() {
+//		return serNum;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public LString(3) pep1() {
+//		return pep1;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID1() {
+//		return chainID1;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer seqNum1() {
+//		return seqNum1;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar icode1() {
+//		return icode1;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public LString(3) pep2() {
+//		return pep2;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID2() {
+//		return chainID2;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer seqNum2() {
+//		return seqNum2;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar icode2() {
+//		return icode2;
+//	}
+
+	/**
+	 * Identifies the specific model.
+	 */
+//	public Integer modNum() {
+//		return modNum;
+//	}
+
+	/**
+	 * Measure of the angle in degrees.
+	 */
+//	public Real(6.2) measure() {
+//		return measure;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

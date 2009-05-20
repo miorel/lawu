@@ -14,24 +14,79 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Modres {
-// COLUMNS    DATA TYPE        FIELD         DEFINITION
-// ----------------------------------------------------
-//  1 - 6     Record name      "MODRES"
-//  8 - 11    IDcode           idCode     ID code of this entry.
-// 13 - 15    Residue name     resName    Residue name used in this entry.
-// 17         Character        chainID    Chain identifier.
-// 19 - 22    Integer          seqNum     Sequence number.
-// 23         AChar            iCode      Insertion code.
-// 25 - 27    Residue name     stdRes     Standard residue name.
-// 30 - 70    String           comment    Description of the residue
-//                                        modification
-	public Modres() {
+//	private IDcode idCode     ID;
+//	private Residue name resName    Res;
+//	private Character chainID    Cha;
+//	private Integer seqNum     Seq;
+//	private AChar iCode      Ins;
+//	private Residue name stdRes     Sta;
+//	private String comment    Des;
+
+	private final static Pattern pattern = Pattern.compile("\\AMODRES\\Z"); //$NON-NLS-1$
+	private final static String format = "MODRES"; //$NON-NLS-1$
+
+	public Modres(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * code of this entry.
+	 */
+//	public IDcode idCode     ID() {
+//		return idCode     ID;
+//	}
+
+	/**
+	 * idue name used in this entry.
+	 */
+//	public Residue name resName    Res() {
+//		return resName    Res;
+//	}
+
+	/**
+	 * in identifier.
+	 */
+//	public Character chainID    Cha() {
+//		return chainID    Cha;
+//	}
+
+	/**
+	 * uence number.
+	 */
+//	public Integer seqNum     Seq() {
+//		return seqNum     Seq;
+//	}
+
+	/**
+	 * ertion code.
+	 */
+//	public AChar iCode      Ins() {
+//		return iCode      Ins;
+//	}
+
+	/**
+	 * ndard residue name.
+	 */
+//	public Residue name stdRes     Sta() {
+//		return stdRes     Sta;
+//	}
+
+	/**
+	 * cription of the residue ification
+	 */
+//	public String comment    Des() {
+//		return comment    Des;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

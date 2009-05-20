@@ -14,30 +14,135 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Link {
-// COLUMNS      DATA TYPE        FIELD        DEFINITION
-// -----------------------------------------------------------------
-//  1 - 6       Record name      "LINK   "
-// 13 - 16      Atom             name1        Atom name.
-// 17           Character        altLoc1      Alternate location indicator.
-// 18 - 20      Residue name     resName1     Residue name.
-// 22           Character        chainID1     Chain identifier.
-// 23 - 26      Integer          resSeq1      Residue sequence number.
-// 27           AChar            iCode1       Insertion code.
-// 43 - 46      Atom             name2        Atom name.
-// 47           Character        altLoc2      Alternate location indicator.
-// 48 - 50      Residue name     resName2     Residue name.
-// 52           Character        chainID2     Chain identifier.
-// 53 - 56      Integer          resSeq2      Residue sequence number.
-// 57           AChar            iCode2       Insertion code.
-// 60 - 65      SymOP            sym1         Symmetry operator for 1st atom.
-// 67 - 72      SymOP            sym2         Symmetry operator for 2nd atom.
-	public Link() {
+//	private Atom name1;
+//	private Character altLoc1;
+//	private Residue name resName1;
+//	private Character chainID1;
+//	private Integer resSeq1;
+//	private AChar iCode1;
+//	private Atom name2;
+//	private Character altLoc2;
+//	private Residue name resName2;
+//	private Character chainID2;
+//	private Integer resSeq2;
+//	private AChar iCode2;
+//	private SymOP sym1;
+//	private SymOP sym2;
+
+	private final static Pattern pattern = Pattern.compile("\\ALINK  \\Z"); //$NON-NLS-1$
+	private final static String format = "LINK  "; //$NON-NLS-1$
+
+	public Link(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Atom name.
+	 */
+//	public Atom name1() {
+//		return name1;
+//	}
+
+	/**
+	 * Alternate location indicator.
+	 */
+//	public Character altLoc1() {
+//		return altLoc1;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName1() {
+//		return resName1;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID1() {
+//		return chainID1;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer resSeq1() {
+//		return resSeq1;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar iCode1() {
+//		return iCode1;
+//	}
+
+	/**
+	 * Atom name.
+	 */
+//	public Atom name2() {
+//		return name2;
+//	}
+
+	/**
+	 * Alternate location indicator.
+	 */
+//	public Character altLoc2() {
+//		return altLoc2;
+//	}
+
+	/**
+	 * Residue name.
+	 */
+//	public Residue name resName2() {
+//		return resName2;
+//	}
+
+	/**
+	 * Chain identifier.
+	 */
+//	public Character chainID2() {
+//		return chainID2;
+//	}
+
+	/**
+	 * Residue sequence number.
+	 */
+//	public Integer resSeq2() {
+//		return resSeq2;
+//	}
+
+	/**
+	 * Insertion code.
+	 */
+//	public AChar iCode2() {
+//		return iCode2;
+//	}
+
+	/**
+	 * Symmetry operator for 1st atom.
+	 */
+//	public SymOP sym1() {
+//		return sym1;
+//	}
+
+	/**
+	 * Symmetry operator for 2nd atom.
+	 */
+//	public SymOP sym2() {
+//		return sym2;
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override

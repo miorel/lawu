@@ -14,20 +14,56 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Scale {
-// COLUMNS     DATA TYPE        FIELD        DEFINITION
-// ----------------------------------------------------
-//  1 -  6     Record name      "SCALEn"     n=1, 2, or 3
-// 11 - 20     Real(10.6)       s[n][1]      Sn1
-// 21 - 30     Real(10.6)       s[n][2]      Sn2
-// 31 - 40     Real(10.6)       s[n][3]      Sn3
-// 46 - 55     Real(10.5)       u[n]         Un
-	public Scale() {
+//	private int n;
+//	private Real(10.6) s[n][1];
+//	private Real(10.6) s[n][2];
+//	private Real(10.6) s[n][3];
+//	private Real(10.5) u[n];
+
+	private final static Pattern pattern = Pattern.compile("\\ASCALE(\\d)\\Z"); //$NON-NLS-1$
+	private final static String format = "SCALE%d"; //$NON-NLS-1$
+
+	public Scale(String record) {
+		Matcher m = pattern.matcher(record);
+		if(!m.matches())
+			throw new RuntimeException();
 	}
+
+	/**
+	 * Sn1
+	 */
+//	public Real(10.6) s[n][1]() {
+//		return s[n][1];
+//	}
+
+	/**
+	 * Sn2
+	 */
+//	public Real(10.6) s[n][2]() {
+//		return s[n][2];
+//	}
+
+	/**
+	 * Sn3
+	 */
+//	public Real(10.6) s[n][3]() {
+//		return s[n][3];
+//	}
+
+	/**
+	 * Un
+	 */
+//	public Real(10.5) u[n]() {
+//		return u[n];
+//	}
 
 	@Override	
 	public String toString() {
-		return this.getClass().getSimpleName().toUpperCase();
+		return String.format(format);
 	}
 
 	@Override
