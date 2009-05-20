@@ -17,12 +17,12 @@ my $out_file = 'res/lawu/chem/periodic_table.properties';
 open my $fh, ">$out_file" or die "Failed to open $out_file for writing";
 
 eval {
-    use File::Tee qw(tee);
-    tee(STDOUT, '>', $out_file);
+	use File::Tee qw(tee);
+	tee(STDOUT, '>', $out_file);
 };
 if($@) {
-    print STDERR "Get the File::Tee module to see script output on screen\n";
-    open STDOUT, ">&", $fh;
+	print STDERR "Get the File::Tee module to see script output on screen\n";
+	open STDOUT, ">&", $fh;
 }
 
 print "#\n# Output generated ",`date`;
@@ -52,4 +52,3 @@ for(my $atomic_number = 1;; ++$atomic_number) {
 }
 
 close $fh;
-
