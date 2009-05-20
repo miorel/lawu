@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 #
 # script for lazy people (like yours truly) that adds a GPLv3 notice to files
+# currently only works with .java files, I may add others later
 # 
 
 use warnings;
@@ -8,6 +9,7 @@ use strict;
 
 use File::Find;
 
+### BEGIN CONFIG ###############################################################
 my $java = <<"EOF";
 /*
  * lawu
@@ -24,6 +26,7 @@ my $java = <<"EOF";
  * details.
  */
 EOF
+### END CONFIG #################################################################
 
 find(sub {
 	my $file = $File::Find::name;

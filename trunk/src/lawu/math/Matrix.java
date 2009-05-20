@@ -16,7 +16,6 @@ package lawu.math;
 
 /**
  * @author Miorel-Lucian Palii
- *
  */
 public class Matrix {
 	private final double[][] matrix;	

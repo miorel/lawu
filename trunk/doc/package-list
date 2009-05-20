@@ -1,6 +1,9 @@
 lawu
+lawu.chem
+lawu.chem.pdb
 lawu.dp
 lawu.math
 lawu.math.geom
 lawu.util
+lawu.util.event
 lawu.util.iterator
