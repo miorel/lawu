@@ -20,26 +20,27 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Hetatm {
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private Atom name;
-//	private lawu.chem.pdb.primitives.Character altLoc;
-//	private Residue name resName;
-//	private lawu.chem.pdb.primitives.Character chainID;
-//	private lawu.chem.pdb.primitives.Integer resSeq;
-//	private AChar iCode;
-//	private Real(8.3) x;
-//	private Real(8.3) y;
-//	private Real(8.3) z;
-//	private Real(6.2) occupancy;
-//	private Real(6.2) tempFactor;
-//	private LString(2) element;
-//	private LString(2) charge;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private Atom name;
+	private lawu.chem.pdb.primitives.Character altLoc;
+	private Residue name resName;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer resSeq;
+	private AChar iCode;
+	private Real x;
+	private Real y;
+	private Real z;
+	private Real occupancy;
+	private Real tempFactor;
+	private LString element;
+	private LString charge;
 
 	private final static Pattern pattern = Pattern.compile("HETATM(.{5}) (.{4})(.)(...) (.)(.{4})(.)   (.{8})(.{8})(.{8})(.{6})(.{6}) {10}(..)(..)"); //$NON-NLS-1$
 	private final static String format = "HETATM%5s %4s%1s%3s %1s%4s%1s   %8s%8s%8s%6s%6s          %2s%2s"; //$NON-NLS-1$
@@ -60,8 +61,8 @@ public class Hetatm {
 		z = new Real(m.group(10), 8, 3);
 		occupancy = new Real(m.group(11), 6, 2);
 		tempFactor = new Real(m.group(12), 6, 2);
-		// element = new LString(2)(m.group(13));
-		// charge = new LString(2)(m.group(14));
+		element = new LString(m.group(13), 2);
+		charge = new LString(m.group(14), 2);
 	}
 
 	/**

@@ -20,14 +20,15 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Keywds {
-//	private Continuation continuation;
-//	private List keywds;
+	private Continuation continuation;
+	private List keywds;
 
 	private final static Pattern pattern = Pattern.compile("KEYWDS  (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "KEYWDS  %2s%60s          "; //$NON-NLS-1$

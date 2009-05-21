@@ -20,17 +20,18 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Origx {
-//	private int n;
-//	private Real(10.6) o[n][1];
-//	private Real(10.6) o[n][2];
-//	private Real(10.6) o[n][3];
-//	private Real(10.5) t[n];
+	private int n;
+	private Real on1;
+	private Real on2;
+	private Real on3;
+	private Real tn;
 
 	private final static Pattern pattern = Pattern.compile("ORIGX(\\d) {4}(.{10})(.{10})(.{10}) {5}(.{10}) {25}"); //$NON-NLS-1$
 	private final static String format = "ORIGX%d    %10s%10s%10s     %10s                         "; //$NON-NLS-1$
@@ -40,38 +41,38 @@ public class Origx {
 		if(!m.matches())
 			throw new RuntimeException();
 		n = Integer.parseInt(m.group(1));
-		o[n][1] = new Real(m.group(2), 10, 6);
-		o[n][2] = new Real(m.group(3), 10, 6);
-		o[n][3] = new Real(m.group(4), 10, 6);
-		t[n] = new Real(m.group(5), 10, 5);
+		on1 = new Real(m.group(2), 10, 6);
+		on2 = new Real(m.group(3), 10, 6);
+		on3 = new Real(m.group(4), 10, 6);
+		tn = new Real(m.group(5), 10, 5);
 	}
 
 	/**
 	 * On1
 	 */
-//	public Real(10.6) o[n][1]() {
-//		return o[n][1];
+//	public Real(10.6) on1() {
+//		return on1;
 //	}
 
 	/**
 	 * On2
 	 */
-//	public Real(10.6) o[n][2]() {
-//		return o[n][2];
+//	public Real(10.6) on2() {
+//		return on2;
 //	}
 
 	/**
 	 * On3
 	 */
-//	public Real(10.6) o[n][3]() {
-//		return o[n][3];
+//	public Real(10.6) on3() {
+//		return on3;
 //	}
 
 	/**
 	 * Tn
 	 */
-//	public Real(10.5) t[n]() {
-//		return t[n];
+//	public Real(10.5) tn() {
+//		return tn;
 //	}
 
 	@Override	

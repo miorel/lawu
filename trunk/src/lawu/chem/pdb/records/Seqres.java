@@ -20,28 +20,29 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Seqres {
-//	private lawu.chem.pdb.primitives.Integer serNum;
-//	private lawu.chem.pdb.primitives.Character chainID;
-//	private lawu.chem.pdb.primitives.Integer numRes;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
-//	private Residue name resName;
+	private lawu.chem.pdb.primitives.Integer serNum;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer numRes;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
+	private Residue name resName;
 
 	private final static Pattern pattern = Pattern.compile("SEQRES  (..) (.) (.{4})  (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) {10}"); //$NON-NLS-1$
 	private final static String format = "SEQRES  %2s %1s %4s  %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s          "; //$NON-NLS-1$

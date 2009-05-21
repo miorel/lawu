@@ -20,15 +20,16 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Caveat {
-//	private Continuation continuation      Al;
-//	private IDcode idCode            PD;
-//	private lawu.chem.pdb.primitives.String comment           Fr;
+	private Continuation continuation      Al;
+	private IDcode idCode            PD;
+	private lawu.chem.pdb.primitives.String comment           Fr;
 
 	private final static Pattern pattern = Pattern.compile("CAVEAT  (..) (.{4}) {4}(.{51}) {10}"); //$NON-NLS-1$
 	private final static String format = "CAVEAT  %2s %4s    %51s          "; //$NON-NLS-1$

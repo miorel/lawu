@@ -20,27 +20,28 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Siguij {
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private Atom name;
-//	private lawu.chem.pdb.primitives.Character altLoc;
-//	private Residue name resName;
-//	private lawu.chem.pdb.primitives.Character chainID;
-//	private lawu.chem.pdb.primitives.Integer resSeq;
-//	private AChar iCode;
-//	private lawu.chem.pdb.primitives.Integer sig[1][1];
-//	private lawu.chem.pdb.primitives.Integer sig[2][2];
-//	private lawu.chem.pdb.primitives.Integer sig[3][3];
-//	private lawu.chem.pdb.primitives.Integer sig[1][2];
-//	private lawu.chem.pdb.primitives.Integer sig[1][3];
-//	private lawu.chem.pdb.primitives.Integer sig[2][3];
-//	private LString(2) element;
-//	private LString(2) charge;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private Atom name;
+	private lawu.chem.pdb.primitives.Character altLoc;
+	private Residue name resName;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer resSeq;
+	private AChar iCode;
+	private lawu.chem.pdb.primitives.Integer sig11;
+	private lawu.chem.pdb.primitives.Integer sig22;
+	private lawu.chem.pdb.primitives.Integer sig33;
+	private lawu.chem.pdb.primitives.Integer sig12;
+	private lawu.chem.pdb.primitives.Integer sig13;
+	private lawu.chem.pdb.primitives.Integer sig23;
+	private LString element;
+	private LString charge;
 
 	private final static Pattern pattern = Pattern.compile("SIGUIJ(.{5}) (.{4})(.)(...) (.)(.{4})(.) (.{7})(.{7})(.{7})(.{7})(.{7})(.{7}) {6}(..)(..)"); //$NON-NLS-1$
 	private final static String format = "SIGUIJ%5s %4s%1s%3s %1s%4s%1s %7s%7s%7s%7s%7s%7s      %2s%2s"; //$NON-NLS-1$
@@ -56,14 +57,14 @@ public class Siguij {
 		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
 		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
 		iCode = new AChar(m.group(7));
-		sig[1][1] = new lawu.chem.pdb.primitives.Integer(m.group(8));
-		sig[2][2] = new lawu.chem.pdb.primitives.Integer(m.group(9));
-		sig[3][3] = new lawu.chem.pdb.primitives.Integer(m.group(10));
-		sig[1][2] = new lawu.chem.pdb.primitives.Integer(m.group(11));
-		sig[1][3] = new lawu.chem.pdb.primitives.Integer(m.group(12));
-		sig[2][3] = new lawu.chem.pdb.primitives.Integer(m.group(13));
-		// element = new LString(2)(m.group(14));
-		// charge = new LString(2)(m.group(15));
+		sig11 = new lawu.chem.pdb.primitives.Integer(m.group(8));
+		sig22 = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		sig33 = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		sig12 = new lawu.chem.pdb.primitives.Integer(m.group(11));
+		sig13 = new lawu.chem.pdb.primitives.Integer(m.group(12));
+		sig23 = new lawu.chem.pdb.primitives.Integer(m.group(13));
+		element = new LString(m.group(14), 2);
+		charge = new LString(m.group(15), 2);
 	}
 
 	/**
@@ -118,43 +119,43 @@ public class Siguij {
 	/**
 	 * Sigma U(1,1)
 	 */
-//	public lawu.chem.pdb.primitives.Integer sig[1][1]() {
-//		return sig[1][1];
+//	public lawu.chem.pdb.primitives.Integer sig11() {
+//		return sig11;
 //	}
 
 	/**
 	 * Sigma U(2,2)
 	 */
-//	public lawu.chem.pdb.primitives.Integer sig[2][2]() {
-//		return sig[2][2];
+//	public lawu.chem.pdb.primitives.Integer sig22() {
+//		return sig22;
 //	}
 
 	/**
 	 * Sigma U(3,3)
 	 */
-//	public lawu.chem.pdb.primitives.Integer sig[3][3]() {
-//		return sig[3][3];
+//	public lawu.chem.pdb.primitives.Integer sig33() {
+//		return sig33;
 //	}
 
 	/**
 	 * Sigma U(1,2)
 	 */
-//	public lawu.chem.pdb.primitives.Integer sig[1][2]() {
-//		return sig[1][2];
+//	public lawu.chem.pdb.primitives.Integer sig12() {
+//		return sig12;
 //	}
 
 	/**
 	 * Sigma U(1,3)
 	 */
-//	public lawu.chem.pdb.primitives.Integer sig[1][3]() {
-//		return sig[1][3];
+//	public lawu.chem.pdb.primitives.Integer sig13() {
+//		return sig13;
 //	}
 
 	/**
 	 * Sigma U(2,3)
 	 */
-//	public lawu.chem.pdb.primitives.Integer sig[2][3]() {
-//		return sig[2][3];
+//	public lawu.chem.pdb.primitives.Integer sig23() {
+//		return sig23;
 //	}
 
 	/**

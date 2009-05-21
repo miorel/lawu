@@ -20,17 +20,18 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Ter {
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private Residue name resName;
-//	private lawu.chem.pdb.primitives.Character chainID;
-//	private lawu.chem.pdb.primitives.Integer resSeq;
-//	private AChar iCode;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private Residue name resName;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer resSeq;
+	private AChar iCode;
 
 	private final static Pattern pattern = Pattern.compile("TER   (.{5}) {6}(...) (.)(.{4})(.) {53}"); //$NON-NLS-1$
 	private final static String format = "TER   %5s      %3s %1s%4s%1s                                                     "; //$NON-NLS-1$

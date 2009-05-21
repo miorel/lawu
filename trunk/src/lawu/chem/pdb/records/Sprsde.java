@@ -20,23 +20,24 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Sprsde {
-//	private Continuation continuation;
-//	private Date sprsdeDate;
-//	private IDcode idCode;
-//	private IDcode sIdCode;
-//	private IDcode sIdCode;
-//	private IDcode sIdCode;
-//	private IDcode sIdCode;
-//	private IDcode sIdCode;
-//	private IDcode sIdCode;
-//	private IDcode sIdCode;
-//	private IDcode sIdCode;
+	private Continuation continuation;
+	private Date sprsdeDate;
+	private IDcode idCode;
+	private IDcode sIdCode;
+	private IDcode sIdCode;
+	private IDcode sIdCode;
+	private IDcode sIdCode;
+	private IDcode sIdCode;
+	private IDcode sIdCode;
+	private IDcode sIdCode;
+	private IDcode sIdCode;
 
 	private final static Pattern pattern = Pattern.compile("SPRSDE  (..) (.{9}) (.{4}) {6}(.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) {10}"); //$NON-NLS-1$
 	private final static String format = "SPRSDE  %2s %9s %4s      %4s %4s %4s %4s %4s %4s %4s %4s          "; //$NON-NLS-1$

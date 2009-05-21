@@ -20,25 +20,26 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Helix {
-//	private lawu.chem.pdb.primitives.Integer serNum;
-//	private LString(3) helixID;
-//	private Residue name initResName;
-//	private lawu.chem.pdb.primitives.Character initChainID;
-//	private lawu.chem.pdb.primitives.Integer initSeqNum;
-//	private AChar initICode;
-//	private Residue name endResName;
-//	private lawu.chem.pdb.primitives.Character endChainID;
-//	private lawu.chem.pdb.primitives.Integer endSeqNum;
-//	private AChar endICode;
-//	private lawu.chem.pdb.primitives.Integer helixClass;
-//	private lawu.chem.pdb.primitives.String comment;
-//	private lawu.chem.pdb.primitives.Integer length;
+	private lawu.chem.pdb.primitives.Integer serNum;
+	private LString helixID;
+	private Residue name initResName;
+	private lawu.chem.pdb.primitives.Character initChainID;
+	private lawu.chem.pdb.primitives.Integer initSeqNum;
+	private AChar initICode;
+	private Residue name endResName;
+	private lawu.chem.pdb.primitives.Character endChainID;
+	private lawu.chem.pdb.primitives.Integer endSeqNum;
+	private AChar endICode;
+	private lawu.chem.pdb.primitives.Integer helixClass;
+	private lawu.chem.pdb.primitives.String comment;
+	private lawu.chem.pdb.primitives.Integer length;
 
 	private final static Pattern pattern = Pattern.compile("HELIX  (...) (...) (...) (.) (.{4})(.) (...) (.) (.{4})(.)(..)(.{30}) (.{5}) {4}"); //$NON-NLS-1$
 	private final static String format = "HELIX  %3s %3s %3s %1s %4s%1s %3s %1s %4s%1s%2s%30s %5s    "; //$NON-NLS-1$
@@ -48,7 +49,7 @@ public class Helix {
 		if(!m.matches())
 			throw new RuntimeException();
 		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		// helixID = new LString(3)(m.group(2));
+		helixID = new LString(m.group(2), 3);
 		// initResName = new Residue name(m.group(3));
 		initChainID = new lawu.chem.pdb.primitives.Character(m.group(4));
 		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));

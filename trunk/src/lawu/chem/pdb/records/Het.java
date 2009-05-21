@@ -20,18 +20,19 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Het {
-//	private LString(3) hetID;
-//	private lawu.chem.pdb.primitives.Character ChainID;
-//	private lawu.chem.pdb.primitives.Integer seqNum;
-//	private AChar iCode;
-//	private lawu.chem.pdb.primitives.Integer numHetAtoms;
-//	private lawu.chem.pdb.primitives.String text;
+	private LString hetID;
+	private lawu.chem.pdb.primitives.Character ChainID;
+	private lawu.chem.pdb.primitives.Integer seqNum;
+	private AChar iCode;
+	private lawu.chem.pdb.primitives.Integer numHetAtoms;
+	private lawu.chem.pdb.primitives.String text;
 
 	private final static Pattern pattern = Pattern.compile("HET {4}(...)  (.)(.{4})(.)  (.{5}) {5}(.{40}) {10}"); //$NON-NLS-1$
 	private final static String format = "HET    %3s  %1s%4s%1s  %5s     %40s          "; //$NON-NLS-1$
@@ -40,7 +41,7 @@ public class Het {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		// hetID = new LString(3)(m.group(1));
+		hetID = new LString(m.group(1), 3);
 		ChainID = new lawu.chem.pdb.primitives.Character(m.group(2));
 		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(3));
 		iCode = new AChar(m.group(4));

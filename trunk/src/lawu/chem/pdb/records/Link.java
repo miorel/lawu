@@ -20,26 +20,27 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Link {
-//	private Atom name1;
-//	private lawu.chem.pdb.primitives.Character altLoc1;
-//	private Residue name resName1;
-//	private lawu.chem.pdb.primitives.Character chainID1;
-//	private lawu.chem.pdb.primitives.Integer resSeq1;
-//	private AChar iCode1;
-//	private Atom name2;
-//	private lawu.chem.pdb.primitives.Character altLoc2;
-//	private Residue name resName2;
-//	private lawu.chem.pdb.primitives.Character chainID2;
-//	private lawu.chem.pdb.primitives.Integer resSeq2;
-//	private AChar iCode2;
-//	private SymOP sym1;
-//	private SymOP sym2;
+	private Atom name1;
+	private lawu.chem.pdb.primitives.Character altLoc1;
+	private Residue name resName1;
+	private lawu.chem.pdb.primitives.Character chainID1;
+	private lawu.chem.pdb.primitives.Integer resSeq1;
+	private AChar iCode1;
+	private Atom name2;
+	private lawu.chem.pdb.primitives.Character altLoc2;
+	private Residue name resName2;
+	private lawu.chem.pdb.primitives.Character chainID2;
+	private lawu.chem.pdb.primitives.Integer resSeq2;
+	private AChar iCode2;
+	private SymOP sym1;
+	private SymOP sym2;
 
 	private final static Pattern pattern = Pattern.compile("LINK {8}(.{4})(.)(...) (.)(.{4})(.) {15}(.{4})(.)(...) (.)(.{4})(.)  (.{6}) (.{6}) {8}"); //$NON-NLS-1$
 	private final static String format = "LINK        %4s%1s%3s %1s%4s%1s               %4s%1s%3s %1s%4s%1s  %6s %6s        "; //$NON-NLS-1$

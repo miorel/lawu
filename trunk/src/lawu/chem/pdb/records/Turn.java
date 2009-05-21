@@ -20,23 +20,24 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Turn {
-//	private lawu.chem.pdb.primitives.Integer seq;
-//	private LString(3) turnId;
-//	private Residue name initResName;
-//	private lawu.chem.pdb.primitives.Character initChainId;
-//	private lawu.chem.pdb.primitives.Integer initSeqNum;
-//	private AChar initICode;
-//	private Residue name endResName;
-//	private lawu.chem.pdb.primitives.Character endChainId;
-//	private lawu.chem.pdb.primitives.Integer endSeqNum;
-//	private AChar endICode;
-//	private lawu.chem.pdb.primitives.String comment;
+	private lawu.chem.pdb.primitives.Integer seq;
+	private LString turnId;
+	private Residue name initResName;
+	private lawu.chem.pdb.primitives.Character initChainId;
+	private lawu.chem.pdb.primitives.Integer initSeqNum;
+	private AChar initICode;
+	private Residue name endResName;
+	private lawu.chem.pdb.primitives.Character endChainId;
+	private lawu.chem.pdb.primitives.Integer endSeqNum;
+	private AChar endICode;
+	private lawu.chem.pdb.primitives.String comment;
 
 	private final static Pattern pattern = Pattern.compile("TURN   (...) (...) (...) (.)(.{4})(.) (...) (.)(.{4})(.) {4}(.{30}) {10}"); //$NON-NLS-1$
 	private final static String format = "TURN   %3s %3s %3s %1s%4s%1s %3s %1s%4s%1s    %30s          "; //$NON-NLS-1$
@@ -46,7 +47,7 @@ public class Turn {
 		if(!m.matches())
 			throw new RuntimeException();
 		seq = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		// turnId = new LString(3)(m.group(2));
+		turnId = new LString(m.group(2), 3);
 		// initResName = new Residue name(m.group(3));
 		initChainId = new lawu.chem.pdb.primitives.Character(m.group(4));
 		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));

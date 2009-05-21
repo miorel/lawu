@@ -20,23 +20,24 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Ssbond {
-//	private lawu.chem.pdb.primitives.Integer serNum       S;
-//	private LString(3) "CYS"        R;
-//	private lawu.chem.pdb.primitives.Character chainID1     C;
-//	private lawu.chem.pdb.primitives.Integer seqNum1      R;
-//	private AChar icode1       I;
-//	private LString(3) "CYS"        R;
-//	private lawu.chem.pdb.primitives.Character chainID2     C;
-//	private lawu.chem.pdb.primitives.Integer seqNum2      R;
-//	private AChar icode2       I;
-//	private SymOP sym1         S;
-//	private SymOP sym2         S;
+	private lawu.chem.pdb.primitives.Integer serNum       S;
+	private LString "CYS"        R;
+	private lawu.chem.pdb.primitives.Character chainID1     C;
+	private lawu.chem.pdb.primitives.Integer seqNum1      R;
+	private AChar icode1       I;
+	private LString "CYS"        R;
+	private lawu.chem.pdb.primitives.Character chainID2     C;
+	private lawu.chem.pdb.primitives.Integer seqNum2      R;
+	private AChar icode2       I;
+	private SymOP sym1         S;
+	private SymOP sym2         S;
 
 	private final static Pattern pattern = Pattern.compile("SSBOND (...) (...) (.) (.{4})(.)   (...) (.) (.{4})(.) {23}(.{6}) (.{6}) {8}"); //$NON-NLS-1$
 	private final static String format = "SSBOND %3s %3s %1s %4s%1s   %3s %1s %4s%1s                       %6s %6s        "; //$NON-NLS-1$
@@ -46,11 +47,11 @@ public class Ssbond {
 		if(!m.matches())
 			throw new RuntimeException();
 		serNum       S = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		// "CYS"        R = new LString(3)(m.group(2));
+		"CYS"        R = new LString(m.group(2), 3);
 		chainID1     C = new lawu.chem.pdb.primitives.Character(m.group(3));
 		seqNum1      R = new lawu.chem.pdb.primitives.Integer(m.group(4));
 		icode1       I = new AChar(m.group(5));
-		// "CYS"        R = new LString(3)(m.group(6));
+		"CYS"        R = new LString(m.group(6), 3);
 		chainID2     C = new lawu.chem.pdb.primitives.Character(m.group(7));
 		seqNum2      R = new lawu.chem.pdb.primitives.Integer(m.group(8));
 		icode2       I = new AChar(m.group(9));

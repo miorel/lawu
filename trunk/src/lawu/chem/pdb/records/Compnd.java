@@ -20,14 +20,15 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Compnd {
-//	private Continuation continuation;
-//	private Specification compound;
+	private Continuation continuation;
+	private Specification list compound;
 
 	private final static Pattern pattern = Pattern.compile("COMPND  (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "COMPND  %2s%60s          "; //$NON-NLS-1$
@@ -37,7 +38,7 @@ public class Compnd {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// compound = new Specification(m.group(2));
+		// compound = new Specification list(m.group(2));
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class Compnd {
 	/**
 	 * Description of the molecular components.
 	 */
-//	public Specification compound() {
+//	public Specification list compound() {
 //		return compound;
 //	}
 

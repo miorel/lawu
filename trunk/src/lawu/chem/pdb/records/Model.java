@@ -20,13 +20,14 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Model {
-//	private lawu.chem.pdb.primitives.Integer serial;
+	private lawu.chem.pdb.primitives.Integer serial;
 
 	private final static Pattern pattern = Pattern.compile("MODEL {5}(.{4}) {66}"); //$NON-NLS-1$
 	private final static String format = "MODEL     %4s                                                                  "; //$NON-NLS-1$

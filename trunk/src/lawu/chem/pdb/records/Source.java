@@ -20,14 +20,15 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Source {
-//	private Continuation continuation;
-//	private Specification srcName;
+	private Continuation continuation;
+	private Specification list srcName;
 
 	private final static Pattern pattern = Pattern.compile("SOURCE  (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "SOURCE  %2s%60s          "; //$NON-NLS-1$
@@ -37,7 +38,7 @@ public class Source {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// srcName = new Specification(m.group(2));
+		// srcName = new Specification list(m.group(2));
 	}
 
 	/**
@@ -50,7 +51,7 @@ public class Source {
 	/**
 	 * Identifies the source of the macromolecule in a token: value format.
 	 */
-//	public Specification srcName() {
+//	public Specification list srcName() {
 //		return srcName;
 //	}
 

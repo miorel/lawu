@@ -20,23 +20,24 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Obslte {
-//	private Continuation     co ntinuation  Allows c;
-//	private Date             re pDate       Date tha;
-//	private IDcode           id Code        ID code;
-//	private IDcode           rI dCode       ID code;
-//	private IDcode           rI dCode       ID code;
-//	private IDcode           rI dCode       ID code;
-//	private IDcode           rI dCode       ID code;
-//	private IDcode           rI dCode       ID code;
-//	private IDcode           rI dCode       ID code;
-//	private IDcode           rI dCode       ID code;
-//	private IDcode           rI dCode       ID code;
+	private Continuation     co ntinuation  Allows c;
+	private Date             re pDate       Date tha;
+	private IDcode           id Code        ID code;
+	private IDcode           rI dCode       ID code;
+	private IDcode           rI dCode       ID code;
+	private IDcode           rI dCode       ID code;
+	private IDcode           rI dCode       ID code;
+	private IDcode           rI dCode       ID code;
+	private IDcode           rI dCode       ID code;
+	private IDcode           rI dCode       ID code;
+	private IDcode           rI dCode       ID code;
 
 	private final static Pattern pattern = Pattern.compile("OBSLTE  (..) (.{9}) (.{4}) {6}(.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) {10}"); //$NON-NLS-1$
 	private final static String format = "OBSLTE  %2s %9s %4s      %4s %4s %4s %4s %4s %4s %4s %4s          "; //$NON-NLS-1$

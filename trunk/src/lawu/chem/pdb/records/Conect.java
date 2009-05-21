@@ -20,17 +20,18 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Conect {
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private lawu.chem.pdb.primitives.Integer serial;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private lawu.chem.pdb.primitives.Integer serial;
 
 	private final static Pattern pattern = Pattern.compile("CONECT(.{5})(.{5})(.{5})(.{5})(.{5}) {49}"); //$NON-NLS-1$
 	private final static String format = "CONECT%5s%5s%5s%5s%5s                                                 "; //$NON-NLS-1$

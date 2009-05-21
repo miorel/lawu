@@ -25,6 +25,6 @@ if($@) {
 	open STDOUT, ">&", $fh;
 }
 
-print get(sprintf($url_format, $_)) for @range;
+print for map {get(sprintf($url_format, $_)) =~ /(<pre>.*?<\/pre>)/sig} @range;
 
 close $fh;

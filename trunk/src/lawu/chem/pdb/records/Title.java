@@ -20,14 +20,15 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Title {
-//	private Continuation continuation;
-//	private lawu.chem.pdb.primitives.String title;
+	private Continuation continuation;
+	private lawu.chem.pdb.primitives.String title;
 
 	private final static Pattern pattern = Pattern.compile("TITLE   (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "TITLE   %2s%60s          "; //$NON-NLS-1$

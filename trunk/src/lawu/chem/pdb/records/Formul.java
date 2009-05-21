@@ -20,17 +20,18 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Formul {
-//	private lawu.chem.pdb.primitives.Integer compNum;
-//	private LString(3) hetID;
-//	private lawu.chem.pdb.primitives.Integer continuation;
-//	private lawu.chem.pdb.primitives.Character asterisk;
-//	private lawu.chem.pdb.primitives.String text;
+	private lawu.chem.pdb.primitives.Integer compNum;
+	private LString hetID;
+	private lawu.chem.pdb.primitives.Integer continuation;
+	private lawu.chem.pdb.primitives.Character asterisk;
+	private lawu.chem.pdb.primitives.String text;
 
 	private final static Pattern pattern = Pattern.compile("FORMUL  (..)  (...) (..)(.)(.{51}) {10}"); //$NON-NLS-1$
 	private final static String format = "FORMUL  %2s  %3s %2s%1s%51s          "; //$NON-NLS-1$
@@ -40,7 +41,7 @@ public class Formul {
 		if(!m.matches())
 			throw new RuntimeException();
 		compNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		// hetID = new LString(3)(m.group(2));
+		hetID = new LString(m.group(2), 3);
 		continuation = new lawu.chem.pdb.primitives.Integer(m.group(3));
 		asterisk = new lawu.chem.pdb.primitives.Character(m.group(4));
 		text = new lawu.chem.pdb.primitives.String(m.group(5));

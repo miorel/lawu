@@ -20,34 +20,35 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Sheet {
-//	private lawu.chem.pdb.primitives.Integer strand       Str;
-//	private LString(3) sheetID      She;
-//	private lawu.chem.pdb.primitives.Integer numStrands   Num;
-//	private Residue name initResName  Res;
-//	private lawu.chem.pdb.primitives.Character initChainID  Cha;
-//	private lawu.chem.pdb.primitives.Integer initSeqNum   Seq;
-//	private AChar initICode    Ins;
-//	private Residue name endResName   Res;
-//	private lawu.chem.pdb.primitives.Character endChainID   Cha;
-//	private lawu.chem.pdb.primitives.Integer endSeqNum    Seq;
-//	private AChar endICode     Ins;
-//	private lawu.chem.pdb.primitives.Integer sense        Sen;
-//	private Atom curAtom      Reg;
-//	private Residue name curResName   Reg;
-//	private lawu.chem.pdb.primitives.Character curChainId   Reg;
-//	private lawu.chem.pdb.primitives.Integer curResSeq    Reg;
-//	private AChar curICode     Reg;
-//	private Atom prevAtom     Reg;
-//	private Residue name prevResName  Reg;
-//	private lawu.chem.pdb.primitives.Character prevChainId  Reg;
-//	private lawu.chem.pdb.primitives.Integer prevResSeq   Reg;
-//	private AChar prevICode    Reg;
+	private lawu.chem.pdb.primitives.Integer strand       Str;
+	private LString sheetID      She;
+	private lawu.chem.pdb.primitives.Integer numStrands   Num;
+	private Residue name initResName  Res;
+	private lawu.chem.pdb.primitives.Character initChainID  Cha;
+	private lawu.chem.pdb.primitives.Integer initSeqNum   Seq;
+	private AChar initICode    Ins;
+	private Residue name endResName   Res;
+	private lawu.chem.pdb.primitives.Character endChainID   Cha;
+	private lawu.chem.pdb.primitives.Integer endSeqNum    Seq;
+	private AChar endICode     Ins;
+	private lawu.chem.pdb.primitives.Integer sense        Sen;
+	private Atom curAtom      Reg;
+	private Residue name curResName   Reg;
+	private lawu.chem.pdb.primitives.Character curChainId   Reg;
+	private lawu.chem.pdb.primitives.Integer curResSeq    Reg;
+	private AChar curICode     Reg;
+	private Atom prevAtom     Reg;
+	private Residue name prevResName  Reg;
+	private lawu.chem.pdb.primitives.Character prevChainId  Reg;
+	private lawu.chem.pdb.primitives.Integer prevResSeq   Reg;
+	private AChar prevICode    Reg;
 
 	private final static Pattern pattern = Pattern.compile("SHEET  (...) (...)(..) (...) (.)(.{4})(.) (...) (.)(.{4})(.)(..) (.{4})(...) (.)(.{4})(.) (.{4})(...) (.)(.{4})(.) {10}"); //$NON-NLS-1$
 	private final static String format = "SHEET  %3s %3s%2s %3s %1s%4s%1s %3s %1s%4s%1s%2s %4s%3s %1s%4s%1s %4s%3s %1s%4s%1s          "; //$NON-NLS-1$
@@ -57,7 +58,7 @@ public class Sheet {
 		if(!m.matches())
 			throw new RuntimeException();
 		strand       Str = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		// sheetID      She = new LString(3)(m.group(2));
+		sheetID      She = new LString(m.group(2), 3);
 		numStrands   Num = new lawu.chem.pdb.primitives.Integer(m.group(3));
 		// initResName  Res = new Residue name(m.group(4));
 		initChainID  Cha = new lawu.chem.pdb.primitives.Character(m.group(5));

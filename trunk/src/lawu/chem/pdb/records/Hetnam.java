@@ -20,15 +20,16 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Hetnam {
-//	private Continuation continuation;
-//	private LString(3) hetID;
-//	private lawu.chem.pdb.primitives.String text;
+	private Continuation continuation;
+	private LString hetID;
+	private lawu.chem.pdb.primitives.String text;
 
 	private final static Pattern pattern = Pattern.compile("HETNAM  (..) (...) (.{55}) {10}"); //$NON-NLS-1$
 	private final static String format = "HETNAM  %2s %3s %55s          "; //$NON-NLS-1$
@@ -38,7 +39,7 @@ public class Hetnam {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// hetID = new LString(3)(m.group(2));
+		hetID = new LString(m.group(2), 3);
 		text = new lawu.chem.pdb.primitives.String(m.group(3));
 	}
 

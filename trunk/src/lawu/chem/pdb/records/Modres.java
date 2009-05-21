@@ -20,19 +20,20 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Modres {
-//	private IDcode idCode     ID;
-//	private Residue name resName    Res;
-//	private lawu.chem.pdb.primitives.Character chainID    Cha;
-//	private lawu.chem.pdb.primitives.Integer seqNum     Seq;
-//	private AChar iCode      Ins;
-//	private Residue name stdRes     Sta;
-//	private lawu.chem.pdb.primitives.String comment    Des;
+	private IDcode idCode     ID;
+	private Residue name resName    Res;
+	private lawu.chem.pdb.primitives.Character chainID    Cha;
+	private lawu.chem.pdb.primitives.Integer seqNum     Seq;
+	private AChar iCode      Ins;
+	private Residue name stdRes     Sta;
+	private lawu.chem.pdb.primitives.String comment    Des;
 
 	private final static Pattern pattern = Pattern.compile("MODRES (.{4}) (...) (.) (.{4})(.) (...)  (.{41}) {10}"); //$NON-NLS-1$
 	private final static String format = "MODRES %4s %3s %1s %4s%1s %3s  %41s          "; //$NON-NLS-1$

@@ -20,17 +20,18 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Scale {
-//	private int n;
-//	private Real(10.6) s[n][1];
-//	private Real(10.6) s[n][2];
-//	private Real(10.6) s[n][3];
-//	private Real(10.5) u[n];
+	private int n;
+	private Real sn1;
+	private Real sn2;
+	private Real sn3;
+	private Real un;
 
 	private final static Pattern pattern = Pattern.compile("SCALE(\\d) {4}(.{10})(.{10})(.{10}) {5}(.{10}) {25}"); //$NON-NLS-1$
 	private final static String format = "SCALE%d    %10s%10s%10s     %10s                         "; //$NON-NLS-1$
@@ -40,38 +41,38 @@ public class Scale {
 		if(!m.matches())
 			throw new RuntimeException();
 		n = Integer.parseInt(m.group(1));
-		s[n][1] = new Real(m.group(2), 10, 6);
-		s[n][2] = new Real(m.group(3), 10, 6);
-		s[n][3] = new Real(m.group(4), 10, 6);
-		u[n] = new Real(m.group(5), 10, 5);
+		sn1 = new Real(m.group(2), 10, 6);
+		sn2 = new Real(m.group(3), 10, 6);
+		sn3 = new Real(m.group(4), 10, 6);
+		un = new Real(m.group(5), 10, 5);
 	}
 
 	/**
 	 * Sn1
 	 */
-//	public Real(10.6) s[n][1]() {
-//		return s[n][1];
+//	public Real(10.6) sn1() {
+//		return sn1;
 //	}
 
 	/**
 	 * Sn2
 	 */
-//	public Real(10.6) s[n][2]() {
-//		return s[n][2];
+//	public Real(10.6) sn2() {
+//		return sn2;
 //	}
 
 	/**
 	 * Sn3
 	 */
-//	public Real(10.6) s[n][3]() {
-//		return s[n][3];
+//	public Real(10.6) sn3() {
+//		return sn3;
 //	}
 
 	/**
 	 * Un
 	 */
-//	public Real(10.5) u[n]() {
-//		return u[n];
+//	public Real(10.5) un() {
+//		return un;
 //	}
 
 	@Override	

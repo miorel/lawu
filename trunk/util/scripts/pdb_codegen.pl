@@ -68,10 +68,13 @@ while(my($record_name, $val) = each %_) {
 			$pattern .= sprintf("(%s)", '.' x ($end - $start + 1));
 			$format .= sprintf("%%%ds", $end - $start + 1);
 			$pattern_length = $end;
+			$field =~ s/[\[\]]//g;
 			push @fields, [$data_type, $field, $definition];
 		}
 		else {
 			$fields[-1]->[2] .= " $definition";
+			$fields[-1]->[0] .= " $data_type";
+			$fields[-1]->[0] =~ s/\s+/ /g;
 		}
 	}
 	if($pattern_length < 80) {
@@ -100,6 +103,7 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
@@ -108,7 +112,8 @@ import lawu.chem.pdb.primitives.Real;
 public class $class_name {
 EOF
 	for(@fields) {
-		print $fh "//\tprivate $_->[0] $_->[1];\n";
+		$_->[0] =~ /^([a-z\. ]+)/i;
+		print $fh "\tprivate $1 $_->[1];\n";
 	}
 	print $fh <<"EOF";
 
@@ -128,7 +133,7 @@ EOF
 			case 'int' {
 				$build = 'Integer.parseInt';
 			}
-			case m/(?:\.|^)(?:AChar|Character|Integer|String|SymOp|Continuation)$/i {
+			case m/(?:\.|^)(?:AChar|Character|Integer|String|SymOp|Continuation|LString)$/i {
 				$build = "new $_->[0]";
 			}
 			case m/^IDcode$/i {
@@ -141,6 +146,11 @@ EOF
 				$build = "new Real";
 				$_->[0] =~ /\((\d+)\.(\d+)\)$/;
 				push @args, ($1, $2);
+			}
+			case m/^LString\(\d+\)$/ {
+				$build = "new LString";
+				$_->[0] =~ /(\d+)\)$/;
+				push @args, $1;
 			}
 		}
 		printf($fh "\t\t%s = %s(%s);\n", ($build ? $_->[1] : "// $_->[1]"), ($build ? $build : "new $_->[0]"), join(", ", @args));

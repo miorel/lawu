@@ -20,15 +20,16 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Header {
-//	private String(40) classification;
-//	private Date depDate;
-//	private IDcode idCode;
+	private String classification;
+	private Date depDate;
+	private IDcode idCode;
 
 	private final static Pattern pattern = Pattern.compile("HEADER {4}(.{40})(.{9})   (.{4}) {14}"); //$NON-NLS-1$
 	private final static String format = "HEADER    %40s%9s   %4s              "; //$NON-NLS-1$

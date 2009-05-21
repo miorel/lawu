@@ -20,24 +20,25 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Master {
-//	private lawu.chem.pdb.primitives.Integer numRemark;
-//	private Integ er        "0";
-//	private lawu.chem.pdb.primitives.Integer numHet;
-//	private lawu.chem.pdb.primitives.Integer numHelix;
-//	private lawu.chem.pdb.primitives.Integer numSheet;
-//	private lawu.chem.pdb.primitives.Integer numTurn;
-//	private lawu.chem.pdb.primitives.Integer numSite;
-//	private lawu.chem.pdb.primitives.Integer numXform;
-//	private lawu.chem.pdb.primitives.Integer numCoord;
-//	private lawu.chem.pdb.primitives.Integer numTer;
-//	private lawu.chem.pdb.primitives.Integer numConect;
-//	private lawu.chem.pdb.primitives.Integer numSeq;
+	private lawu.chem.pdb.primitives.Integer numRemark;
+	private Integ er        "0";
+	private lawu.chem.pdb.primitives.Integer numHet;
+	private lawu.chem.pdb.primitives.Integer numHelix;
+	private lawu.chem.pdb.primitives.Integer numSheet;
+	private lawu.chem.pdb.primitives.Integer numTurn;
+	private lawu.chem.pdb.primitives.Integer numSite;
+	private lawu.chem.pdb.primitives.Integer numXform;
+	private lawu.chem.pdb.primitives.Integer numCoord;
+	private lawu.chem.pdb.primitives.Integer numTer;
+	private lawu.chem.pdb.primitives.Integer numConect;
+	private lawu.chem.pdb.primitives.Integer numSeq;
 
 	private final static Pattern pattern = Pattern.compile("MASTER {4}(.{5})(.{5})(.{5})(.{5})(.{5})(.{5})(.{5})(.{5})(.{5})(.{5})(.{5})(.{5}) {10}"); //$NON-NLS-1$
 	private final static String format = "MASTER    %5s%5s%5s%5s%5s%5s%5s%5s%5s%5s%5s%5s          "; //$NON-NLS-1$

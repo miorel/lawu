@@ -20,26 +20,27 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Sigatm {
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private Atom name;
-//	private lawu.chem.pdb.primitives.Character altLoc;
-//	private Residue name resName;
-//	private lawu.chem.pdb.primitives.Character chainID;
-//	private lawu.chem.pdb.primitives.Integer resSeq;
-//	private AChar iCode;
-//	private Real(8.3) sigX;
-//	private Real(8.3) sigY;
-//	private Real(8.3) sigZ;
-//	private Real(6.2) sigOcc;
-//	private Real(6.2) sigTemp;
-//	private LString(2) element;
-//	private LString(2) charge;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private Atom name;
+	private lawu.chem.pdb.primitives.Character altLoc;
+	private Residue name resName;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer resSeq;
+	private AChar iCode;
+	private Real sigX;
+	private Real sigY;
+	private Real sigZ;
+	private Real sigOcc;
+	private Real sigTemp;
+	private LString element;
+	private LString charge;
 
 	private final static Pattern pattern = Pattern.compile("SIGATM(.{5}) (.{4})(.)(...) (.)(.{4})(.)   (.{8})(.{8})(.{8})(.{6})(.{6}) {10}(..)(..)"); //$NON-NLS-1$
 	private final static String format = "SIGATM%5s %4s%1s%3s %1s%4s%1s   %8s%8s%8s%6s%6s          %2s%2s"; //$NON-NLS-1$
@@ -60,8 +61,8 @@ public class Sigatm {
 		sigZ = new Real(m.group(10), 8, 3);
 		sigOcc = new Real(m.group(11), 6, 2);
 		sigTemp = new Real(m.group(12), 6, 2);
-		// element = new LString(2)(m.group(13));
-		// charge = new LString(2)(m.group(14));
+		element = new LString(m.group(13), 2);
+		charge = new LString(m.group(14), 2);
 	}
 
 	/**

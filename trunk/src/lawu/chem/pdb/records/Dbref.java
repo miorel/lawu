@@ -20,25 +20,26 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Dbref {
-//	private IDcode idCode;
-//	private lawu.chem.pdb.primitives.Character chainID;
-//	private lawu.chem.pdb.primitives.Integer seqBegin;
-//	private AChar insertBegin;
-//	private lawu.chem.pdb.primitives.Integer seqEnd;
-//	private AChar insertEnd;
-//	private LString database;
-//	private LString dbAccession;
-//	private String            d bIdCode;
-//	private nteger            d bseqBegin;
-//	private Char              i dbnsBeg;
-//	private nteger            d bseqEnd;
-//	private Char              d binsEnd;
+	private IDcode idCode;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer seqBegin;
+	private AChar insertBegin;
+	private lawu.chem.pdb.primitives.Integer seqEnd;
+	private AChar insertEnd;
+	private LString database;
+	private LString dbAccession;
+	private String d bIdCode;
+	private nteger d bseqBegin;
+	private Char i dbnsBeg;
+	private nteger d bseqEnd;
+	private Char d binsEnd;
 
 	private final static Pattern pattern = Pattern.compile("DBREF  (.{4}) (.) (.{4})(.) (.{4})(.) (.{6}) (.{8}) (.{12}) (.{5})(.) (.{5})(.) {12}"); //$NON-NLS-1$
 	private final static String format = "DBREF  %4s %1s %4s%1s %4s%1s %6s %8s %12s %5s%1s %5s%1s            "; //$NON-NLS-1$
@@ -53,13 +54,13 @@ public class Dbref {
 		insertBegin = new AChar(m.group(4));
 		seqEnd = new lawu.chem.pdb.primitives.Integer(m.group(5));
 		insertEnd = new AChar(m.group(6));
-		// database = new LString(m.group(7));
-		// dbAccession = new LString(m.group(8));
-		// bIdCode = new String            d(m.group(9));
-		// bseqBegin = new nteger            d(m.group(10));
-		// dbnsBeg = new Char              i(m.group(11));
-		// bseqEnd = new nteger            d(m.group(12));
-		// binsEnd = new Char              d(m.group(13));
+		database = new LString(m.group(7));
+		dbAccession = new LString(m.group(8));
+		// bIdCode = new String d(m.group(9));
+		// bseqBegin = new nteger d(m.group(10));
+		// dbnsBeg = new Char i(m.group(11));
+		// bseqEnd = new nteger d(m.group(12));
+		// binsEnd = new Char d(m.group(13));
 	}
 
 	/**
@@ -121,35 +122,35 @@ public class Dbref {
 	/**
 	 * Sequence database identification code.
 	 */
-//	public String            d bIdCode() {
+//	public String d bIdCode() {
 //		return bIdCode;
 //	}
 
 	/**
 	 * Initial sequence number of the database seqment.
 	 */
-//	public nteger            d bseqBegin() {
+//	public nteger d bseqBegin() {
 //		return bseqBegin;
 //	}
 
 	/**
 	 * Insertion code of initial residue of the segment, if PDB is the reference.
 	 */
-//	public Char              i dbnsBeg() {
+//	public Char i dbnsBeg() {
 //		return dbnsBeg;
 //	}
 
 	/**
 	 * Ending sequence number of the database segment.
 	 */
-//	public nteger            d bseqEnd() {
+//	public nteger d bseqEnd() {
 //		return bseqEnd;
 //	}
 
 	/**
 	 * Insertion code of the ending residue of the segment, if PDB is the reference.
 	 */
-//	public Char              d binsEnd() {
+//	public Char d binsEnd() {
 //		return binsEnd;
 //	}
 

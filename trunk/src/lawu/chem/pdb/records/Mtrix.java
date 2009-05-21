@@ -20,19 +20,20 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Mtrix {
-//	private int n;
-//	private lawu.chem.pdb.primitives.Integer serial;
-//	private Real(10.6) m[n][1];
-//	private Real(10.6) m[n][2];
-//	private Real(10.6) m[n][3];
-//	private Real(10.5) v[n];
-//	private lawu.chem.pdb.primitives.Integer iGiven         1;
+	private int n;
+	private lawu.chem.pdb.primitives.Integer serial;
+	private Real mn1;
+	private Real mn2;
+	private Real mn3;
+	private Real vn;
+	private lawu.chem.pdb.primitives.Integer iGiven         1;
 
 	private final static Pattern pattern = Pattern.compile("MTRIX(\\d) (...)(.{10})(.{10})(.{10}) {5}(.{10}) {4}(.) {20}"); //$NON-NLS-1$
 	private final static String format = "MTRIX%d %3s%10s%10s%10s     %10s    %1s                    "; //$NON-NLS-1$
@@ -43,10 +44,10 @@ public class Mtrix {
 			throw new RuntimeException();
 		n = Integer.parseInt(m.group(1));
 		serial = new lawu.chem.pdb.primitives.Integer(m.group(2));
-		m[n][1] = new Real(m.group(3), 10, 6);
-		m[n][2] = new Real(m.group(4), 10, 6);
-		m[n][3] = new Real(m.group(5), 10, 6);
-		v[n] = new Real(m.group(6), 10, 5);
+		mn1 = new Real(m.group(3), 10, 6);
+		mn2 = new Real(m.group(4), 10, 6);
+		mn3 = new Real(m.group(5), 10, 6);
+		vn = new Real(m.group(6), 10, 5);
 		iGiven         1 = new lawu.chem.pdb.primitives.Integer(m.group(7));
 	}
 
@@ -60,29 +61,29 @@ public class Mtrix {
 	/**
 	 * Mn1
 	 */
-//	public Real(10.6) m[n][1]() {
-//		return m[n][1];
+//	public Real(10.6) mn1() {
+//		return mn1;
 //	}
 
 	/**
 	 * Mn2
 	 */
-//	public Real(10.6) m[n][2]() {
-//		return m[n][2];
+//	public Real(10.6) mn2() {
+//		return mn2;
 //	}
 
 	/**
 	 * Mn3
 	 */
-//	public Real(10.6) m[n][3]() {
-//		return m[n][3];
+//	public Real(10.6) mn3() {
+//		return mn3;
 //	}
 
 	/**
 	 * Vn
 	 */
-//	public Real(10.5) v[n]() {
-//		return v[n];
+//	public Real(10.5) vn() {
+//		return vn;
 //	}
 
 	/**
