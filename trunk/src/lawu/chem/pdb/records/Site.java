@@ -17,40 +17,67 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Site {
-//	private Integer seqNum      Seque;
+//	private lawu.chem.pdb.primitives.Integer seqNum      Seque;
 //	private LString(3) siteID      Site;
-//	private Integer numRes      Numbe;
+//	private lawu.chem.pdb.primitives.Integer numRes      Numbe;
 //	private Residue name resName1    Resid;
-//	private Character chainID1    Chain;
-//	private Integer seq1        Resid;
+//	private lawu.chem.pdb.primitives.Character chainID1    Chain;
+//	private lawu.chem.pdb.primitives.Integer seq1        Resid;
 //	private AChar iCode1      Inser;
 //	private Residue name resName2    Resid;
-//	private Character chainID2    Chain;
-//	private Integer seq2        Resid;
+//	private lawu.chem.pdb.primitives.Character chainID2    Chain;
+//	private lawu.chem.pdb.primitives.Integer seq2        Resid;
 //	private AChar iCode2      Inser;
 //	private Residue name resName3    Resid;
-//	private Character chainID3    Chain;
-//	private Integer seq3        Resid;
+//	private lawu.chem.pdb.primitives.Character chainID3    Chain;
+//	private lawu.chem.pdb.primitives.Integer seq3        Resid;
 //	private AChar iCode3      Inser;
 //	private Residue name resName4    Resid;
-//	private Character chainID4    Chain;
-//	private Integer seq4        Resid;
+//	private lawu.chem.pdb.primitives.Character chainID4    Chain;
+//	private lawu.chem.pdb.primitives.Integer seq4        Resid;
 //	private AChar iCode4      Inser;
 
-	private final static Pattern pattern = Pattern.compile("\\ASITE  \\Z"); //$NON-NLS-1$
-	private final static String format = "SITE  "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("SITE   (...) (...) (..) (...) (.)(.{4})(.) (...) (.)(.{4})(.) (...) (.)(.{4})(.) (...) (.)(.{4})(.) {19}"); //$NON-NLS-1$
+	private final static String format = "SITE   %3s %3s %2s %3s %1s%4s%1s %3s %1s%4s%1s %3s %1s%4s%1s %3s %1s%4s%1s                   "; //$NON-NLS-1$
 
 	public Site(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		seqNum      Seque = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// siteID      Site = new LString(3)(m.group(2));
+		numRes      Numbe = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		// resName1    Resid = new Residue name(m.group(4));
+		chainID1    Chain = new lawu.chem.pdb.primitives.Character(m.group(5));
+		seq1        Resid = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		iCode1      Inser = new AChar(m.group(7));
+		// resName2    Resid = new Residue name(m.group(8));
+		chainID2    Chain = new lawu.chem.pdb.primitives.Character(m.group(9));
+		seq2        Resid = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		iCode2      Inser = new AChar(m.group(11));
+		// resName3    Resid = new Residue name(m.group(12));
+		chainID3    Chain = new lawu.chem.pdb.primitives.Character(m.group(13));
+		seq3        Resid = new lawu.chem.pdb.primitives.Integer(m.group(14));
+		iCode3      Inser = new AChar(m.group(15));
+		// resName4    Resid = new Residue name(m.group(16));
+		chainID4    Chain = new lawu.chem.pdb.primitives.Character(m.group(17));
+		seq4        Resid = new lawu.chem.pdb.primitives.Integer(m.group(18));
+		iCode4      Inser = new AChar(m.group(19));
 	}
 
 	/**
 	 * nce number.
 	 */
-//	public Integer seqNum      Seque() {
+//	public lawu.chem.pdb.primitives.Integer seqNum      Seque() {
 //		return seqNum      Seque;
 //	}
 
@@ -64,7 +91,7 @@ public class Site {
 	/**
 	 * r of residues comprising
 	 */
-//	public Integer numRes      Numbe() {
+//	public lawu.chem.pdb.primitives.Integer numRes      Numbe() {
 //		return numRes      Numbe;
 //	}
 
@@ -78,14 +105,14 @@ public class Site {
 	/**
 	 *  identifier for first residue ising site.
 	 */
-//	public Character chainID1    Chain() {
+//	public lawu.chem.pdb.primitives.Character chainID1    Chain() {
 //		return chainID1    Chain;
 //	}
 
 	/**
 	 * ue sequence number for first ue comprising site.
 	 */
-//	public Integer seq1        Resid() {
+//	public lawu.chem.pdb.primitives.Integer seq1        Resid() {
 //		return seq1        Resid;
 //	}
 
@@ -106,14 +133,14 @@ public class Site {
 	/**
 	 *  identifier for second ue ising site.
 	 */
-//	public Character chainID2    Chain() {
+//	public lawu.chem.pdb.primitives.Character chainID2    Chain() {
 //		return chainID2    Chain;
 //	}
 
 	/**
 	 * ue sequence number for second ue comprising site.
 	 */
-//	public Integer seq2        Resid() {
+//	public lawu.chem.pdb.primitives.Integer seq2        Resid() {
 //		return seq2        Resid;
 //	}
 
@@ -134,14 +161,14 @@ public class Site {
 	/**
 	 *  identifier for third residue ising site.
 	 */
-//	public Character chainID3    Chain() {
+//	public lawu.chem.pdb.primitives.Character chainID3    Chain() {
 //		return chainID3    Chain;
 //	}
 
 	/**
 	 * ue sequence number for third ue comprising site.
 	 */
-//	public Integer seq3        Resid() {
+//	public lawu.chem.pdb.primitives.Integer seq3        Resid() {
 //		return seq3        Resid;
 //	}
 
@@ -162,14 +189,14 @@ public class Site {
 	/**
 	 *  identifier for fourth ue ising site.
 	 */
-//	public Character chainID4    Chain() {
+//	public lawu.chem.pdb.primitives.Character chainID4    Chain() {
 //		return chainID4    Chain;
 //	}
 
 	/**
 	 * ue sequence number for fourth ue comprising site.
 	 */
-//	public Integer seq4        Resid() {
+//	public lawu.chem.pdb.primitives.Integer seq4        Resid() {
 //		return seq4        Resid;
 //	}
 

@@ -17,25 +17,43 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Seqadv {
 //	private IDcode idCode    I;
 //	private Residue name resName   N;
-//	private Character chainID   P;
-//	private Integer seqNum    P;
+//	private lawu.chem.pdb.primitives.Character chainID   P;
+//	private lawu.chem.pdb.primitives.Integer seqNum    P;
 //	private AChar iCode     P;
 //	private LString database;
 //	private LString dbIdCode  S;
 //	private Residue name dbRes     S;
-//	private Integer dbSeq     S;
+//	private lawu.chem.pdb.primitives.Integer dbSeq     S;
 //	private LString conflict  C;
 
-	private final static Pattern pattern = Pattern.compile("\\ASEQADV\\Z"); //$NON-NLS-1$
-	private final static String format = "SEQADV"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("SEQADV (.{4}) (...) (.) (.{4})(.) (.{4}) (.{9}) (...) (.{5}) (.{21}) {10}"); //$NON-NLS-1$
+	private final static String format = "SEQADV %4s %3s %1s %4s%1s %4s %9s %3s %5s %21s          "; //$NON-NLS-1$
 
 	public Seqadv(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		idCode    I = new IdCode(m.group(1));
+		// resName   N = new Residue name(m.group(2));
+		chainID   P = new lawu.chem.pdb.primitives.Character(m.group(3));
+		seqNum    P = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		iCode     P = new AChar(m.group(5));
+		// database = new LString(m.group(6));
+		// dbIdCode  S = new LString(m.group(7));
+		// dbRes     S = new Residue name(m.group(8));
+		dbSeq     S = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		// conflict  C = new LString(m.group(10));
 	}
 
 	/**
@@ -55,14 +73,14 @@ public class Seqadv {
 	/**
 	 * DB chain identifier.
 	 */
-//	public Character chainID   P() {
+//	public lawu.chem.pdb.primitives.Character chainID   P() {
 //		return chainID   P;
 //	}
 
 	/**
 	 * DB sequence number.
 	 */
-//	public Integer seqNum    P() {
+//	public lawu.chem.pdb.primitives.Integer seqNum    P() {
 //		return seqNum    P;
 //	}
 
@@ -90,7 +108,7 @@ public class Seqadv {
 	/**
 	 * equence database sequence number.
 	 */
-//	public Integer dbSeq     S() {
+//	public lawu.chem.pdb.primitives.Integer dbSeq     S() {
 //		return dbSeq     S;
 //	}
 

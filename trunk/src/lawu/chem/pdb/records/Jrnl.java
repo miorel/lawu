@@ -17,16 +17,25 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Jrnl {
 //	private LString text;
 
-	private final static Pattern pattern = Pattern.compile("\\AJRNL  \\Z"); //$NON-NLS-1$
-	private final static String format = "JRNL  "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("JRNL {8}(.{58}) {10}"); //$NON-NLS-1$
+	private final static String format = "JRNL        %58s          "; //$NON-NLS-1$
 
 	public Jrnl(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		// text = new LString(m.group(1));
 	}
 
 	/**

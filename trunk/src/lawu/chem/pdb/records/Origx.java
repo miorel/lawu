@@ -17,6 +17,14 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Origx {
 //	private int n;
 //	private Real(10.6) o[n][1];
@@ -24,13 +32,18 @@ public class Origx {
 //	private Real(10.6) o[n][3];
 //	private Real(10.5) t[n];
 
-	private final static Pattern pattern = Pattern.compile("\\AORIGX(\\d)\\Z"); //$NON-NLS-1$
-	private final static String format = "ORIGX%d"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("ORIGX(\\d) {4}(.{10})(.{10})(.{10}) {5}(.{10}) {25}"); //$NON-NLS-1$
+	private final static String format = "ORIGX%d    %10s%10s%10s     %10s                         "; //$NON-NLS-1$
 
 	public Origx(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		n = Integer.parseInt(m.group(1));
+		o[n][1] = new Real(m.group(2), 10, 6);
+		o[n][2] = new Real(m.group(3), 10, 6);
+		o[n][3] = new Real(m.group(4), 10, 6);
+		t[n] = new Real(m.group(5), 10, 5);
 	}
 
 	/**

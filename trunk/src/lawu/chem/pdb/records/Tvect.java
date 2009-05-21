@@ -17,26 +17,39 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Tvect {
-//	private Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
 //	private Real(10.5) t[1];
 //	private Real(10.5) t[2];
 //	private Real(10.5) t[3];
-//	private String text;
+//	private lawu.chem.pdb.primitives.String text;
 
-	private final static Pattern pattern = Pattern.compile("\\ATVECT \\Z"); //$NON-NLS-1$
-	private final static String format = "TVECT "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("TVECT  (...)(.{10})(.{10})(.{10})(.{30}) {10}"); //$NON-NLS-1$
+	private final static String format = "TVECT  %3s%10s%10s%10s%30s          "; //$NON-NLS-1$
 
 	public Tvect(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		t[1] = new Real(m.group(2), 10, 5);
+		t[2] = new Real(m.group(3), 10, 5);
+		t[3] = new Real(m.group(4), 10, 5);
+		text = new lawu.chem.pdb.primitives.String(m.group(5));
 	}
 
 	/**
 	 * Serial number.
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
@@ -64,7 +77,7 @@ public class Tvect {
 	/**
 	 * Comment.
 	 */
-//	public String text() {
+//	public lawu.chem.pdb.primitives.String text() {
 //		return text;
 //	}
 

@@ -17,32 +17,51 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Cispep {
-//	private Integer serNum;
+//	private lawu.chem.pdb.primitives.Integer serNum;
 //	private LString(3) pep1;
-//	private Character chainID1;
-//	private Integer seqNum1;
+//	private lawu.chem.pdb.primitives.Character chainID1;
+//	private lawu.chem.pdb.primitives.Integer seqNum1;
 //	private AChar icode1;
 //	private LString(3) pep2;
-//	private Character chainID2;
-//	private Integer seqNum2;
+//	private lawu.chem.pdb.primitives.Character chainID2;
+//	private lawu.chem.pdb.primitives.Integer seqNum2;
 //	private AChar icode2;
-//	private Integer modNum;
+//	private lawu.chem.pdb.primitives.Integer modNum;
 //	private Real(6.2) measure;
 
-	private final static Pattern pattern = Pattern.compile("\\ACISPEP\\Z"); //$NON-NLS-1$
-	private final static String format = "CISPEP"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("CISPEP (...) (...) (.) (.{4})(.)   (...) (.) (.{4})(.) {7}(...) {7}(.{6}) {21}"); //$NON-NLS-1$
+	private final static String format = "CISPEP %3s %3s %1s %4s%1s   %3s %1s %4s%1s       %3s       %6s                     "; //$NON-NLS-1$
 
 	public Cispep(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// pep1 = new LString(3)(m.group(2));
+		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(3));
+		seqNum1 = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		icode1 = new AChar(m.group(5));
+		// pep2 = new LString(3)(m.group(6));
+		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(7));
+		seqNum2 = new lawu.chem.pdb.primitives.Integer(m.group(8));
+		icode2 = new AChar(m.group(9));
+		modNum = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		measure = new Real(m.group(11), 6, 2);
 	}
 
 	/**
 	 * Record serial number.
 	 */
-//	public Integer serNum() {
+//	public lawu.chem.pdb.primitives.Integer serNum() {
 //		return serNum;
 //	}
 
@@ -56,14 +75,14 @@ public class Cispep {
 	/**
 	 * Chain identifier.
 	 */
-//	public Character chainID1() {
+//	public lawu.chem.pdb.primitives.Character chainID1() {
 //		return chainID1;
 //	}
 
 	/**
 	 * Residue sequence number.
 	 */
-//	public Integer seqNum1() {
+//	public lawu.chem.pdb.primitives.Integer seqNum1() {
 //		return seqNum1;
 //	}
 
@@ -84,14 +103,14 @@ public class Cispep {
 	/**
 	 * Chain identifier.
 	 */
-//	public Character chainID2() {
+//	public lawu.chem.pdb.primitives.Character chainID2() {
 //		return chainID2;
 //	}
 
 	/**
 	 * Residue sequence number.
 	 */
-//	public Integer seqNum2() {
+//	public lawu.chem.pdb.primitives.Integer seqNum2() {
 //		return seqNum2;
 //	}
 
@@ -105,7 +124,7 @@ public class Cispep {
 	/**
 	 * Identifies the specific model.
 	 */
-//	public Integer modNum() {
+//	public lawu.chem.pdb.primitives.Integer modNum() {
 //		return modNum;
 //	}
 

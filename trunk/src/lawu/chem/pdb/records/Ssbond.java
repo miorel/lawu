@@ -17,32 +17,51 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Ssbond {
-//	private Integer serNum       S;
+//	private lawu.chem.pdb.primitives.Integer serNum       S;
 //	private LString(3) "CYS"        R;
-//	private Character chainID1     C;
-//	private Integer seqNum1      R;
+//	private lawu.chem.pdb.primitives.Character chainID1     C;
+//	private lawu.chem.pdb.primitives.Integer seqNum1      R;
 //	private AChar icode1       I;
 //	private LString(3) "CYS"        R;
-//	private Character chainID2     C;
-//	private Integer seqNum2      R;
+//	private lawu.chem.pdb.primitives.Character chainID2     C;
+//	private lawu.chem.pdb.primitives.Integer seqNum2      R;
 //	private AChar icode2       I;
 //	private SymOP sym1         S;
 //	private SymOP sym2         S;
 
-	private final static Pattern pattern = Pattern.compile("\\ASSBOND\\Z"); //$NON-NLS-1$
-	private final static String format = "SSBOND"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("SSBOND (...) (...) (.) (.{4})(.)   (...) (.) (.{4})(.) {23}(.{6}) (.{6}) {8}"); //$NON-NLS-1$
+	private final static String format = "SSBOND %3s %3s %1s %4s%1s   %3s %1s %4s%1s                       %6s %6s        "; //$NON-NLS-1$
 
 	public Ssbond(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serNum       S = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// "CYS"        R = new LString(3)(m.group(2));
+		chainID1     C = new lawu.chem.pdb.primitives.Character(m.group(3));
+		seqNum1      R = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		icode1       I = new AChar(m.group(5));
+		// "CYS"        R = new LString(3)(m.group(6));
+		chainID2     C = new lawu.chem.pdb.primitives.Character(m.group(7));
+		seqNum2      R = new lawu.chem.pdb.primitives.Integer(m.group(8));
+		icode2       I = new AChar(m.group(9));
+		sym1         S = new SymOP(m.group(10));
+		sym2         S = new SymOP(m.group(11));
 	}
 
 	/**
 	 * erial number.
 	 */
-//	public Integer serNum       S() {
+//	public lawu.chem.pdb.primitives.Integer serNum       S() {
 //		return serNum       S;
 //	}
 
@@ -56,14 +75,14 @@ public class Ssbond {
 	/**
 	 * hain identifier.
 	 */
-//	public Character chainID1     C() {
+//	public lawu.chem.pdb.primitives.Character chainID1     C() {
 //		return chainID1     C;
 //	}
 
 	/**
 	 * esidue sequence number.
 	 */
-//	public Integer seqNum1      R() {
+//	public lawu.chem.pdb.primitives.Integer seqNum1      R() {
 //		return seqNum1      R;
 //	}
 
@@ -84,14 +103,14 @@ public class Ssbond {
 	/**
 	 * hain identifier.
 	 */
-//	public Character chainID2     C() {
+//	public lawu.chem.pdb.primitives.Character chainID2     C() {
 //		return chainID2     C;
 //	}
 
 	/**
 	 * esidue sequence number.
 	 */
-//	public Integer seqNum2      R() {
+//	public lawu.chem.pdb.primitives.Integer seqNum2      R() {
 //		return seqNum2      R;
 //	}
 

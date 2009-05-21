@@ -17,26 +17,39 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Ter {
-//	private Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
 //	private Residue name resName;
-//	private Character chainID;
-//	private Integer resSeq;
+//	private lawu.chem.pdb.primitives.Character chainID;
+//	private lawu.chem.pdb.primitives.Integer resSeq;
 //	private AChar iCode;
 
-	private final static Pattern pattern = Pattern.compile("\\ATER   \\Z"); //$NON-NLS-1$
-	private final static String format = "TER   "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("TER   (.{5}) {6}(...) (.)(.{4})(.) {53}"); //$NON-NLS-1$
+	private final static String format = "TER   %5s      %3s %1s%4s%1s                                                     "; //$NON-NLS-1$
 
 	public Ter(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// resName = new Residue name(m.group(2));
+		chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
+		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		iCode = new AChar(m.group(5));
 	}
 
 	/**
 	 * Serial number.
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
@@ -50,14 +63,14 @@ public class Ter {
 	/**
 	 * Chain identifier.
 	 */
-//	public Character chainID() {
+//	public lawu.chem.pdb.primitives.Character chainID() {
 //		return chainID;
 //	}
 
 	/**
 	 * Residue sequence number.
 	 */
-//	public Integer resSeq() {
+//	public lawu.chem.pdb.primitives.Integer resSeq() {
 //		return resSeq;
 //	}
 

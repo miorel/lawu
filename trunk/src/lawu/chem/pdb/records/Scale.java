@@ -17,6 +17,14 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Scale {
 //	private int n;
 //	private Real(10.6) s[n][1];
@@ -24,13 +32,18 @@ public class Scale {
 //	private Real(10.6) s[n][3];
 //	private Real(10.5) u[n];
 
-	private final static Pattern pattern = Pattern.compile("\\ASCALE(\\d)\\Z"); //$NON-NLS-1$
-	private final static String format = "SCALE%d"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("SCALE(\\d) {4}(.{10})(.{10})(.{10}) {5}(.{10}) {25}"); //$NON-NLS-1$
+	private final static String format = "SCALE%d    %10s%10s%10s     %10s                         "; //$NON-NLS-1$
 
 	public Scale(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		n = Integer.parseInt(m.group(1));
+		s[n][1] = new Real(m.group(2), 10, 6);
+		s[n][2] = new Real(m.group(3), 10, 6);
+		s[n][3] = new Real(m.group(4), 10, 6);
+		u[n] = new Real(m.group(5), 10, 5);
 	}
 
 	/**

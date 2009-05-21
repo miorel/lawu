@@ -17,18 +17,29 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Caveat {
 //	private Continuation continuation      Al;
 //	private IDcode idCode            PD;
-//	private String comment           Fr;
+//	private lawu.chem.pdb.primitives.String comment           Fr;
 
-	private final static Pattern pattern = Pattern.compile("\\ACAVEAT\\Z"); //$NON-NLS-1$
-	private final static String format = "CAVEAT"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("CAVEAT  (..) (.{4}) {4}(.{51}) {10}"); //$NON-NLS-1$
+	private final static String format = "CAVEAT  %2s %4s    %51s          "; //$NON-NLS-1$
 
 	public Caveat(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		continuation      Al = new Continuation(m.group(1));
+		idCode            PD = new IdCode(m.group(2));
+		comment           Fr = new lawu.chem.pdb.primitives.String(m.group(3));
 	}
 
 	/**
@@ -48,7 +59,7 @@ public class Caveat {
 	/**
 	 * ee text giving the reason for the CAVEAT.
 	 */
-//	public String comment           Fr() {
+//	public lawu.chem.pdb.primitives.String comment           Fr() {
 //		return comment           Fr;
 //	}
 

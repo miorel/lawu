@@ -17,18 +17,29 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Header {
 //	private String(40) classification;
 //	private Date depDate;
 //	private IDcode idCode;
 
-	private final static Pattern pattern = Pattern.compile("\\AHEADER\\Z"); //$NON-NLS-1$
-	private final static String format = "HEADER"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("HEADER {4}(.{40})(.{9})   (.{4}) {14}"); //$NON-NLS-1$
+	private final static String format = "HEADER    %40s%9s   %4s              "; //$NON-NLS-1$
 
 	public Header(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		// classification = new String(40)(m.group(1));
+		// depDate = new Date(m.group(2));
+		idCode = new IdCode(m.group(3));
 	}
 
 	/**

@@ -17,17 +17,27 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Author {
 //	private Continuation continuation;
 //	private List authorList;
 
-	private final static Pattern pattern = Pattern.compile("\\AAUTHOR\\Z"); //$NON-NLS-1$
-	private final static String format = "AUTHOR"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("AUTHOR  (..)(.{60}) {10}"); //$NON-NLS-1$
+	private final static String format = "AUTHOR  %2s%60s          "; //$NON-NLS-1$
 
 	public Author(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		continuation = new Continuation(m.group(1));
+		// authorList = new List(m.group(2));
 	}
 
 	/**

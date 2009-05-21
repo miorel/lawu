@@ -17,6 +17,14 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Cryst {
 //	private int n;
 //	private Real(9.3) a;
@@ -26,15 +34,24 @@ public class Cryst {
 //	private Real(7.2) beta;
 //	private Real(7.2) gamma;
 //	private LString sGroup;
-//	private Integer z;
+//	private lawu.chem.pdb.primitives.Integer z;
 
-	private final static Pattern pattern = Pattern.compile("\\ACRYST(\\d)\\Z"); //$NON-NLS-1$
-	private final static String format = "CRYST%d"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("CRYST(\\d)(.{9})(.{9})(.{9})(.{7})(.{7})(.{7}) (.{11})(.{4}) {10}"); //$NON-NLS-1$
+	private final static String format = "CRYST%d%9s%9s%9s%7s%7s%7s %11s%4s          "; //$NON-NLS-1$
 
 	public Cryst(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		n = Integer.parseInt(m.group(1));
+		a = new Real(m.group(2), 9, 3);
+		b = new Real(m.group(3), 9, 3);
+		c = new Real(m.group(4), 9, 3);
+		alpha = new Real(m.group(5), 7, 2);
+		beta = new Real(m.group(6), 7, 2);
+		gamma = new Real(m.group(7), 7, 2);
+		// sGroup = new LString(m.group(8));
+		z = new lawu.chem.pdb.primitives.Integer(m.group(9));
 	}
 
 	/**
@@ -89,7 +106,7 @@ public class Cryst {
 	/**
 	 * Z value.
 	 */
-//	public Integer z() {
+//	public lawu.chem.pdb.primitives.Integer z() {
 //		return z;
 //	}
 

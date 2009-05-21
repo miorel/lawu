@@ -17,43 +17,73 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Sheet {
-//	private Integer strand       Str;
+//	private lawu.chem.pdb.primitives.Integer strand       Str;
 //	private LString(3) sheetID      She;
-//	private Integer numStrands   Num;
+//	private lawu.chem.pdb.primitives.Integer numStrands   Num;
 //	private Residue name initResName  Res;
-//	private Character initChainID  Cha;
-//	private Integer initSeqNum   Seq;
+//	private lawu.chem.pdb.primitives.Character initChainID  Cha;
+//	private lawu.chem.pdb.primitives.Integer initSeqNum   Seq;
 //	private AChar initICode    Ins;
 //	private Residue name endResName   Res;
-//	private Character endChainID   Cha;
-//	private Integer endSeqNum    Seq;
+//	private lawu.chem.pdb.primitives.Character endChainID   Cha;
+//	private lawu.chem.pdb.primitives.Integer endSeqNum    Seq;
 //	private AChar endICode     Ins;
-//	private Integer sense        Sen;
+//	private lawu.chem.pdb.primitives.Integer sense        Sen;
 //	private Atom curAtom      Reg;
 //	private Residue name curResName   Reg;
-//	private Character curChainId   Reg;
-//	private Integer curResSeq    Reg;
+//	private lawu.chem.pdb.primitives.Character curChainId   Reg;
+//	private lawu.chem.pdb.primitives.Integer curResSeq    Reg;
 //	private AChar curICode     Reg;
 //	private Atom prevAtom     Reg;
 //	private Residue name prevResName  Reg;
-//	private Character prevChainId  Reg;
-//	private Integer prevResSeq   Reg;
+//	private lawu.chem.pdb.primitives.Character prevChainId  Reg;
+//	private lawu.chem.pdb.primitives.Integer prevResSeq   Reg;
 //	private AChar prevICode    Reg;
 
-	private final static Pattern pattern = Pattern.compile("\\ASHEET \\Z"); //$NON-NLS-1$
-	private final static String format = "SHEET "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("SHEET  (...) (...)(..) (...) (.)(.{4})(.) (...) (.)(.{4})(.)(..) (.{4})(...) (.)(.{4})(.) (.{4})(...) (.)(.{4})(.) {10}"); //$NON-NLS-1$
+	private final static String format = "SHEET  %3s %3s%2s %3s %1s%4s%1s %3s %1s%4s%1s%2s %4s%3s %1s%4s%1s %4s%3s %1s%4s%1s          "; //$NON-NLS-1$
 
 	public Sheet(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		strand       Str = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// sheetID      She = new LString(3)(m.group(2));
+		numStrands   Num = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		// initResName  Res = new Residue name(m.group(4));
+		initChainID  Cha = new lawu.chem.pdb.primitives.Character(m.group(5));
+		initSeqNum   Seq = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		initICode    Ins = new AChar(m.group(7));
+		// endResName   Res = new Residue name(m.group(8));
+		endChainID   Cha = new lawu.chem.pdb.primitives.Character(m.group(9));
+		endSeqNum    Seq = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		endICode     Ins = new AChar(m.group(11));
+		sense        Sen = new lawu.chem.pdb.primitives.Integer(m.group(12));
+		// curAtom      Reg = new Atom(m.group(13));
+		// curResName   Reg = new Residue name(m.group(14));
+		curChainId   Reg = new lawu.chem.pdb.primitives.Character(m.group(15));
+		curResSeq    Reg = new lawu.chem.pdb.primitives.Integer(m.group(16));
+		curICode     Reg = new AChar(m.group(17));
+		// prevAtom     Reg = new Atom(m.group(18));
+		// prevResName  Reg = new Residue name(m.group(19));
+		prevChainId  Reg = new lawu.chem.pdb.primitives.Character(m.group(20));
+		prevResSeq   Reg = new lawu.chem.pdb.primitives.Integer(m.group(21));
+		prevICode    Reg = new AChar(m.group(22));
 	}
 
 	/**
 	 * and number which starts at 1 each strand within a sheet increases by one.
 	 */
-//	public Integer strand       Str() {
+//	public lawu.chem.pdb.primitives.Integer strand       Str() {
 //		return strand       Str;
 //	}
 
@@ -67,7 +97,7 @@ public class Sheet {
 	/**
 	 * ber of strands in sheet.
 	 */
-//	public Integer numStrands   Num() {
+//	public lawu.chem.pdb.primitives.Integer numStrands   Num() {
 //		return numStrands   Num;
 //	}
 
@@ -81,14 +111,14 @@ public class Sheet {
 	/**
 	 * in identifier of initial idue in strand.
 	 */
-//	public Character initChainID  Cha() {
+//	public lawu.chem.pdb.primitives.Character initChainID  Cha() {
 //		return initChainID  Cha;
 //	}
 
 	/**
 	 * uence number of initial idue in strand.
 	 */
-//	public Integer initSeqNum   Seq() {
+//	public lawu.chem.pdb.primitives.Integer initSeqNum   Seq() {
 //		return initSeqNum   Seq;
 //	}
 
@@ -109,14 +139,14 @@ public class Sheet {
 	/**
 	 * in identifier of terminal idue.
 	 */
-//	public Character endChainID   Cha() {
+//	public lawu.chem.pdb.primitives.Character endChainID   Cha() {
 //		return endChainID   Cha;
 //	}
 
 	/**
 	 * uence number of terminal idue.
 	 */
-//	public Integer endSeqNum    Seq() {
+//	public lawu.chem.pdb.primitives.Integer endSeqNum    Seq() {
 //		return endSeqNum    Seq;
 //	}
 
@@ -130,7 +160,7 @@ public class Sheet {
 	/**
 	 * se of strand with respect to vious strand in the sheet. 0 first strand, 1 if parallel, if anti-parallel.
 	 */
-//	public Integer sense        Sen() {
+//	public lawu.chem.pdb.primitives.Integer sense        Sen() {
 //		return sense        Sen;
 //	}
 
@@ -151,14 +181,14 @@ public class Sheet {
 	/**
 	 * istration. Chain identifier in rent strand.
 	 */
-//	public Character curChainId   Reg() {
+//	public lawu.chem.pdb.primitives.Character curChainId   Reg() {
 //		return curChainId   Reg;
 //	}
 
 	/**
 	 * istration. Residue sequence ber in current strand.
 	 */
-//	public Integer curResSeq    Reg() {
+//	public lawu.chem.pdb.primitives.Integer curResSeq    Reg() {
 //		return curResSeq    Reg;
 //	}
 
@@ -186,14 +216,14 @@ public class Sheet {
 	/**
 	 * istration. Chain identifier in vious strand.
 	 */
-//	public Character prevChainId  Reg() {
+//	public lawu.chem.pdb.primitives.Character prevChainId  Reg() {
 //		return prevChainId  Reg;
 //	}
 
 	/**
 	 * istration. Residue sequence ber in previous strand.
 	 */
-//	public Integer prevResSeq   Reg() {
+//	public lawu.chem.pdb.primitives.Integer prevResSeq   Reg() {
 //		return prevResSeq   Reg;
 //	}
 

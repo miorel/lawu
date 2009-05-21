@@ -17,17 +17,27 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Expdta {
 //	private Continuation continuation;
 //	private SList technique;
 
-	private final static Pattern pattern = Pattern.compile("\\AEXPDTA\\Z"); //$NON-NLS-1$
-	private final static String format = "EXPDTA"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("EXPDTA  (..)(.{60}) {10}"); //$NON-NLS-1$
+	private final static String format = "EXPDTA  %2s%60s          "; //$NON-NLS-1$
 
 	public Expdta(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		continuation = new Continuation(m.group(1));
+		// technique = new SList(m.group(2));
 	}
 
 	/**

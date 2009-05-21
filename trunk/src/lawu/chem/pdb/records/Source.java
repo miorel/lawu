@@ -17,17 +17,27 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Source {
 //	private Continuation continuation;
 //	private Specification srcName;
 
-	private final static Pattern pattern = Pattern.compile("\\ASOURCE\\Z"); //$NON-NLS-1$
-	private final static String format = "SOURCE"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("SOURCE  (..)(.{60}) {10}"); //$NON-NLS-1$
+	private final static String format = "SOURCE  %2s%60s          "; //$NON-NLS-1$
 
 	public Source(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		continuation = new Continuation(m.group(1));
+		// srcName = new Specification(m.group(2));
 	}
 
 	/**

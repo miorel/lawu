@@ -17,22 +17,31 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Model {
-//	private Integer serial;
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
 
-	private final static Pattern pattern = Pattern.compile("\\AMODEL \\Z"); //$NON-NLS-1$
-	private final static String format = "MODEL "; //$NON-NLS-1$
+/**
+ * @author Miorel-Lucian Palii
+ */
+public class Model {
+//	private lawu.chem.pdb.primitives.Integer serial;
+
+	private final static Pattern pattern = Pattern.compile("MODEL {5}(.{4}) {66}"); //$NON-NLS-1$
+	private final static String format = "MODEL     %4s                                                                  "; //$NON-NLS-1$
 
 	public Model(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
 	}
 
 	/**
 	 * Model serial number.
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 

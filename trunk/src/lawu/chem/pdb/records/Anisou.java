@@ -17,36 +17,59 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Anisou {
-//	private Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
 //	private Atom name;
-//	private Character altLoc;
+//	private lawu.chem.pdb.primitives.Character altLoc;
 //	private Residue name resName;
-//	private Character chainID;
-//	private Integer resSeq;
+//	private lawu.chem.pdb.primitives.Character chainID;
+//	private lawu.chem.pdb.primitives.Integer resSeq;
 //	private AChar iCode;
-//	private Integer u[0][0];
-//	private Integer u[1][1];
-//	private Integer u[2][2];
-//	private Integer u[0][1];
-//	private Integer u[0][2];
-//	private Integer u[1][2];
+//	private lawu.chem.pdb.primitives.Integer u[0][0];
+//	private lawu.chem.pdb.primitives.Integer u[1][1];
+//	private lawu.chem.pdb.primitives.Integer u[2][2];
+//	private lawu.chem.pdb.primitives.Integer u[0][1];
+//	private lawu.chem.pdb.primitives.Integer u[0][2];
+//	private lawu.chem.pdb.primitives.Integer u[1][2];
 //	private LString(2) element;
 //	private LString(2) charge;
 
-	private final static Pattern pattern = Pattern.compile("\\AANISOU\\Z"); //$NON-NLS-1$
-	private final static String format = "ANISOU"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("ANISOU(.{5}) (.{4})(.)(...) (.)(.{4})(.) (.{7})(.{7})(.{7})(.{7})(.{7})(.{7}) {6}(..)(..)"); //$NON-NLS-1$
+	private final static String format = "ANISOU%5s %4s%1s%3s %1s%4s%1s %7s%7s%7s%7s%7s%7s      %2s%2s"; //$NON-NLS-1$
 
 	public Anisou(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// name = new Atom(m.group(2));
+		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
+		// resName = new Residue name(m.group(4));
+		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
+		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		iCode = new AChar(m.group(7));
+		u[0][0] = new lawu.chem.pdb.primitives.Integer(m.group(8));
+		u[1][1] = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		u[2][2] = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		u[0][1] = new lawu.chem.pdb.primitives.Integer(m.group(11));
+		u[0][2] = new lawu.chem.pdb.primitives.Integer(m.group(12));
+		u[1][2] = new lawu.chem.pdb.primitives.Integer(m.group(13));
+		// element = new LString(2)(m.group(14));
+		// charge = new LString(2)(m.group(15));
 	}
 
 	/**
 	 * Atom serial number.
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
@@ -60,7 +83,7 @@ public class Anisou {
 	/**
 	 * Alternate location indicator
 	 */
-//	public Character altLoc() {
+//	public lawu.chem.pdb.primitives.Character altLoc() {
 //		return altLoc;
 //	}
 
@@ -74,14 +97,14 @@ public class Anisou {
 	/**
 	 * Chain identifier.
 	 */
-//	public Character chainID() {
+//	public lawu.chem.pdb.primitives.Character chainID() {
 //		return chainID;
 //	}
 
 	/**
 	 * Residue sequence number.
 	 */
-//	public Integer resSeq() {
+//	public lawu.chem.pdb.primitives.Integer resSeq() {
 //		return resSeq;
 //	}
 
@@ -95,42 +118,42 @@ public class Anisou {
 	/**
 	 * U(1,1)
 	 */
-//	public Integer u[0][0]() {
+//	public lawu.chem.pdb.primitives.Integer u[0][0]() {
 //		return u[0][0];
 //	}
 
 	/**
 	 * U(2,2)
 	 */
-//	public Integer u[1][1]() {
+//	public lawu.chem.pdb.primitives.Integer u[1][1]() {
 //		return u[1][1];
 //	}
 
 	/**
 	 * U(3,3)
 	 */
-//	public Integer u[2][2]() {
+//	public lawu.chem.pdb.primitives.Integer u[2][2]() {
 //		return u[2][2];
 //	}
 
 	/**
 	 * U(1,2)
 	 */
-//	public Integer u[0][1]() {
+//	public lawu.chem.pdb.primitives.Integer u[0][1]() {
 //		return u[0][1];
 //	}
 
 	/**
 	 * U(1,3)
 	 */
-//	public Integer u[0][2]() {
+//	public lawu.chem.pdb.primitives.Integer u[0][2]() {
 //		return u[0][2];
 //	}
 
 	/**
 	 * U(2,3)
 	 */
-//	public Integer u[1][2]() {
+//	public lawu.chem.pdb.primitives.Integer u[1][2]() {
 //		return u[1][2];
 //	}
 

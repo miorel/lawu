@@ -17,21 +17,35 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Het {
 //	private LString(3) hetID;
-//	private Character ChainID;
-//	private Integer seqNum;
+//	private lawu.chem.pdb.primitives.Character ChainID;
+//	private lawu.chem.pdb.primitives.Integer seqNum;
 //	private AChar iCode;
-//	private Integer numHetAtoms;
-//	private String text;
+//	private lawu.chem.pdb.primitives.Integer numHetAtoms;
+//	private lawu.chem.pdb.primitives.String text;
 
-	private final static Pattern pattern = Pattern.compile("\\AHET   \\Z"); //$NON-NLS-1$
-	private final static String format = "HET   "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("HET {4}(...)  (.)(.{4})(.)  (.{5}) {5}(.{40}) {10}"); //$NON-NLS-1$
+	private final static String format = "HET    %3s  %1s%4s%1s  %5s     %40s          "; //$NON-NLS-1$
 
 	public Het(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		// hetID = new LString(3)(m.group(1));
+		ChainID = new lawu.chem.pdb.primitives.Character(m.group(2));
+		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		iCode = new AChar(m.group(4));
+		numHetAtoms = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		text = new lawu.chem.pdb.primitives.String(m.group(6));
 	}
 
 	/**
@@ -44,14 +58,14 @@ public class Het {
 	/**
 	 * Chain identifier.
 	 */
-//	public Character ChainID() {
+//	public lawu.chem.pdb.primitives.Character ChainID() {
 //		return ChainID;
 //	}
 
 	/**
 	 * Sequence number.
 	 */
-//	public Integer seqNum() {
+//	public lawu.chem.pdb.primitives.Integer seqNum() {
 //		return seqNum;
 //	}
 
@@ -65,14 +79,14 @@ public class Het {
 	/**
 	 * Number of HETATM records for the group present in the entry.
 	 */
-//	public Integer numHetAtoms() {
+//	public lawu.chem.pdb.primitives.Integer numHetAtoms() {
 //		return numHetAtoms;
 //	}
 
 	/**
 	 * Text describing Het group.
 	 */
-//	public String text() {
+//	public lawu.chem.pdb.primitives.String text() {
 //		return text;
 //	}
 

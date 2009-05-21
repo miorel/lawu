@@ -17,32 +17,51 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Turn {
-//	private Integer seq;
+//	private lawu.chem.pdb.primitives.Integer seq;
 //	private LString(3) turnId;
 //	private Residue name initResName;
-//	private Character initChainId;
-//	private Integer initSeqNum;
+//	private lawu.chem.pdb.primitives.Character initChainId;
+//	private lawu.chem.pdb.primitives.Integer initSeqNum;
 //	private AChar initICode;
 //	private Residue name endResName;
-//	private Character endChainId;
-//	private Integer endSeqNum;
+//	private lawu.chem.pdb.primitives.Character endChainId;
+//	private lawu.chem.pdb.primitives.Integer endSeqNum;
 //	private AChar endICode;
-//	private String comment;
+//	private lawu.chem.pdb.primitives.String comment;
 
-	private final static Pattern pattern = Pattern.compile("\\ATURN  \\Z"); //$NON-NLS-1$
-	private final static String format = "TURN  "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("TURN   (...) (...) (...) (.)(.{4})(.) (...) (.)(.{4})(.) {4}(.{30}) {10}"); //$NON-NLS-1$
+	private final static String format = "TURN   %3s %3s %3s %1s%4s%1s %3s %1s%4s%1s    %30s          "; //$NON-NLS-1$
 
 	public Turn(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		seq = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// turnId = new LString(3)(m.group(2));
+		// initResName = new Residue name(m.group(3));
+		initChainId = new lawu.chem.pdb.primitives.Character(m.group(4));
+		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		initICode = new AChar(m.group(6));
+		// endResName = new Residue name(m.group(7));
+		endChainId = new lawu.chem.pdb.primitives.Character(m.group(8));
+		endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		endICode = new AChar(m.group(10));
+		comment = new lawu.chem.pdb.primitives.String(m.group(11));
 	}
 
 	/**
 	 * Turn number; starts with 1 and increments by one.
 	 */
-//	public Integer seq() {
+//	public lawu.chem.pdb.primitives.Integer seq() {
 //		return seq;
 //	}
 
@@ -63,14 +82,14 @@ public class Turn {
 	/**
 	 * Chain identifier for the chain containing this turn.
 	 */
-//	public Character initChainId() {
+//	public lawu.chem.pdb.primitives.Character initChainId() {
 //		return initChainId;
 //	}
 
 	/**
 	 * Sequence number of initial residue in turn.
 	 */
-//	public Integer initSeqNum() {
+//	public lawu.chem.pdb.primitives.Integer initSeqNum() {
 //		return initSeqNum;
 //	}
 
@@ -91,14 +110,14 @@ public class Turn {
 	/**
 	 * Chain identifier for the chain containing this turn.
 	 */
-//	public Character endChainId() {
+//	public lawu.chem.pdb.primitives.Character endChainId() {
 //		return endChainId;
 //	}
 
 	/**
 	 * Sequence number of terminal residue of turn.
 	 */
-//	public Integer endSeqNum() {
+//	public lawu.chem.pdb.primitives.Integer endSeqNum() {
 //		return endSeqNum;
 //	}
 
@@ -112,7 +131,7 @@ public class Turn {
 	/**
 	 * Associated comment.
 	 */
-//	public String comment() {
+//	public lawu.chem.pdb.primitives.String comment() {
 //		return comment;
 //	}
 

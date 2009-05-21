@@ -17,29 +17,51 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Link {
 //	private Atom name1;
-//	private Character altLoc1;
+//	private lawu.chem.pdb.primitives.Character altLoc1;
 //	private Residue name resName1;
-//	private Character chainID1;
-//	private Integer resSeq1;
+//	private lawu.chem.pdb.primitives.Character chainID1;
+//	private lawu.chem.pdb.primitives.Integer resSeq1;
 //	private AChar iCode1;
 //	private Atom name2;
-//	private Character altLoc2;
+//	private lawu.chem.pdb.primitives.Character altLoc2;
 //	private Residue name resName2;
-//	private Character chainID2;
-//	private Integer resSeq2;
+//	private lawu.chem.pdb.primitives.Character chainID2;
+//	private lawu.chem.pdb.primitives.Integer resSeq2;
 //	private AChar iCode2;
 //	private SymOP sym1;
 //	private SymOP sym2;
 
-	private final static Pattern pattern = Pattern.compile("\\ALINK  \\Z"); //$NON-NLS-1$
-	private final static String format = "LINK  "; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("LINK {8}(.{4})(.)(...) (.)(.{4})(.) {15}(.{4})(.)(...) (.)(.{4})(.)  (.{6}) (.{6}) {8}"); //$NON-NLS-1$
+	private final static String format = "LINK        %4s%1s%3s %1s%4s%1s               %4s%1s%3s %1s%4s%1s  %6s %6s        "; //$NON-NLS-1$
 
 	public Link(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		// name1 = new Atom(m.group(1));
+		altLoc1 = new lawu.chem.pdb.primitives.Character(m.group(2));
+		// resName1 = new Residue name(m.group(3));
+		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(4));
+		resSeq1 = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		iCode1 = new AChar(m.group(6));
+		// name2 = new Atom(m.group(7));
+		altLoc2 = new lawu.chem.pdb.primitives.Character(m.group(8));
+		// resName2 = new Residue name(m.group(9));
+		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(10));
+		resSeq2 = new lawu.chem.pdb.primitives.Integer(m.group(11));
+		iCode2 = new AChar(m.group(12));
+		sym1 = new SymOP(m.group(13));
+		sym2 = new SymOP(m.group(14));
 	}
 
 	/**
@@ -52,7 +74,7 @@ public class Link {
 	/**
 	 * Alternate location indicator.
 	 */
-//	public Character altLoc1() {
+//	public lawu.chem.pdb.primitives.Character altLoc1() {
 //		return altLoc1;
 //	}
 
@@ -66,14 +88,14 @@ public class Link {
 	/**
 	 * Chain identifier.
 	 */
-//	public Character chainID1() {
+//	public lawu.chem.pdb.primitives.Character chainID1() {
 //		return chainID1;
 //	}
 
 	/**
 	 * Residue sequence number.
 	 */
-//	public Integer resSeq1() {
+//	public lawu.chem.pdb.primitives.Integer resSeq1() {
 //		return resSeq1;
 //	}
 
@@ -94,7 +116,7 @@ public class Link {
 	/**
 	 * Alternate location indicator.
 	 */
-//	public Character altLoc2() {
+//	public lawu.chem.pdb.primitives.Character altLoc2() {
 //		return altLoc2;
 //	}
 
@@ -108,14 +130,14 @@ public class Link {
 	/**
 	 * Chain identifier.
 	 */
-//	public Character chainID2() {
+//	public lawu.chem.pdb.primitives.Character chainID2() {
 //		return chainID2;
 //	}
 
 	/**
 	 * Residue sequence number.
 	 */
-//	public Integer resSeq2() {
+//	public lawu.chem.pdb.primitives.Integer resSeq2() {
 //		return resSeq2;
 //	}
 

@@ -17,22 +17,37 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Modres {
 //	private IDcode idCode     ID;
 //	private Residue name resName    Res;
-//	private Character chainID    Cha;
-//	private Integer seqNum     Seq;
+//	private lawu.chem.pdb.primitives.Character chainID    Cha;
+//	private lawu.chem.pdb.primitives.Integer seqNum     Seq;
 //	private AChar iCode      Ins;
 //	private Residue name stdRes     Sta;
-//	private String comment    Des;
+//	private lawu.chem.pdb.primitives.String comment    Des;
 
-	private final static Pattern pattern = Pattern.compile("\\AMODRES\\Z"); //$NON-NLS-1$
-	private final static String format = "MODRES"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("MODRES (.{4}) (...) (.) (.{4})(.) (...)  (.{41}) {10}"); //$NON-NLS-1$
+	private final static String format = "MODRES %4s %3s %1s %4s%1s %3s  %41s          "; //$NON-NLS-1$
 
 	public Modres(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		idCode     ID = new IdCode(m.group(1));
+		// resName    Res = new Residue name(m.group(2));
+		chainID    Cha = new lawu.chem.pdb.primitives.Character(m.group(3));
+		seqNum     Seq = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		iCode      Ins = new AChar(m.group(5));
+		// stdRes     Sta = new Residue name(m.group(6));
+		comment    Des = new lawu.chem.pdb.primitives.String(m.group(7));
 	}
 
 	/**
@@ -52,14 +67,14 @@ public class Modres {
 	/**
 	 * in identifier.
 	 */
-//	public Character chainID    Cha() {
+//	public lawu.chem.pdb.primitives.Character chainID    Cha() {
 //		return chainID    Cha;
 //	}
 
 	/**
 	 * uence number.
 	 */
-//	public Integer seqNum     Seq() {
+//	public lawu.chem.pdb.primitives.Integer seqNum     Seq() {
 //		return seqNum     Seq;
 //	}
 
@@ -80,7 +95,7 @@ public class Modres {
 	/**
 	 * cription of the residue ification
 	 */
-//	public String comment    Des() {
+//	public lawu.chem.pdb.primitives.String comment    Des() {
 //		return comment    Des;
 //	}
 

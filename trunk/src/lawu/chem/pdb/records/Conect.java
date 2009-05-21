@@ -17,54 +17,67 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Conect {
-//	private Integer serial;
-//	private Integer serial;
-//	private Integer serial;
-//	private Integer serial;
-//	private Integer serial;
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
 
-	private final static Pattern pattern = Pattern.compile("\\ACONECT\\Z"); //$NON-NLS-1$
-	private final static String format = "CONECT"; //$NON-NLS-1$
+/**
+ * @author Miorel-Lucian Palii
+ */
+public class Conect {
+//	private lawu.chem.pdb.primitives.Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
+
+	private final static Pattern pattern = Pattern.compile("CONECT(.{5})(.{5})(.{5})(.{5})(.{5}) {49}"); //$NON-NLS-1$
+	private final static String format = "CONECT%5s%5s%5s%5s%5s                                                 "; //$NON-NLS-1$
 
 	public Conect(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(2));
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(5));
 	}
 
 	/**
 	 * Atom serial number
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
 	/**
 	 * Serial number of bonded atom
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
 	/**
 	 * Serial number of bonded atom
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
 	/**
 	 * Serial number of bonded atom
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
 	/**
 	 * Serial number of bonded atom
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 

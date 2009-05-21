@@ -17,26 +17,39 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Formul {
-//	private Integer compNum;
-//	private LString(3) hetID;
-//	private Integer continuation;
-//	private Character asterisk;
-//	private String text;
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
 
-	private final static Pattern pattern = Pattern.compile("\\AFORMUL\\Z"); //$NON-NLS-1$
-	private final static String format = "FORMUL"; //$NON-NLS-1$
+/**
+ * @author Miorel-Lucian Palii
+ */
+public class Formul {
+//	private lawu.chem.pdb.primitives.Integer compNum;
+//	private LString(3) hetID;
+//	private lawu.chem.pdb.primitives.Integer continuation;
+//	private lawu.chem.pdb.primitives.Character asterisk;
+//	private lawu.chem.pdb.primitives.String text;
+
+	private final static Pattern pattern = Pattern.compile("FORMUL  (..)  (...) (..)(.)(.{51}) {10}"); //$NON-NLS-1$
+	private final static String format = "FORMUL  %2s  %3s %2s%1s%51s          "; //$NON-NLS-1$
 
 	public Formul(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		compNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// hetID = new LString(3)(m.group(2));
+		continuation = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		asterisk = new lawu.chem.pdb.primitives.Character(m.group(4));
+		text = new lawu.chem.pdb.primitives.String(m.group(5));
 	}
 
 	/**
 	 * Component number.
 	 */
-//	public Integer compNum() {
+//	public lawu.chem.pdb.primitives.Integer compNum() {
 //		return compNum;
 //	}
 
@@ -50,21 +63,21 @@ public class Formul {
 	/**
 	 * Continuation number.
 	 */
-//	public Integer continuation() {
+//	public lawu.chem.pdb.primitives.Integer continuation() {
 //		return continuation;
 //	}
 
 	/**
 	 * "*" for water.
 	 */
-//	public Character asterisk() {
+//	public lawu.chem.pdb.primitives.Character asterisk() {
 //		return asterisk;
 //	}
 
 	/**
 	 * Chemical formula.
 	 */
-//	public String text() {
+//	public lawu.chem.pdb.primitives.String text() {
 //		return text;
 //	}
 

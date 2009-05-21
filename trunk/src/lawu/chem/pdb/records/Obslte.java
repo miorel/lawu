@@ -17,6 +17,14 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Obslte {
 //	private Continuation     co ntinuation  Allows c;
 //	private Date             re pDate       Date tha;
@@ -30,13 +38,24 @@ public class Obslte {
 //	private IDcode           rI dCode       ID code;
 //	private IDcode           rI dCode       ID code;
 
-	private final static Pattern pattern = Pattern.compile("\\AOBSLTE\\Z"); //$NON-NLS-1$
-	private final static String format = "OBSLTE"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("OBSLTE  (..) (.{9}) (.{4}) {6}(.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) {10}"); //$NON-NLS-1$
+	private final static String format = "OBSLTE  %2s %9s %4s      %4s %4s %4s %4s %4s %4s %4s %4s          "; //$NON-NLS-1$
 
 	public Obslte(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		// ntinuation  Allows c = new Continuation     co(m.group(1));
+		// pDate       Date tha = new Date             re(m.group(2));
+		// Code        ID code = new IDcode           id(m.group(3));
+		// dCode       ID code = new IDcode           rI(m.group(4));
+		// dCode       ID code = new IDcode           rI(m.group(5));
+		// dCode       ID code = new IDcode           rI(m.group(6));
+		// dCode       ID code = new IDcode           rI(m.group(7));
+		// dCode       ID code = new IDcode           rI(m.group(8));
+		// dCode       ID code = new IDcode           rI(m.group(9));
+		// dCode       ID code = new IDcode           rI(m.group(10));
+		// dCode       ID code = new IDcode           rI(m.group(11));
 	}
 
 	/**

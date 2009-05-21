@@ -17,13 +17,21 @@ package lawu.chem.pdb.records;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.IdCode;
+import lawu.chem.pdb.primitives.Real;
+
+/**
+ * @author Miorel-Lucian Palii
+ */
 public class Sigatm {
-//	private Integer serial;
+//	private lawu.chem.pdb.primitives.Integer serial;
 //	private Atom name;
-//	private Character altLoc;
+//	private lawu.chem.pdb.primitives.Character altLoc;
 //	private Residue name resName;
-//	private Character chainID;
-//	private Integer resSeq;
+//	private lawu.chem.pdb.primitives.Character chainID;
+//	private lawu.chem.pdb.primitives.Integer resSeq;
 //	private AChar iCode;
 //	private Real(8.3) sigX;
 //	private Real(8.3) sigY;
@@ -33,19 +41,33 @@ public class Sigatm {
 //	private LString(2) element;
 //	private LString(2) charge;
 
-	private final static Pattern pattern = Pattern.compile("\\ASIGATM\\Z"); //$NON-NLS-1$
-	private final static String format = "SIGATM"; //$NON-NLS-1$
+	private final static Pattern pattern = Pattern.compile("SIGATM(.{5}) (.{4})(.)(...) (.)(.{4})(.)   (.{8})(.{8})(.{8})(.{6})(.{6}) {10}(..)(..)"); //$NON-NLS-1$
+	private final static String format = "SIGATM%5s %4s%1s%3s %1s%4s%1s   %8s%8s%8s%6s%6s          %2s%2s"; //$NON-NLS-1$
 
 	public Sigatm(String record) {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
+		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		// name = new Atom(m.group(2));
+		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
+		// resName = new Residue name(m.group(4));
+		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
+		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		iCode = new AChar(m.group(7));
+		sigX = new Real(m.group(8), 8, 3);
+		sigY = new Real(m.group(9), 8, 3);
+		sigZ = new Real(m.group(10), 8, 3);
+		sigOcc = new Real(m.group(11), 6, 2);
+		sigTemp = new Real(m.group(12), 6, 2);
+		// element = new LString(2)(m.group(13));
+		// charge = new LString(2)(m.group(14));
 	}
 
 	/**
 	 *  Atom serial number.
 	 */
-//	public Integer serial() {
+//	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
@@ -59,7 +81,7 @@ public class Sigatm {
 	/**
 	 *  Alternate location indicator.
 	 */
-//	public Character altLoc() {
+//	public lawu.chem.pdb.primitives.Character altLoc() {
 //		return altLoc;
 //	}
 
@@ -73,14 +95,14 @@ public class Sigatm {
 	/**
 	 *  Chain identifier.
 	 */
-//	public Character chainID() {
+//	public lawu.chem.pdb.primitives.Character chainID() {
 //		return chainID;
 //	}
 
 	/**
 	 *  Residue sequence number.
 	 */
-//	public Integer resSeq() {
+//	public lawu.chem.pdb.primitives.Integer resSeq() {
 //		return resSeq;
 //	}
 
