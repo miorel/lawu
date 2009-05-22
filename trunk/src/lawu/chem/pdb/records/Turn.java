@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -29,11 +32,11 @@ import lawu.chem.pdb.primitives.Real;
 public class Turn {
 	private lawu.chem.pdb.primitives.Integer seq;
 	private LString turnId;
-	private Residue name initResName;
+	private ResidueName initResName;
 	private lawu.chem.pdb.primitives.Character initChainId;
 	private lawu.chem.pdb.primitives.Integer initSeqNum;
 	private AChar initICode;
-	private Residue name endResName;
+	private ResidueName endResName;
 	private lawu.chem.pdb.primitives.Character endChainId;
 	private lawu.chem.pdb.primitives.Integer endSeqNum;
 	private AChar endICode;
@@ -48,11 +51,11 @@ public class Turn {
 			throw new RuntimeException();
 		seq = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		turnId = new LString(m.group(2), 3);
-		// initResName = new Residue name(m.group(3));
+		// initResName = new ResidueName(m.group(3));
 		initChainId = new lawu.chem.pdb.primitives.Character(m.group(4));
 		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));
 		initICode = new AChar(m.group(6));
-		// endResName = new Residue name(m.group(7));
+		// endResName = new ResidueName(m.group(7));
 		endChainId = new lawu.chem.pdb.primitives.Character(m.group(8));
 		endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(9));
 		endICode = new AChar(m.group(10));
@@ -60,77 +63,77 @@ public class Turn {
 	}
 
 	/**
-	 * Turn number; starts with 1 and increments by one.
+	 *  Turn number; starts with 1 and increments by one.
 	 */
 //	public lawu.chem.pdb.primitives.Integer seq() {
 //		return seq;
 //	}
 
 	/**
-	 * Turn identifier
+	 *  Turn identifier
 	 */
 //	public LString(3) turnId() {
 //		return turnId;
 //	}
 
 	/**
-	 * Residue name of initial residue in turn.
+	 *  Residue name of initial residue in turn.
 	 */
-//	public Residue name initResName() {
+//	public ResidueName initResName() {
 //		return initResName;
 //	}
 
 	/**
-	 * Chain identifier for the chain containing this turn.
+	 *  Chain identifier for the chain containing this turn.
 	 */
 //	public lawu.chem.pdb.primitives.Character initChainId() {
 //		return initChainId;
 //	}
 
 	/**
-	 * Sequence number of initial residue in turn.
+	 *  Sequence number of initial residue in turn.
 	 */
 //	public lawu.chem.pdb.primitives.Integer initSeqNum() {
 //		return initSeqNum;
 //	}
 
 	/**
-	 * Insertion code of initial residue in turn.
+	 *  Insertion code of initial residue in turn.
 	 */
 //	public AChar initICode() {
 //		return initICode;
 //	}
 
 	/**
-	 * Residue name of terminal residue of turn.
+	 *  Residue name of terminal residue of turn.
 	 */
-//	public Residue name endResName() {
+//	public ResidueName endResName() {
 //		return endResName;
 //	}
 
 	/**
-	 * Chain identifier for the chain containing this turn.
+	 *  Chain identifier for the chain containing this turn.
 	 */
 //	public lawu.chem.pdb.primitives.Character endChainId() {
 //		return endChainId;
 //	}
 
 	/**
-	 * Sequence number of terminal residue of turn.
+	 *  Sequence number of terminal residue of turn.
 	 */
 //	public lawu.chem.pdb.primitives.Integer endSeqNum() {
 //		return endSeqNum;
 //	}
 
 	/**
-	 * Insertion code of terminal residue of turn.
+	 *  Insertion code of terminal residue of turn.
 	 */
 //	public AChar endICode() {
 //		return endICode;
 //	}
 
 	/**
-	 * Associated comment.
+	 *  Associated comment.
 	 */
 //	public lawu.chem.pdb.primitives.String comment() {
 //		return comment;

@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -56,56 +59,56 @@ public class Cryst {
 	}
 
 	/**
-	 * a (Angstroms).
+	 *  a (Angstroms).
 	 */
 //	public Real(9.3) a() {
 //		return a;
 //	}
 
 	/**
-	 * b (Angstroms).
+	 *  b (Angstroms).
 	 */
 //	public Real(9.3) b() {
 //		return b;
 //	}
 
 	/**
-	 * c (Angstroms).
+	 *  c (Angstroms).
 	 */
 //	public Real(9.3) c() {
 //		return c;
 //	}
 
 	/**
-	 * alpha (degrees).
+	 *  alpha (degrees).
 	 */
 //	public Real(7.2) alpha() {
 //		return alpha;
 //	}
 
 	/**
-	 * beta (degrees).
+	 *  beta (degrees).
 	 */
 //	public Real(7.2) beta() {
 //		return beta;
 //	}
 
 	/**
-	 * gamma (degrees).
+	 *  gamma (degrees).
 	 */
 //	public Real(7.2) gamma() {
 //		return gamma;
 //	}
 
 	/**
-	 * Space group.
+	 *  Space group.
 	 */
 //	public LString sGroup() {
 //		return sGroup;
 //	}
 
 	/**
-	 * Z value.
+	 *  Z value.
 	 */
 //	public lawu.chem.pdb.primitives.Integer z() {
 //		return z;

@@ -78,4 +78,14 @@ public class Element {
 	public double getCovalentRadius() {
 		return this.covalentRadius;
 	}
+	
+	@Override
+	public String toString() {
+		return getSymbol();
+	}
+	
+	@Override
+	public int hashCode() {
+		return getAtomicNumber();
+	}
 }

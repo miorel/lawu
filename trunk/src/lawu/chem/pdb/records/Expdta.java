@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -42,14 +45,14 @@ public class Expdta {
 	}
 
 	/**
-	 * Allows concatenation of multiple records
+	 *  Allows concatenation of multiple records
 	 */
 //	public Continuation continuation() {
 //		return continuation;
 //	}
 
 	/**
-	 * The experimental technique(s) with optional comment describing the sample or experiment.
+	 *  The experimental technique(s) with optional comment describing the sample or experiment.
 	 */
 //	public SList technique() {
 //		return technique;

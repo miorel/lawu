@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -29,7 +32,7 @@ import lawu.chem.pdb.primitives.Real;
 public class Header {
 	private String classification;
 	private Date depDate;
-	private IDcode idCode;
+	private IdCode idCode;
 
 	private final static Pattern pattern = Pattern.compile("HEADER {4}(.{40})(.{9})   (.{4}) {14}"); //$NON-NLS-1$
 	private final static String format = "HEADER    %40s%9s   %4s              "; //$NON-NLS-1$
@@ -44,23 +47,23 @@ public class Header {
 	}
 
 	/**
-	 * Classifies the molecule(s)
+	 *  Classifies the molecule(s)
 	 */
 //	public String(40) classification() {
 //		return classification;
 //	}
 
 	/**
-	 * Deposition date. This is the date the coordinates were received by the PDB
+	 *  Deposition date. This is the date the coordinates were received by the PDB
 	 */
 //	public Date depDate() {
 //		return depDate;
 //	}
 
 	/**
-	 * This identifier is unique within the PDB
+	 *  This identifier is unique within the PDB
 	 */
-//	public IDcode idCode() {
+//	public IdCode idCode() {
 //		return idCode;
 //	}
 

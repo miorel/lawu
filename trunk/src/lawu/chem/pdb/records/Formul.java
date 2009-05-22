@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -48,35 +51,35 @@ public class Formul {
 	}
 
 	/**
-	 * Component number.
+	 *  Component number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer compNum() {
 //		return compNum;
 //	}
 
 	/**
-	 * Het identifier.
+	 *  Het identifier.
 	 */
 //	public LString(3) hetID() {
 //		return hetID;
 //	}
 
 	/**
-	 * Continuation number.
+	 *  Continuation number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer continuation() {
 //		return continuation;
 //	}
 
 	/**
-	 * "*" for water.
+	 *  "*" for water.
 	 */
 //	public lawu.chem.pdb.primitives.Character asterisk() {
 //		return asterisk;
 //	}
 
 	/**
-	 * Chemical formula.
+	 *  Chemical formula.
 	 */
 //	public lawu.chem.pdb.primitives.String text() {
 //		return text;

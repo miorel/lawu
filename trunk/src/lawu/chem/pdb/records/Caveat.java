@@ -18,18 +18,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Caveat {
-	private Continuation continuation      Al;
-	private IDcode idCode            PD;
-	private lawu.chem.pdb.primitives.String comment           Fr;
+	private Continuation continuation;
+	private IdCode idCode;
+	private lawu.chem.pdb.primitives.String comment;
 
 	private final static Pattern pattern = Pattern.compile("CAVEAT  (..) (.{4}) {4}(.{51}) {10}"); //$NON-NLS-1$
 	private final static String format = "CAVEAT  %2s %4s    %51s          "; //$NON-NLS-1$
@@ -38,30 +41,30 @@ public class Caveat {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		continuation      Al = new Continuation(m.group(1));
-		idCode            PD = new IdCode(m.group(2));
-		comment           Fr = new lawu.chem.pdb.primitives.String(m.group(3));
+		continuation = new Continuation(m.group(1));
+		idCode = new IdCode(m.group(2));
+		comment = new lawu.chem.pdb.primitives.String(m.group(3));
 	}
 
 	/**
-	 * lows concatenation of multiple records.
+	 *  Allows concatenation of multiple records.
 	 */
-//	public Continuation continuation      Al() {
-//		return continuation      Al;
+//	public Continuation continuation() {
+//		return continuation;
 //	}
 
 	/**
-	 * B ID code of this entry.
+	 *  PDB ID code of this entry.
 	 */
-//	public IDcode idCode            PD() {
-//		return idCode            PD;
+//	public IdCode idCode() {
+//		return idCode;
 //	}
 
 	/**
-	 * ee text giving the reason for the CAVEAT.
+	 *  Free text giving the reason for the CAVEAT.
 	 */
-//	public lawu.chem.pdb.primitives.String comment           Fr() {
-//		return comment           Fr;
+//	public lawu.chem.pdb.primitives.String comment() {
+//		return comment;
 //	}
 
 	@Override	

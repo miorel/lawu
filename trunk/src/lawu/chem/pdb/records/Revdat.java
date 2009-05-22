@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -56,63 +59,63 @@ public class Revdat {
 	}
 
 	/**
-	 * Modification number.
+	 *  Modification number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer modNum() {
 //		return modNum;
 //	}
 
 	/**
-	 * Allows concatenation of multiple records
+	 *  Allows concatenation of multiple records
 	 */
 //	public Continuation continuation() {
 //		return continuation;
 //	}
 
 	/**
-	 * Date of modification (or release for new entries). This is not repeated on continuation lines.
+	 *  Date of modification (or release for new entries). This is not repeated on continuation lines.
 	 */
 //	public Date modDate() {
 //		return modDate;
 //	}
 
 	/**
-	 * Identifies this particular modification. It links to the archive used internally by PDB. This is not repeated on continuation lines
+	 *  Identifies this particular modification. It links to the archive used internally by PDB. This is not repeated on continuation lines
 	 */
 //	public String(5) modId() {
 //		return modId;
 //	}
 
 	/**
-	 * An integer identifying the type of modification. In case of revisions with more than one possible modType, the highest value applicable will be assigned
+	 *  An integer identifying the type of modification. In case of revisions with more than one possible modType, the highest value applicable will be assigned
 	 */
 //	public lawu.chem.pdb.primitives.Integer modType() {
 //		return modType;
 //	}
 
 	/**
-	 * Name of the modified record.
+	 *  Name of the modified record.
 	 */
 //	public LString(6) record() {
 //		return record;
 //	}
 
 	/**
-	 * Name of the modified record.
+	 *  Name of the modified record.
 	 */
 //	public LString(6) record() {
 //		return record;
 //	}
 
 	/**
-	 * Name of the modified record.
+	 *  Name of the modified record.
 	 */
 //	public LString(6) record() {
 //		return record;
 //	}
 
 	/**
-	 * Name of the modified record.
+	 *  Name of the modified record.
 	 */
 //	public LString(6) record() {
 //		return record;

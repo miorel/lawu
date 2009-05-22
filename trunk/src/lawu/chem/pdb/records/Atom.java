@@ -18,19 +18,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Atom {
 	private lawu.chem.pdb.primitives.Integer serial;
-	private Atom name;
+	private AtomName name;
 	private lawu.chem.pdb.primitives.Character altLoc;
-	private Residue name resName;
+	private ResidueName resName;
 	private lawu.chem.pdb.primitives.Character chainID;
 	private lawu.chem.pdb.primitives.Integer resSeq;
 	private AChar iCode;
@@ -50,9 +53,9 @@ public class Atom {
 		if(!m.matches())
 			throw new RuntimeException();
 		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		// name = new Atom(m.group(2));
+		name = new AtomName(m.group(2));
 		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
-		// resName = new Residue name(m.group(4));
+		// resName = new ResidueName(m.group(4));
 		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
 		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
 		iCode = new AChar(m.group(7));
@@ -66,98 +69,98 @@ public class Atom {
 	}
 
 	/**
-	 * Atom serial number.
+	 *  Atom serial number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer serial() {
 //		return serial;
 //	}
 
 	/**
-	 * Atom name.
+	 *  Atom name.
 	 */
-//	public Atom name() {
+//	public AtomName name() {
 //		return name;
 //	}
 
 	/**
-	 * Alternate location indicator.
+	 *  Alternate location indicator.
 	 */
 //	public lawu.chem.pdb.primitives.Character altLoc() {
 //		return altLoc;
 //	}
 
 	/**
-	 * Residue name.
+	 *  Residue name.
 	 */
-//	public Residue name resName() {
+//	public ResidueName resName() {
 //		return resName;
 //	}
 
 	/**
-	 * Chain identifier.
+	 *  Chain identifier.
 	 */
 //	public lawu.chem.pdb.primitives.Character chainID() {
 //		return chainID;
 //	}
 
 	/**
-	 * Residue sequence number.
+	 *  Residue sequence number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer resSeq() {
 //		return resSeq;
 //	}
 
 	/**
-	 * Code for insertion of residues.
+	 *  Code for insertion of residues.
 	 */
 //	public AChar iCode() {
 //		return iCode;
 //	}
 
 	/**
-	 * Orthogonal coordinates for X in Angstroms
+	 *  Orthogonal coordinates for X in Angstroms
 	 */
 //	public Real(8.3) x() {
 //		return x;
 //	}
 
 	/**
-	 * Orthogonal coordinates for Y in Angstroms
+	 *  Orthogonal coordinates for Y in Angstroms
 	 */
 //	public Real(8.3) y() {
 //		return y;
 //	}
 
 	/**
-	 * Orthogonal coordinates for Z in Angstroms
+	 *  Orthogonal coordinates for Z in Angstroms
 	 */
 //	public Real(8.3) z() {
 //		return z;
 //	}
 
 	/**
-	 * Occupancy.
+	 *  Occupancy.
 	 */
 //	public Real(6.2) occupancy() {
 //		return occupancy;
 //	}
 
 	/**
-	 * Temperature factor.
+	 *  Temperature factor.
 	 */
 //	public Real(6.2) tempFactor() {
 //		return tempFactor;
 //	}
 
 	/**
-	 * Element symbol, right-justified.
+	 *  Element symbol, right-justified.
 	 */
 //	public LString(2) element() {
 //		return element;
 //	}
 
 	/**
-	 * Charge on the atom.
+	 *  Charge on the atom.
 	 */
 //	public LString(2) charge() {
 //		return charge;

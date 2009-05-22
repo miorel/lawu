@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -29,15 +32,15 @@ import lawu.chem.pdb.primitives.Real;
 public class Sprsde {
 	private Continuation continuation;
 	private Date sprsdeDate;
-	private IDcode idCode;
-	private IDcode sIdCode;
-	private IDcode sIdCode;
-	private IDcode sIdCode;
-	private IDcode sIdCode;
-	private IDcode sIdCode;
-	private IDcode sIdCode;
-	private IDcode sIdCode;
-	private IDcode sIdCode;
+	private IdCode idCode;
+	private IdCode sIdCode;
+	private IdCode sIdCode;
+	private IdCode sIdCode;
+	private IdCode sIdCode;
+	private IdCode sIdCode;
+	private IdCode sIdCode;
+	private IdCode sIdCode;
+	private IdCode sIdCode;
 
 	private final static Pattern pattern = Pattern.compile("SPRSDE  (..) (.{9}) (.{4}) {6}(.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) {10}"); //$NON-NLS-1$
 	private final static String format = "SPRSDE  %2s %9s %4s      %4s %4s %4s %4s %4s %4s %4s %4s          "; //$NON-NLS-1$
@@ -60,79 +63,79 @@ public class Sprsde {
 	}
 
 	/**
-	 * Allows for multiple ID codes.
+	 *  Allows for multiple ID codes.
 	 */
 //	public Continuation continuation() {
 //		return continuation;
 //	}
 
 	/**
-	 * Date this entry superseded the listed entries. This field is not copied on continuations.
+	 *  Date this entry superseded the listed entries. This field is not copied on continuations.
 	 */
 //	public Date sprsdeDate() {
 //		return sprsdeDate;
 //	}
 
 	/**
-	 * ID code of this entry. This field is not copied on continuations.
+	 *  ID code of this entry. This field is not copied on continuations.
 	 */
-//	public IDcode idCode() {
+//	public IdCode idCode() {
 //		return idCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 
 	/**
-	 * ID code of a superseded entry.
+	 *  ID code of a superseded entry.
 	 */
-//	public IDcode sIdCode() {
+//	public IdCode sIdCode() {
 //		return sIdCode;
 //	}
 

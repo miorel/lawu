@@ -18,22 +18,25 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Modres {
-	private IDcode idCode     ID;
-	private Residue name resName    Res;
-	private lawu.chem.pdb.primitives.Character chainID    Cha;
-	private lawu.chem.pdb.primitives.Integer seqNum     Seq;
-	private AChar iCode      Ins;
-	private Residue name stdRes     Sta;
-	private lawu.chem.pdb.primitives.String comment    Des;
+	private IdCode idCode;
+	private ResidueName resName;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer seqNum;
+	private AChar iCode;
+	private ResidueName stdRes;
+	private lawu.chem.pdb.primitives.String comment;
 
 	private final static Pattern pattern = Pattern.compile("MODRES (.{4}) (...) (.) (.{4})(.) (...)  (.{41}) {10}"); //$NON-NLS-1$
 	private final static String format = "MODRES %4s %3s %1s %4s%1s %3s  %41s          "; //$NON-NLS-1$
@@ -42,62 +45,62 @@ public class Modres {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		idCode     ID = new IdCode(m.group(1));
-		// resName    Res = new Residue name(m.group(2));
-		chainID    Cha = new lawu.chem.pdb.primitives.Character(m.group(3));
-		seqNum     Seq = new lawu.chem.pdb.primitives.Integer(m.group(4));
-		iCode      Ins = new AChar(m.group(5));
-		// stdRes     Sta = new Residue name(m.group(6));
-		comment    Des = new lawu.chem.pdb.primitives.String(m.group(7));
+		idCode = new IdCode(m.group(1));
+		// resName = new ResidueName(m.group(2));
+		chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
+		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		iCode = new AChar(m.group(5));
+		// stdRes = new ResidueName(m.group(6));
+		comment = new lawu.chem.pdb.primitives.String(m.group(7));
 	}
 
 	/**
-	 * code of this entry.
+	 *  ID code of this entry.
 	 */
-//	public IDcode idCode     ID() {
-//		return idCode     ID;
+//	public IdCode idCode() {
+//		return idCode;
 //	}
 
 	/**
-	 * idue name used in this entry.
+	 *  Residue name used in this entry.
 	 */
-//	public Residue name resName    Res() {
-//		return resName    Res;
+//	public ResidueName resName() {
+//		return resName;
 //	}
 
 	/**
-	 * in identifier.
+	 *  Chain identifier.
 	 */
-//	public lawu.chem.pdb.primitives.Character chainID    Cha() {
-//		return chainID    Cha;
+//	public lawu.chem.pdb.primitives.Character chainID() {
+//		return chainID;
 //	}
 
 	/**
-	 * uence number.
+	 *  Sequence number.
 	 */
-//	public lawu.chem.pdb.primitives.Integer seqNum     Seq() {
-//		return seqNum     Seq;
+//	public lawu.chem.pdb.primitives.Integer seqNum() {
+//		return seqNum;
 //	}
 
 	/**
-	 * ertion code.
+	 *  Insertion code.
 	 */
-//	public AChar iCode      Ins() {
-//		return iCode      Ins;
+//	public AChar iCode() {
+//		return iCode;
 //	}
 
 	/**
-	 * ndard residue name.
+	 *  Standard residue name.
 	 */
-//	public Residue name stdRes     Sta() {
-//		return stdRes     Sta;
+//	public ResidueName stdRes() {
+//		return stdRes;
 //	}
 
 	/**
-	 * cription of the residue ification
+	 *  Description of the residue modification
 	 */
-//	public lawu.chem.pdb.primitives.String comment    Des() {
-//		return comment    Des;
+//	public lawu.chem.pdb.primitives.String comment() {
+//		return comment;
 //	}
 
 	@Override	

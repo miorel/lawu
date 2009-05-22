@@ -18,25 +18,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Seqadv {
-	private IDcode idCode    I;
-	private Residue name resName   N;
-	private lawu.chem.pdb.primitives.Character chainID   P;
-	private lawu.chem.pdb.primitives.Integer seqNum    P;
-	private AChar iCode     P;
+	private IdCode idCode;
+	private ResidueName resName;
+	private lawu.chem.pdb.primitives.Character chainID;
+	private lawu.chem.pdb.primitives.Integer seqNum;
+	private AChar iCode;
 	private LString database;
-	private LString dbIdCode  S;
-	private Residue name dbRes     S;
-	private lawu.chem.pdb.primitives.Integer dbSeq     S;
-	private LString conflict  C;
+	private LString dbIdCode;
+	private ResidueName dbRes;
+	private lawu.chem.pdb.primitives.Integer dbSeq;
+	private LString conflict;
 
 	private final static Pattern pattern = Pattern.compile("SEQADV (.{4}) (...) (.) (.{4})(.) (.{4}) (.{9}) (...) (.{5}) (.{21}) {10}"); //$NON-NLS-1$
 	private final static String format = "SEQADV %4s %3s %1s %4s%1s %4s %9s %3s %5s %21s          "; //$NON-NLS-1$
@@ -45,79 +48,79 @@ public class Seqadv {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		idCode    I = new IdCode(m.group(1));
-		// resName   N = new Residue name(m.group(2));
-		chainID   P = new lawu.chem.pdb.primitives.Character(m.group(3));
-		seqNum    P = new lawu.chem.pdb.primitives.Integer(m.group(4));
-		iCode     P = new AChar(m.group(5));
+		idCode = new IdCode(m.group(1));
+		// resName = new ResidueName(m.group(2));
+		chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
+		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		iCode = new AChar(m.group(5));
 		database = new LString(m.group(6));
-		dbIdCode  S = new LString(m.group(7));
-		// dbRes     S = new Residue name(m.group(8));
-		dbSeq     S = new lawu.chem.pdb.primitives.Integer(m.group(9));
-		conflict  C = new LString(m.group(10));
+		dbIdCode = new LString(m.group(7));
+		// dbRes = new ResidueName(m.group(8));
+		dbSeq = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		conflict = new LString(m.group(10));
 	}
 
 	/**
-	 * D code of this entry.
+	 *  ID code of this entry.
 	 */
-//	public IDcode idCode    I() {
-//		return idCode    I;
+//	public IdCode idCode() {
+//		return idCode;
 //	}
 
 	/**
-	 * ame of the PDB residue in conflict.
+	 *  Name of the PDB residue in conflict.
 	 */
-//	public Residue name resName   N() {
-//		return resName   N;
+//	public ResidueName resName() {
+//		return resName;
 //	}
 
 	/**
-	 * DB chain identifier.
+	 *  PDB chain identifier.
 	 */
-//	public lawu.chem.pdb.primitives.Character chainID   P() {
-//		return chainID   P;
+//	public lawu.chem.pdb.primitives.Character chainID() {
+//		return chainID;
 //	}
 
 	/**
-	 * DB sequence number.
+	 *  PDB sequence number.
 	 */
-//	public lawu.chem.pdb.primitives.Integer seqNum    P() {
-//		return seqNum    P;
+//	public lawu.chem.pdb.primitives.Integer seqNum() {
+//		return seqNum;
 //	}
 
 	/**
-	 * DB insertion code.
+	 *  PDB insertion code.
 	 */
-//	public AChar iCode     P() {
-//		return iCode     P;
+//	public AChar iCode() {
+//		return iCode;
 //	}
 
 	/**
-	 * equence database accession number.
+	 *  Sequence database accession number.
 	 */
-//	public LString dbIdCode  S() {
-//		return dbIdCode  S;
+//	public LString dbIdCode() {
+//		return dbIdCode;
 //	}
 
 	/**
-	 * equence database residue name.
+	 *  Sequence database residue name.
 	 */
-//	public Residue name dbRes     S() {
-//		return dbRes     S;
+//	public ResidueName dbRes() {
+//		return dbRes;
 //	}
 
 	/**
-	 * equence database sequence number.
+	 *  Sequence database sequence number.
 	 */
-//	public lawu.chem.pdb.primitives.Integer dbSeq     S() {
-//		return dbSeq     S;
+//	public lawu.chem.pdb.primitives.Integer dbSeq() {
+//		return dbSeq;
 //	}
 
 	/**
-	 * onflict comment.
+	 *  Conflict comment.
 	 */
-//	public LString conflict  C() {
-//		return conflict  C;
+//	public LString conflict() {
+//		return conflict;
 //	}
 
 	@Override	

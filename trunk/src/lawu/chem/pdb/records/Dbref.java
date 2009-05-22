@@ -18,16 +18,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Dbref {
-	private IDcode idCode;
+	private IdCode idCode;
 	private lawu.chem.pdb.primitives.Character chainID;
 	private lawu.chem.pdb.primitives.Integer seqBegin;
 	private AChar insertBegin;
@@ -35,11 +38,11 @@ public class Dbref {
 	private AChar insertEnd;
 	private LString database;
 	private LString dbAccession;
-	private String d bIdCode;
-	private nteger d bseqBegin;
-	private Char i dbnsBeg;
-	private nteger d bseqEnd;
-	private Char d binsEnd;
+	private LString dbIdCode;
+	private lawu.chem.pdb.primitives.Integer dbseqBegin;
+	private AChar idbnsBeg;
+	private lawu.chem.pdb.primitives.Integer dbseqEnd;
+	private AChar dbinsEnd;
 
 	private final static Pattern pattern = Pattern.compile("DBREF  (.{4}) (.) (.{4})(.) (.{4})(.) (.{6}) (.{8}) (.{12}) (.{5})(.) (.{5})(.) {12}"); //$NON-NLS-1$
 	private final static String format = "DBREF  %4s %1s %4s%1s %4s%1s %6s %8s %12s %5s%1s %5s%1s            "; //$NON-NLS-1$
@@ -56,102 +59,102 @@ public class Dbref {
 		insertEnd = new AChar(m.group(6));
 		database = new LString(m.group(7));
 		dbAccession = new LString(m.group(8));
-		// bIdCode = new String d(m.group(9));
-		// bseqBegin = new nteger d(m.group(10));
-		// dbnsBeg = new Char i(m.group(11));
-		// bseqEnd = new nteger d(m.group(12));
-		// binsEnd = new Char d(m.group(13));
+		dbIdCode = new LString(m.group(9));
+		dbseqBegin = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		idbnsBeg = new AChar(m.group(11));
+		dbseqEnd = new lawu.chem.pdb.primitives.Integer(m.group(12));
+		dbinsEnd = new AChar(m.group(13));
 	}
 
 	/**
-	 * ID code of this entry.
+	 *  ID code of this entry.
 	 */
-//	public IDcode idCode() {
+//	public IdCode idCode() {
 //		return idCode;
 //	}
 
 	/**
-	 * Chain identifier.
+	 *  Chain identifier.
 	 */
 //	public lawu.chem.pdb.primitives.Character chainID() {
 //		return chainID;
 //	}
 
 	/**
-	 * Initial sequence number of the PDB sequence segment.
+	 *  Initial sequence number of the PDB sequence segment.
 	 */
 //	public lawu.chem.pdb.primitives.Integer seqBegin() {
 //		return seqBegin;
 //	}
 
 	/**
-	 * Initial insertion code of the PDB sequence segment.
+	 *  Initial insertion code of the PDB sequence segment.
 	 */
 //	public AChar insertBegin() {
 //		return insertBegin;
 //	}
 
 	/**
-	 * Ending sequence number of the PDB sequence segment.
+	 *  Ending sequence number of the PDB sequence segment.
 	 */
 //	public lawu.chem.pdb.primitives.Integer seqEnd() {
 //		return seqEnd;
 //	}
 
 	/**
-	 * Ending insertion code of the PDB sequence segment.
+	 *  Ending insertion code of the PDB sequence segment.
 	 */
 //	public AChar insertEnd() {
 //		return insertEnd;
 //	}
 
 	/**
-	 * Sequence database name.
+	 *  Sequence database name.
 	 */
 //	public LString database() {
 //		return database;
 //	}
 
 	/**
-	 * Sequence database accession code.
+	 *  Sequence database accession code.
 	 */
 //	public LString dbAccession() {
 //		return dbAccession;
 //	}
 
 	/**
-	 * Sequence database identification code.
+	 *  Sequence database identification code.
 	 */
-//	public String d bIdCode() {
-//		return bIdCode;
+//	public LString dbIdCode() {
+//		return dbIdCode;
 //	}
 
 	/**
-	 * Initial sequence number of the database seqment.
+	 *  Initial sequence number of the database seqment.
 	 */
-//	public nteger d bseqBegin() {
-//		return bseqBegin;
+//	public lawu.chem.pdb.primitives.Integer dbseqBegin() {
+//		return dbseqBegin;
 //	}
 
 	/**
-	 * Insertion code of initial residue of the segment, if PDB is the reference.
+	 *  Insertion code of initial residue of the segment, if PDB is the reference.
 	 */
-//	public Char i dbnsBeg() {
-//		return dbnsBeg;
+//	public AChar idbnsBeg() {
+//		return idbnsBeg;
 //	}
 
 	/**
-	 * Ending sequence number of the database segment.
+	 *  Ending sequence number of the database segment.
 	 */
-//	public nteger d bseqEnd() {
-//		return bseqEnd;
+//	public lawu.chem.pdb.primitives.Integer dbseqEnd() {
+//		return dbseqEnd;
 //	}
 
 	/**
-	 * Insertion code of the ending residue of the segment, if PDB is the reference.
+	 *  Insertion code of the ending residue of the segment, if PDB is the reference.
 	 */
-//	public Char d binsEnd() {
-//		return binsEnd;
+//	public AChar dbinsEnd() {
+//		return dbinsEnd;
 //	}
 
 	@Override	

@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -44,21 +47,21 @@ public class Hetsyn {
 	}
 
 	/**
-	 * Allows concatenation of multiple records.
+	 *  Allows concatenation of multiple records.
 	 */
 //	public Continuation continuation() {
 //		return continuation;
 //	}
 
 	/**
-	 * Het identifier, right-justified.
+	 *  Het identifier, right-justified.
 	 */
 //	public LString(3) hetID() {
 //		return hetID;
 //	}
 
 	/**
-	 * List of synonyms.
+	 *  List of synonyms.
 	 */
 //	public SList hetSynonyms() {
 //		return hetSynonyms;

@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -60,77 +63,77 @@ public class Cispep {
 	}
 
 	/**
-	 * Record serial number.
+	 *  Record serial number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer serNum() {
 //		return serNum;
 //	}
 
 	/**
-	 * Residue name.
+	 *  Residue name.
 	 */
 //	public LString(3) pep1() {
 //		return pep1;
 //	}
 
 	/**
-	 * Chain identifier.
+	 *  Chain identifier.
 	 */
 //	public lawu.chem.pdb.primitives.Character chainID1() {
 //		return chainID1;
 //	}
 
 	/**
-	 * Residue sequence number.
+	 *  Residue sequence number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer seqNum1() {
 //		return seqNum1;
 //	}
 
 	/**
-	 * Insertion code.
+	 *  Insertion code.
 	 */
 //	public AChar icode1() {
 //		return icode1;
 //	}
 
 	/**
-	 * Residue name.
+	 *  Residue name.
 	 */
 //	public LString(3) pep2() {
 //		return pep2;
 //	}
 
 	/**
-	 * Chain identifier.
+	 *  Chain identifier.
 	 */
 //	public lawu.chem.pdb.primitives.Character chainID2() {
 //		return chainID2;
 //	}
 
 	/**
-	 * Residue sequence number.
+	 *  Residue sequence number.
 	 */
 //	public lawu.chem.pdb.primitives.Integer seqNum2() {
 //		return seqNum2;
 //	}
 
 	/**
-	 * Insertion code.
+	 *  Insertion code.
 	 */
 //	public AChar icode2() {
 //		return icode2;
 //	}
 
 	/**
-	 * Identifies the specific model.
+	 *  Identifies the specific model.
 	 */
 //	public lawu.chem.pdb.primitives.Integer modNum() {
 //		return modNum;
 //	}
 
 	/**
-	 * Measure of the angle in degrees.
+	 *  Measure of the angle in degrees.
 	 */
 //	public Real(6.2) measure() {
 //		return measure;

@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -48,28 +51,28 @@ public class Origx {
 	}
 
 	/**
-	 * On1
+	 *  On1
 	 */
 //	public Real(10.6) on1() {
 //		return on1;
 //	}
 
 	/**
-	 * On2
+	 *  On2
 	 */
 //	public Real(10.6) on2() {
 //		return on2;
 //	}
 
 	/**
-	 * On3
+	 *  On3
 	 */
 //	public Real(10.6) on3() {
 //		return on3;
 //	}
 
 	/**
-	 * Tn
+	 *  Tn
 	 */
 //	public Real(10.5) tn() {
 //		return tn;

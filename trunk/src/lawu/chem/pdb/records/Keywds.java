@@ -18,10 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
@@ -42,14 +45,14 @@ public class Keywds {
 	}
 
 	/**
-	 * Allows concatenation of records if necessary
+	 *  Allows concatenation of records if necessary
 	 */
 //	public Continuation continuation() {
 //		return continuation;
 //	}
 
 	/**
-	 * Comma-separated list of keywords relevant to the entry.
+	 *  Comma-separated list of keywords relevant to the entry.
 	 */
 //	public List keywds() {
 //		return keywds;

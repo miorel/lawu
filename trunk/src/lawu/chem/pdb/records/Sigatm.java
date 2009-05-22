@@ -18,19 +18,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lawu.chem.pdb.primitives.AChar;
+import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
+import lawu.chem.pdb.primitives.ResidueName;
+import lawu.chem.pdb.primitives.SymOp;
 
 /**
  * @author Miorel-Lucian Palii
  */
 public class Sigatm {
 	private lawu.chem.pdb.primitives.Integer serial;
-	private Atom name;
+	private AtomName name;
 	private lawu.chem.pdb.primitives.Character altLoc;
-	private Residue name resName;
+	private ResidueName resName;
 	private lawu.chem.pdb.primitives.Character chainID;
 	private lawu.chem.pdb.primitives.Integer resSeq;
 	private AChar iCode;
@@ -50,9 +53,9 @@ public class Sigatm {
 		if(!m.matches())
 			throw new RuntimeException();
 		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		// name = new Atom(m.group(2));
+		name = new AtomName(m.group(2));
 		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
-		// resName = new Residue name(m.group(4));
+		// resName = new ResidueName(m.group(4));
 		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
 		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
 		iCode = new AChar(m.group(7));
@@ -75,7 +78,7 @@ public class Sigatm {
 	/**
 	 *  Atom name.
 	 */
-//	public Atom name() {
+//	public AtomName name() {
 //		return name;
 //	}
 
@@ -89,7 +92,7 @@ public class Sigatm {
 	/**
 	 *  Residue name.
 	 */
-//	public Residue name resName() {
+//	public ResidueName resName() {
 //		return resName;
 //	}
 
