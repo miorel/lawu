@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,13 +57,13 @@ public class Link {
 			throw new RuntimeException();
 		name1 = new AtomName(m.group(1));
 		altLoc1 = new lawu.chem.pdb.primitives.Character(m.group(2));
-		// resName1 = new ResidueName(m.group(3));
+		resName1 = new ResidueName(m.group(3));
 		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(4));
 		resSeq1 = new lawu.chem.pdb.primitives.Integer(m.group(5));
 		iCode1 = new AChar(m.group(6));
 		name2 = new AtomName(m.group(7));
 		altLoc2 = new lawu.chem.pdb.primitives.Character(m.group(8));
-		// resName2 = new ResidueName(m.group(9));
+		resName2 = new ResidueName(m.group(9));
 		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(10));
 		resSeq2 = new lawu.chem.pdb.primitives.Integer(m.group(11));
 		iCode2 = new AChar(m.group(12));

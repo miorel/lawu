@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,7 +46,7 @@ public class Hetsyn {
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
 		hetID = new LString(m.group(2), 3);
-		// hetSynonyms = new SList(m.group(3));
+		hetSynonyms = new SList(m.group(3));
 	}
 
 	/**

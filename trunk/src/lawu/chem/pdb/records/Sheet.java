@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,22 +66,22 @@ public class Sheet {
 		strand = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		sheetID = new LString(m.group(2), 3);
 		numStrands = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		// initResName = new ResidueName(m.group(4));
+		initResName = new ResidueName(m.group(4));
 		initChainID = new lawu.chem.pdb.primitives.Character(m.group(5));
 		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(6));
 		initICode = new AChar(m.group(7));
-		// endResName = new ResidueName(m.group(8));
+		endResName = new ResidueName(m.group(8));
 		endChainID = new lawu.chem.pdb.primitives.Character(m.group(9));
 		endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(10));
 		endICode = new AChar(m.group(11));
 		sense = new lawu.chem.pdb.primitives.Integer(m.group(12));
 		curAtom = new AtomName(m.group(13));
-		// curResName = new ResidueName(m.group(14));
+		curResName = new ResidueName(m.group(14));
 		curChainId = new lawu.chem.pdb.primitives.Character(m.group(15));
 		curResSeq = new lawu.chem.pdb.primitives.Integer(m.group(16));
 		curICode = new AChar(m.group(17));
 		prevAtom = new AtomName(m.group(18));
-		// prevResName = new ResidueName(m.group(19));
+		prevResName = new ResidueName(m.group(19));
 		prevChainId = new lawu.chem.pdb.primitives.Character(m.group(20));
 		prevResSeq = new lawu.chem.pdb.primitives.Integer(m.group(21));
 		prevICode = new AChar(m.group(22));

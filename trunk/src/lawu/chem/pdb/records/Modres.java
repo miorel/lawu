@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,11 +49,11 @@ public class Modres {
 		if(!m.matches())
 			throw new RuntimeException();
 		idCode = new IdCode(m.group(1));
-		// resName = new ResidueName(m.group(2));
+		resName = new ResidueName(m.group(2));
 		chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
 		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(4));
 		iCode = new AChar(m.group(5));
-		// stdRes = new ResidueName(m.group(6));
+		stdRes = new ResidueName(m.group(6));
 		comment = new lawu.chem.pdb.primitives.String(m.group(7));
 	}
 

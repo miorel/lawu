@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,7 @@ import lawu.chem.pdb.primitives.SymOp;
  */
 public class Compnd {
 	private Continuation continuation;
-	private Specification list compound;
+	private SpecificationList compound;
 
 	private final static Pattern pattern = Pattern.compile("COMPND  (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "COMPND  %2s%60s          "; //$NON-NLS-1$
@@ -42,7 +44,7 @@ public class Compnd {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// compound = new Specification list(m.group(2));
+		compound = new SpecificationList(m.group(2));
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class Compnd {
 	/**
 	 *  Description of the molecular components.
 	 */
-//	public Specification list compound() {
+//	public SpecificationList compound() {
 //		return compound;
 //	}
 

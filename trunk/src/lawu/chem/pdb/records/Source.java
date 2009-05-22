@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,7 @@ import lawu.chem.pdb.primitives.SymOp;
  */
 public class Source {
 	private Continuation continuation;
-	private Specification list srcName;
+	private SpecificationList srcName;
 
 	private final static Pattern pattern = Pattern.compile("SOURCE  (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "SOURCE  %2s%60s          "; //$NON-NLS-1$
@@ -42,7 +44,7 @@ public class Source {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// srcName = new Specification list(m.group(2));
+		srcName = new SpecificationList(m.group(2));
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class Source {
 	/**
 	 *  Identifies the source of the macromolecule in a token: value format.
 	 */
-//	public Specification list srcName() {
+//	public SpecificationList srcName() {
 //		return srcName;
 //	}
 

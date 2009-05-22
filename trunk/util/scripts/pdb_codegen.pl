@@ -95,13 +95,16 @@ while(my($record_name, $val) = each %_) {
 		$_->[0] = 'SymOp' if $_->[0] =~ /^symop$/i;
 		$_->[0] = 'IdCode' if $_->[0] =~ /^idcode$/i;
 		$_->[0] = 'ResidueName' if $_->[0] =~ /^residue name$/i;
-		$_->[0] =~ s/^((?:Character|Integer|String)\(?\d*\)?)$/lawu.chem.pdb.primitives.$1/;
+		$_->[0] = 'SpecificationList' if $_->[0] =~ /^specification list$/i;
+		$_->[0] =~ s/^((?:Character|Integer|String|List)\(?\d*\)?)$/lawu.chem.pdb.primitives.$1/;
 	}
 	my $out_file = sprintf("%s/%s.java", $out_dir, $class_name);
 	open $fh, ">$out_file" or die "Failed to open $out_file for writing";
 	print $fh <<"EOF";
 package $package;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -120,9 +123,19 @@ import lawu.chem.pdb.primitives.SymOp;
  */
 public class $class_name {
 EOF
+	my %fields;
+	%fields = (); ++$fields{$_->[1]} for @fields;
 	for(@fields) {
 		$_->[0] =~ /^([a-z\. ]+)/i;
-		print $fh "\tprivate $1 $_->[1];\n";
+		my $count = $fields{$_->[1]};
+		next unless $count;
+		if($count == 1) {
+			print $fh "\tprivate $1 $_->[1];\n";
+		}
+		else {
+			print $fh "\tprivate List<$1> $_->[1]List = new ArrayList<$1>($count);\n";
+		}
+		$fields{$_->[1]} = 0;
 	}
 	print $fh <<"EOF";
 
@@ -134,8 +147,10 @@ EOF
 		if(!m.matches())
 			throw new RuntimeException();
 EOF
+	%fields = (); ++$fields{$_->[1]} for @fields;
 	for my$i(1..scalar(@fields)) {
 		local $_ = $fields[$i-1];
+		my $count = $fields{$_->[1]};
 		my @args = ("m.group($i)");
 		my $build = undef;
 		switch($_->[0]) {
@@ -156,7 +171,13 @@ EOF
 				push @args, $1;
 			}
 		}
-		printf($fh "\t\t%s = %s(%s);\n", ($build ? $_->[1] : "// $_->[1]"), ($build ? $build : "new $_->[0]"), join(", ", @args));
+		$build ||= "new $_->[0]";
+		if($count == 1) {
+			printf($fh "\t\t%s = %s(%s);\n", $_->[1], $build, join(", ", @args));
+		}
+		else {
+			printf($fh "\t\t%sList.add(%s(%s));\n", $_->[1], $build, join(", ", @args));
+		}
 	}
 	print $fh <<"EOF";
 	}

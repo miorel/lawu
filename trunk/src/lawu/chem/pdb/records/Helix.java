@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,11 +56,11 @@ public class Helix {
 			throw new RuntimeException();
 		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		helixID = new LString(m.group(2), 3);
-		// initResName = new ResidueName(m.group(3));
+		initResName = new ResidueName(m.group(3));
 		initChainID = new lawu.chem.pdb.primitives.Character(m.group(4));
 		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));
 		initICode = new AChar(m.group(6));
-		// endResName = new ResidueName(m.group(7));
+		endResName = new ResidueName(m.group(7));
 		endChainID = new lawu.chem.pdb.primitives.Character(m.group(8));
 		endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(9));
 		endICode = new AChar(m.group(10));

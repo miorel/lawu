@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,7 +44,7 @@ public class Header {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		// classification = new lawu.chem.pdb.primitives.String(40)(m.group(1));
+		classification = new lawu.chem.pdb.primitives.String(40)(m.group(1));
 		depDate = new Date(m.group(2));
 		idCode = new IdCode(m.group(3));
 	}

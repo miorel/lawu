@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,7 @@ import lawu.chem.pdb.primitives.SymOp;
  */
 public class Keywds {
 	private Continuation continuation;
-	private List keywds;
+	private lawu.chem.pdb.primitives.List keywds;
 
 	private final static Pattern pattern = Pattern.compile("KEYWDS  (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "KEYWDS  %2s%60s          "; //$NON-NLS-1$
@@ -42,7 +44,7 @@ public class Keywds {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// keywds = new List(m.group(2));
+		keywds = new lawu.chem.pdb.primitives.List(m.group(2));
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class Keywds {
 	/**
 	 *  Comma-separated list of keywords relevant to the entry.
 	 */
-//	public List keywds() {
+//	public lawu.chem.pdb.primitives.List keywds() {
 //		return keywds;
 //	}
 

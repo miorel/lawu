@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,10 +38,7 @@ public class Revdat {
 	private Date modDate;
 	private lawu.chem.pdb.primitives.String modId;
 	private lawu.chem.pdb.primitives.Integer modType;
-	private LString record;
-	private LString record;
-	private LString record;
-	private LString record;
+	private List<LString> recordList = new ArrayList<LString>(4);
 
 	private final static Pattern pattern = Pattern.compile("REVDAT (...)(..) (.{9}) (.{5})   (.) {7}(.{6}) (.{6}) (.{6}) (.{6}) {14}"); //$NON-NLS-1$
 	private final static String format = "REVDAT %3s%2s %9s %5s   %1s       %6s %6s %6s %6s              "; //$NON-NLS-1$
@@ -51,12 +50,12 @@ public class Revdat {
 		modNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		continuation = new Continuation(m.group(2));
 		modDate = new Date(m.group(3));
-		// modId = new lawu.chem.pdb.primitives.String(5)(m.group(4));
+		modId = new lawu.chem.pdb.primitives.String(5)(m.group(4));
 		modType = new lawu.chem.pdb.primitives.Integer(m.group(5));
-		record = new LString(m.group(6), 6);
-		record = new LString(m.group(7), 6);
-		record = new LString(m.group(8), 6);
-		record = new LString(m.group(9), 6);
+		recordList.add(new LString(m.group(6), 6));
+		recordList.add(new LString(m.group(7), 6));
+		recordList.add(new LString(m.group(8), 6));
+		recordList.add(new LString(m.group(9), 6));
 	}
 
 	/**

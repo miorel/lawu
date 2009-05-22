@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,19 +63,19 @@ public class Site {
 		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		siteID = new LString(m.group(2), 3);
 		numRes = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		// resName1 = new ResidueName(m.group(4));
+		resName1 = new ResidueName(m.group(4));
 		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(5));
 		seq1 = new lawu.chem.pdb.primitives.Integer(m.group(6));
 		iCode1 = new AChar(m.group(7));
-		// resName2 = new ResidueName(m.group(8));
+		resName2 = new ResidueName(m.group(8));
 		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(9));
 		seq2 = new lawu.chem.pdb.primitives.Integer(m.group(10));
 		iCode2 = new AChar(m.group(11));
-		// resName3 = new ResidueName(m.group(12));
+		resName3 = new ResidueName(m.group(12));
 		chainID3 = new lawu.chem.pdb.primitives.Character(m.group(13));
 		seq3 = new lawu.chem.pdb.primitives.Integer(m.group(14));
 		iCode3 = new AChar(m.group(15));
-		// resName4 = new ResidueName(m.group(16));
+		resName4 = new ResidueName(m.group(16));
 		chainID4 = new lawu.chem.pdb.primitives.Character(m.group(17));
 		seq4 = new lawu.chem.pdb.primitives.Integer(m.group(18));
 		iCode4 = new AChar(m.group(19));

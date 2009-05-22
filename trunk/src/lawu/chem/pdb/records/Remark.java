@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +36,7 @@ public class Remark {
 	private LString "1";
 	private LString "AUTH";
 	private Continuation continuation;
-	private List authorList;
+	private lawu.chem.pdb.primitives.List authorList;
 
 	private final static Pattern pattern = Pattern.compile("REMARK   (.)  (.{4})(..) (.{51}) {10}"); //$NON-NLS-1$
 	private final static String format = "REMARK   %1s  %4s%2s %51s          "; //$NON-NLS-1$
@@ -46,7 +48,7 @@ public class Remark {
 		"1" = new LString(m.group(1), 1);
 		"AUTH" = new LString(m.group(2), 4);
 		continuation = new Continuation(m.group(3));
-		// authorList = new List(m.group(4));
+		authorList = new lawu.chem.pdb.primitives.List(m.group(4));
 	}
 
 	/**
@@ -66,7 +68,7 @@ public class Remark {
 	/**
 	 *  List of the authors.
 	 */
-//	public List authorList() {
+//	public lawu.chem.pdb.primitives.List authorList() {
 //		return authorList;
 //	}
 

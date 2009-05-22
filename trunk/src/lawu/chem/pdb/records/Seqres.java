@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,19 +36,7 @@ public class Seqres {
 	private lawu.chem.pdb.primitives.Integer serNum;
 	private lawu.chem.pdb.primitives.Character chainID;
 	private lawu.chem.pdb.primitives.Integer numRes;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
-	private ResidueName resName;
+	private List<ResidueName> resNameList = new ArrayList<ResidueName>(13);
 
 	private final static Pattern pattern = Pattern.compile("SEQRES  (..) (.) (.{4})  (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) (...) {10}"); //$NON-NLS-1$
 	private final static String format = "SEQRES  %2s %1s %4s  %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s %3s          "; //$NON-NLS-1$
@@ -58,19 +48,19 @@ public class Seqres {
 		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		chainID = new lawu.chem.pdb.primitives.Character(m.group(2));
 		numRes = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		// resName = new ResidueName(m.group(4));
-		// resName = new ResidueName(m.group(5));
-		// resName = new ResidueName(m.group(6));
-		// resName = new ResidueName(m.group(7));
-		// resName = new ResidueName(m.group(8));
-		// resName = new ResidueName(m.group(9));
-		// resName = new ResidueName(m.group(10));
-		// resName = new ResidueName(m.group(11));
-		// resName = new ResidueName(m.group(12));
-		// resName = new ResidueName(m.group(13));
-		// resName = new ResidueName(m.group(14));
-		// resName = new ResidueName(m.group(15));
-		// resName = new ResidueName(m.group(16));
+		resNameList.add(new ResidueName(m.group(4)));
+		resNameList.add(new ResidueName(m.group(5)));
+		resNameList.add(new ResidueName(m.group(6)));
+		resNameList.add(new ResidueName(m.group(7)));
+		resNameList.add(new ResidueName(m.group(8)));
+		resNameList.add(new ResidueName(m.group(9)));
+		resNameList.add(new ResidueName(m.group(10)));
+		resNameList.add(new ResidueName(m.group(11)));
+		resNameList.add(new ResidueName(m.group(12)));
+		resNameList.add(new ResidueName(m.group(13)));
+		resNameList.add(new ResidueName(m.group(14)));
+		resNameList.add(new ResidueName(m.group(15)));
+		resNameList.add(new ResidueName(m.group(16)));
 	}
 
 	/**

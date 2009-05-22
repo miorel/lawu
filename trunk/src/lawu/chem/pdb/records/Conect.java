@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,11 +33,7 @@ import lawu.chem.pdb.primitives.SymOp;
  * @author Miorel-Lucian Palii
  */
 public class Conect {
-	private lawu.chem.pdb.primitives.Integer serial;
-	private lawu.chem.pdb.primitives.Integer serial;
-	private lawu.chem.pdb.primitives.Integer serial;
-	private lawu.chem.pdb.primitives.Integer serial;
-	private lawu.chem.pdb.primitives.Integer serial;
+	private List<lawu.chem.pdb.primitives.Integer> serialList = new ArrayList<lawu.chem.pdb.primitives.Integer>(5);
 
 	private final static Pattern pattern = Pattern.compile("CONECT(.{5})(.{5})(.{5})(.{5})(.{5}) {49}"); //$NON-NLS-1$
 	private final static String format = "CONECT%5s%5s%5s%5s%5s                                                 "; //$NON-NLS-1$
@@ -44,11 +42,11 @@ public class Conect {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(2));
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(4));
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(1)));
+		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(2)));
+		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(3)));
+		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(4)));
+		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(5)));
 	}
 
 	/**

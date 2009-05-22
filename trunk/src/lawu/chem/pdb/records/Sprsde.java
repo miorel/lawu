@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,14 +36,7 @@ public class Sprsde {
 	private Continuation continuation;
 	private Date sprsdeDate;
 	private IdCode idCode;
-	private IdCode sIdCode;
-	private IdCode sIdCode;
-	private IdCode sIdCode;
-	private IdCode sIdCode;
-	private IdCode sIdCode;
-	private IdCode sIdCode;
-	private IdCode sIdCode;
-	private IdCode sIdCode;
+	private List<IdCode> sIdCodeList = new ArrayList<IdCode>(8);
 
 	private final static Pattern pattern = Pattern.compile("SPRSDE  (..) (.{9}) (.{4}) {6}(.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) {10}"); //$NON-NLS-1$
 	private final static String format = "SPRSDE  %2s %9s %4s      %4s %4s %4s %4s %4s %4s %4s %4s          "; //$NON-NLS-1$
@@ -53,14 +48,14 @@ public class Sprsde {
 		continuation = new Continuation(m.group(1));
 		sprsdeDate = new Date(m.group(2));
 		idCode = new IdCode(m.group(3));
-		sIdCode = new IdCode(m.group(4));
-		sIdCode = new IdCode(m.group(5));
-		sIdCode = new IdCode(m.group(6));
-		sIdCode = new IdCode(m.group(7));
-		sIdCode = new IdCode(m.group(8));
-		sIdCode = new IdCode(m.group(9));
-		sIdCode = new IdCode(m.group(10));
-		sIdCode = new IdCode(m.group(11));
+		sIdCodeList.add(new IdCode(m.group(4)));
+		sIdCodeList.add(new IdCode(m.group(5)));
+		sIdCodeList.add(new IdCode(m.group(6)));
+		sIdCodeList.add(new IdCode(m.group(7)));
+		sIdCodeList.add(new IdCode(m.group(8)));
+		sIdCodeList.add(new IdCode(m.group(9)));
+		sIdCodeList.add(new IdCode(m.group(10)));
+		sIdCodeList.add(new IdCode(m.group(11)));
 	}
 
 	/**

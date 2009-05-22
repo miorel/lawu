@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,7 +59,7 @@ public class Anisou {
 		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		name = new AtomName(m.group(2));
 		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
-		// resName = new ResidueName(m.group(4));
+		resName = new ResidueName(m.group(4));
 		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
 		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
 		iCode = new AChar(m.group(7));

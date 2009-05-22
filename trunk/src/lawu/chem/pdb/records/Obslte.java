@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,14 +36,7 @@ public class Obslte {
 	private Continuation continuation;
 	private Date repDate;
 	private IdCode idCode;
-	private IdCode rIdCode;
-	private IdCode rIdCode;
-	private IdCode rIdCode;
-	private IdCode rIdCode;
-	private IdCode rIdCode;
-	private IdCode rIdCode;
-	private IdCode rIdCode;
-	private IdCode rIdCode;
+	private List<IdCode> rIdCodeList = new ArrayList<IdCode>(8);
 
 	private final static Pattern pattern = Pattern.compile("OBSLTE  (..) (.{9}) (.{4}) {6}(.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) {10}"); //$NON-NLS-1$
 	private final static String format = "OBSLTE  %2s %9s %4s      %4s %4s %4s %4s %4s %4s %4s %4s          "; //$NON-NLS-1$
@@ -53,14 +48,14 @@ public class Obslte {
 		continuation = new Continuation(m.group(1));
 		repDate = new Date(m.group(2));
 		idCode = new IdCode(m.group(3));
-		rIdCode = new IdCode(m.group(4));
-		rIdCode = new IdCode(m.group(5));
-		rIdCode = new IdCode(m.group(6));
-		rIdCode = new IdCode(m.group(7));
-		rIdCode = new IdCode(m.group(8));
-		rIdCode = new IdCode(m.group(9));
-		rIdCode = new IdCode(m.group(10));
-		rIdCode = new IdCode(m.group(11));
+		rIdCodeList.add(new IdCode(m.group(4)));
+		rIdCodeList.add(new IdCode(m.group(5)));
+		rIdCodeList.add(new IdCode(m.group(6)));
+		rIdCodeList.add(new IdCode(m.group(7)));
+		rIdCodeList.add(new IdCode(m.group(8)));
+		rIdCodeList.add(new IdCode(m.group(9)));
+		rIdCodeList.add(new IdCode(m.group(10)));
+		rIdCodeList.add(new IdCode(m.group(11)));
 	}
 
 	/**

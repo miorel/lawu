@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +34,7 @@ import lawu.chem.pdb.primitives.SymOp;
  */
 public class Author {
 	private Continuation continuation;
-	private List authorList;
+	private lawu.chem.pdb.primitives.List authorList;
 
 	private final static Pattern pattern = Pattern.compile("AUTHOR  (..)(.{60}) {10}"); //$NON-NLS-1$
 	private final static String format = "AUTHOR  %2s%60s          "; //$NON-NLS-1$
@@ -42,7 +44,7 @@ public class Author {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// authorList = new List(m.group(2));
+		authorList = new lawu.chem.pdb.primitives.List(m.group(2));
 	}
 
 	/**
@@ -55,7 +57,7 @@ public class Author {
 	/**
 	 *  List of the author names, separated by commas.
 	 */
-//	public List authorList() {
+//	public lawu.chem.pdb.primitives.List authorList() {
 //		return authorList;
 //	}
 

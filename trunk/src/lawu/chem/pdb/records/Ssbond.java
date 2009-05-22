@@ -14,6 +14,8 @@
  */
 package lawu.chem.pdb.records;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,11 +34,10 @@ import lawu.chem.pdb.primitives.SymOp;
  */
 public class Ssbond {
 	private lawu.chem.pdb.primitives.Integer serNum;
-	private LString "CYS";
+	private List<LString> "CYS"List = new ArrayList<LString>(2);
 	private lawu.chem.pdb.primitives.Character chainID1;
 	private lawu.chem.pdb.primitives.Integer seqNum1;
 	private AChar icode1;
-	private LString "CYS";
 	private lawu.chem.pdb.primitives.Character chainID2;
 	private lawu.chem.pdb.primitives.Integer seqNum2;
 	private AChar icode2;
@@ -51,11 +52,11 @@ public class Ssbond {
 		if(!m.matches())
 			throw new RuntimeException();
 		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		"CYS" = new LString(m.group(2), 3);
+		"CYS"List.add(new LString(m.group(2), 3));
 		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(3));
 		seqNum1 = new lawu.chem.pdb.primitives.Integer(m.group(4));
 		icode1 = new AChar(m.group(5));
-		"CYS" = new LString(m.group(6), 3);
+		"CYS"List.add(new LString(m.group(6), 3));
 		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(7));
 		seqNum2 = new lawu.chem.pdb.primitives.Integer(m.group(8));
 		icode2 = new AChar(m.group(9));
