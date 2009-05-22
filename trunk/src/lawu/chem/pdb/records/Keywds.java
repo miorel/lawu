@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.Date;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;

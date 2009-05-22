@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.Date;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
@@ -50,7 +51,7 @@ public class Sprsde {
 		if(!m.matches())
 			throw new RuntimeException();
 		continuation = new Continuation(m.group(1));
-		// sprsdeDate = new Date(m.group(2));
+		sprsdeDate = new Date(m.group(2));
 		idCode = new IdCode(m.group(3));
 		sIdCode = new IdCode(m.group(4));
 		sIdCode = new IdCode(m.group(5));

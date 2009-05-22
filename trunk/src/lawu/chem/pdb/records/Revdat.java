@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.Date;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
@@ -33,7 +34,7 @@ public class Revdat {
 	private lawu.chem.pdb.primitives.Integer modNum;
 	private Continuation continuation;
 	private Date modDate;
-	private String modId;
+	private lawu.chem.pdb.primitives.String modId;
 	private lawu.chem.pdb.primitives.Integer modType;
 	private LString record;
 	private LString record;
@@ -49,8 +50,8 @@ public class Revdat {
 			throw new RuntimeException();
 		modNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
 		continuation = new Continuation(m.group(2));
-		// modDate = new Date(m.group(3));
-		// modId = new String(5)(m.group(4));
+		modDate = new Date(m.group(3));
+		// modId = new lawu.chem.pdb.primitives.String(5)(m.group(4));
 		modType = new lawu.chem.pdb.primitives.Integer(m.group(5));
 		record = new LString(m.group(6), 6);
 		record = new LString(m.group(7), 6);
@@ -82,7 +83,7 @@ public class Revdat {
 	/**
 	 *  Identifies this particular modification. It links to the archive used internally by PDB. This is not repeated on continuation lines
 	 */
-//	public String(5) modId() {
+//	public lawu.chem.pdb.primitives.String(5) modId() {
 //		return modId;
 //	}
 

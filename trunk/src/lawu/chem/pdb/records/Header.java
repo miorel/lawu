@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.Date;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
@@ -30,7 +31,7 @@ import lawu.chem.pdb.primitives.SymOp;
  * @author Miorel-Lucian Palii
  */
 public class Header {
-	private String classification;
+	private lawu.chem.pdb.primitives.String classification;
 	private Date depDate;
 	private IdCode idCode;
 
@@ -41,15 +42,15 @@ public class Header {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		// classification = new String(40)(m.group(1));
-		// depDate = new Date(m.group(2));
+		// classification = new lawu.chem.pdb.primitives.String(40)(m.group(1));
+		depDate = new Date(m.group(2));
 		idCode = new IdCode(m.group(3));
 	}
 
 	/**
 	 *  Classifies the molecule(s)
 	 */
-//	public String(40) classification() {
+//	public lawu.chem.pdb.primitives.String(40) classification() {
 //		return classification;
 //	}
 

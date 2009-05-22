@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.Date;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
@@ -30,17 +31,17 @@ import lawu.chem.pdb.primitives.SymOp;
  * @author Miorel-Lucian Palii
  */
 public class Obslte {
-	private Continuation     co ntinuation;
-	private Date             re pDate;
-	private IDcode           id Code;
-	private IDcode           rI dCode;
-	private IDcode           rI dCode;
-	private IDcode           rI dCode;
-	private IDcode           rI dCode;
-	private IDcode           rI dCode;
-	private IDcode           rI dCode;
-	private IDcode           rI dCode;
-	private IDcode           rI dCode;
+	private Continuation continuation;
+	private Date repDate;
+	private IdCode idCode;
+	private IdCode rIdCode;
+	private IdCode rIdCode;
+	private IdCode rIdCode;
+	private IdCode rIdCode;
+	private IdCode rIdCode;
+	private IdCode rIdCode;
+	private IdCode rIdCode;
+	private IdCode rIdCode;
 
 	private final static Pattern pattern = Pattern.compile("OBSLTE  (..) (.{9}) (.{4}) {6}(.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) (.{4}) {10}"); //$NON-NLS-1$
 	private final static String format = "OBSLTE  %2s %9s %4s      %4s %4s %4s %4s %4s %4s %4s %4s          "; //$NON-NLS-1$
@@ -49,94 +50,94 @@ public class Obslte {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		// ntinuation = new Continuation     co(m.group(1));
-		// pDate = new Date             re(m.group(2));
-		// Code = new IDcode           id(m.group(3));
-		// dCode = new IDcode           rI(m.group(4));
-		// dCode = new IDcode           rI(m.group(5));
-		// dCode = new IDcode           rI(m.group(6));
-		// dCode = new IDcode           rI(m.group(7));
-		// dCode = new IDcode           rI(m.group(8));
-		// dCode = new IDcode           rI(m.group(9));
-		// dCode = new IDcode           rI(m.group(10));
-		// dCode = new IDcode           rI(m.group(11));
+		continuation = new Continuation(m.group(1));
+		repDate = new Date(m.group(2));
+		idCode = new IdCode(m.group(3));
+		rIdCode = new IdCode(m.group(4));
+		rIdCode = new IdCode(m.group(5));
+		rIdCode = new IdCode(m.group(6));
+		rIdCode = new IdCode(m.group(7));
+		rIdCode = new IdCode(m.group(8));
+		rIdCode = new IdCode(m.group(9));
+		rIdCode = new IdCode(m.group(10));
+		rIdCode = new IdCode(m.group(11));
 	}
 
 	/**
 	 *  Allows concatenation of multiple records
 	 */
-//	public Continuation     co ntinuation() {
-//		return ntinuation;
+//	public Continuation continuation() {
+//		return continuation;
 //	}
 
 	/**
 	 *  Date that this entry was replaced.
 	 */
-//	public Date             re pDate() {
-//		return pDate;
+//	public Date repDate() {
+//		return repDate;
 //	}
 
 	/**
 	 *  ID code of this entry.
 	 */
-//	public IDcode           id Code() {
-//		return Code;
+//	public IdCode idCode() {
+//		return idCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	/**
 	 *  ID code of entry that replaced this one.
 	 */
-//	public IDcode           rI dCode() {
-//		return dCode;
+//	public IdCode rIdCode() {
+//		return rIdCode;
 //	}
 
 	@Override	

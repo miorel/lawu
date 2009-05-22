@@ -57,6 +57,7 @@ while(my($record_name, $val) = each %_) {
 	my $class_name = $1 . lc($2);
 	for(@_[3..$#_]) {
 		my($columns, $data_type, $field, $definition) = /^([\d\- ]{0,$columns_length})(.{0,$data_type_length})(\S{0,$field_length})(.*)/;
+		$field = "$2$field" if $data_type =~ s/(\S\s{2,})(\S.*)$/$1/;
 		if($columns !~ /^\s+$/) {
 			my($start, $end) = $columns =~ /(\d+)\s*\-?\s*(\d*)/;
 			$end = $start unless length($end);
@@ -90,11 +91,11 @@ while(my($record_name, $val) = each %_) {
 	for(@fields) {
 		$_->[2] =~ s/\s+/ /g;
 		s/\s+$//g for @$_;
-		$_->[0] =~ s/^(Character|Integer|String)$/lawu.chem.pdb.primitives.$1/;
 		$_->[0] = 'AtomName' if $_->[0] =~ /^atom$/i;
 		$_->[0] = 'SymOp' if $_->[0] =~ /^symop$/i;
 		$_->[0] = 'IdCode' if $_->[0] =~ /^idcode$/i;
 		$_->[0] = 'ResidueName' if $_->[0] =~ /^residue name$/i;
+		$_->[0] =~ s/^((?:Character|Integer|String)\(?\d*\)?)$/lawu.chem.pdb.primitives.$1/;
 	}
 	my $out_file = sprintf("%s/%s.java", $out_dir, $class_name);
 	open $fh, ">$out_file" or die "Failed to open $out_file for writing";
@@ -107,6 +108,7 @@ import java.util.regex.Pattern;
 import lawu.chem.pdb.primitives.AChar;
 import lawu.chem.pdb.primitives.AtomName;
 import lawu.chem.pdb.primitives.Continuation;
+import lawu.chem.pdb.primitives.Date;
 import lawu.chem.pdb.primitives.IdCode;
 import lawu.chem.pdb.primitives.LString;
 import lawu.chem.pdb.primitives.Real;
@@ -140,7 +142,7 @@ EOF
 			case 'int' {
 				$build = 'Integer.parseInt';
 			}
-			case m/(?:\.|^)(?:AChar|Character|Integer|String|Continuation|LString|AtomName|SymOp|IdCode)$/i {
+			case m/(?:\.|^)(?:AChar|Character|Date|Integer|String|Continuation|LString|AtomName|SymOp|IdCode)$/i {
 				$build = "new $_->[0]";
 			}
 			case m/^Real\(\d+\.\d+\)$/ {
