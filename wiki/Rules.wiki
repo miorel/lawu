@@ -1,5 +1,5 @@
 #summary They're more like guidelines
-#labels Featured Phase-Design Phase-Implementation
+#labels Featured,Phase-Design,Phase-Implementation
 
 This page lists the project "rules." Some of them are explicit coding practices whereas others are more abstract and philosophical in nature.
 
