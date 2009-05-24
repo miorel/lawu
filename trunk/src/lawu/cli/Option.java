@@ -12,37 +12,15 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package lawu.util.iterator;
+package lawu.cli;
 
 import lawu.dp.Iterator;
 
 /**
  * @author Miorel-Lucian Palii
  */
-public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
-	private final Iterator<T> iterator;
+public interface Option {
+	public void writeHelp(Appendable appendable);
 	
-	/**
-	 * @param iterator
-	 */
-	public IteratorAdapter(Iterator<T> iterator) {
-		this.iterator = iterator;
-		reset();
-	}
-
-	public void advance() {
-		this.iterator.advance();
-	}
-
-	public T current() {
-		return this.iterator.current();
-	}
-
-	public boolean isDone() {
-		return this.iterator.isDone();
-	}
-
-	public void reset() {
-		this.iterator.reset();
-	}
+	public void parse(Iterator<String> args);
 }

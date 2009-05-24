@@ -14,6 +14,12 @@
  */
 package lawu;
 
+import static lawu.cli.HelpOption.formatHelpFooter;
+import static lawu.cli.VersionOption.GPLED;
+import static lawu.cli.VersionOption.formatCopyright;
+import static lawu.cli.VersionOption.formatProgramTitle;
+import static lawu.cli.VersionOption.formatVersionOutput;
+
 import java.awt.Desktop;
 import java.net.URI;
 import java.util.MissingResourceException;
@@ -22,6 +28,10 @@ import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import lawu.cli.ArgumentSet;
+import lawu.cli.HelpOption;
+import lawu.cli.VersionOption;
+
 /**
  * Houses the <code>main</code> method and serves as access point for program
  * messages.
@@ -29,6 +39,8 @@ import javax.swing.UIManager;
  * @author Miorel-Lucian Palii
  */
 public class Main {
+	private final String[] arguments;
+	
 	public static final String PROJECT_NAME = Main.class.getPackage().getName();
 	public static final String PROJECT_VERSION;
 
@@ -47,15 +59,20 @@ public class Main {
 		PROJECT_VERSION = getString("project.version"); //$NON-NLS-1$
 	}
 
-	private Main() {
-		// no initialization work necessary
+	private Main(String... arguments) {
+		this.arguments = arguments;
 	}
 
-	private void run() {
+	private void run() {		
 		String uri = getString("project.uri"); //$NON-NLS-1$
 		String msg = String.format(getString("RunApp.0"), uri); //$NON-NLS-1$
-		String title = PROJECT_NAME + " " + PROJECT_VERSION; //$NON-NLS-1$
+		String title = formatProgramTitle(PROJECT_NAME, PROJECT_VERSION);
 
+		ArgumentSet argSet = new ArgumentSet();
+		argSet.addOption(new HelpOption(argSet, null, formatHelpFooter("mlpalii@gmail.com", uri)));
+		argSet.addOption(new VersionOption(formatVersionOutput(title, formatCopyright("Miorel-Lucian Palii", 2009), GPLED)));
+		argSet.parse(this.arguments);
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
@@ -79,7 +96,7 @@ public class Main {
 	 * @param arg command-line options
 	 */
 	public static void main(String[] arg) {
-		new Main().run();
+		new Main(arg).run();
 	}
 
 	/**

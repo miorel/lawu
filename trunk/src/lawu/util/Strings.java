@@ -33,4 +33,19 @@ public class Strings {
 		m.appendTail(sb);
 		return sb.toString();
 	}
+	
+	public static String multiply(char character, int count) {
+		return multiply(Character.toString(character), count);
+	}
+	
+	public static String multiply(String string, int count) {
+		if(string == null)
+			throw new RuntimeException("");
+		if(count < 0)
+			throw new RuntimeException("");
+		StringBuilder sb = new StringBuilder(string.length() * count);
+		for(int i = 0; i != count; ++i)
+			sb.append(string);
+		return sb.toString();
+	}
 }
