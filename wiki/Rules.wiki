@@ -1,0 +1,6 @@
+#summary They're more like guidelines
+#labels Featured Phase-Design Phase-Implementation
+
+This page lists the project "rules." Some of them are explicit coding practices whereas others are more abstract and philosophical in nature.
+
+_Oops, I was too lazy to actually write this. I guess that means thare are no rules! (Maybe I'll update this at a later time.)_

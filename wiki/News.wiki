@@ -3,7 +3,12 @@
 
 This page details the major changes and features that characterize each version of the project.
 
-== Version 0.0.1 ==
+= Version 0.0.2 =
+  * parse command-line arguments
+  * chemistry classes with periodic table information from [http://www.kdau.com/projects/gelemental/ gElemental]
+  * standard doclet removed: will probably be rewritten later
+
+= Version 0.0.1 =
   * iterator framework
    * grep (filter) the elements of an iterator
    * define a mapping of the elements of an iterator
