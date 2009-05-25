@@ -51,16 +51,16 @@ public class Seqadv {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		idCode = new IdCode(m.group(1));
-		resName = new ResidueName(m.group(2));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
-		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(4));
-		iCode = new AChar(m.group(5));
-		database = new LString(m.group(6));
-		dbIdCode = new LString(m.group(7));
-		dbRes = new ResidueName(m.group(8));
-		dbSeq = new lawu.chem.pdb.primitives.Integer(m.group(9));
-		conflict = new LString(m.group(10));
+		this.idCode = new IdCode(m.group(1));
+		this.resName = new ResidueName(m.group(2));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
+		this.seqNum = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		this.iCode = new AChar(m.group(5));
+		this.database = new LString(m.group(6));
+		this.dbIdCode = new LString(m.group(7));
+		this.dbRes = new ResidueName(m.group(8));
+		this.dbSeq = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		this.conflict = new LString(m.group(10));
 	}
 
 	/**

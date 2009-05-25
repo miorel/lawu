@@ -56,21 +56,21 @@ public class Siguij {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		name = new AtomName(m.group(2));
-		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
-		resName = new ResidueName(m.group(4));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
-		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
-		iCode = new AChar(m.group(7));
-		sig11 = new lawu.chem.pdb.primitives.Integer(m.group(8));
-		sig22 = new lawu.chem.pdb.primitives.Integer(m.group(9));
-		sig33 = new lawu.chem.pdb.primitives.Integer(m.group(10));
-		sig12 = new lawu.chem.pdb.primitives.Integer(m.group(11));
-		sig13 = new lawu.chem.pdb.primitives.Integer(m.group(12));
-		sig23 = new lawu.chem.pdb.primitives.Integer(m.group(13));
-		element = new LString(m.group(14), 2);
-		charge = new LString(m.group(15), 2);
+		this.serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.name = new AtomName(m.group(2));
+		this.altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
+		this.resName = new ResidueName(m.group(4));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
+		this.resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		this.iCode = new AChar(m.group(7));
+		this.sig11 = new lawu.chem.pdb.primitives.Integer(m.group(8));
+		this.sig22 = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		this.sig33 = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		this.sig12 = new lawu.chem.pdb.primitives.Integer(m.group(11));
+		this.sig13 = new lawu.chem.pdb.primitives.Integer(m.group(12));
+		this.sig23 = new lawu.chem.pdb.primitives.Integer(m.group(13));
+		this.element = new LString(m.group(14), 2);
+		this.charge = new LString(m.group(15), 2);
 	}
 
 	/**

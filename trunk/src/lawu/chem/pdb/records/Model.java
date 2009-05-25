@@ -42,7 +42,7 @@ public class Model {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
 	}
 
 	/**

@@ -47,12 +47,12 @@ public class Het {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		hetID = new LString(m.group(1), 3);
-		ChainID = new lawu.chem.pdb.primitives.Character(m.group(2));
-		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		iCode = new AChar(m.group(4));
-		numHetAtoms = new lawu.chem.pdb.primitives.Integer(m.group(5));
-		text = new lawu.chem.pdb.primitives.String(m.group(6));
+		this.hetID = new LString(m.group(1), 3);
+		this.ChainID = new lawu.chem.pdb.primitives.Character(m.group(2));
+		this.seqNum = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		this.iCode = new AChar(m.group(4));
+		this.numHetAtoms = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		this.text = new lawu.chem.pdb.primitives.String(m.group(6));
 	}
 
 	/**

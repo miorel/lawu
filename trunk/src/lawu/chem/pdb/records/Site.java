@@ -60,25 +60,25 @@ public class Site {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		siteID = new LString(m.group(2), 3);
-		numRes = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		resName1 = new ResidueName(m.group(4));
-		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(5));
-		seq1 = new lawu.chem.pdb.primitives.Integer(m.group(6));
-		iCode1 = new AChar(m.group(7));
-		resName2 = new ResidueName(m.group(8));
-		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(9));
-		seq2 = new lawu.chem.pdb.primitives.Integer(m.group(10));
-		iCode2 = new AChar(m.group(11));
-		resName3 = new ResidueName(m.group(12));
-		chainID3 = new lawu.chem.pdb.primitives.Character(m.group(13));
-		seq3 = new lawu.chem.pdb.primitives.Integer(m.group(14));
-		iCode3 = new AChar(m.group(15));
-		resName4 = new ResidueName(m.group(16));
-		chainID4 = new lawu.chem.pdb.primitives.Character(m.group(17));
-		seq4 = new lawu.chem.pdb.primitives.Integer(m.group(18));
-		iCode4 = new AChar(m.group(19));
+		this.seqNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.siteID = new LString(m.group(2), 3);
+		this.numRes = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		this.resName1 = new ResidueName(m.group(4));
+		this.chainID1 = new lawu.chem.pdb.primitives.Character(m.group(5));
+		this.seq1 = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		this.iCode1 = new AChar(m.group(7));
+		this.resName2 = new ResidueName(m.group(8));
+		this.chainID2 = new lawu.chem.pdb.primitives.Character(m.group(9));
+		this.seq2 = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		this.iCode2 = new AChar(m.group(11));
+		this.resName3 = new ResidueName(m.group(12));
+		this.chainID3 = new lawu.chem.pdb.primitives.Character(m.group(13));
+		this.seq3 = new lawu.chem.pdb.primitives.Integer(m.group(14));
+		this.iCode3 = new AChar(m.group(15));
+		this.resName4 = new ResidueName(m.group(16));
+		this.chainID4 = new lawu.chem.pdb.primitives.Character(m.group(17));
+		this.seq4 = new lawu.chem.pdb.primitives.Integer(m.group(18));
+		this.iCode4 = new AChar(m.group(19));
 	}
 
 	/**

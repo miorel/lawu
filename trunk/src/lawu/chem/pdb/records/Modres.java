@@ -48,13 +48,13 @@ public class Modres {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		idCode = new IdCode(m.group(1));
-		resName = new ResidueName(m.group(2));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
-		seqNum = new lawu.chem.pdb.primitives.Integer(m.group(4));
-		iCode = new AChar(m.group(5));
-		stdRes = new ResidueName(m.group(6));
-		comment = new lawu.chem.pdb.primitives.String(m.group(7));
+		this.idCode = new IdCode(m.group(1));
+		this.resName = new ResidueName(m.group(2));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
+		this.seqNum = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		this.iCode = new AChar(m.group(5));
+		this.stdRes = new ResidueName(m.group(6));
+		this.comment = new lawu.chem.pdb.primitives.String(m.group(7));
 	}
 
 	/**

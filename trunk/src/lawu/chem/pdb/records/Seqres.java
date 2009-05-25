@@ -45,22 +45,22 @@ public class Seqres {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(2));
-		numRes = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		resNameList.add(new ResidueName(m.group(4)));
-		resNameList.add(new ResidueName(m.group(5)));
-		resNameList.add(new ResidueName(m.group(6)));
-		resNameList.add(new ResidueName(m.group(7)));
-		resNameList.add(new ResidueName(m.group(8)));
-		resNameList.add(new ResidueName(m.group(9)));
-		resNameList.add(new ResidueName(m.group(10)));
-		resNameList.add(new ResidueName(m.group(11)));
-		resNameList.add(new ResidueName(m.group(12)));
-		resNameList.add(new ResidueName(m.group(13)));
-		resNameList.add(new ResidueName(m.group(14)));
-		resNameList.add(new ResidueName(m.group(15)));
-		resNameList.add(new ResidueName(m.group(16)));
+		this.serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(2));
+		this.numRes = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		this.resNameList.add(new ResidueName(m.group(4)));
+		this.resNameList.add(new ResidueName(m.group(5)));
+		this.resNameList.add(new ResidueName(m.group(6)));
+		this.resNameList.add(new ResidueName(m.group(7)));
+		this.resNameList.add(new ResidueName(m.group(8)));
+		this.resNameList.add(new ResidueName(m.group(9)));
+		this.resNameList.add(new ResidueName(m.group(10)));
+		this.resNameList.add(new ResidueName(m.group(11)));
+		this.resNameList.add(new ResidueName(m.group(12)));
+		this.resNameList.add(new ResidueName(m.group(13)));
+		this.resNameList.add(new ResidueName(m.group(14)));
+		this.resNameList.add(new ResidueName(m.group(15)));
+		this.resNameList.add(new ResidueName(m.group(16)));
 	}
 
 	/**

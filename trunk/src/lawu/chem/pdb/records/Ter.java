@@ -46,11 +46,11 @@ public class Ter {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		resName = new ResidueName(m.group(2));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
-		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(4));
-		iCode = new AChar(m.group(5));
+		this.serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.resName = new ResidueName(m.group(2));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(3));
+		this.resSeq = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		this.iCode = new AChar(m.group(5));
 	}
 
 	/**

@@ -46,11 +46,11 @@ public class Scale {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		n = Integer.parseInt(m.group(1));
-		sn1 = new Real(m.group(2), 10, 6);
-		sn2 = new Real(m.group(3), 10, 6);
-		sn3 = new Real(m.group(4), 10, 6);
-		un = new Real(m.group(5), 10, 5);
+		this.n = Integer.parseInt(m.group(1));
+		this.sn1 = new Real(m.group(2), 10, 6);
+		this.sn2 = new Real(m.group(3), 10, 6);
+		this.sn3 = new Real(m.group(4), 10, 6);
+		this.un = new Real(m.group(5), 10, 5);
 	}
 
 	/**

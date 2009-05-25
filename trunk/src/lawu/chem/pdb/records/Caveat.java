@@ -44,9 +44,9 @@ public class Caveat {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		continuation = new Continuation(m.group(1));
-		idCode = new IdCode(m.group(2));
-		comment = new lawu.chem.pdb.primitives.String(m.group(3));
+		this.continuation = new Continuation(m.group(1));
+		this.idCode = new IdCode(m.group(2));
+		this.comment = new lawu.chem.pdb.primitives.String(m.group(3));
 	}
 
 	/**

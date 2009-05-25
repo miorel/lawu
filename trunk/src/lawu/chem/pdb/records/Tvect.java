@@ -46,11 +46,11 @@ public class Tvect {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		t1 = new Real(m.group(2), 10, 5);
-		t2 = new Real(m.group(3), 10, 5);
-		t3 = new Real(m.group(4), 10, 5);
-		text = new lawu.chem.pdb.primitives.String(m.group(5));
+		this.serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.t1 = new Real(m.group(2), 10, 5);
+		this.t2 = new Real(m.group(3), 10, 5);
+		this.t3 = new Real(m.group(4), 10, 5);
+		this.text = new lawu.chem.pdb.primitives.String(m.group(5));
 	}
 
 	/**

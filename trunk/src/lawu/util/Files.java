@@ -28,6 +28,10 @@ public class Files {
 	}
 	
     public static void copy(File source, File destination) throws IOException {
+    	if(source == null)
+    		throw new NullPointerException("");
+    	if(destination == null)
+    		throw new NullPointerException("");
 		FileInputStream sourceStream = new FileInputStream(source);
 		destination.getParentFile().mkdirs();
 		FileOutputStream destStream = new FileOutputStream(destination);
@@ -42,17 +46,27 @@ public class Files {
 		}
 	}
 
-    public static void copy(InputStream source, File destination) throws IOException {
+    public static void copy(InputStream source, File destination, long size) throws IOException {
+    	if(source == null)
+    		throw new NullPointerException("");
+    	if(destination == null)
+    		throw new NullPointerException("");
+    	if(size < 0)
+    		throw new RuntimeException("");
 		ReadableByteChannel sourceChannel = Channels.newChannel(source);
 		destination.getParentFile().mkdirs();
 		FileOutputStream destStream = new FileOutputStream(destination);
 		try {
 			FileChannel destChannel = destStream.getChannel();
-			destChannel.transferFrom(sourceChannel, 0, Long.MAX_VALUE);
+			destChannel.transferFrom(sourceChannel, 0, size);
 		}
 		finally {
 			source.close();
 			destStream.close();
 		}
+	}
+    
+    public static void copy(InputStream source, File destination) throws IOException {
+		copy(source, destination, Long.MAX_VALUE);
 	}
 }

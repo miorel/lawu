@@ -12,7 +12,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package lawu;
+package lawu.app;
 
 import static lawu.cli.HelpOption.formatHelpFooter;
 import static lawu.cli.VersionOption.GPLED;

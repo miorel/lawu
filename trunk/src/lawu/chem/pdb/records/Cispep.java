@@ -52,17 +52,17 @@ public class Cispep {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		pep1 = new LString(m.group(2), 3);
-		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(3));
-		seqNum1 = new lawu.chem.pdb.primitives.Integer(m.group(4));
-		icode1 = new AChar(m.group(5));
-		pep2 = new LString(m.group(6), 3);
-		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(7));
-		seqNum2 = new lawu.chem.pdb.primitives.Integer(m.group(8));
-		icode2 = new AChar(m.group(9));
-		modNum = new lawu.chem.pdb.primitives.Integer(m.group(10));
-		measure = new Real(m.group(11), 6, 2);
+		this.serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.pep1 = new LString(m.group(2), 3);
+		this.chainID1 = new lawu.chem.pdb.primitives.Character(m.group(3));
+		this.seqNum1 = new lawu.chem.pdb.primitives.Integer(m.group(4));
+		this.icode1 = new AChar(m.group(5));
+		this.pep2 = new LString(m.group(6), 3);
+		this.chainID2 = new lawu.chem.pdb.primitives.Character(m.group(7));
+		this.seqNum2 = new lawu.chem.pdb.primitives.Integer(m.group(8));
+		this.icode2 = new AChar(m.group(9));
+		this.modNum = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		this.measure = new Real(m.group(11), 6, 2);
 	}
 
 	/**

@@ -54,19 +54,19 @@ public class Dbref {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		idCode = new IdCode(m.group(1));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(2));
-		seqBegin = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		insertBegin = new AChar(m.group(4));
-		seqEnd = new lawu.chem.pdb.primitives.Integer(m.group(5));
-		insertEnd = new AChar(m.group(6));
-		database = new LString(m.group(7));
-		dbAccession = new LString(m.group(8));
-		dbIdCode = new LString(m.group(9));
-		dbseqBegin = new lawu.chem.pdb.primitives.Integer(m.group(10));
-		idbnsBeg = new AChar(m.group(11));
-		dbseqEnd = new lawu.chem.pdb.primitives.Integer(m.group(12));
-		dbinsEnd = new AChar(m.group(13));
+		this.idCode = new IdCode(m.group(1));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(2));
+		this.seqBegin = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		this.insertBegin = new AChar(m.group(4));
+		this.seqEnd = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		this.insertEnd = new AChar(m.group(6));
+		this.database = new LString(m.group(7));
+		this.dbAccession = new LString(m.group(8));
+		this.dbIdCode = new LString(m.group(9));
+		this.dbseqBegin = new lawu.chem.pdb.primitives.Integer(m.group(10));
+		this.idbnsBeg = new AChar(m.group(11));
+		this.dbseqEnd = new lawu.chem.pdb.primitives.Integer(m.group(12));
+		this.dbinsEnd = new AChar(m.group(13));
 	}
 
 	/**

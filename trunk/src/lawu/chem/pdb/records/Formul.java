@@ -46,11 +46,11 @@ public class Formul {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		compNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		hetID = new LString(m.group(2), 3);
-		continuation = new lawu.chem.pdb.primitives.Integer(m.group(3));
-		asterisk = new lawu.chem.pdb.primitives.Character(m.group(4));
-		text = new lawu.chem.pdb.primitives.String(m.group(5));
+		this.compNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.hetID = new LString(m.group(2), 3);
+		this.continuation = new lawu.chem.pdb.primitives.Integer(m.group(3));
+		this.asterisk = new lawu.chem.pdb.primitives.Character(m.group(4));
+		this.text = new lawu.chem.pdb.primitives.String(m.group(5));
 	}
 
 	/**

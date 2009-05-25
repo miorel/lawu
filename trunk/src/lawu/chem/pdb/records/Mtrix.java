@@ -48,13 +48,13 @@ public class Mtrix {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		n = Integer.parseInt(m.group(1));
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(2));
-		mn1 = new Real(m.group(3), 10, 6);
-		mn2 = new Real(m.group(4), 10, 6);
-		mn3 = new Real(m.group(5), 10, 6);
-		vn = new Real(m.group(6), 10, 5);
-		iGiven = new lawu.chem.pdb.primitives.Integer(m.group(7));
+		this.n = Integer.parseInt(m.group(1));
+		this.serial = new lawu.chem.pdb.primitives.Integer(m.group(2));
+		this.mn1 = new Real(m.group(3), 10, 6);
+		this.mn2 = new Real(m.group(4), 10, 6);
+		this.mn3 = new Real(m.group(5), 10, 6);
+		this.vn = new Real(m.group(6), 10, 5);
+		this.iGiven = new lawu.chem.pdb.primitives.Integer(m.group(7));
 	}
 
 	/**

@@ -12,23 +12,26 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package lawu.util;
+package lawu.app;
 
-import lawu.app.Main;
+import java.io.IOException;
+import java.util.jar.JarFile;
+
+import lawu.util.ZipFiles;
 
 /**
  * @author Miorel-Lucian Palii
+ *
  */
-public class CloneableObject implements Cloneable {
-	@Override
-	protected CloneableObject clone() {
-		CloneableObject ret = null;
+public class SelfExtract {
+	public static void main(String[] arg) {
+		JarFile jf;
 		try {
-			ret = (CloneableObject) super.clone();
+			jf = new JarFile(SelfExtract.class.getProtectionDomain().getCodeSource().getLocation().getFile());
+			ZipFiles.unpack(jf, "unpack\\/.*"); //$NON-NLS-1$
 		}
-		catch(CloneNotSupportedException e) {
-			throw new Error(Main.getString("CloneableObject.0"), e); //$NON-NLS-1$
+		catch(IOException e) {
 		}
-		return ret;
+		
 	}
 }

@@ -31,6 +31,7 @@ for($spec =~ /<pre>\s*(COLUMNS\s+DATA TYPE\s+FIELD\s+DEFINITION.*?)<\/pre>/sig) 
 }
 
 while(my($record_name, $val) = each %_) {
+	next if $record_name =~ /^(?:author|compnd|expdta|header|hetsyn|keywds|master|remark|revdat|source|ssbond)$/i;
 	print "Writing parser for $record_name records\n";
 	local @_ = @$val;
 	$_[0] =~ /^(COLUMNS\s+)(DATA TYPE\s+)(FIELD\s+)DEFINITION/;
@@ -173,10 +174,10 @@ EOF
 		}
 		$build ||= "new $_->[0]";
 		if($count == 1) {
-			printf($fh "\t\t%s = %s(%s);\n", $_->[1], $build, join(", ", @args));
+			printf($fh "\t\tthis.%s = %s(%s);\n", $_->[1], $build, join(", ", @args));
 		}
 		else {
-			printf($fh "\t\t%sList.add(%s(%s));\n", $_->[1], $build, join(", ", @args));
+			printf($fh "\t\tthis.%sList.add(%s(%s));\n", $_->[1], $build, join(", ", @args));
 		}
 	}
 	print $fh <<"EOF";

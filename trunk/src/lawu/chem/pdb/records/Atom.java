@@ -55,20 +55,20 @@ public class Atom {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		name = new AtomName(m.group(2));
-		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
-		resName = new ResidueName(m.group(4));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
-		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
-		iCode = new AChar(m.group(7));
-		x = new Real(m.group(8), 8, 3);
-		y = new Real(m.group(9), 8, 3);
-		z = new Real(m.group(10), 8, 3);
-		occupancy = new Real(m.group(11), 6, 2);
-		tempFactor = new Real(m.group(12), 6, 2);
-		element = new LString(m.group(13), 2);
-		charge = new LString(m.group(14), 2);
+		this.serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.name = new AtomName(m.group(2));
+		this.altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
+		this.resName = new ResidueName(m.group(4));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
+		this.resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		this.iCode = new AChar(m.group(7));
+		this.x = new Real(m.group(8), 8, 3);
+		this.y = new Real(m.group(9), 8, 3);
+		this.z = new Real(m.group(10), 8, 3);
+		this.occupancy = new Real(m.group(11), 6, 2);
+		this.tempFactor = new Real(m.group(12), 6, 2);
+		this.element = new LString(m.group(13), 2);
+		this.charge = new LString(m.group(14), 2);
 	}
 
 	/**

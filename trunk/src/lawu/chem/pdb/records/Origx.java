@@ -46,11 +46,11 @@ public class Origx {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		n = Integer.parseInt(m.group(1));
-		on1 = new Real(m.group(2), 10, 6);
-		on2 = new Real(m.group(3), 10, 6);
-		on3 = new Real(m.group(4), 10, 6);
-		tn = new Real(m.group(5), 10, 5);
+		this.n = Integer.parseInt(m.group(1));
+		this.on1 = new Real(m.group(2), 10, 6);
+		this.on2 = new Real(m.group(3), 10, 6);
+		this.on3 = new Real(m.group(4), 10, 6);
+		this.tn = new Real(m.group(5), 10, 5);
 	}
 
 	/**

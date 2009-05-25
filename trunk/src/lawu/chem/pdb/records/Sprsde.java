@@ -45,17 +45,17 @@ public class Sprsde {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		continuation = new Continuation(m.group(1));
-		sprsdeDate = new Date(m.group(2));
-		idCode = new IdCode(m.group(3));
-		sIdCodeList.add(new IdCode(m.group(4)));
-		sIdCodeList.add(new IdCode(m.group(5)));
-		sIdCodeList.add(new IdCode(m.group(6)));
-		sIdCodeList.add(new IdCode(m.group(7)));
-		sIdCodeList.add(new IdCode(m.group(8)));
-		sIdCodeList.add(new IdCode(m.group(9)));
-		sIdCodeList.add(new IdCode(m.group(10)));
-		sIdCodeList.add(new IdCode(m.group(11)));
+		this.continuation = new Continuation(m.group(1));
+		this.sprsdeDate = new Date(m.group(2));
+		this.idCode = new IdCode(m.group(3));
+		this.sIdCodeList.add(new IdCode(m.group(4)));
+		this.sIdCodeList.add(new IdCode(m.group(5)));
+		this.sIdCodeList.add(new IdCode(m.group(6)));
+		this.sIdCodeList.add(new IdCode(m.group(7)));
+		this.sIdCodeList.add(new IdCode(m.group(8)));
+		this.sIdCodeList.add(new IdCode(m.group(9)));
+		this.sIdCodeList.add(new IdCode(m.group(10)));
+		this.sIdCodeList.add(new IdCode(m.group(11)));
 	}
 
 	/**

@@ -33,7 +33,7 @@ find(sub {
 	return unless -f && $file !~ /\.svn/;
 	print "Processing $file\n";
 	if(/\.java$/i) {
-	my $fh;
+		my $fh;
 		open $fh, "<$_" or die "Failed to open $file for reading";
 		my @in = <$fh>;
 		shift @in until $in[0] =~ /^\s*(?:package|import)/;

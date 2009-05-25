@@ -42,11 +42,11 @@ public class Conect {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(1)));
-		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(2)));
-		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(3)));
-		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(4)));
-		serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(5)));
+		this.serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(1)));
+		this.serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(2)));
+		this.serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(3)));
+		this.serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(4)));
+		this.serialList.add(new lawu.chem.pdb.primitives.Integer(m.group(5)));
 	}
 
 	/**

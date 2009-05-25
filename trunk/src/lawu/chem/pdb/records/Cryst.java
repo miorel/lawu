@@ -50,15 +50,15 @@ public class Cryst {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		n = Integer.parseInt(m.group(1));
-		a = new Real(m.group(2), 9, 3);
-		b = new Real(m.group(3), 9, 3);
-		c = new Real(m.group(4), 9, 3);
-		alpha = new Real(m.group(5), 7, 2);
-		beta = new Real(m.group(6), 7, 2);
-		gamma = new Real(m.group(7), 7, 2);
-		sGroup = new LString(m.group(8));
-		z = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		this.n = Integer.parseInt(m.group(1));
+		this.a = new Real(m.group(2), 9, 3);
+		this.b = new Real(m.group(3), 9, 3);
+		this.c = new Real(m.group(4), 9, 3);
+		this.alpha = new Real(m.group(5), 7, 2);
+		this.beta = new Real(m.group(6), 7, 2);
+		this.gamma = new Real(m.group(7), 7, 2);
+		this.sGroup = new LString(m.group(8));
+		this.z = new lawu.chem.pdb.primitives.Integer(m.group(9));
 	}
 
 	/**

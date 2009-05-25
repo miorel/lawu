@@ -54,19 +54,19 @@ public class Helix {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		helixID = new LString(m.group(2), 3);
-		initResName = new ResidueName(m.group(3));
-		initChainID = new lawu.chem.pdb.primitives.Character(m.group(4));
-		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));
-		initICode = new AChar(m.group(6));
-		endResName = new ResidueName(m.group(7));
-		endChainID = new lawu.chem.pdb.primitives.Character(m.group(8));
-		endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(9));
-		endICode = new AChar(m.group(10));
-		helixClass = new lawu.chem.pdb.primitives.Integer(m.group(11));
-		comment = new lawu.chem.pdb.primitives.String(m.group(12));
-		length = new lawu.chem.pdb.primitives.Integer(m.group(13));
+		this.serNum = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.helixID = new LString(m.group(2), 3);
+		this.initResName = new ResidueName(m.group(3));
+		this.initChainID = new lawu.chem.pdb.primitives.Character(m.group(4));
+		this.initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		this.initICode = new AChar(m.group(6));
+		this.endResName = new ResidueName(m.group(7));
+		this.endChainID = new lawu.chem.pdb.primitives.Character(m.group(8));
+		this.endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		this.endICode = new AChar(m.group(10));
+		this.helixClass = new lawu.chem.pdb.primitives.Integer(m.group(11));
+		this.comment = new lawu.chem.pdb.primitives.String(m.group(12));
+		this.length = new lawu.chem.pdb.primitives.Integer(m.group(13));
 	}
 
 	/**

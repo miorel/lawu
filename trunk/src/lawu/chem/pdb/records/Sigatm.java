@@ -55,20 +55,20 @@ public class Sigatm {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		name = new AtomName(m.group(2));
-		altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
-		resName = new ResidueName(m.group(4));
-		chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
-		resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
-		iCode = new AChar(m.group(7));
-		sigX = new Real(m.group(8), 8, 3);
-		sigY = new Real(m.group(9), 8, 3);
-		sigZ = new Real(m.group(10), 8, 3);
-		sigOcc = new Real(m.group(11), 6, 2);
-		sigTemp = new Real(m.group(12), 6, 2);
-		element = new LString(m.group(13), 2);
-		charge = new LString(m.group(14), 2);
+		this.serial = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.name = new AtomName(m.group(2));
+		this.altLoc = new lawu.chem.pdb.primitives.Character(m.group(3));
+		this.resName = new ResidueName(m.group(4));
+		this.chainID = new lawu.chem.pdb.primitives.Character(m.group(5));
+		this.resSeq = new lawu.chem.pdb.primitives.Integer(m.group(6));
+		this.iCode = new AChar(m.group(7));
+		this.sigX = new Real(m.group(8), 8, 3);
+		this.sigY = new Real(m.group(9), 8, 3);
+		this.sigZ = new Real(m.group(10), 8, 3);
+		this.sigOcc = new Real(m.group(11), 6, 2);
+		this.sigTemp = new Real(m.group(12), 6, 2);
+		this.element = new LString(m.group(13), 2);
+		this.charge = new LString(m.group(14), 2);
 	}
 
 	/**

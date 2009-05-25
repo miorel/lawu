@@ -52,17 +52,17 @@ public class Turn {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		seq = new lawu.chem.pdb.primitives.Integer(m.group(1));
-		turnId = new LString(m.group(2), 3);
-		initResName = new ResidueName(m.group(3));
-		initChainId = new lawu.chem.pdb.primitives.Character(m.group(4));
-		initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));
-		initICode = new AChar(m.group(6));
-		endResName = new ResidueName(m.group(7));
-		endChainId = new lawu.chem.pdb.primitives.Character(m.group(8));
-		endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(9));
-		endICode = new AChar(m.group(10));
-		comment = new lawu.chem.pdb.primitives.String(m.group(11));
+		this.seq = new lawu.chem.pdb.primitives.Integer(m.group(1));
+		this.turnId = new LString(m.group(2), 3);
+		this.initResName = new ResidueName(m.group(3));
+		this.initChainId = new lawu.chem.pdb.primitives.Character(m.group(4));
+		this.initSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		this.initICode = new AChar(m.group(6));
+		this.endResName = new ResidueName(m.group(7));
+		this.endChainId = new lawu.chem.pdb.primitives.Character(m.group(8));
+		this.endSeqNum = new lawu.chem.pdb.primitives.Integer(m.group(9));
+		this.endICode = new AChar(m.group(10));
+		this.comment = new lawu.chem.pdb.primitives.String(m.group(11));
 	}
 
 	/**

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="dist" name="lawu">
+<project default="bin-dist" name="lawu">
 	<property name="src.dir" value="src"/>
 	<property name="doc.dir" value="doc"/>
 	<property name="bin.dir" value="bin"/>
 	<property name="dist.dir" value="dist"/>
 	<property name="res.dir" value="res"/>
+	<property name="tmp.dir" value="tmp"/>
 	
 	<property name="jar.name" value="${ant.project.name}.jar"/>
-	<property name="src.main" value="${ant.project.name}.Main"/>
+	<property name="src.main" value="lawu.app.Main"/>
 		
-	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**"/>
+	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**,${tmp.dir}/**"/>
 	
 	<target name="clean-bin" description="removes the build directory">
 		<delete dir="${bin.dir}"/>
@@ -23,26 +24,43 @@
 		<delete dir="${doc.dir}"/>
 	</target>
 	
-    <target name="clean" description="removes all rebuildable files" depends="clean-bin,clean-dist,clean-doc"/>
+	<target name="clean" description="removes all rebuildable files" depends="clean-bin,clean-dist,clean-doc">
+		<delete dir="${tmp.dir}"/>
+	</target>
 	
-    <target name="bin" description="compiles the project">
-    	<mkdir dir="${bin.dir}"/>
-    	<depend srcdir="${src.dir}" destdir="${bin.dir}" closure="yes"/>
-        <javac srcdir="${src.dir}" destdir="${bin.dir}"/>
-    </target>	
+	<target name="bin" description="compiles the project">
+		<mkdir dir="${bin.dir}"/>
+		<depend srcdir="${src.dir}" destdir="${bin.dir}" closure="yes"/>
+		<javac srcdir="${src.dir}" destdir="${bin.dir}"/>
+	</target>	
 	
 	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution">
 		<mkdir dir="${dist.dir}"/>
-    	<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
-    		<tarfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
-    	</tar>
+		<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
+			<tarfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
+		</tar>
 	</target>
 	
 	<target name="src-dist-zip" description="creates a zipped source distribution">	
 		<mkdir dir="${dist.dir}"/>
 		<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
-    		<zipfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
-    	</zip>
+			<zipfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
+		</zip>
+	</target>
+
+	<target name="src-dist-jar" description="creates a zipped source distribution">
+		<delete dir="${tmp.dir}"/>
+		<mkdir dir="${tmp.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${tmp.dir}" includes="lawu/SelfExtract.java"/>
+		<mkdir dir="${dist.dir}"/>
+		<jar destfile="${dist.dir}/${ant.project.name}-src.jar" filesetmanifest="mergewithoutmain">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Main-Class" value="lawu.SelfExtract"/>
+			</manifest>
+			<zipfileset refid="src.fileset" prefix="unpack/${ant.project.name}-src"/>
+			<fileset dir="${tmp.dir}"/>
+		</jar>
 	</target>
 	
 	<target name="src-dist" description="creates all the source distribution bundles"
@@ -53,9 +71,9 @@
 		<jar destfile="${dist.dir}/${jar.name}" filesetmanifest="mergewithoutmain">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
-	            <attribute name="Main-Class" value="${src.main}"/>
+				<attribute name="Main-Class" value="${src.main}"/>
 			</manifest>
-	        <fileset dir="${bin.dir}"/>
+			<fileset dir="${bin.dir}" includes="**/*.class"/>
 			<fileset dir="${res.dir}"/>
 		</jar>
 	</target>
@@ -77,11 +95,7 @@
 			splitindex="true"
 			use="true"
 			version="false">
-			
 			<link href="http://java.sun.com/javase/6/docs/api/"/>
-			<link href="http://java.sun.com/javase/6/docs/jdk/api/javadoc/doclet/"/>
-			
-			<!--<doclet name="lawu.doclets.formats.html.HtmlDoclet" path="${dist.dir}/${jar.name}"/>-->
 		</javadoc>
 	</target>
 
@@ -93,6 +107,6 @@
 	   	</zip>
 	</target>
 	
-    <target name="dist" description="creates all distribution files"
-    	depends="src-dist,bin-dist,doc-dist"/>
+	<target name="dist" description="creates all distribution files"
+		depends="src-dist,bin-dist,doc-dist"/>
 </project>

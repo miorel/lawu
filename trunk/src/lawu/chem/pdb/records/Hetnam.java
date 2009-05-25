@@ -44,9 +44,9 @@ public class Hetnam {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		continuation = new Continuation(m.group(1));
-		hetID = new LString(m.group(2), 3);
-		text = new lawu.chem.pdb.primitives.String(m.group(3));
+		this.continuation = new Continuation(m.group(1));
+		this.hetID = new LString(m.group(2), 3);
+		this.text = new lawu.chem.pdb.primitives.String(m.group(3));
 	}
 
 	/**

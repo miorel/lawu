@@ -1,3 +1,18 @@
+2009-05-24  Miorel-Lucian Palii <mlpalii@gmail.com>
+
+	* res/lawu/nls/str.properties, src/lawu/Main.java, src/lawu/cli,
+	  src/lawu/cli/ArgumentSet.java, src/lawu/cli/HelpOption.java,
+	  src/lawu/cli/NamedOption.java, src/lawu/cli/Option.java,
+	  src/lawu/cli/VersionOption.java, src/lawu/util/Strings.java,
+	  src/lawu/util/Wrapper.java,
+	  src/lawu/util/iterator/IteratorAdapter.java,
+	  util/scripts/pdb_codegen.pl:
+	  Adding framework for parsing command-line arguments. Some changes to
+	  PDB code generation.
+	* AUTHORS, COPYING, ChangeLog, INSTALL, NEWS, README, TODO, authors.xml,
+	  util/scripts/changelog.sh:
+	  Improved documentation materials
+
 2009-05-22  Miorel-Lucian Palii <mlpalii@gmail.com>
 
 	* src/lawu/chem/pdb/records/Anisou.java,
@@ -440,21 +455,21 @@
 	  doc/overview-frame.html, doc/overview-summary.html,
 	  doc/overview-tree.html, doc/package-list, doc/serialized-form.html,
 	  res/lawu/chem/periodic_table.properties, src/lawu/math/Matrix.java,
-	  util/data, util/data/pdb_spec.out, util/license.pl[DEL],
-	  util/periodic_table.pl[DEL], util/scripts, util/scripts/license.pl,
+	  util/data, util/data/pdb_spec.out, util/license.pl,
+	  util/periodic_table.pl, util/scripts, util/scripts/license.pl,
 	  util/scripts/pdb_spec.pl, util/scripts/periodic_table.pl:
 	  Updated documentation, grabbing PDB spec via script
 
 2009-05-15  Miorel-Lucian Palii <mlpalii@gmail.com>
 
 	* build.xml, res/lawu/chem/periodic_table.properties,
-	  src/lawu/chem/Atom.java, src/lawu/chem/Element.java[CPY],
+	  src/lawu/chem/Atom.java, src/lawu/chem/Element.java,
 	  src/lawu/chem/Structure.java, src/lawu/chem/pdb,
 	  src/lawu/chem/pdb/StructureReader.java, src/lawu/dp/Iterator.java,
 	  src/lawu/dp/UnresettableIteratorException.java,
 	  src/lawu/util/Files.java, src/lawu/util/Strings.java,
-	  src/lawu/util/iterator/FileHierarchyIterator.java[CPY],
-	  src/lawu/util/iterator/FileIterator.java[DEL],
+	  src/lawu/util/iterator/FileHierarchyIterator.java,
+	  src/lawu/util/iterator/FileIterator.java,
 	  src/lawu/util/iterator/FilteredIterator.java,
 	  src/lawu/util/iterator/Iterators.java,
 	  src/lawu/util/iterator/JEnumerationAdapter.java,
@@ -494,7 +509,7 @@
 	* build.xml, src/lawu/util/Filter.java:
 	  Updated build file, fixed a compilation error, regenerated
 	  documentation using standard doclet
-	* res/lawu/doclets[DEL], src/lawu/doclets[DEL]:
+	* res/lawu/doclets, src/lawu/doclets:
 	  Perhaps a rewrite of the standard doclet may be a better idea... Then
 	  I don't have to complain about coding style or typos, and more
 	  importantly, I
@@ -514,14 +529,14 @@
 	  src/lawu/doclets/internal/toolkit/util/links/LinkOutput.java,
 	  src/lawu/dp/Iterator.java, src/lawu/util/Filter.java,
 	  src/lawu/util/iterator/AbstractUniversalIterator.java,
-	  src/lawu/util/iterator/DelegatingIterator.java[DEL],
-	  src/lawu/util/iterator/EnumerationAdapter.java[DEL],
+	  src/lawu/util/iterator/DelegatingIterator.java,
+	  src/lawu/util/iterator/EnumerationAdapter.java,
 	  src/lawu/util/iterator/FileIterator.java,
 	  src/lawu/util/iterator/FilteredIterator.java,
-	  src/lawu/util/iterator/IteratorAdapter.java[CPY],
+	  src/lawu/util/iterator/IteratorAdapter.java,
 	  src/lawu/util/iterator/Iterators.java,
-	  src/lawu/util/iterator/JEnumerationAdapter.java[CPY],
-	  src/lawu/util/iterator/JIteratorAdapter.java[CPY],
+	  src/lawu/util/iterator/JEnumerationAdapter.java,
+	  src/lawu/util/iterator/JIteratorAdapter.java,
 	  src/lawu/util/iterator/JoiningIterator.java,
 	  src/lawu/util/iterator/MappingIterator.java:
 	  FileIterator started, beginning chemistry code
@@ -548,10 +563,10 @@
 	  A few more warning fixes and code clean ups in doclets package.
 	  Heavily improved Javadoc for iterators.
 	* res/lawu/doclets/formats/html/resources/standard.properties,
-	  res/lawu/doclets/formats/html/resources/standard_ja.properties[DEL],
-	  res/lawu/doclets/formats/html/resources/standard_zh_CN.properties[DEL],
-	  res/lawu/doclets/internal/toolkit/resources/doclets_ja.properties[DEL],
-	  res/lawu/doclets/internal/toolkit/resources/doclets_zh_CN.properties[DEL]:
+	  res/lawu/doclets/formats/html/resources/standard_ja.properties,
+	  res/lawu/doclets/formats/html/resources/standard_zh_CN.properties,
+	  res/lawu/doclets/internal/toolkit/resources/doclets_ja.properties,
+	  res/lawu/doclets/internal/toolkit/resources/doclets_zh_CN.properties:
 	  I can't do these translations at this time :(
 	* src/lawu/doclets/formats/html/AbstractMemberWriter.java,
 	  src/lawu/doclets/formats/html/ConstructorWriterImpl.java,
@@ -585,7 +600,7 @@
 	  src/lawu/doclets/internal/toolkit/taglets/package.html,
 	  src/lawu/doclets/internal/toolkit/util/links/package.html,
 	  src/lawu/doclets/internal/toolkit/util/package.html,
-	  src/lawu/doclets/package.html, src/lawu/doclets/standard[DEL],
+	  src/lawu/doclets/package.html, src/lawu/doclets/standard,
 	  src/lawu/dp/package.html, src/lawu/math/geom/package.html,
 	  src/lawu/math/package.html, src/lawu/package.html,
 	  src/lawu/util/event/EventAdapter.java,
@@ -765,23 +780,22 @@
 
 	* .settings/org.eclipse.jdt.core.prefs,
 	  .settings/org.eclipse.jdt.ui.prefs, build.xml,
-	  res/lawu/nls/exception.properties[DEL],
-	  res/lawu/nls/format.properties[DEL],
-	  res/lawu/nls/message.properties[DEL],
-	  res/lawu/nls/str.properties[CPY], src/lawu/Main.java,
-	  src/lawu/dp/Iterator.java, src/lawu/math/Vector.java,
-	  src/lawu/math/geom/Polygon.java, src/lawu/math/geom/package.html,
-	  src/lawu/util/CloneableObject.java, src/lawu/util/Filter.java,
+	  res/lawu/nls/exception.properties, res/lawu/nls/format.properties,
+	  res/lawu/nls/message.properties, res/lawu/nls/str.properties,
+	  src/lawu/Main.java, src/lawu/dp/Iterator.java,
+	  src/lawu/math/Vector.java, src/lawu/math/geom/Polygon.java,
+	  src/lawu/math/geom/package.html, src/lawu/util/CloneableObject.java,
+	  src/lawu/util/Filter.java,
 	  src/lawu/util/iterator/EnumerationAdapter.java,
 	  src/lawu/util/iterator/IteratorAdapter.java:
 	  A bunch of changes including build file and documentation.
 
 2009-04-28  Miorel-Lucian Palii <mlpalii@gmail.com>
 
-	* .classpath, build.xml, javadoc-overview.html[DEL], res, res/lawu,
+	* .classpath, build.xml, javadoc-overview.html, res, res/lawu,
 	  res/lawu/nls, res/lawu/nls/exception.properties,
 	  res/lawu/nls/format.properties, res/lawu/nls/message.properties,
-	  src/lawu/Main.java, src/msg.properties[DEL], src/overview.html[CPY]:
+	  src/lawu/Main.java, src/msg.properties, src/overview.html:
 	  Some changes to externalization.
 	* ., doc, doc/allclasses-frame.html, doc/allclasses-noframe.html,
 	  doc/constant-values.html, doc/deprecated-list.html, doc/help-doc.html,
@@ -886,15 +900,15 @@
 	  src/lawu/util/iterator/EnumerationAdapter.java,
 	  src/lawu/util/iterator/FilteredIterator.java,
 	  src/lawu/util/iterator/IteratorAdapter.java,
-	  src/lawu/util/iterator/IteratorFactory.java[DEL],
-	  src/lawu/util/iterator/Iterators.java[CPY],
+	  src/lawu/util/iterator/IteratorFactory.java,
+	  src/lawu/util/iterator/Iterators.java,
 	  src/lawu/util/iterator/JoiningIterator.java,
 	  src/lawu/util/iterator/MappingIterator.java,
 	  src/lawu/util/iterator/NodeListIterator.java:
 	  More iterators!
 	* .settings, .settings/org.eclipse.jdt.core.prefs,
 	  .settings/org.eclipse.jdt.ui.prefs, build.xml, src/lawu/Main.java,
-	  src/lawu/RunApp.java[DEL], src/lawu/dp/Iterator.java,
+	  src/lawu/RunApp.java, src/lawu/dp/Iterator.java,
 	  src/lawu/math/Vector.java, src/lawu/math/package.html,
 	  src/lawu/package.html, src/lawu/util/CloneableObject.java,
 	  src/lawu/util/Filter.java, src/lawu/util/Mapper.java,
@@ -921,11 +935,11 @@
 
 2009-04-25  Miorel-Lucian Palii <mlpalii@gmail.com>
 
-	* src/lawu/dp, src/lawu/dp/Iterator.java[CPY], src/lawu/dp/package.html,
+	* src/lawu/dp, src/lawu/dp/Iterator.java, src/lawu/dp/package.html,
 	  src/lawu/util/iterator/AbstractUniversalIterator.java,
 	  src/lawu/util/iterator/ArrayIterator.java,
 	  src/lawu/util/iterator/FilteredIterator.java,
-	  src/lawu/util/iterator/Iterator.java[DEL],
+	  src/lawu/util/iterator/Iterator.java,
 	  src/lawu/util/iterator/IteratorFactory.java,
 	  src/lawu/util/iterator/JoiningIterator.java,
 	  src/lawu/util/iterator/ListIterator.java,

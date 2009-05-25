@@ -16,7 +16,7 @@ package lawu.math;
 
 import java.util.Comparator;
 
-import lawu.Main;
+import lawu.app.Main;
 
 /**
  * A displacement in three-dimensional space.

@@ -55,20 +55,20 @@ public class Link {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		name1 = new AtomName(m.group(1));
-		altLoc1 = new lawu.chem.pdb.primitives.Character(m.group(2));
-		resName1 = new ResidueName(m.group(3));
-		chainID1 = new lawu.chem.pdb.primitives.Character(m.group(4));
-		resSeq1 = new lawu.chem.pdb.primitives.Integer(m.group(5));
-		iCode1 = new AChar(m.group(6));
-		name2 = new AtomName(m.group(7));
-		altLoc2 = new lawu.chem.pdb.primitives.Character(m.group(8));
-		resName2 = new ResidueName(m.group(9));
-		chainID2 = new lawu.chem.pdb.primitives.Character(m.group(10));
-		resSeq2 = new lawu.chem.pdb.primitives.Integer(m.group(11));
-		iCode2 = new AChar(m.group(12));
-		sym1 = new SymOp(m.group(13));
-		sym2 = new SymOp(m.group(14));
+		this.name1 = new AtomName(m.group(1));
+		this.altLoc1 = new lawu.chem.pdb.primitives.Character(m.group(2));
+		this.resName1 = new ResidueName(m.group(3));
+		this.chainID1 = new lawu.chem.pdb.primitives.Character(m.group(4));
+		this.resSeq1 = new lawu.chem.pdb.primitives.Integer(m.group(5));
+		this.iCode1 = new AChar(m.group(6));
+		this.name2 = new AtomName(m.group(7));
+		this.altLoc2 = new lawu.chem.pdb.primitives.Character(m.group(8));
+		this.resName2 = new ResidueName(m.group(9));
+		this.chainID2 = new lawu.chem.pdb.primitives.Character(m.group(10));
+		this.resSeq2 = new lawu.chem.pdb.primitives.Integer(m.group(11));
+		this.iCode2 = new AChar(m.group(12));
+		this.sym1 = new SymOp(m.group(13));
+		this.sym2 = new SymOp(m.group(14));
 	}
 
 	/**

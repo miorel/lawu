@@ -43,8 +43,8 @@ public class Title {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		continuation = new Continuation(m.group(1));
-		title = new lawu.chem.pdb.primitives.String(m.group(2));
+		this.continuation = new Continuation(m.group(1));
+		this.title = new lawu.chem.pdb.primitives.String(m.group(2));
 	}
 
 	/**

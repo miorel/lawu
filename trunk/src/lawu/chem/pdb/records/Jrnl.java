@@ -42,7 +42,7 @@ public class Jrnl {
 		Matcher m = pattern.matcher(record);
 		if(!m.matches())
 			throw new RuntimeException();
-		text = new LString(m.group(1));
+		this.text = new LString(m.group(1));
 	}
 
 	/**
