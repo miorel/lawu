@@ -51,12 +51,12 @@
 	<target name="src-dist-jar" description="creates a zipped source distribution">
 		<delete dir="${tmp.dir}"/>
 		<mkdir dir="${tmp.dir}"/>
-		<javac srcdir="${src.dir}" destdir="${tmp.dir}" includes="lawu/SelfExtract.java"/>
+		<javac srcdir="${src.dir}" destdir="${tmp.dir}" includes="lawu/app/SelfExtract.java"/>
 		<mkdir dir="${dist.dir}"/>
 		<jar destfile="${dist.dir}/${ant.project.name}-src.jar" filesetmanifest="mergewithoutmain">
 			<manifest>
 				<attribute name="Built-By" value="${user.name}"/>
-				<attribute name="Main-Class" value="lawu.SelfExtract"/>
+				<attribute name="Main-Class" value="lawu.app.SelfExtract"/>
 			</manifest>
 			<zipfileset refid="src.fileset" prefix="unpack/${ant.project.name}-src"/>
 			<fileset dir="${tmp.dir}"/>
@@ -64,7 +64,7 @@
 	</target>
 	
 	<target name="src-dist" description="creates all the source distribution bundles"
-		depends="src-dist-tgz,src-dist-zip"/>
+		depends="src-dist-tgz,src-dist-zip,src-dist-jar"/>
 
 	<target name="bin-dist" description="creates a binary distribution" depends="bin">
 		<mkdir dir="${dist.dir}"/>

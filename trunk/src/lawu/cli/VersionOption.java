@@ -15,8 +15,7 @@
 package lawu.cli;
 
 /**
- * @author miorel
- *
+ * @author Miorel-Lucian Palii
  */
 public class VersionOption extends NamedOption {
 	private final String output;
@@ -35,7 +34,7 @@ public class VersionOption extends NamedOption {
 	}
 	
 	public VersionOption(String longOption, String description, String output) {
-		this(null, longOption, description, output);
+		this('V', longOption, description, output);
 	}
 	
 	public VersionOption(String description, String output) {
@@ -62,7 +61,7 @@ public class VersionOption extends NamedOption {
 			System.exit(0);
 	}
 
-	public static String formatTitle(String programName, String packageName, String version) {
+	public static String formatProgramTitle(String programName, String packageName, String version) {
 		if(programName == null)
 			throw new NullPointerException("");
 		if(version == null)
@@ -78,6 +77,10 @@ public class VersionOption extends NamedOption {
 	}
 
 	public static String formatCopyright(String holder, String date) {
+		if(holder == null)
+			throw new NullPointerException("");
+		if(date == null)
+			throw new NullPointerException("");
 		return String.format("Copyright (C) %s %s", date, holder); //$NON-NLS-1$
 	}
 	
@@ -86,22 +89,40 @@ public class VersionOption extends NamedOption {
 	}
 	
 	public static String formatVersionOutput(String title, String copyright, String footer) {
-		return String.format("%s\n%s\n%s\n", title, copyright, footer); //$NON-NLS-1$
+		if(title == null)
+			throw new NullPointerException("");
+		StringBuilder sb = new StringBuilder(title);
+		sb.append('\n');
+		if(copyright != null) {
+			sb.append(copyright);
+			sb.append('\n');
+		}
+		if(footer != null) {
+			sb.append(footer);
+			sb.append('\n');
+		}
+		return sb.toString();
 	}
 	
 	public static String formatProgramTitle(String programName, String version) {
-		return formatTitle(programName, null, version);
+		return formatProgramTitle(programName, null, version);
 	}
 	
 	public static String formatVersionString(int major) {
+		if(major < 0)
+			throw new RuntimeException("");
 		return String.format("%d", Integer.valueOf(major)); //$NON-NLS-1$
 	}
 	
 	public static String formatVersionString(int major, int minor) {
-		return String.format("%d.%d", Integer.valueOf(major), Integer.valueOf(minor)); //$NON-NLS-1$
+		if(minor < 0)
+			throw new RuntimeException("");
+		return String.format("%s.%d", formatVersionString(major), Integer.valueOf(minor)); //$NON-NLS-1$
 	}
 	
 	public static String formatVersionString(int major, int minor, int revision) {
-		return String.format("%d.%d.%d", Integer.valueOf(major), Integer.valueOf(minor), Integer.valueOf(revision)); //$NON-NLS-1$
+		if(revision < 0)
+			throw new RuntimeException("");
+		return String.format("%s.%d", formatVersionString(major, minor), Integer.valueOf(revision)); //$NON-NLS-1$
 	}
 }

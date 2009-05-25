@@ -38,54 +38,45 @@ import lawu.cli.VersionOption;
  * 
  * @author Miorel-Lucian Palii
  */
-public class Main {
-	private final String[] arguments;
-	
-	public static final String PROJECT_NAME = Main.class.getPackage().getName();
-	public static final String PROJECT_VERSION;
-
-	private static final String BUNDLE_NAME = PROJECT_NAME + ".nls.str"; //$NON-NLS-1$
+public class Main extends StandardApp {
+	private static final String BUNDLE_NAME = "lawu.nls.str"; //$NON-NLS-1$
 	private static final ResourceBundle RESOURCE_BUNDLE;
 
 	static {
-		ResourceBundle rb;
+		ResourceBundle rb = null;
 		try {
 			rb = ResourceBundle.getBundle(BUNDLE_NAME);
 		}
 		catch(MissingResourceException e) {
-			rb = null;
 		}
 		RESOURCE_BUNDLE = rb;
-		PROJECT_VERSION = getString("project.version"); //$NON-NLS-1$
 	}
 
 	private Main(String... arguments) {
-		this.arguments = arguments;
+		super(arguments);
+		setName("lawu"); //$NON-NLS-1$
+		setVersion(getString("project.version")); //$NON-NLS-1$
+		setCopyright(formatCopyright("Miorel-Lucian Palii", 2009));
+		setHelpFooter(formatHelpFooter("mlpalii@gmail.com", getHomePage()));
+		setVersionFooter(GPLED);
 	}
-
-	private void run() {		
-		String uri = getString("project.uri"); //$NON-NLS-1$
-		String msg = String.format(getString("RunApp.0"), uri); //$NON-NLS-1$
-		String title = formatProgramTitle(PROJECT_NAME, PROJECT_VERSION);
-
-		ArgumentSet argSet = new ArgumentSet();
-		argSet.addOption(new HelpOption(argSet, null, formatHelpFooter("mlpalii@gmail.com", uri)));
-		argSet.addOption(new VersionOption(formatVersionOutput(title, formatCopyright("Miorel-Lucian Palii", 2009), GPLED)));
-		argSet.parse(this.arguments);
+	
+	protected String getHomePage() {
+		return getString("project.uri"); //$NON-NLS-1$
+	}
 		
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}
-		catch(Exception e) {}
-
-		int ans = JOptionPane.showConfirmDialog(null, msg, title,
+	@Override
+	protected void doRun() {
+		String msg = String.format(getString("RunApp.0"), getHomePage()); //$NON-NLS-1$
+		
+		int ans = JOptionPane.showConfirmDialog(null, msg, getTitle(),
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 		if(ans == JOptionPane.YES_OPTION)
 			try {
-				Desktop.getDesktop().browse(new URI(uri));
+				Desktop.getDesktop().browse(new URI(getHomePage()));
 			}
 			catch(Exception e) {
-				JOptionPane.showMessageDialog(null, e.getMessage(), title,
+				JOptionPane.showMessageDialog(null, e.getMessage(), getTitle(),
 						JOptionPane.ERROR_MESSAGE, null);
 			}
 	}

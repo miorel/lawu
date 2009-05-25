@@ -23,8 +23,17 @@ import lawu.util.ZipFiles;
  * @author Miorel-Lucian Palii
  *
  */
-public class SelfExtract {
+public class SelfExtract extends StandardApp {
+	public SelfExtract(String[] arguments) {
+		super(arguments);
+	}
+
 	public static void main(String[] arg) {
+		new SelfExtract(arg).run();
+	}
+	
+	@Override
+	protected void doRun() {
 		JarFile jf;
 		try {
 			jf = new JarFile(SelfExtract.class.getProtectionDomain().getCodeSource().getLocation().getFile());
@@ -32,6 +41,5 @@ public class SelfExtract {
 		}
 		catch(IOException e) {
 		}
-		
 	}
 }
