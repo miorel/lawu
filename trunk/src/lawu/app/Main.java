@@ -16,21 +16,14 @@ package lawu.app;
 
 import static lawu.cli.HelpOption.formatHelpFooter;
 import static lawu.cli.VersionOption.GPLED;
-import static lawu.cli.VersionOption.formatCopyright;
-import static lawu.cli.VersionOption.formatProgramTitle;
-import static lawu.cli.VersionOption.formatVersionOutput;
 
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
-import java.util.MissingResourceException;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-
-import lawu.cli.ArgumentSet;
-import lawu.cli.HelpOption;
-import lawu.cli.VersionOption;
 
 /**
  * Houses the <code>main</code> method and serves as access point for program
@@ -38,36 +31,27 @@ import lawu.cli.VersionOption;
  * 
  * @author Miorel-Lucian Palii
  */
-public class Main extends StandardApp {
-	private static final String BUNDLE_NAME = "lawu.nls.str"; //$NON-NLS-1$
-	private static final ResourceBundle RESOURCE_BUNDLE;
-
-	static {
-		ResourceBundle rb = null;
-		try {
-			rb = ResourceBundle.getBundle(BUNDLE_NAME);
-		}
-		catch(MissingResourceException e) {
-		}
-		RESOURCE_BUNDLE = rb;
-	}
-
+public class Main extends App {
 	private Main(String... arguments) {
 		super(arguments);
-		setName("lawu"); //$NON-NLS-1$
-		setVersion(getString("project.version")); //$NON-NLS-1$
-		setCopyright(formatCopyright("Miorel-Lucian Palii", 2009));
+		getInfo().setAttributesFromProperties(getClass());
 		setHelpFooter(formatHelpFooter("mlpalii@gmail.com", getHomePage()));
 		setVersionFooter(GPLED);
 	}
 	
 	protected String getHomePage() {
-		return getString("project.uri"); //$NON-NLS-1$
+		Properties prop = new Properties();
+		try {
+			prop.load(getClass().getClassLoader().getResourceAsStream("lawu/app/Main.properties"));
+		}
+		catch(IOException e) {
+		}
+		return prop.getProperty("home_page"); //$NON-NLS-1$
 	}
 		
 	@Override
 	protected void doRun() {
-		String msg = String.format(getString("RunApp.0"), getHomePage()); //$NON-NLS-1$
+		String msg = String.format(ResourceBundle.getBundle("lawu.nls.str").getString("RunApp.0"), getHomePage()); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		int ans = JOptionPane.showConfirmDialog(null, msg, getTitle(),
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
@@ -88,22 +72,5 @@ public class Main extends StandardApp {
 	 */
 	public static void main(String[] arg) {
 		new Main(arg).run();
-	}
-
-	/**
-	 * Retrieves the externalized string corresponding to the specified key.
-	 * 
-	 * @param key externalized string identifier
-	 * @return the corresponding value
-	 */
-	public static String getString(String key) {
-		String ret;
-		try {
-			ret = RESOURCE_BUNDLE.getString(key);
-		}
-		catch(Exception e) {
-			ret = '!' + key + '!';
-		}
-		return ret;
 	}
 }

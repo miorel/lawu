@@ -14,7 +14,7 @@
  */
 package lawu.util;
 
-import lawu.app.Main;
+import java.util.ResourceBundle;
 
 /**
  * @author Miorel-Lucian Palii
@@ -27,7 +27,7 @@ public class CloneableObject implements Cloneable {
 			ret = (CloneableObject) super.clone();
 		}
 		catch(CloneNotSupportedException e) {
-			throw new Error(Main.getString("CloneableObject.0"), e); //$NON-NLS-1$
+			throw new Error(ResourceBundle.getBundle("lawu.nls.str").getString("CloneableObject.0"), e); //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		return ret;
 	}

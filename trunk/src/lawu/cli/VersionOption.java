@@ -120,9 +120,15 @@ public class VersionOption extends NamedOption {
 		return String.format("%s.%d", formatVersionString(major), Integer.valueOf(minor)); //$NON-NLS-1$
 	}
 	
-	public static String formatVersionString(int major, int minor, int revision) {
+	public static String formatVersionString(int major, int minor, int build) {
+		if(build < 0)
+			throw new RuntimeException("");
+		return String.format("%s.%d", formatVersionString(major, minor), Integer.valueOf(build)); //$NON-NLS-1$
+	}
+
+	public static String formatVersionString(int major, int minor, int build, int revision) {
 		if(revision < 0)
 			throw new RuntimeException("");
-		return String.format("%s.%d", formatVersionString(major, minor), Integer.valueOf(revision)); //$NON-NLS-1$
+		return String.format("%s.%d", formatVersionString(major, minor, build), Integer.valueOf(revision)); //$NON-NLS-1$
 	}
 }

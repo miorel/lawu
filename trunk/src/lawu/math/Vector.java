@@ -15,6 +15,7 @@
 package lawu.math;
 
 import java.util.Comparator;
+import java.util.ResourceBundle;
 
 import lawu.app.Main;
 
@@ -203,8 +204,8 @@ public class Vector {
 	}
 	
 	@Override
-	@SuppressWarnings("boxing")
 	public String toString() {
-		return String.format(Main.getString("Vector.0"), getX(), getY(), getZ()); //$NON-NLS-1$
+		return String.format(ResourceBundle.getBundle("lawu.nls.str").getString("Vector.0"), //$NON-NLS-1$ //$NON-NLS-2$
+				Double.valueOf(getX()), Double.valueOf(getY()), Double.valueOf(getZ()));
 	}
 }

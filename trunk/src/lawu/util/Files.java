@@ -41,8 +41,12 @@ public class Files {
 			destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
 		}
 		finally {
-			sourceStream.close();
-			destStream.close();
+			try {
+				sourceStream.close();
+				destStream.close();
+			}
+			catch(IOException e) {
+			}
 		}
 	}
 
@@ -61,8 +65,12 @@ public class Files {
 			destChannel.transferFrom(sourceChannel, 0, size);
 		}
 		finally {
-			source.close();
-			destStream.close();
+			try {
+				source.close();
+				destStream.close();
+			}
+			catch(IOException e) {
+			}
 		}
 	}
     
