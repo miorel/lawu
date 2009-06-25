@@ -1,5 +1,24 @@
+2009-06-02  Miorel-Lucian Palii <mlpalii@gmail.com>
+
+	* ., build.properties, build.xml, res/lawu/app,
+	  res/lawu/app/Main.properties,
+	  res/lawu/app/SelfExtractMinimalStrings.properties,
+	  res/lawu/nls/str.properties, src/lawu/ant,
+	  src/lawu/ant/SelfExtractingJar.java, src/lawu/app/App.java,
+	  src/lawu/app/Main.java, src/lawu/app/SelfExtract.java,
+	  src/lawu/app/SelfExtractMinimal.java, src/lawu/app/SoftwareInfo.java,
+	  src/lawu/app/StandardApp.java, src/lawu/cli/VersionOption.java,
+	  src/lawu/math/Vector.java, src/lawu/util/CloneableObject.java,
+	  src/lawu/util/Files.java, src/lawu/util/ZipFiles.java,
+	  util/SelfExtract.java:
+	  Ant task to make self-extracting jars
+
 2009-05-25  Miorel-Lucian Palii <mlpalii@gmail.com>
 
+	* ChangeLog, build.xml, doc, src/lawu/app/App.java,
+	  src/lawu/app/Main.java, src/lawu/app/SelfExtract.java,
+	  src/lawu/app/StandardApp.java, src/lawu/cli/VersionOption.java:
+	  Framework for app building
 	* ., AUTHORS, ChangeLog, build.xml, src/lawu/Main.java, src/lawu/app,
 	  src/lawu/app/Main.java, src/lawu/app/SelfExtract.java,
 	  src/lawu/app/package.html, src/lawu/chem/package.html,
