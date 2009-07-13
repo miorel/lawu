@@ -16,9 +16,11 @@ package lawu.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
 import java.nio.channels.ReadableByteChannel;
@@ -77,4 +79,35 @@ public class Files {
     public static void copy(InputStream source, File destination) throws IOException {
 		copy(source, destination, Long.MAX_VALUE);
 	}
+    
+    public static StringBuilder slurp(InputStream stream) throws IOException {
+    	InputStreamReader reader = new InputStreamReader(stream);
+    	StringBuilder ret = new StringBuilder();
+    	char[] buf = new char[1 << 12];
+    	try {
+	    	for(int n; (n = reader.read(buf)) != -1; )
+	    		ret.append(new String(buf, 0, n));
+    	}
+    	finally {
+	    	try {
+	    		stream.close();	
+	    	}
+	    	catch(IOException e) {
+	    	}
+	    	try {
+	    		reader.close();
+	    	}
+	    	catch(IOException e) {
+	    	}
+    	}
+    	return ret;    	
+    }
+    
+    public static StringBuilder slurp(File file) throws FileNotFoundException, IOException {
+    	return slurp(new FileInputStream(file));
+    }
+    
+    public static StringBuilder slurp(String path) throws FileNotFoundException, IOException {
+    	return slurp(new FileInputStream(path));
+    }
 }

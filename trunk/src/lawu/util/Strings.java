@@ -14,8 +14,12 @@
  */
 package lawu.util;
 
+import static lawu.util.iterator.Iterators.iterator;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import lawu.dp.Iterator;
 
 /**
  * @author Miorel-Lucian Palii
@@ -48,4 +52,23 @@ public class Strings {
 			sb.append(string);
 		return sb.toString();
 	}
+	
+	public static String join(String separator, Iterator<String> strings) {
+		StringBuilder sb = new StringBuilder();
+		strings.reset();
+		if(!strings.isDone()) {
+			sb.append(strings.current());
+			strings.advance();
+		}
+		while(!strings.isDone()) {
+			sb.append(separator);
+			sb.append(strings.current());
+			strings.advance();
+		}
+		return sb.toString();
+	}
+	
+	public static String join(String separator, String... strings) {
+		return join(separator, iterator(strings));
+	}	
 }

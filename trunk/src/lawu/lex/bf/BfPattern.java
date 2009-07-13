@@ -2,7 +2,7 @@ package lawu.lex.bf;
 
 import lawu.lex.TokenPattern;
 
-public enum BfPattern implements TokenPattern<BfLexer, BfState, BfPattern> {
+public enum BfPattern implements TokenPattern {
 	INCREMENT_POINTER('>'),
 	DECREMENT_POINTER('<'),
 	INCREMENT_BYTE('+'),
@@ -13,7 +13,7 @@ public enum BfPattern implements TokenPattern<BfLexer, BfState, BfPattern> {
 	CONTINUE(']'),
 	COMMENT {
 		@Override
-		public int matchLength(@SuppressWarnings("unused") BfLexer lexer, CharSequence text) {
+		public int matchLength(CharSequence text) {
 			if(text == null)
 				throw new NullPointerException("");
 			int ret = 0;
@@ -46,7 +46,7 @@ public enum BfPattern implements TokenPattern<BfLexer, BfState, BfPattern> {
 	}
 	
 	@Override
-	public int matchLength(@SuppressWarnings("unused") BfLexer lexer, CharSequence text) {
+	public int matchLength(CharSequence text) {
 		if(text == null) 
 			throw new NullPointerException("");
 		return text.length() != 0 && text.charAt(0) == this.cmd ? 1 : 0;

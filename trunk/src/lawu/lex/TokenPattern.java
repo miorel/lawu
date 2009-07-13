@@ -3,6 +3,9 @@
  */
 package lawu.lex;
 
-public interface TokenPattern<L extends Lexer<L, S, P>, S extends LexerState, P extends TokenPattern<L, S, P>> {
-	public int matchLength(L abstractLexer, CharSequence text);
+/**
+ * @author Miorel-Lucian Palii
+ */
+public interface TokenPattern {
+	public int matchLength(CharSequence text);
 }

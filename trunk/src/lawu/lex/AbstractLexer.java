@@ -6,25 +6,14 @@ package lawu.lex;
 import lawu.util.iterator.AbstractUniversalIterator;
 import lawu.util.iterator.UniversalIterator;
 
-public abstract class AbstractLexer<L extends Lexer<L, S, P>, S extends LexerState, P extends TokenPattern<L, S, P>> extends AbstractUniversalIterator<Token<P>> implements Lexer<L, S, P> {
-	private S state;
+public abstract class AbstractLexer<P extends TokenPattern> extends AbstractUniversalIterator<Token<P>> implements Lexer<P> {
 	private StringBuilder text;
 	private StringBuilder lexed;
 	private Token<P> current;
 	
-	public AbstractLexer(S state, CharSequence text) {
-		setState(state);
+	public AbstractLexer(CharSequence text) {
 		this.text = new StringBuilder(text);
 		this.lexed = new StringBuilder(this.text.length());
-	}
-	
-	@Override
-	public S getState() {
-		return this.state;
-	}
-	
-	void setState(S state) {
-		this.state = state;
 	}
 
 	@Override
@@ -39,15 +28,19 @@ public abstract class AbstractLexer<L extends Lexer<L, S, P>, S extends LexerSta
 	public Token<P> current() {
 		if(this.current == null && !isDone())
 			for(P pattern: patterns()) {
-				int matchLength = pattern.matchLength((L) this, this.text);
+				int matchLength = pattern.matchLength(this.text);
 				if(matchLength != 0) {
 					this.current = new Token<P>(pattern, this.text.substring(0, matchLength));
+					trigger(pattern);
 					break;
 				}
 			}
 		if(this.current == null)
 			throw new RuntimeException("");
 		return this.current;
+	}
+	
+	protected void trigger(@SuppressWarnings("unused") P pattern) {
 	}
 	
 	protected abstract UniversalIterator<P> patterns();

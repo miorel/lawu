@@ -28,6 +28,7 @@ public class SelfExtractingJar extends Zip {
 	private final static String ARCHIVE_TYPE = "self-extracting jar"; //$NON-NLS-1$
 	private final static String PREFIX = "zip"; //$NON-NLS-1$
 	private final static String MANIFEST = "Manifest-Version: 1.0\nMain-Class: lawu.app.Main\n"; //$NON-NLS-1$
+	
 	private final static int DIR_MODE = 040755;
 	private final static int FILE_MODE = 0100644;
 	
