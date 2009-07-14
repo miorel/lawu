@@ -18,9 +18,7 @@ import static lawu.cli.HelpOption.formatHelpFooter;
 import static lawu.cli.VersionOption.GPLED;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
@@ -32,32 +30,25 @@ import javax.swing.JOptionPane;
  * @author Miorel-Lucian Palii
  */
 public class Main extends App {
-	private Main(String... arguments) {
-		super(arguments);
-		getInfo().setAttributesFromProperties(getClass());
-		setHelpFooter(formatHelpFooter("mlpalii@gmail.com", getHomePage()));
-		setVersionFooter(GPLED);
+	public Main() {
+		this(new String[0]);
 	}
 	
-	protected String getHomePage() {
-		Properties prop = new Properties();
-		try {
-			prop.load(getClass().getClassLoader().getResourceAsStream("lawu/app/Main.properties"));
-		}
-		catch(IOException e) {
-		}
-		return prop.getProperty("home_page"); //$NON-NLS-1$
+	public Main(String... arguments) {
+		super(new SoftwareInfo(Main.class), arguments);
+		setHelpFooter(formatHelpFooter(getActualInfo().getBugReportEmail(), getActualInfo().getHomePage()));
+		setVersionFooter(GPLED);
 	}
 		
 	@Override
 	protected void doRun() {
-		String msg = String.format(ResourceBundle.getBundle("lawu.nls.str").getString("RunApp.0"), getHomePage()); //$NON-NLS-1$ //$NON-NLS-2$
+		String msg = String.format(ResourceBundle.getBundle("lawu.nls.str").getString("RunApp.0"), getActualInfo().getHomePage()); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		int ans = JOptionPane.showConfirmDialog(null, msg, getTitle(),
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null);
 		if(ans == JOptionPane.YES_OPTION)
 			try {
-				Desktop.getDesktop().browse(new URI(getHomePage()));
+				Desktop.getDesktop().browse(new URI(getActualInfo().getHomePage()));
 			}
 			catch(Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage(), getTitle(),

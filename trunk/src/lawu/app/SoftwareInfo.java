@@ -17,18 +17,29 @@ package lawu.app;
 import static lawu.cli.VersionOption.formatCopyright;
 import static lawu.cli.VersionOption.formatVersionString;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Dictionary;
 import java.util.Properties;
+import java.util.ResourceBundle;
+
+import lawu.util.CloneableObject;
+import lawu.util.ResourceBundleAdapter;
 
 /**
  * @author Miorel-Lucian Palii
  */
-public class SoftwareInfo {
+public class SoftwareInfo extends CloneableObject {
 	private String name;
 	private String version;
 	private String copyright;
-
+	
+	private String bugReportEmail;
+	private String homePage;
+	
 	public SoftwareInfo() {
 	}
 	
@@ -36,19 +47,37 @@ public class SoftwareInfo {
 		setName(name);
 		setVersion(version);
 	}
+	
+	public SoftwareInfo(String name, String version, String copyright) {
+		this(name, version);
+		setCopyright(copyright);
+	}
 
 	public SoftwareInfo(Properties properties) {
-		setAttributesFromProperties(properties);
+		setAttributesFromDictionary(properties);
 	}
 
-	public SoftwareInfo(Class<?> c) throws IOException {
-		this(getPropertiesFromInputStream(c.getClassLoader().getResourceAsStream(c.getName().replace('.', '/') + ".properties"))); //$NON-NLS-1$
+	public SoftwareInfo(ResourceBundle bundle) {
+		setAttributesFromResourceBundle(bundle);
 	}
 	
-	private static final Properties getPropertiesFromInputStream(InputStream stream) throws IOException {
-		Properties prop = new Properties();
-		prop.load(stream);
-		return prop;
+	public SoftwareInfo(Class<?> c) {
+		setAttributesFromClass(c);
+	}
+
+	public SoftwareInfo(InputStream stream) throws IOException {
+		Properties properties = new Properties();
+		properties.load(stream);
+		setAttributesFromDictionary(properties);
+	}
+	
+	public SoftwareInfo(File file) throws FileNotFoundException, IOException {
+		this(new FileInputStream(file));
+	}
+	
+	@Override
+	public SoftwareInfo clone() {
+		return (SoftwareInfo) super.clone();
 	}
 	
 	public String getName() {
@@ -75,35 +104,48 @@ public class SoftwareInfo {
 		this.copyright = copyright;
 	}
 	
-	public void setAttributesFromProperties(Class<?> c) {
-		Properties properties = new Properties();
-		String resource = c.getName().replace('.', '/') + ".properties"; //$NON-NLS-1$
-		InputStream stream = c.getClassLoader().getResourceAsStream(resource);
-		if(stream != null)
-			try {
-				properties.load(stream);
-			}
-			catch(IOException e) {
-			}
-		setAttributesFromProperties(properties);
+	public String getBugReportEmail() {
+		return this.bugReportEmail;
 	}
 	
-	public void setAttributesFromProperties(Properties properties) {
-		setName(properties.getProperty("name", getName())); //$NON-NLS-1$
-		String tVersion = properties.getProperty("version"); //$NON-NLS-1$
+	public void setBugReportEmail(String bugReportEmail) {
+		this.bugReportEmail = bugReportEmail;
+	}
+
+	public String getHomePage() {
+		return this.homePage;
+	}
+	
+	public void setHomePage(String homePage) {
+		this.homePage = homePage;
+	}
+	
+	public void setAttributesFromClass(Class<?> c) {
+		setAttributesFromResourceBundle(ResourceBundle.getBundle(c.getName(), ResourceBundle.Control.getControl(ResourceBundle.Control.FORMAT_PROPERTIES)));
+	}
+	
+	public void setAttributesFromResourceBundle(ResourceBundle bundle) {
+		setAttributesFromDictionary(new ResourceBundleAdapter(bundle));
+	}
+	
+	public void setAttributesFromDictionary(Dictionary<? extends Object, ? extends Object> properties) {
+		setName(getProperty(properties, "name", getName())); //$NON-NLS-1$
+		setHomePage(getProperty(properties, "home_page", getHomePage())); //$NON-NLS-1$
+		setBugReportEmail(getProperty(properties, "bug_report_email", getBugReportEmail())); //$NON-NLS-1$
+		String tVersion = getProperty(properties, "version"); //$NON-NLS-1$
 		if(tVersion != null)
 			this.version = tVersion;
 		else {
-			String tVersionMajor = properties.getProperty("version_major"); //$NON-NLS-1$
+			String tVersionMajor = getProperty(properties, "version_major"); //$NON-NLS-1$
 			if(tVersionMajor != null) {
 				int tVMajor = Integer.parseInt(tVersionMajor);
-				String tVersionMinor = properties.getProperty("version_major"); //$NON-NLS-1$
+				String tVersionMinor = getProperty(properties, "version_major"); //$NON-NLS-1$
 				if(tVersionMinor != null) {
 					int tVMinor = Integer.parseInt(tVersionMinor);
-					String tVersionBuild = properties.getProperty("version_build"); //$NON-NLS-1$
+					String tVersionBuild = getProperty(properties, "version_build"); //$NON-NLS-1$
 					if(tVersionBuild != null) {
 						int tVBuild = Integer.parseInt(tVersionBuild);
-						String tVersionRevision = properties.getProperty("version_revision"); //$NON-NLS-1$
+						String tVersionRevision = getProperty(properties, "version_revision"); //$NON-NLS-1$
 						if(tVersionRevision != null) {
 							int tVRevision = Integer.parseInt(tVersionRevision);
 							setVersion(formatVersionString(tVMajor, tVMinor, tVBuild, tVRevision));
@@ -118,19 +160,28 @@ public class SoftwareInfo {
 					setVersion(formatVersionString(tVMajor));
 			}
 		}
-		setVersion(properties.getProperty("version", getVersion())); //$NON-NLS-1$
-		String tCopyright = properties.getProperty("copyright"); //$NON-NLS-1$
+		setVersion(getProperty(properties, "version", getVersion())); //$NON-NLS-1$
+		String tCopyright = getProperty(properties, "copyright"); //$NON-NLS-1$
 		if(tCopyright != null)
 			this.copyright = tCopyright;
 		else {
-			String tHolder = properties.getProperty("copyright_holder"); //$NON-NLS-1$
-			String tDate = properties.getProperty("copyright_date"); //$NON-NLS-1$
-			String tYear = properties.getProperty("copyright_year"); //$NON-NLS-1$
+			String tHolder = getProperty(properties, "copyright_holder"); //$NON-NLS-1$
+			String tDate = getProperty(properties, "copyright_date"); //$NON-NLS-1$
+			String tYear = getProperty(properties, "copyright_year"); //$NON-NLS-1$
 			if(tHolder != null)
 				if(tDate != null)
 					setCopyright(formatCopyright(tHolder, tDate));
 				else if(tYear != null)
 					setCopyright(formatCopyright(tHolder, Integer.parseInt(tYear)));
 		}
+	}
+	
+	private static String getProperty(Dictionary<?, ?> map, String key) {
+		return getProperty(map, key, null);
+	}
+	
+	private static String getProperty(Dictionary<?, ?> map, String key, String defaultValue) {
+		Object val = map.get(key);
+		return val == null ? defaultValue : val.toString();
 	}
 }

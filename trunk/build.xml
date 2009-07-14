@@ -4,10 +4,42 @@
 		Ant build file for the ${ant.project.name} project
 	</description>
 	
+	<!-- read properties from file -->
 	<property file="build.properties"/>
-		
-	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**"/>
 
+	<!-- prepare a task from a class -->
+	<macrodef name="taskprep">
+		<attribute name="name"/>
+		<attribute name="classname"/>
+		<sequential>
+			<property name="taskdef.dir" value="${tmp.dir}/taskdef"/>
+			<mkdir dir="${taskdef.dir}"/>
+			<depend srcdir="${src.dir}" destdir="${taskdef.dir}" closure="yes"/>
+			<javac srcdir="${src.dir}" destdir="${taskdef.dir}" includes="${ant.project.name}/ant/@{classname}.java"/>
+			<taskdef name="@{name}" classname="${ant.project.name}.ant.@{classname}" classpath="${taskdef.dir}"/>
+		</sequential>
+	</macrodef>
+	
+	<!-- bootstrap -->
+	<taskprep name="mimport" classname="MultiImport"/>
+	
+	<!-- import buildfiles for subprojects -->
+	<mimport>
+		 <fileset dir="${build.dir}"/>
+	</mimport>
+	
+	<!-- define the source fileset -->
+	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**,${doc.dir}/**,${tmp.dir}/**"/>
+	
+	<target name="taskprep" description="prepare Ant tasks defined in this project">
+		<taskprep name="jarsfx" classname="SelfExtractingJar"/>
+	</target>
+	
+	<target name="-set-distname">
+		<taskprep name="distname" classname="DistributionName"/>
+		<distname outputproperty="dist.name" file="${res.dir}/lawu/app/Main.properties"/>
+	</target>
+	
 	<target name="clean-bin" description="removes the build directory">
 		<delete dir="${bin.dir}"/>
 	</target>
@@ -20,11 +52,12 @@
 		<delete dir="${doc.dir}"/>
 	</target>
 	
-	<target name="clean" description="removes all rebuildable files">
-		<antcall target="clean-bin"/>
-		<antcall target="clean-dist"/>
-		<antcall target="clean-doc"/>
+	<target name="clean-tmp" description="removes the temporary files directory">
+		<delete dir="${tmp.dir}"/>
 	</target>
+	
+	<target name="clean" description="removes all rebuildable files"
+		depends="clean-bin,clean-dist,clean-doc,clean-tmp"/> 
 	
 	<target name="bin" description="compiles the project">
 		<mkdir dir="${bin.dir}"/>
@@ -32,43 +65,41 @@
 		<javac srcdir="${src.dir}" destdir="${bin.dir}"/>
 	</target>	
 	
-	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution">
+	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution" depends="-set-distname">
 		<mkdir dir="${dist.dir}"/>
-		<tar destfile="${dist.dir}/${ant.project.name}-src.tar.gz" compression="gzip">
-			<tarfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
+		<tar destfile="${dist.dir}/${dist.name}-src.tar.gz" compression="gzip">
+			<tarfileset refid="src.fileset" prefix="${dist.name}"/>
 		</tar>
 	</target>
 
-	<target name="src-dist-tbz2" description="creates a bzip2-compressed tarball source distribution">
+	<target name="src-dist-tbz2" description="creates a bzip2-compressed tarball source distribution" depends="-set-distname">
 		<mkdir dir="${dist.dir}"/>
-		<tar destfile="${dist.dir}/${ant.project.name}-src.tar.bz2" compression="bzip2">
-			<tarfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
+		<tar destfile="${dist.dir}/${dist.name}-src.tar.bz2" compression="bzip2">
+			<tarfileset refid="src.fileset" prefix="${dist.name}"/>
 		</tar>
 	</target>
 	
-	<target name="src-dist-zip" description="creates a zipped source distribution">	
+	<target name="src-dist-zip" description="creates a zipped source distribution" depends="-set-distname">	
 		<mkdir dir="${dist.dir}"/>
-		<zip destfile="${dist.dir}/${ant.project.name}-src.zip">
-			<zipfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
+		<zip destfile="${dist.dir}/${dist.name}-src.zip">
+			<zipfileset refid="src.fileset" prefix="${dist.name}"/>
 		</zip>
 	</target>
 
-	<target name="src-dist-jar" description="creates a self-extracting jar source distribution" depends="bin">
-		<taskdef name="jarsfx" classname="lawu.ant.SelfExtractingJar" classpath="${bin.dir}"/>
+	<target name="src-dist-jar" description="creates a self-extracting jar source distribution" depends="-set-distname,taskprep">
 		<mkdir dir="${dist.dir}"/>
-		<jarsfx destfile="${dist.dir}/${ant.project.name}-src.jar">
-			<zipfileset refid="src.fileset" prefix="${ant.project.name}-src"/>
+		<jarsfx destfile="${dist.dir}/${dist.name}-src.jar">
+			<zipfileset refid="src.fileset" prefix="${dist.name}"/>
 		</jarsfx>
 	</target>
 	
 	<target name="src-dist" description="creates all the source distribution bundles"
 		depends="src-dist-tgz,src-dist-tbz2,src-dist-zip,src-dist-jar"/> 
 	
-	<target name="bin-dist" description="creates a binary distribution" depends="bin">
+	<target name="bin-dist" description="creates a binary distribution" depends="-set-distname,bin">
 		<mkdir dir="${dist.dir}"/>
-		<jar destfile="${dist.dir}/${jar.name}">
+		<jar destfile="${dist.dir}/${dist.name}.jar">
 			<manifest>
-				<attribute name="Built-By" value="${user.name}"/>
 				<attribute name="Main-Class" value="${src.main}"/>
 			</manifest>
 			<fileset dir="${bin.dir}" includes="**/*.class"/>
@@ -97,10 +128,10 @@
 		</javadoc>
 	</target>
 
-	<target name="doc-dist" description="creates an archive of the project documentation" depends="doc">	
+	<target name="doc-dist" description="creates an archive of the project documentation" depends="-set-distname,doc">	
 		<mkdir dir="${dist.dir}"/>
-		<zip destfile="${dist.dir}/${ant.project.name}-doc.zip">
-			<zipfileset dir="${doc.dir}" prefix="${ant.project.name}-doc"/>
+		<zip destfile="${dist.dir}/${dist.name}-doc.zip">
+			<zipfileset dir="${doc.dir}" prefix="${dist.name}-doc"/>
 	   	</zip>
 	</target>
 	

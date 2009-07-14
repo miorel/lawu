@@ -17,10 +17,6 @@ package lawu.app;
 import static lawu.cli.VersionOption.formatProgramTitle;
 import static lawu.cli.VersionOption.formatVersionOutput;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import javax.swing.UIManager;
 
 import lawu.cli.ArgumentSet;
@@ -30,21 +26,27 @@ import lawu.cli.VersionOption;
 /**
  * @author Miorel-Lucian Palii
  */
-public abstract class App {
+public abstract class App extends AbstractSoftwareElement {
 	private String helpHeader;
 	private String helpFooter;
 	private String versionFooter;
 	
-	private final SoftwareInfo appInfo;
 	private final String[] arguments;
-	
-	public App(String name, String version, String copyright, String helpHeader, String helpFooter, String versionFooter, String[] arguments) {
+
+	public App(SoftwareInfo info, String helpHeader, String helpFooter, String versionFooter, String[] arguments) {
+		super(info);
 		this.arguments = arguments != null ? arguments : new String[0];
-		this.appInfo = new SoftwareInfo(name, version);
-		this.appInfo.setCopyright(copyright);
 		setHelpHeader(helpHeader);
 		setHelpFooter(helpFooter);
 		setVersionFooter(versionFooter);
+	}
+	
+	public App(String name, String version, String copyright, String helpHeader, String helpFooter, String versionFooter, String[] arguments) {
+		this(new SoftwareInfo(name, version, copyright), helpHeader, helpFooter, versionFooter, arguments);
+	}
+	
+	public App(SoftwareInfo info, String[] arguments) {
+		this(info, null, null, null, arguments);
 	}
 	
 	public App(String name, String version, String copyright, String[] arguments) {
@@ -52,16 +54,14 @@ public abstract class App {
 	}
 	
 	public App(String[] arguments) {
-		this(null, "(pre-alpha)", null, arguments); //$NON-NLS-1$
-		getInfo().setName(getClass().getName());
+		this.arguments = arguments != null ? arguments : new String[0];
+		setHelpHeader(null);
+		setHelpFooter(null);
+		setVersionFooter(null);
 	}
 	
 	public App() {
 		this(null);
-	}
-
-	public SoftwareInfo getInfo() {
-		return this.appInfo;
 	}
 	
 	protected String getHelpHeader() {
@@ -108,18 +108,19 @@ public abstract class App {
 	}
 	
 	protected String getVersionOutput() {
-		return formatVersionOutput(getTitle(), getInfo().getCopyright(), getVersionFooter());	
+		return formatVersionOutput(getTitle(), getActualInfo().getCopyright(), getVersionFooter());	
 	}
 	
 	protected String getTitle() {
-		return formatProgramTitle(getInfo().getName(), getInfo().getVersion());
+		return formatProgramTitle(getActualInfo().getName(), getActualInfo().getVersion());
 	}
 	
 	protected void setLookAndFeel() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
-		catch(Exception e) {}
+		catch(Exception e) {
+		}
 	}
 	
 	public void run() {
