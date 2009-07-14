@@ -1,5 +1,5 @@
 #summary The philosophy that drives this software project
-#labels Featured Phase-Design Phase-Requirements Phase-Implementation Phase-Support
+#labels Featured,Phase-Design,Phase-Requirements,Phase-Implementation,Phase-Support
 
 = Goal 1: Education =
 
@@ -11,6 +11,6 @@ The primary goal of this project is therefore to help the contributors become be
 
 = Goal 2: Useful Software =
 
-It may surprise you that this is only a secondary consideration of this project. Surely writing useful software is a one of a developer's top priorities: a Hippocratic Oath of software engineering. The author hopes that these two goals will not only not be mutually exclusive but also complement each other. Better programmers write code which is more elegant, versatile, and reusable. In turn, this _ought_ to lead to more useful software! However, this goal is listed second to emphasize that the developers' betterment is the main concern, not satisfying some list of requirements.
+It may surprise you that this is only a secondary consideration of this project. Surely writing useful software is one of a developer's top priorities: a Hippocratic Oath of software engineering. The author hopes that these two goals will not only not be mutually exclusive but also complement each other. Better programmers write code which is more elegant, versatile, and reusable. In turn, this _ought_ to lead to more useful software! However, this goal is listed second to emphasize that the developers' betterment is the main concern, not satisfying some list of requirements.
 
 This does not mean the project's API will change at the drop of a hat. (It would take at least two hats!) At the same time, design decisions that reveal themselves to have been poor will not survive long for the sake of backward compatibility. This is one of the advantages of having a small (read: non-existent) user base.
