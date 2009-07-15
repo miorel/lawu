@@ -1,0 +1,141 @@
+#summary How to write an application using this library's framework
+#labels Phase-Implementation
+
+= Introduction =
+
+Cool programs support command-line options. If you're a follower of the GNU philosophy, every program you write should at least give you a help message and version information. But parsing the command-line isn't most people's definition of fun.
+
+The application framework included in this library (and used for its executable components) aims to take some of the pain out of this process.
+
+= Description =
+
+To use the framework, subclass `lawu.app.App`. The simplest example has just one constructor, taking the command-line arguments, and a `main(String[])` that instantiates the class and triggers execution:
+
+{{{
+import lawu.app.*;
+
+public class Hello extends App {
+	public Hello(String... arguments) {
+		super(arguments);
+	}
+	
+	public static void main(String[] arg) {
+		new Hello(arg).execute();
+	}
+}
+}}}
+
+Assuming your classpath is properly set up, you can compile the class and `java Hello`. That, of course, won't do anything particularly interesting, but try giving a command-line option:
+
+{{{
+$ java Hello --version
+Hello (pre-alpha)
+}}}
+
+Since we didn't specify a program name, it defaulted to the name of the class. The version defaulted to unstable. You can also try the `--help` option, but I'll save that example for after we make its output fancier.
+
+To do something useful, override `doExecute()`. Adding this section of code we can expand the code from before into a simple greeter:
+
+{{{
+	private String who;
+		
+	protected void doExecute() {
+		if(who == null)
+			who = "World";
+		System.out.println("Hello, " + who + "!");
+	}
+}}}
+
+Now let's let the user configure who gets greeted using a custom option:
+
+{{{
+	protected void addOptions(ArgumentSet argumentSet) {
+		argumentSet.addOption(new NamedValueOption(null, "who", "who to address") {
+			public void trigger(String value) {
+				who = value;
+			}
+		});
+	}
+}}}
+
+You'll need to use an implementation of `lawu.cli.Option` but usually you'll probably use a helper class like `lawu.cli.NamedValueOption` and just override one of the trigger methods.
+
+The constructor arguments should be clear when we execute, but before we do that, let's add a more useful help message:
+
+{{{
+	public Hello(String... arguments) {
+		super(arguments);
+		setHelpHeader("Usage: java Hello [OPTION ...]\n"
+				+ "Greet someone (or something), or the World by default.\n"
+				+ "\n"
+				+ "Supported options:\n");
+	}
+}}}
+
+As you might guess, there's also a `setHelpFooter(String)`, among others.
+
+The full code is below. Note the added `import`.
+
+{{{
+import lawu.app.*;
+import lawu.cli.*;
+
+public class Hello extends App {
+	private String who;
+	
+	public Hello(String... arguments) {
+		super(arguments);
+		setHelpHeader("Usage: java Hello [OPTION ...]\n"
+				+ "Greet someone (or something), or the World by default.\n"
+				+ "\n"
+				+ "Supported options:\n");
+	}
+		
+	protected void doExecute() {
+		if(who == null)
+			who = "World";
+		System.out.println("Hello, " + who + "!");
+	}
+
+	protected void addOptions(ArgumentSet argumentSet) {
+		argumentSet.addOption(new NamedValueOption(null, "who", "who to address") {
+			public void trigger(String value) {
+				who = value;
+			}
+		});
+	}
+	
+	public static void main(String[] arg) {
+		new Hello(arg).execute();
+	}
+}
+}}}
+
+Now compile and run:
+
+{{{
+$ java Hello
+Hello, World!
+}}}
+
+Check out the help message! The `--who` option doesn't have a short equivalent, hence the `null` in the `NamedValueOption` constructor.
+
+{{{
+$ java Hello --help
+Usage: java Hello [OPTION ...]
+Greet someone (or something), or the World by default.
+
+Supported options:
+      --who=VALUE       who to address
+  -?, --help     display this help and exit
+  -V, --version  output version information and exit
+}}}
+
+And now let's try our custom option:
+
+{{{
+$ java Hello --who=Miorel
+Hello, Miorel!
+}}}
+
+Victory!
