@@ -1,0 +1,7 @@
+2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
+
+	* src/com/googlecode/lawu/dp/Iterator.java,
+	  src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java:
+	  reviewed old code and copied (mostly unmodified) into project
+

@@ -1,0 +1,7 @@
+The building process is easiest using Apache Ant (http://ant.apache.org/)
+because then all you have to do is run `ant' in the project's root directory.
+You'll get a jar file in the distribution directory, which you can simply drop
+somewhere in your classpath.
+
+If you prefer doing it "manually" you'll have to type a bit more. Basically
+you want to compile every file in the source directory, then package as needed.
