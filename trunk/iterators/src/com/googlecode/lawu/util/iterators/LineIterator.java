@@ -14,24 +14,11 @@ import java.io.IOException;
  * 
  * @author Miorel-Lucian Palii
  */
-public abstract class LineIterator extends AbstractUniversalIterator<String> {
-	private boolean done;
-	private boolean beginning;
-	private String current;
-	
+public abstract class LineIterator extends IteratorAdapter<String> {	
 	/**
 	 * Default constructor, does nothing.
 	 */
 	public LineIterator() {
-	}
-	
-	/**
-	 * Initializes a line iterator. Reads one line as a side effect.
-	 */
-	protected void init() {
-		this.done = false;
-		advance();
-		this.beginning = true;
 	}
 	
 	/**
@@ -40,17 +27,17 @@ public abstract class LineIterator extends AbstractUniversalIterator<String> {
 	 * but the iterator is set to done.
 	 */
 	@Override
-	public void advance() {
+	protected void doAdvance() {
 		if(!isDone()) {
 			try {
-				current = getNextLine();
-				if(current == null)
-					done = true;
+				String line = getNextLine();
+				setCurrent(line);
+				if(line == null)
+					markAsDone();
 			}
 			catch(IOException e) {
-				done = true;
-			}
-			beginning = false;	
+				markAsDone();
+			}	
 		}
 	}
 
@@ -63,36 +50,4 @@ public abstract class LineIterator extends AbstractUniversalIterator<String> {
 	 * @throws IOException if an I/O error occurs
 	 */
 	protected abstract String getNextLine() throws IOException;
-	
-	/**
-	 * Retrieves the current line.
-	 *
-	 * @return the current line
-	 */
-	@Override
-	public String current() {
-		return current;
-	}
-
-	/**
-	 * Checks whether there are any more lines over which to iterate.
-	 * 
-	 * @return whether there are any more lines
-	 */
-	@Override
-	public boolean isDone() {
-		return done;
-	}
-
-	/**
-	 * Does nothing in a newly-created iterator, otherwise throws an
-	 * <code>IllegalStateException</code>.
-	 * 
-	 * @throws IllegalStateException if the iterator isn't "fresh"
-	 */
-	@Override
-	public void reset() throws IllegalStateException {
-		if(!beginning)
-			throw new IllegalStateException("Can't reread old lines.");
-	}
 }

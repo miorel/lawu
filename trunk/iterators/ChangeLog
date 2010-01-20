@@ -1,3 +1,20 @@
+2010-01-20  Miorel-Lucian Palii <mlpalii@gmail.com>
+
+	* src/com/googlecode/lawu/util/iterators/GOFIteratorAdapter.java:
+	  refactoring of older IteratorAdapter
+	* src/com/googlecode/lawu/util/iterators/IteratorAdapter.java:
+	  recreated as a skeleton adapter superclass
+	* src/com/googlecode/lawu/util/iterators/LineIterator.java:
+	  simplified to a subclass of IteratorAdapter
+	* src/com/googlecode/lawu/util/iterators/StreamIterator.java:
+	  added constructor which takes a FileDescriptor
+	* src/com/googlecode/lawu/util/iterators/JEnumerationAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/JIterator.java:
+	  recreated based on old code as subclasses of IteratorAdapter
+	* src/com/googlecode/lawu/util/Iterators.java:
+	  added adapt() family of methods to use the new adapter classes; added
+	  lines() family of methods to read lines from various input sources
+
 2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
 
 	* src/com/googlecode/lawu/util/iterators/IteratorAdapter.java:

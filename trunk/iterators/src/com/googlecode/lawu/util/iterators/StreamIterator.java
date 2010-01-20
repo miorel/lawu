@@ -15,6 +15,7 @@ package com.googlecode.lawu.util.iterators;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -86,6 +87,19 @@ public class StreamIterator extends LineIterator {
 		init();
 	}
 
+	/**
+	 * Constructs an iterator that reads from the specified file descriptor.
+	 * 
+	 * @param fd the input source
+	 * @throws IllegalArgumentException if passed <code>null</code>
+	 */
+	public StreamIterator(FileDescriptor fd) throws IllegalArgumentException {
+		if(fd == null)
+			throw new IllegalArgumentException("Can't read lines from null file descriptor.");
+		this.reader = new BufferedReader(new FileReader(fd));
+		init();
+	}
+	
 	/**
 	 * Constructs an iterator that reads from the file with the specified name.
 	 * 
