@@ -1,7 +1,26 @@
 2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
 
+	* src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java:
+	  improved documentation
+	* src/com/googlecode/lawu/dp/Iterator.java:
+	  added throws IllegalStateException to reset() method, to signal that a
+	  reset is impossible 
+	* src/com/googlecode/lawu/util/iterators/ArrayIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ListIterator.java,
+	  src/com/googlecode/lawu/util/iterators/NodeListIterator.java:
+	  reviewed old code and copied into project, with improvements to
+	  documentation
+	* src/com/googlecode/lawu/util/iterators/IteratorAdapter.java:
+	  probably could have copied from old code, but rewrote instead
+	* src/com/googlecode/lawu/util/iterators/LineIterator.java,
+	  src/com/googlecode/lawu/util/iterators/StreamIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ScannerIterator.java:
+	  reinvention of the old ReaderIterator!
+
+2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
+
 	* src/com/googlecode/lawu/dp/Iterator.java,
 	  src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
 	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java:
-	  reviewed old code and copied (mostly unmodified) into project
-
+	  reviewed old code and copied into project

@@ -15,14 +15,32 @@ package com.googlecode.lawu.util.iterators;
 
 import java.util.NoSuchElementException;
 
+/**
+ * Skeleton implementation of a <tt>UniversalIterator</tt>. Subclasses need
+ * only implement the Gang of Four iterator methods.
+ * 
+ * @author Miorel-Lucian Palii
+ * @param <T> type over which the iteration takes place
+ */
 public abstract class AbstractUniversalIterator<T> implements UniversalIterator<T> {
+	/**
+	 * Default constructor, does nothing.
+	 */
 	public AbstractUniversalIterator() {
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public boolean hasNext() {
 		return !isDone();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public T next() {
 		if(isDone())
 			throw new NoSuchElementException("The iterator is done.");
@@ -37,20 +55,33 @@ public abstract class AbstractUniversalIterator<T> implements UniversalIterator<
 	 * ability to remove an element is not inherent to iterators, nor does it
 	 * make sense for all iterators. 
 	 * 
-	 * @throws UnsupportedOperationException always
+	 * @throws UnsupportedOperationException always.
 	 */
+	@Override
 	public void remove() throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("This operation is an abomination.");
 	}
 
+	/**
+	 * {@inheritDoc} 
+	 */
+	@Override
 	public UniversalIterator<T> iterator() {
 		return this;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public boolean hasMoreElements() {
 		return hasNext();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public T nextElement() {
 		return next();
 	}	

@@ -29,24 +29,31 @@ package com.googlecode.lawu.dp;
  * </pre>
  * 
  * @author Miorel-Lucian Palii
- * @param <T> the type over which this iterator iterates
+ * @param <T> type over which the iteration takes place
  */
 public interface Iterator<T> {
 	/**
-	 * Moves this iterator to the beginning of the traversal.
+	 * Moves this iterator to the beginning of the traversal. Some iterators
+	 * cannot be reset once the iteration started. For example, an iterator
+	 * over the lines of an input stream probably can't reread old lines. But
+	 * all iterators should allow exception-less calls to <tt>reset()</tt>
+	 * before any calls to <tt>advance()</tt>.  
+	 * 
+	 * @throws IllegalStateException if resetting this iterator is impossible
 	 */
-	public void reset();
+	public void reset() throws IllegalStateException;
 
 	/**
-	 * Checks whether or not this iterator has exhausted all the elements of its
+	 * Checks whether this iterator has exhausted all the elements of its
 	 * underlying structure.
 	 * 
-	 * @return whether or not this iterator has exhausted all its elements
+	 * @return whether all elements have been exhausted
 	 */
 	public boolean isDone();
 
 	/**
-	 * Advances this iterator to the next element.
+	 * Advances this iterator to the next element in the traversal. Behavior
+	 * is undefined if the iterator is done.
 	 */
 	public void advance();
 
