@@ -13,37 +13,39 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 /**
- * An iterator over the nodes of a <code>NodeList</code>.
+ * <p>
+ * An iterator over the characters of a <code>CharSequence</code>.
+ * </p>
  * 
+ * <p>
  * There is no defense mechanism preventing modification of the underlying
- * list while this iterator is in use. Any changes will therefore propagate
+ * sequence while this iterator is in use. Any changes will therefore propagate
  * through to users of this iterator. Taking advantage of this is discouraged.
+ * </p>
  * 
  * @author Miorel-Lucian Palii
  */
-public class NodeListIterator extends AbstractUniversalIterator<Node> {
-	private final NodeList list;
+public class CharacterIterator extends AbstractUniversalIterator<Character> {
+	private final CharSequence sequence;
 	private int pointer;
-	
-	/**
-	 * Constructs an iterator over the nodes of the specified list.
-	 *  
-	 * @param list list over which to iterate
-	 * @throws IllegalArgumentException if passed <code>null</code>
-	 */
-	public NodeListIterator(NodeList list) throws IllegalArgumentException {
-		if(list == null)
-			throw new IllegalArgumentException("Can't iterate over null list.");
-		this.list = list;
-		reset();
-	}
 
 	/**
-	 * Advances this iterator to the next position in the list.
+	 * Constructs an iterator over the characters of the specified
+	 * <code>CharSequence</code>.
+	 *  
+	 * @param sequence sequence over whose characters to iterate
+	 * @throws IllegalArgumentException if passed <code>null</code>
+	 */
+	public CharacterIterator(CharSequence sequence) throws IllegalArgumentException {
+		if(sequence == null)
+			throw new IllegalArgumentException("Can't iterate over null sequence.");
+		this.sequence = sequence;
+		reset();
+	}
+	
+	/**
+	 * Advances this iterator to the next position in the sequence.
 	 */
 	@Override
 	public void advance() {
@@ -51,27 +53,27 @@ public class NodeListIterator extends AbstractUniversalIterator<Node> {
 	}
 
 	/**
-	 * Retrieves the current node in the list.
+	 * Retrieves the current character in the sequence.
 	 * 
-	 * @return the current node
+	 * @return the current character
 	 */
 	@Override
-	public Node current() {
-		return list.item(pointer);
+	public Character current() {
+		return Character.valueOf(sequence.charAt(pointer));
 	}
 
 	/**
-	 * Checks whether this iterator has reached the end of the list.
+	 * Checks whether this iterator has reached the end of the sequence.
 	 * 
-	 * @return whether the end of the list has been reached
+	 * @return whether the end of the sequence has been reached
 	 */
 	@Override
 	public boolean isDone() {
-		return pointer >= list.getLength();
+		return pointer >= sequence.length();
 	}
 
 	/**
-	 * Moves this iterator to the beginning of the list.
+	 * Moves this iterator to the beginning of the sequence.
 	 */
 	@Override
 	public void reset() {

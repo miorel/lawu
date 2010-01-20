@@ -3,10 +3,14 @@ package com.googlecode.lawu.util.iterators;
 import java.io.IOException;
 
 /**
+ * <p>
  * Abstract definition of an iterator that gets lines from an input source.
+ * </p>
  * 
- * A subclass should override <tt>getNextLine()</tt> to define how the lines
- * are read and call <tt>init()</tt> from within the constructor.
+ * <p>
+ * A subclass should override <code>getNextLine()</code> to define how the
+ * lines are read and call <code>init()</code> from within the constructor.
+ * </p>
  * 
  * @author Miorel-Lucian Palii
  */
@@ -32,8 +36,8 @@ public abstract class LineIterator extends AbstractUniversalIterator<String> {
 	
 	/**
 	 * Reads the next line and prepares it to be returned by calls to
-	 * <tt>current()</tt>. If there is an I/O error, it's silently trapped, but
-	 * the iterator is set to done.
+	 * <code>current()</code>. If there is an I/O error, it's silently trapped,
+	 * but the iterator is set to done.
 	 */
 	@Override
 	public void advance() {
@@ -52,16 +56,18 @@ public abstract class LineIterator extends AbstractUniversalIterator<String> {
 
 	/**
 	 * Defines how this iterator reads lines. Implementations should signal
-	 * that there are no more lines by returning <tt>null</tt>. 
+	 * that there are no more lines by returning <code>null</code>. 
 	 * 
-	 * @return the contents of the next line, or <tt>null</tt> if there are
-	 * no more lines
+	 * @return the contents of the next line, or <code>null</code> if there are
+	 *         no more lines
 	 * @throws IOException if an I/O error occurs
 	 */
 	protected abstract String getNextLine() throws IOException;
 	
 	/**
 	 * Retrieves the current line.
+	 *
+	 * @return the current line
 	 */
 	@Override
 	public String current() {
@@ -80,7 +86,7 @@ public abstract class LineIterator extends AbstractUniversalIterator<String> {
 
 	/**
 	 * Does nothing in a newly-created iterator, otherwise throws an
-	 * IllegalStateException.
+	 * <code>IllegalStateException</code>.
 	 * 
 	 * @throws IllegalStateException if the iterator isn't "fresh"
 	 */

@@ -16,7 +16,7 @@ package com.googlecode.lawu.util.iterators;
 import java.util.Scanner;
 
 /**
- * A line iterator that reads from a <tt>Scanner</tt>.
+ * A line iterator that reads from a <code>Scanner</code>.
  * 
  * @author Miorel-Lucian Palii
  */
@@ -26,8 +26,8 @@ public class ScannerIterator extends LineIterator {
 	/**
 	 * Constructs an iterator that reads from the specified scanner.
 	 * 
-	 * @param scanner input source
-	 * @throws IllegalArgumentException if passed <tt>null</tt>
+	 * @param scanner the input source
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
 	public ScannerIterator(Scanner scanner) throws IllegalArgumentException {
 		if(scanner == null)
@@ -37,10 +37,10 @@ public class ScannerIterator extends LineIterator {
 	}
 
 	/**
-	 * Reads and returns the contents of the next line, or <tt>null</tt> if
+	 * Reads and returns the contents of the next line, or <code>null</code> if
 	 * there are no more lines.
 	 * 
-	 * @return the contents of the next line, or <tt>null</tt> if there are
+	 * @return the contents of the next line, or <code>null</code> if there are
 	 * no more lines
 	 */
 	@Override

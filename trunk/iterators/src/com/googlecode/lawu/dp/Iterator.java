@@ -14,11 +14,14 @@
 package com.googlecode.lawu.dp;
 
 /**
+ * <p>
  * The Gang of Four's favorite iterator interface. Abstracts the traversal of an
  * aggregate structure from the underlying representation. Note that method
  * names have been modified from those given by the Gang of Four but the
  * behavior is the same.
- * 
+ * </p>
+ *
+ * <p>
  * Use an iterator as follows:
  *
  * <pre>
@@ -27,6 +30,7 @@ package com.googlecode.lawu.dp;
  *    // do something with iter.current()
  * }
  * </pre>
+ * </p>
  * 
  * @author Miorel-Lucian Palii
  * @param <T> type over which the iteration takes place
@@ -36,8 +40,8 @@ public interface Iterator<T> {
 	 * Moves this iterator to the beginning of the traversal. Some iterators
 	 * cannot be reset once the iteration started. For example, an iterator
 	 * over the lines of an input stream probably can't reread old lines. But
-	 * all iterators should allow exception-less calls to <tt>reset()</tt>
-	 * before any calls to <tt>advance()</tt>.  
+	 * all iterators should allow exception-less calls to <code>reset()</code>
+	 * before any calls to <code>advance()</code>.  
 	 * 
 	 * @throws IllegalStateException if resetting this iterator is impossible
 	 */

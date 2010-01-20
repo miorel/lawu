@@ -16,11 +16,15 @@ package com.googlecode.lawu.util.iterators;
 import java.util.List;
 
 /**
+ * <p>
  * An iterator over a list.
- * 
+ * </p> 
+ *
+ * <p>
  * There is no defense mechanism preventing modification of the underlying
  * list while this iterator is in use. Any changes will therefore propagate
  * through to users of this iterator. Taking advantage of this is discouraged.
+ * </p>
  * 
  * @author Miorel-Lucian Palii
  * @param <T> type of elements in the list
@@ -33,13 +37,13 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> {
 	 * Constructs an iterator over the specified list.
 	 *  
 	 * @param list list over which to iterate
-	 * @throws IllegalArgumentException if passed <tt>null</tt>
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public ListIterator(List<T> list) {
+	public ListIterator(List<T> list) throws IllegalArgumentException {
 		if(list == null)
 			throw new IllegalArgumentException("Can't iterate over null list.");
 		this.list = list;
-		this.pointer = 0;
+		reset();
 	}
 
 	/**

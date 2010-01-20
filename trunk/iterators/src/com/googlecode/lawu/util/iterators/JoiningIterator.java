@@ -16,26 +16,26 @@ package com.googlecode.lawu.util.iterators;
 import com.googlecode.lawu.dp.Iterator;
 
 /**
- * Adapts a Gang of Four iterator to a <code>UniversalIterator</code> by
- * wrapping it.
+ * An iterator that joins the traversals of a group of iterators into one.
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T>
  */
-public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
-	private final Iterator<T> iterator;
+public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
+	private final Iterator<? extends Iterator<? extends T>> iterator;
 	
 	/**
-	 * Constructs an adapter for the specified iterator.
-	 * 
-	 * @param iterator the adaptee
-	 * @throws IllegalArgumentException if passed <code>null</code> 
+	 * Unfolds an iterator of iterators by joining the elements of its
+	 * elements.
+	 *  
+	 * @param iterator list over which to iterate
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public IteratorAdapter(Iterator<T> iterator) throws IllegalArgumentException {
+	public JoiningIterator(Iterator<? extends Iterator<? extends T>> iterator) throws IllegalArgumentException {
 		if(iterator == null)
-			throw new IllegalArgumentException("Can't adapt null iterator.");
+			throw new IllegalArgumentException("Can't unfold null iterator.");
 		this.iterator = iterator;
-		iterator.reset();
+		reset();
 	}
 	
 	/**
@@ -43,7 +43,11 @@ public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void advance() {
-		iterator.advance();
+		while(iterator.current().isDone() && !iterator.isDone()) {
+			iterator.advance();
+			iterator.current().reset();
+		}
+		iterator.current().advance();
 	}
 
 	/**
@@ -51,7 +55,7 @@ public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public T current() {
-		return iterator.current();
+		return iterator.current().current();
 	}
 
 	/**
@@ -66,7 +70,9 @@ public class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void reset() throws IllegalStateException {
+	public void reset() {
 		iterator.reset();
-	}	
+		if(!iterator.isDone())
+			iterator.current().reset();
+	}
 }

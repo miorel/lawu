@@ -16,7 +16,7 @@ package com.googlecode.lawu.util.iterators;
 import java.util.NoSuchElementException;
 
 /**
- * Skeleton implementation of a <tt>UniversalIterator</tt>. Subclasses need
+ * Skeleton implementation of a <code>UniversalIterator</code>. Subclasses need
  * only implement the Gang of Four iterator methods.
  * 
  * @author Miorel-Lucian Palii

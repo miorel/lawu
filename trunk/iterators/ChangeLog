@@ -1,5 +1,27 @@
 2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
 
+	* src/com/googlecode/lawu/util/iterators/IteratorAdapter.java:
+	  decided I don't need setIterator() after all, incorporated it into
+	  constructor
+	* src/com/googlecode/lawu/dp/Iterator.java,
+	  src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ArrayIterator.java,
+	  src/com/googlecode/lawu/util/iterators/IteratorAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/LineIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ListIterator.java,
+	  src/com/googlecode/lawu/util/iterators/NodeListIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ScannerIterator.java,
+	  src/com/googlecode/lawu/util/iterators/StreamIterator.java,
+	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java:
+	  improvements to Javadoc and minor coding style changes
+	* src/com/googlecode/lawu/util/Iterators.java,
+	  src/com/googlecode/lawu/util/iterators/CharacterIterator.java,
+	  src/com/googlecode/lawu/util/iterators/JoiningIterator.java,
+	  src/com/googlecode/lawu/util/iterators/MatchResultIterator.java:
+	  reviewed old code and reintroduced into project
+
+2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
+
 	* src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
 	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java:
 	  improved documentation

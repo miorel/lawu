@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 /**
- * A line iterator that can read from an <tt>InputStream</tt> and related
+ * A line iterator that can read from an <code>InputStream</code> and related
  * objects.
  * 
  * @author Miorel-Lucian Palii
@@ -32,10 +32,11 @@ public class StreamIterator extends LineIterator {
 	private final BufferedReader reader;
 	
 	/**
-	 * Constructs an iterator that reads from the specified reader.
+	 * Constructs an iterator that reads from the specified
+	 * <code>BufferedReader</code>.
 	 * 	
-	 * @param reader input source
-	 * @throws IllegalArgumentException if passed <tt>null</tt>
+	 * @param reader the input source
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
 	public StreamIterator(BufferedReader reader) throws IllegalArgumentException {
 		if(reader == null)
@@ -45,10 +46,11 @@ public class StreamIterator extends LineIterator {
 	}
 
 	/**
-	 * Constructs an iterator that reads from the specified reader.
+	 * Constructs an iterator that reads from the specified
+	 * <code>Reader</code>.
 	 * 
-	 * @param reader input source
-	 * @throws IllegalArgumentException if passed <tt>null</tt>
+	 * @param reader the input source
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
 	public StreamIterator(Reader reader) throws IllegalArgumentException {
 		if(reader == null)
@@ -60,8 +62,8 @@ public class StreamIterator extends LineIterator {
 	/**
 	 * Constructs an iterator that reads from the specified stream.
 	 * 
-	 * @param stream input source
-	 * @throws IllegalArgumentException if passed <tt>null</tt>
+	 * @param stream the input source
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
 	public StreamIterator(InputStream stream) throws IllegalArgumentException {
 		if(stream == null)
@@ -73,9 +75,9 @@ public class StreamIterator extends LineIterator {
 	/**
 	 * Constructs an iterator that reads from the specified file.
 	 * 
-	 * @param file input source
+	 * @param file the input source
 	 * @throws FileNotFoundException if the file can't be opened for reading
-	 * @throws IllegalArgumentException if passed <tt>null</tt>
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
 	public StreamIterator(File file) throws FileNotFoundException, IllegalArgumentException {
 		if(file == null)
@@ -87,9 +89,9 @@ public class StreamIterator extends LineIterator {
 	/**
 	 * Constructs an iterator that reads from the file with the specified name.
 	 * 
-	 * @param file name of file to use as input source
+	 * @param file name of the file to use as input source
 	 * @throws FileNotFoundException if the file can't be opened for reading
-	 * @throws IllegalArgumentException if passed <tt>null</tt>
+	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
 	public StreamIterator(String file) throws FileNotFoundException, IllegalArgumentException {
 		if(file == null)
@@ -99,11 +101,11 @@ public class StreamIterator extends LineIterator {
 	}
 	
 	/**
-	 * Reads and returns the contents of the next line, or <tt>null</tt> if
+	 * Reads and returns the contents of the next line, or <code>null</code> if
 	 * there are no more lines.
 	 * 
-	 * @return the contents of the next line, or <tt>null</tt> if there are
-	 * no more lines
+	 * @return the contents of the next line, or <code>null</code> if there are
+	 *         no more lines
 	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
