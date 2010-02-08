@@ -1,8 +1,8 @@
 #summary Description of a typical layout for project and subprojects
 #labels Phase-Design
 
-* use Ant for building the project
-* src directory to hold the source
-* bin directory to hold compiled code
-* res directory to hold resources
-* dist directory to hold distribution items
+  * use Ant for building the project
+  * src directory to hold the source
+  * bin directory to hold compiled code
+  * res directory to hold resources
+  * dist directory to hold distribution items

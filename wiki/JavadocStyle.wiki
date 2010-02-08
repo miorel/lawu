@@ -1,0 +1,7 @@
+#summary Style guide for Javadoc
+#labels Phase-Implementation,Phase-Support
+
+  * completeness is a must
+  * mark things with <code> tags as appropriate
+  * @-tags are sentence fragments, not full sentences, and should therefore not end with periods
+  * if @-tags are multi-line, indent properly
