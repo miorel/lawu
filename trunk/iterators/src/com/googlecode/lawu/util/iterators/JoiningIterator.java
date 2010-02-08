@@ -29,9 +29,8 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	 * elements.
 	 *  
 	 * @param iterator list over which to iterate
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public JoiningIterator(Iterator<? extends Iterator<? extends T>> iterator) throws IllegalArgumentException {
+	public JoiningIterator(Iterator<? extends Iterator<? extends T>> iterator) {
 		if(iterator == null)
 			throw new IllegalArgumentException("Can't unfold null iterator.");
 		this.iterator = iterator;

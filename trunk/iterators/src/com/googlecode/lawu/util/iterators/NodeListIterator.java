@@ -33,9 +33,8 @@ public class NodeListIterator extends AbstractUniversalIterator<Node> {
 	 * Constructs an iterator over the nodes of the specified list.
 	 *  
 	 * @param list list over which to iterate
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public NodeListIterator(NodeList list) throws IllegalArgumentException {
+	public NodeListIterator(NodeList list) {
 		if(list == null)
 			throw new IllegalArgumentException("Can't iterate over null list.");
 		this.list = list;

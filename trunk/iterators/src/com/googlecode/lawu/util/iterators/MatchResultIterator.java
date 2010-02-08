@@ -29,9 +29,8 @@ public class MatchResultIterator extends AbstractUniversalIterator<String> {
 	 * result.
 	 *  
 	 * @param match the match result
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public MatchResultIterator(MatchResult match) throws IllegalArgumentException {
+	public MatchResultIterator(MatchResult match) {
 		if(match == null)
 			throw new IllegalArgumentException("Can't iterate over null match result.");
 		this.match = match;

@@ -33,11 +33,13 @@ import org.w3c.dom.NodeList;
 import com.googlecode.lawu.dp.Iterator;
 import com.googlecode.lawu.util.iterators.ArrayIterator;
 import com.googlecode.lawu.util.iterators.CharacterIterator;
+import com.googlecode.lawu.util.iterators.FilteredIterator;
 import com.googlecode.lawu.util.iterators.GOFIteratorAdapter;
 import com.googlecode.lawu.util.iterators.JEnumerationAdapter;
 import com.googlecode.lawu.util.iterators.JIteratorAdapter;
 import com.googlecode.lawu.util.iterators.JoiningIterator;
 import com.googlecode.lawu.util.iterators.ListIterator;
+import com.googlecode.lawu.util.iterators.MappingIterator;
 import com.googlecode.lawu.util.iterators.MatchResultIterator;
 import com.googlecode.lawu.util.iterators.NodeListIterator;
 import com.googlecode.lawu.util.iterators.ScannerIterator;
@@ -298,28 +300,27 @@ public class Iterators {
 //		return new FileHierarchyIterator(file);
 //	}
 
-//TODO actually make this work
-//	/**
-//	 * Maps the elements of a traversal using the specified mapping function.
-//	 * The mapping is done lazily, i.e. the backing mapper does not get to see
-//	 * the elements of the mapped traversal until the returned iterator is
-//	 * explicitly asked for an element. Defining a mapping function with side
-//	 * effects might be a bad idea, but if you insist on applying it to all
-//	 * elements without doing anything else, you may find the
-//	 * <code>traverse()</code> method of use.
-//	 * 
-//	 * @param <T> mapping function's domain (type of the input traversal)
-//	 * @param <U> mapping function's range (type over which the returned
-//	 *            iterator iterates)
-//	 * @param mapper mapping function
-//	 * @param iterator traversal to map
-//	 * @return an iterator that performs the same traversal as the input but
-//	 *         which applies the mapping function to each element before
-//	 *         returning it
-//	 */
-//	public static <T, U> UniversalIterator<U> map(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
-//		return new MappingIterator<T, U>(mapper, iterator);
-//	}
+	/**
+	 * Maps the elements of a traversal using the specified mapping function.
+	 * The mapping is done lazily, i.e. the backing mapper does not get to see
+	 * the elements of the mapped traversal until the returned iterator is
+	 * explicitly asked for an element. Defining a mapping function with side
+	 * effects might be a bad idea, but if you insist on applying it to all
+	 * elements without doing anything else, you may find the
+	 * <code>traverse()</code> method of use.
+	 * 
+	 * @param <T> domain of mapping function (type of the input traversal)
+	 * @param <U> range of mapping function (type over which the returned
+	 *            iterator iterates)
+	 * @param mapper mapping function
+	 * @param iterator traversal to map
+	 * @return an iterator that performs the same traversal as the input but
+	 *         which applies the mapping function to each element before
+	 *         returning it
+	 */
+	public static <T, U> UniversalIterator<U> map(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
+		return new MappingIterator<T, U>(mapper, iterator);
+	}
 
 	/**
 	 * Keeps only those elements of a traversal which pass the specified filter.
@@ -330,9 +331,9 @@ public class Iterators {
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
 	 */
-//	public static <T> UniversalIterator<T> filter(Filter<? super T> filter, Iterator<? extends T> iterator) {
-//		return new FilteredIterator<T>(filter, iterator);
-//	}
+	public static <T> UniversalIterator<T> filter(Filter<? super T> filter, Iterator<? extends T> iterator) {
+		return new FilteredIterator<T>(filter, iterator);
+	}
 
 	/**
 	 * Unix-esque synonym for <code>filter()</code>.
@@ -343,9 +344,9 @@ public class Iterators {
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
 	 */
-//	public static <T> UniversalIterator<T> grep(Filter<? super T> filter,	Iterator<? extends T> iterator) {
-//		return filter(filter, iterator);
-//	}
+	public static <T> UniversalIterator<T> grep(Filter<? super T> filter, Iterator<? extends T> iterator) {
+		return filter(filter, iterator);
+	}
 
 	/**
 	 * Unfolds an iterator of iterators by joining the elements of its elements

@@ -37,9 +37,8 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> {
 	 * Constructs an iterator over the specified list.
 	 *  
 	 * @param list list over which to iterate
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public ListIterator(List<T> list) throws IllegalArgumentException {
+	public ListIterator(List<T> list) {
 		if(list == null)
 			throw new IllegalArgumentException("Can't iterate over null list.");
 		this.list = list;

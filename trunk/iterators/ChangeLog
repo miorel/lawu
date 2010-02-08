@@ -1,3 +1,32 @@
+2010-02-08  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* build.xml, lawu-iterators.properties, src/overview.html:
+	  added task for generating Javadoc, but it's currently commented out
+	  because of some unexpected {@inheritDoc} problems
+	* src/com/googlecode/lawu/util/Filter.java,
+	  src/com/googlecode/lawu/util/Mapper.java,
+	  src/com/googlecode/lawu/util/iterators/FilteredIterator.java,
+	  src/com/googlecode/lawu/util/iterators/MappingIterator.java:
+	  reviewed old code and copied into project, now with documentation!
+	* src/com/googlecode/lawu/util/Iterators.java:
+	  readded map(), filter() (and its synonym grep()) now that the
+	  corresponding classes are in the codebase again 
+
+2010-01-20  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ArrayIterator.java,
+	  src/com/googlecode/lawu/util/iterators/CharacterIterator.java,
+	  src/com/googlecode/lawu/util/iterators/GOFIteratorAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/JEnumerationAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/JIteratorAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/JoiningIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ListIterator.java,
+	  src/com/googlecode/lawu/util/iterators/MatchResultIterator.java,
+	  src/com/googlecode/lawu/util/iterators/NodeListIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ScannerIterator.java,
+	  src/com/googlecode/lawu/util/iterators/StreamIterator.java:
+	  decided all the "throws IllegalArgumentException" labels were not
+	  necessary
+
 2010-01-20  Miorel-Lucian Palii <mlpalii@gmail.com>
 
 	* src/com/googlecode/lawu/util/iterators/GOFIteratorAdapter.java:

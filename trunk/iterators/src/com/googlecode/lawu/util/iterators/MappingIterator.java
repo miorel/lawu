@@ -14,43 +14,50 @@
 package com.googlecode.lawu.util.iterators;
 
 import com.googlecode.lawu.dp.Iterator;
+import com.googlecode.lawu.util.Mapper;
 
 /**
- * Adapts a Gang of Four iterator to a <code>UniversalIterator</code> by
- * wrapping it.
+ * Applies a mapping function to a traversal.
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T> domain of mapping function
+ * @param <U> range of mapping function
  */
-public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
-	private final Iterator<T> iterator;
+public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
+	private final Mapper<? super T, ? extends U> mapper;
+	private final Iterator<? extends T> iterator;
 	
 	/**
-	 * Constructs an adapter for the specified iterator.
+	 * Constructs an iterator that applies the specified mapping function to
+	 * the given traversal. 
 	 * 
-	 * @param iterator the adaptee
+	 * @param mapper the mapping function
+	 * @param iterator the traversal to map
 	 */
-	public GOFIteratorAdapter(Iterator<T> iterator) {
+	public MappingIterator(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
 		if(iterator == null)
-			throw new IllegalArgumentException("Can't adapt null iterator.");
+			throw new IllegalArgumentException("Can't map null iterator.");
+		if(mapper == null)
+			throw new IllegalArgumentException("Can't use null mapper.");
 		this.iterator = iterator;
-		iterator.reset();
+		this.mapper = mapper;
+		reset();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void advance() {
-		iterator.advance();
+		this.iterator.advance();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public T current() {
-		return iterator.current();
+	public U current() {
+		return mapper.map(iterator.current());
 	}
 
 	/**
@@ -60,12 +67,12 @@ public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	public boolean isDone() {
 		return iterator.isDone();
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void reset() throws IllegalStateException {
+	public void reset() {
 		iterator.reset();
-	}	
+	}
 }

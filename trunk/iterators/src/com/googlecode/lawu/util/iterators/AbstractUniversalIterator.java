@@ -55,7 +55,7 @@ public abstract class AbstractUniversalIterator<T> implements UniversalIterator<
 	 * ability to remove an element is not inherent to iterators, nor does it
 	 * make sense for all iterators. 
 	 * 
-	 * @throws UnsupportedOperationException always.
+	 * @throws UnsupportedOperationException always
 	 */
 	@Override
 	public void remove() throws UnsupportedOperationException {

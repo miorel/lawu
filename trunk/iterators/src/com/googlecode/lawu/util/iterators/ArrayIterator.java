@@ -36,9 +36,8 @@ public class ArrayIterator<T> extends AbstractUniversalIterator<T> {
 	 * makes for some syntactic sugar.
 	 *  
 	 * @param array array over which to iterate
-	 * @throws IllegalArgumentException if passed a <code>null</code> array
 	 */
-	public ArrayIterator(T... array) throws IllegalArgumentException {
+	public ArrayIterator(T... array) {
 		if(array == null)
 			throw new IllegalArgumentException("Can't iterate over null array.");
 		this.array = array;

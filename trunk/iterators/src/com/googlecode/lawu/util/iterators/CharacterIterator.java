@@ -35,9 +35,8 @@ public class CharacterIterator extends AbstractUniversalIterator<Character> {
 	 * <code>CharSequence</code>.
 	 *  
 	 * @param sequence sequence over whose characters to iterate
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public CharacterIterator(CharSequence sequence) throws IllegalArgumentException {
+	public CharacterIterator(CharSequence sequence) {
 		if(sequence == null)
 			throw new IllegalArgumentException("Can't iterate over null sequence.");
 		this.sequence = sequence;

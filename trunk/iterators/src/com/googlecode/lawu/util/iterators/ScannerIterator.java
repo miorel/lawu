@@ -27,9 +27,8 @@ public class ScannerIterator extends LineIterator {
 	 * Constructs an iterator that reads from the specified scanner.
 	 * 
 	 * @param scanner the input source
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public ScannerIterator(Scanner scanner) throws IllegalArgumentException {
+	public ScannerIterator(Scanner scanner) {
 		if(scanner == null)
 			throw new IllegalArgumentException("Can't read lines from null scanner.");
 		this.scanner = scanner;
@@ -41,7 +40,7 @@ public class ScannerIterator extends LineIterator {
 	 * there are no more lines.
 	 * 
 	 * @return the contents of the next line, or <code>null</code> if there are
-	 * no more lines
+	 *         no more lines
 	 */
 	@Override
 	protected String getNextLine() {

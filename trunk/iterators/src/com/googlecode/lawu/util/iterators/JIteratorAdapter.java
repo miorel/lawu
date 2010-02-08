@@ -31,9 +31,8 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	 * <code>Iterator</code>.
 	 *  
 	 * @param iterator the adaptee
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public JIteratorAdapter(Iterator<T> iterator) throws IllegalArgumentException {
+	public JIteratorAdapter(Iterator<T> iterator) {
 		if(iterator == null)
 			throw new IllegalArgumentException("Can't adapt null iterator.");
 		this.iterator = iterator;
@@ -44,9 +43,8 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	 * Constructs an iterator that adapts the specified <code>Iterable</code>.
 	 *  
 	 * @param iterable the adaptee
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public JIteratorAdapter(Iterable<T> iterable) throws IllegalArgumentException {
+	public JIteratorAdapter(Iterable<T> iterable) {
 		if(iterable == null)
 			throw new IllegalArgumentException("Can't adapt null iterable.");
 		Iterator<T> iterator = iterable.iterator();

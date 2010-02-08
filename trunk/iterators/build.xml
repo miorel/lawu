@@ -57,6 +57,29 @@
 		</jar>
 	</target>
 	
+	<!--
+	<target name="doc" description="generates Javadocs for the project">
+		<javadoc
+			access="package"
+			author="true"
+			destdir="${doc.dir}"
+			doctitle="Title goes here"
+			nodeprecated="false"
+			nodeprecatedlist="false"
+			noindex="false"
+			nonavbar="false"
+			notree="false"
+			overview="${src.dir}/overview.html"
+			source="1.6"
+			sourcepath="${src.dir}"
+			splitindex="true"
+			use="true"
+			version="false">
+			<link href="http://java.sun.com/javase/6/docs/api/"/>
+		</javadoc>
+	</target>
+	-->
+	
 	<target name="dist" description="creates all distribution files"
 		depends="src-dist,bin-dist"/>
 </project>

@@ -32,9 +32,8 @@ public class JEnumerationAdapter<T> extends IteratorAdapter<T> {
 	 * <code>Enumeration</code>.
 	 *  
 	 * @param enumeration the adaptee
-	 * @throws IllegalArgumentException if passed <code>null</code>
 	 */
-	public JEnumerationAdapter(Enumeration<T> enumeration) throws IllegalArgumentException {
+	public JEnumerationAdapter(Enumeration<T> enumeration) {
 		if(enumeration == null)
 			throw new IllegalArgumentException("Can't adapt null iterator.");
 		this.enumeration = enumeration;
