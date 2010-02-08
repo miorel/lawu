@@ -11,27 +11,28 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-
 package com.googlecode.lawu.util.iterators;
 
 import java.util.Enumeration;
 
 /**
- * Adapter for a Java <code>Enumeration</code>. Because
- * <code>Enumeration</code>s do not provide a <code>reset()</code>-like
- * operation, the returned iterator will not be resettable.
+ * Adapter for a Java <code>Enumeration</code>. Because <code>Enumeration</code>
+ * s do not provide a <code>reset()</code>-like operation, the returned iterator
+ * will not be resettable.
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T>
+ *            type over which the iteration takes place
  */
 public class JEnumerationAdapter<T> extends IteratorAdapter<T> {
 	private final Enumeration<T> enumeration;
-	
+
 	/**
-	 * Constructs an iterator that adapts the specified
-	 * <code>Enumeration</code>.
-	 *  
-	 * @param enumeration the adaptee
+	 * Constructs an iterator that adapts the specified <code>Enumeration</code>
+	 * .
+	 * 
+	 * @param enumeration
+	 *            the adaptee
 	 */
 	public JEnumerationAdapter(Enumeration<T> enumeration) {
 		if(enumeration == null)
@@ -39,7 +40,7 @@ public class JEnumerationAdapter<T> extends IteratorAdapter<T> {
 		this.enumeration = enumeration;
 		init();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

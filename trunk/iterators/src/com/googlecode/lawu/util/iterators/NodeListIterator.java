@@ -17,22 +17,22 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * An iterator over the nodes of a <code>NodeList</code>.
- * 
- * There is no defense mechanism preventing modification of the underlying
- * list while this iterator is in use. Any changes will therefore propagate
- * through to users of this iterator. Taking advantage of this is discouraged.
+ * An iterator over the nodes of a <code>NodeList</code>. There is no defense
+ * mechanism preventing modification of the underlying list while this iterator
+ * is in use. Any changes will therefore propagate through to users of this
+ * iterator. Taking advantage of this is discouraged.
  * 
  * @author Miorel-Lucian Palii
  */
 public class NodeListIterator extends AbstractUniversalIterator<Node> {
 	private final NodeList list;
 	private int pointer;
-	
+
 	/**
 	 * Constructs an iterator over the nodes of the specified list.
-	 *  
-	 * @param list list over which to iterate
+	 * 
+	 * @param list
+	 *            list over which to iterate
 	 */
 	public NodeListIterator(NodeList list) {
 		if(list == null)

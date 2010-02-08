@@ -15,20 +15,19 @@ package com.googlecode.lawu.util;
 
 /**
  * <p>
- * Defines an operation for deciding whether or not to &quot;keep&quot;
- * objects.
- * </p> 
- * 
+ * Defines an operation for deciding whether or not to &quot;keep&quot; objects.
+ * </p>
  * <p>
  * It's difficult to describe this interface without using the word
  * &quot;filter&quot; because that's basically what it's intended to do. The
  * single operation takes an object and gives back a boolean verdict on the
- * matter. A filter will typically be applied to each member of a collection
- * to obtain the subset of that collection that has some desired property.  
+ * matter. A filter will typically be applied to each member of a collection to
+ * obtain the subset of that collection that has some desired property.
  * </p>
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type to be filtered
+ * @param <T>
+ *            type to be filtered
  */
 public interface Filter<T> {
 	/**
@@ -40,11 +39,12 @@ public interface Filter<T> {
 			return object != null;
 		}
 	};
-	
+
 	/**
-	 * Checks if the given object passes this filter. 
+	 * Checks if the given object passes this filter.
 	 * 
-	 * @param object the object to check
+	 * @param object
+	 *            the object to check
 	 * @return whether or not to keep the object
 	 */
 	public boolean keep(T object);

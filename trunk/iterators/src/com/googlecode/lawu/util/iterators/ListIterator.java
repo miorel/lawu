@@ -18,25 +18,26 @@ import java.util.List;
 /**
  * <p>
  * An iterator over a list.
- * </p> 
- *
+ * </p>
  * <p>
- * There is no defense mechanism preventing modification of the underlying
- * list while this iterator is in use. Any changes will therefore propagate
- * through to users of this iterator. Taking advantage of this is discouraged.
+ * There is no defense mechanism preventing modification of the underlying list
+ * while this iterator is in use. Any changes will therefore propagate through
+ * to users of this iterator. Taking advantage of this is discouraged.
  * </p>
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type of elements in the list
+ * @param <T>
+ *            type of elements in the list
  */
 public class ListIterator<T> extends AbstractUniversalIterator<T> {
 	private final List<T> list;
 	private int pointer;
-	
+
 	/**
 	 * Constructs an iterator over the specified list.
-	 *  
-	 * @param list list over which to iterate
+	 * 
+	 * @param list
+	 *            list over which to iterate
 	 */
 	public ListIterator(List<T> list) {
 		if(list == null)

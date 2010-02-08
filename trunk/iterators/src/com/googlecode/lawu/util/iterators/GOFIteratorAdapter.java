@@ -20,15 +20,17 @@ import com.googlecode.lawu.dp.Iterator;
  * wrapping it.
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T>
+ *            type over which the iteration takes place
  */
 public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	private final Iterator<T> iterator;
-	
+
 	/**
 	 * Constructs an adapter for the specified iterator.
 	 * 
-	 * @param iterator the adaptee
+	 * @param iterator
+	 *            the adaptee
 	 */
 	public GOFIteratorAdapter(Iterator<T> iterator) {
 		if(iterator == null)
@@ -67,5 +69,5 @@ public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	@Override
 	public void reset() throws IllegalStateException {
 		iterator.reset();
-	}	
+	}
 }

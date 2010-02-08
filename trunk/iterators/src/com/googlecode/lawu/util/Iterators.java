@@ -52,7 +52,6 @@ import com.googlecode.lawu.util.iterators.UniversalIterator;
  * ultimate goal is to have an intuitive interface for straightforwardly dealing
  * with all kinds of traversals.
  * </p>
- * 
  * <p>
  * For example, the <code>iterator()</code> method in this class comes in
  * numerous flavors. Its intent is to give the most logical iterator based on
@@ -66,7 +65,6 @@ import com.googlecode.lawu.util.iterators.UniversalIterator;
  * <code>null</code>, silly, just an iterator which has no elements). Similarly,
  * calling it with a single element will return a single element iterator.
  * </p>
- * 
  * <p>
  * In addition to providing a variety of iterators, this class comes with
  * methods for concisely accomplishing some common tasks, such as sorting,
@@ -82,7 +80,6 @@ import com.googlecode.lawu.util.iterators.UniversalIterator;
  * still Java), but you might make a few Perl hackers smile. (Or maybe you'll
  * just annoy everyone.)
  * </p>
- * 
  * <p>
  * All iterators returned by this class are <code>UniversalIterator</code>s,
  * which means that you can use them whether you need an <code>Iterable</code>,
@@ -103,8 +100,10 @@ public class Iterators {
 	/**
 	 * Returns an iterator over the passed elements or element array.
 	 * 
-	 * @param <T> type of elements
-	 * @param array the elements over which to iterate
+	 * @param <T>
+	 *            type of elements
+	 * @param array
+	 *            the elements over which to iterate
 	 * @return an iterator over the elements
 	 */
 	public static <T> UniversalIterator<T> iterator(T... array) {
@@ -114,8 +113,10 @@ public class Iterators {
 	/**
 	 * Returns an iterator over the list.
 	 * 
-	 * @param <T> type of list elements
-	 * @param list the list over which to iterate
+	 * @param <T>
+	 *            type of list elements
+	 * @param list
+	 *            the list over which to iterate
 	 * @return an iterator over the list
 	 */
 	public static <T> UniversalIterator<T> iterator(List<T> list) {
@@ -125,8 +126,10 @@ public class Iterators {
 	/**
 	 * Adapts a Gang of Four iterator to a <code>UniversalIterator</code>.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param iterator the adaptee
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the adaptee
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterator<T> iterator) {
@@ -136,8 +139,10 @@ public class Iterators {
 	/**
 	 * Adapts an <code>Iterable</code> to a <code>UniversalIterator</code>.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param iterable the adaptee
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterable
+	 *            the adaptee
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterable<T> iterable) {
@@ -149,8 +154,10 @@ public class Iterators {
 	 * Because Java iterators do not provide a <code>reset()</code>-like method,
 	 * the returned iterator will not be resettable.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param iterator the adaptee
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the adaptee
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(java.util.Iterator<T> iterator) {
@@ -162,9 +169,11 @@ public class Iterators {
 	 * roundabout way of checking for <code>null</code>. It's provided for
 	 * symmetry.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param iterator the "adaptee"
-	 * @return the argument 
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the "adaptee"
+	 * @return the argument
 	 */
 	public static <T> UniversalIterator<T> adapt(UniversalIterator<T> iterator) {
 		if(iterator == null)
@@ -174,12 +183,13 @@ public class Iterators {
 
 	/**
 	 * Adapts an <code>Enumeration</code> to a <code>UniversalIterator</code>.
-	 * Because <code>Enumeration</code>s do not provide a
-	 * <code>reset()</code>-like method, the returned iterator will not be
-	 * resettable.
+	 * Because <code>Enumeration</code>s do not provide a <code>reset()</code>
+	 * -like method, the returned iterator will not be resettable.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param enumeration the adaptee
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param enumeration
+	 *            the adaptee
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Enumeration<T> enumeration) {
@@ -189,7 +199,8 @@ public class Iterators {
 	/**
 	 * Returns an iterator over the nodes in the node list.
 	 * 
-	 * @param list the node list
+	 * @param list
+	 *            the node list
 	 * @return a node iterator
 	 */
 	public static UniversalIterator<Node> iterator(NodeList list) {
@@ -200,7 +211,8 @@ public class Iterators {
 	 * Returns an iterator over the characters of the specified
 	 * <code>CharSequence</code>.
 	 * 
-	 * @param sequence the character sequence
+	 * @param sequence
+	 *            the character sequence
 	 * @return a character iterator
 	 */
 	public static UniversalIterator<Character> iterator(CharSequence sequence) {
@@ -211,7 +223,8 @@ public class Iterators {
 	 * Returns an iterator over the capturing groups of the specified
 	 * <code>MatchResult</code>
 	 * 
-	 * @param match the match result
+	 * @param match
+	 *            the match result
 	 * @return a match result iterator
 	 */
 	public static UniversalIterator<String> iterator(MatchResult match) {
@@ -221,7 +234,8 @@ public class Iterators {
 	/**
 	 * Returns an iterator over the lines of the specified <code>Reader</code>.
 	 * 
-	 * @param reader the input source
+	 * @param reader
+	 *            the input source
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(Reader reader) {
@@ -232,7 +246,8 @@ public class Iterators {
 	 * Returns an iterator over the lines of the specified
 	 * <code>BufferedReader</code>.
 	 * 
-	 * @param reader the input source
+	 * @param reader
+	 *            the input source
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(BufferedReader reader) {
@@ -243,7 +258,8 @@ public class Iterators {
 	 * Returns an iterator over the lines of the specified
 	 * <code>InputStream</code>.
 	 * 
-	 * @param stream the input source
+	 * @param stream
+	 *            the input source
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(InputStream stream) {
@@ -253,52 +269,59 @@ public class Iterators {
 	/**
 	 * Returns an iterator over the lines of the specified file descriptor.
 	 * 
-	 * @param fd the input source
+	 * @param fd
+	 *            the input source
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(FileDescriptor fd) {
 		return new StreamIterator(fd);
 	}
-	
+
 	/**
 	 * Returns an iterator over the lines of the specified file.
 	 * 
-	 * @param file the input source
-	 * @return a line iterator 
-	 * @throws FileNotFoundException if the file can't be opened for reading
+	 * @param file
+	 *            the input source
+	 * @return a line iterator
+	 * @throws FileNotFoundException
+	 *             if the file can't be opened for reading
 	 */
-	public static UniversalIterator<String> lines(File file) throws FileNotFoundException {
+	public static UniversalIterator<String> lines(File file)
+		throws FileNotFoundException {
 		return new StreamIterator(file);
 	}
 
 	/**
 	 * Returns an iterator over the lines of the specified <code>Scanner</code>.
 	 * 
-	 * @param scanner the input source
+	 * @param scanner
+	 *            the input source
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(Scanner scanner) {
 		return new ScannerIterator(scanner);
 	}
-	
-//TODO actually make this work
-//	/**
-//	 * Returns an iterator over all the files in the directory hierarchy with
-//	 * the specified root. That is, this method is similar to the Unix
-//	 * <code>find</code> utility: if the <code>File</code> given to this method
-//	 * is a directory, the returned iterator will recurse through the directory
-//	 * tree in a depth-first manner. If the argument represents a normal file,
-//	 * the iterator will have a single element, the <code>File</code> itself.
-//	 * Directory tree nodes on the same level will be traversed in
-//	 * lexicographical order based on path, in a system-dependent manner
-//	 * (case-sensitive on Windows, case-insensitive on Unix).
-//	 * 
-//	 * @param file root of the directory hierarchy to traverse
-//	 * @return an iterator over the directory hierarchy
-//	 */
-//	public static UniversalIterator<File> iterator(File file) {
-//		return new FileHierarchyIterator(file);
-//	}
+
+	// TODO actually make this work
+	// /**
+	// * Returns an iterator over all the files in the directory hierarchy with
+	// * the specified root. That is, this method is similar to the Unix
+	// * <code>find</code> utility: if the <code>File</code> given to this
+	// method
+	// * is a directory, the returned iterator will recurse through the
+	// directory
+	// * tree in a depth-first manner. If the argument represents a normal file,
+	// * the iterator will have a single element, the <code>File</code> itself.
+	// * Directory tree nodes on the same level will be traversed in
+	// * lexicographical order based on path, in a system-dependent manner
+	// * (case-sensitive on Windows, case-insensitive on Unix).
+	// *
+	// * @param file root of the directory hierarchy to traverse
+	// * @return an iterator over the directory hierarchy
+	// */
+	// public static UniversalIterator<File> iterator(File file) {
+	// return new FileHierarchyIterator(file);
+	// }
 
 	/**
 	 * Maps the elements of a traversal using the specified mapping function.
@@ -309,42 +332,55 @@ public class Iterators {
 	 * elements without doing anything else, you may find the
 	 * <code>traverse()</code> method of use.
 	 * 
-	 * @param <T> domain of mapping function (type of the input traversal)
-	 * @param <U> range of mapping function (type over which the returned
+	 * @param <T>
+	 *            domain of mapping function (type of the input traversal)
+	 * @param <U>
+	 *            range of mapping function (type over which the returned
 	 *            iterator iterates)
-	 * @param mapper mapping function
-	 * @param iterator traversal to map
+	 * @param mapper
+	 *            mapping function
+	 * @param iterator
+	 *            traversal to map
 	 * @return an iterator that performs the same traversal as the input but
 	 *         which applies the mapping function to each element before
 	 *         returning it
 	 */
-	public static <T, U> UniversalIterator<U> map(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
+	public static <T, U> UniversalIterator<U> map(
+		Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
 		return new MappingIterator<T, U>(mapper, iterator);
 	}
 
 	/**
 	 * Keeps only those elements of a traversal which pass the specified filter.
 	 * 
-	 * @param <T> type over which the returned iterator iterates
-	 * @param filter the filtering method
-	 * @param iterator the traversal to filter
+	 * @param <T>
+	 *            type over which the returned iterator iterates
+	 * @param filter
+	 *            the filtering method
+	 * @param iterator
+	 *            the traversal to filter
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
 	 */
-	public static <T> UniversalIterator<T> filter(Filter<? super T> filter, Iterator<? extends T> iterator) {
+	public static <T> UniversalIterator<T> filter(Filter<? super T> filter,
+		Iterator<? extends T> iterator) {
 		return new FilteredIterator<T>(filter, iterator);
 	}
 
 	/**
 	 * Unix-esque synonym for <code>filter()</code>.
 	 * 
-	 * @param <T> type over which the returned iterator iterates
-	 * @param filter the filtering method
-	 * @param iterator the traversal to filter
+	 * @param <T>
+	 *            type over which the returned iterator iterates
+	 * @param filter
+	 *            the filtering method
+	 * @param iterator
+	 *            the traversal to filter
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
 	 */
-	public static <T> UniversalIterator<T> grep(Filter<? super T> filter, Iterator<? extends T> iterator) {
+	public static <T> UniversalIterator<T> grep(Filter<? super T> filter,
+		Iterator<? extends T> iterator) {
 		return filter(filter, iterator);
 	}
 
@@ -352,37 +388,46 @@ public class Iterators {
 	 * Unfolds an iterator of iterators by joining the elements of its elements
 	 * into a single iterator.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param iterator the iterator to unfold
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the iterator to unfold
 	 * @return an iterator over all the elements of the given iterators
 	 */
-	public static <T> UniversalIterator<T> join(Iterator<? extends Iterator<? extends T>> iterator) {
+	public static <T> UniversalIterator<T> join(
+		Iterator<? extends Iterator<? extends T>> iterator) {
 		return new JoiningIterator<T>(iterator);
 	}
 
 	/**
 	 * Joins the specified iterators into a single one.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param iterators the iterators to join
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterators
+	 *            the iterators to join
 	 * @return an iterator over all the elements of the given iterators
 	 */
-	public static <T> UniversalIterator<T> join(Iterator<? extends T>... iterators) {
+	public static <T> UniversalIterator<T> join(
+		Iterator<? extends T>... iterators) {
 		return join(iterator(iterators));
 	}
 
 	/**
 	 * Orders a traversal using the default comparison method.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param iterator the traversal to sort
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the traversal to sort
 	 * @return an iterator which gives the same elements as the input but sorted
 	 *         in order according to the default comparison method of the input
 	 *         type
 	 */
-	public static <T extends Comparable<T>> UniversalIterator<T> sort(Iterator<? extends T> iterator) {
+	public static <T extends Comparable<T>> UniversalIterator<T> sort(
+		Iterator<? extends T> iterator) {
 		List<T> list = new ArrayList<T>();
-		for(T element: adapt(iterator))
+		for(T element : adapt(iterator))
 			list.add(element);
 		Collections.sort(list);
 		return iterator(list);
@@ -391,15 +436,19 @@ public class Iterators {
 	/**
 	 * Orders a traversal using the specified comparison method.
 	 * 
-	 * @param <T> type over which the iteration takes place
-	 * @param comparator the comparison method
-	 * @param iterator the traversal to sort
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param comparator
+	 *            the comparison method
+	 * @param iterator
+	 *            the traversal to sort
 	 * @return an iterator which gives the same elements as the input but sorted
 	 *         in order according to the given comparison method
 	 */
-	public static <T> UniversalIterator<T> sort(Comparator<? super T> comparator, Iterator<? extends T> iterator) {
+	public static <T> UniversalIterator<T> sort(
+		Comparator<? super T> comparator, Iterator<? extends T> iterator) {
 		List<T> list = new ArrayList<T>();
-		for(T element: adapt(iterator))
+		for(T element : adapt(iterator))
 			list.add(element);
 		Collections.sort(list, comparator);
 		return iterator(list);
@@ -410,9 +459,11 @@ public class Iterators {
 	 * nothing. This might be useful for forcing evaluation of lazy methods,
 	 * such as <code>map()</code>.
 	 * 
-	 * @param iterator the iterator to traverse
+	 * @param iterator
+	 *            the iterator to traverse
 	 */
 	public static void traverse(Iterator<?> iterator) {
-		for(iterator.reset(); !iterator.isDone(); iterator.advance());
+		for(iterator.reset(); !iterator.isDone(); iterator.advance())
+			;
 	}
 }

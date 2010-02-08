@@ -22,15 +22,17 @@ import java.util.Scanner;
  */
 public class ScannerIterator extends LineIterator {
 	private final Scanner scanner;
-	
+
 	/**
 	 * Constructs an iterator that reads from the specified scanner.
 	 * 
-	 * @param scanner the input source
+	 * @param scanner
+	 *            the input source
 	 */
 	public ScannerIterator(Scanner scanner) {
 		if(scanner == null)
-			throw new IllegalArgumentException("Can't read lines from null scanner.");
+			throw new IllegalArgumentException(
+				"Can't read lines from null scanner.");
 		this.scanner = scanner;
 		init();
 	}

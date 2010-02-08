@@ -17,7 +17,6 @@ package com.googlecode.lawu.util.iterators;
  * <p>
  * An iterator over the characters of a <code>CharSequence</code>.
  * </p>
- * 
  * <p>
  * There is no defense mechanism preventing modification of the underlying
  * sequence while this iterator is in use. Any changes will therefore propagate
@@ -33,16 +32,18 @@ public class CharacterIterator extends AbstractUniversalIterator<Character> {
 	/**
 	 * Constructs an iterator over the characters of the specified
 	 * <code>CharSequence</code>.
-	 *  
-	 * @param sequence sequence over whose characters to iterate
+	 * 
+	 * @param sequence
+	 *            sequence over whose characters to iterate
 	 */
 	public CharacterIterator(CharSequence sequence) {
 		if(sequence == null)
-			throw new IllegalArgumentException("Can't iterate over null sequence.");
+			throw new IllegalArgumentException(
+				"Can't iterate over null sequence.");
 		this.sequence = sequence;
 		reset();
 	}
-	
+
 	/**
 	 * Advances this iterator to the next position in the sequence.
 	 */

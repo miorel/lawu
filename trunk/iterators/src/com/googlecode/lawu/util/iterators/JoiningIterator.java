@@ -23,12 +23,12 @@ import com.googlecode.lawu.dp.Iterator;
  */
 public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	private final Iterator<? extends Iterator<? extends T>> iterator;
-	
+
 	/**
-	 * Unfolds an iterator of iterators by joining the elements of its
-	 * elements.
-	 *  
-	 * @param iterator list over which to iterate
+	 * Unfolds an iterator of iterators by joining the elements of its elements.
+	 * 
+	 * @param iterator
+	 *            list over which to iterate
 	 */
 	public JoiningIterator(Iterator<? extends Iterator<? extends T>> iterator) {
 		if(iterator == null)
@@ -36,7 +36,7 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 		this.iterator = iterator;
 		reset();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

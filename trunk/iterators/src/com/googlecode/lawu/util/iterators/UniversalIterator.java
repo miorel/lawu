@@ -18,13 +18,15 @@ import java.util.Enumeration;
 import com.googlecode.lawu.dp.Iterator;
 
 /**
- * Interface combining Java's <code>Iterator</code>, <codett>Iterable</code>,
- * and <code>Enumeration</code> with the Gang of Four iterator. 
- *
+ * Interface combining Java's <code>Iterator</code>, <code>Iterable</code>,
+ * and <code>Enumeration</code> with the Gang of Four iterator.
+ * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T>
+ *            type over which the iteration takes place
  */
-public interface UniversalIterator<T> extends Iterator<T>, java.util.Iterator<T>, Iterable<T>, Enumeration<T> {
+public interface UniversalIterator<T> extends Iterator<T>,
+	java.util.Iterator<T>, Iterable<T>, Enumeration<T> {
 	/**
 	 * {@inheritDoc}
 	 */

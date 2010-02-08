@@ -23,20 +23,22 @@ import java.util.regex.MatchResult;
 public class MatchResultIterator extends AbstractUniversalIterator<String> {
 	private final MatchResult match;
 	private int pointer;
-	
+
 	/**
 	 * Constructs an iterator over the captured groups of the specified match
 	 * result.
-	 *  
-	 * @param match the match result
+	 * 
+	 * @param match
+	 *            the match result
 	 */
 	public MatchResultIterator(MatchResult match) {
 		if(match == null)
-			throw new IllegalArgumentException("Can't iterate over null match result.");
+			throw new IllegalArgumentException(
+				"Can't iterate over null match result.");
 		this.match = match;
 		reset();
 	}
-	
+
 	/**
 	 * Advances this iterator to the next captured group.
 	 */

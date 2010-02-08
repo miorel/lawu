@@ -17,25 +17,26 @@ package com.googlecode.lawu.util.iterators;
  * <p>
  * An iterator over an array.
  * </p>
- * 
  * <p>
- * There is no defense mechanism preventing modification of the underlying
- * array while this iterator is in use. Any changes will therefore propagate
- * through to users of this iterator. Taking advantage of this is discouraged.
+ * There is no defense mechanism preventing modification of the underlying array
+ * while this iterator is in use. Any changes will therefore propagate through
+ * to users of this iterator. Taking advantage of this is discouraged.
  * </p>
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type of elements in the array
+ * @param <T>
+ *            type of elements in the array
  */
 public class ArrayIterator<T> extends AbstractUniversalIterator<T> {
 	private final T[] array;
 	private int pointer;
-		
+
 	/**
 	 * Constructs an iterator over the specified array. The varargs parameter
 	 * makes for some syntactic sugar.
-	 *  
-	 * @param array array over which to iterate
+	 * 
+	 * @param array
+	 *            array over which to iterate
 	 */
 	public ArrayIterator(T... array) {
 		if(array == null)

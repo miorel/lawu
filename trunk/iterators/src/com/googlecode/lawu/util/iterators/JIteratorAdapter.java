@@ -17,11 +17,12 @@ import java.util.Iterator;
 
 /**
  * Adapter for a Java <code>Iterator</code>. Because Java's
- * <code>Iterator</code>s do not provide a <code>reset()</code>-like
- * operation, the returned iterator will not be resettable.
+ * <code>Iterator</code>s do not provide a <code>reset()</code>-like operation,
+ * the returned iterator will not be resettable.
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T>
+ *            type over which the iteration takes place
  */
 public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	private final Iterator<T> iterator;
@@ -29,8 +30,9 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	/**
 	 * Constructs an iterator that adapts the specified Java
 	 * <code>Iterator</code>.
-	 *  
-	 * @param iterator the adaptee
+	 * 
+	 * @param iterator
+	 *            the adaptee
 	 */
 	public JIteratorAdapter(Iterator<T> iterator) {
 		if(iterator == null)
@@ -41,8 +43,9 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 
 	/**
 	 * Constructs an iterator that adapts the specified <code>Iterable</code>.
-	 *  
-	 * @param iterable the adaptee
+	 * 
+	 * @param iterable
+	 *            the adaptee
 	 */
 	public JIteratorAdapter(Iterable<T> iterable) {
 		if(iterable == null)
@@ -53,7 +56,7 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 		this.iterator = iterator;
 		init();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

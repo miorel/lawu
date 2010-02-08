@@ -1,4 +1,28 @@
 2010-02-08  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/dp/Iterator.java,
+	  src/com/googlecode/lawu/util/Mapper.java,
+	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/FilteredIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ListIterator.java,
+	  src/com/googlecode/lawu/util/iterators/JoiningIterator.java,
+	  src/com/googlecode/lawu/util/iterators/IteratorAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/NodeListIterator.java,
+	  src/com/googlecode/lawu/util/iterators/MatchResultIterator.java,
+	  src/com/googlecode/lawu/util/iterators/ScannerIterator.java,
+	  src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/JIteratorAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/ArrayIterator.java,
+	  src/com/googlecode/lawu/util/iterators/StreamIterator.java,
+	  src/com/googlecode/lawu/util/iterators/LineIterator.java,
+	  src/com/googlecode/lawu/util/iterators/CharacterIterator.java,
+	  src/com/googlecode/lawu/util/iterators/GOFIteratorAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/JEnumerationAdapter.java,
+	  src/com/googlecode/lawu/util/iterators/MappingIterator.java,
+	  src/com/googlecode/lawu/util/Filter.java,
+	  src/com/googlecode/lawu/util/Iterators.java:
+	  automated code cleanup...
+
+2010-02-08  Miorel-Lucian Palii <mlpalii@gmail.com>
 	* build.xml, lawu-iterators.properties, src/overview.html:
 	  added task for generating Javadoc, but it's currently commented out
 	  because of some unexpected {@inheritDoc} problems

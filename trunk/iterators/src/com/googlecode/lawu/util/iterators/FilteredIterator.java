@@ -20,21 +20,25 @@ import com.googlecode.lawu.util.Filter;
  * Applies a filter to a traversal.
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T>
+ *            type over which the iteration takes place
  */
 public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	private final Filter<? super T> filter;
 	private final Iterator<? extends T> iterator;
 	private boolean beginning;
-	
+
 	/**
 	 * Constructs an iterator that applies the specified filter to the given
-	 * traversal. 
+	 * traversal.
 	 * 
-	 * @param filter the filter to apply
-	 * @param iterator the traversal to filter
+	 * @param filter
+	 *            the filter to apply
+	 * @param iterator
+	 *            the traversal to filter
 	 */
-	public FilteredIterator(Filter<? super T> filter, Iterator<? extends T> iterator) {
+	public FilteredIterator(Filter<? super T> filter,
+		Iterator<? extends T> iterator) {
 		if(iterator == null)
 			throw new IllegalArgumentException("Can't filter null iterator.");
 		if(filter == null)
@@ -44,7 +48,7 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 		this.beginning = false;
 		reset();
 	}
-	
+
 	/**
 	 * {inheritDoc}
 	 */
@@ -73,7 +77,7 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void reset() {
-		if(!beginning) { 
+		if(!beginning) {
 			iterator.reset();
 			if(!filter.keep(iterator.current()))
 				advance();

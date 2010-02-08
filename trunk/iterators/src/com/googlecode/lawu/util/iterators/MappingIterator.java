@@ -20,21 +20,26 @@ import com.googlecode.lawu.util.Mapper;
  * Applies a mapping function to a traversal.
  * 
  * @author Miorel-Lucian Palii
- * @param <T> domain of mapping function
- * @param <U> range of mapping function
+ * @param <T>
+ *            domain of mapping function
+ * @param <U>
+ *            range of mapping function
  */
 public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
 	private final Mapper<? super T, ? extends U> mapper;
 	private final Iterator<? extends T> iterator;
-	
+
 	/**
-	 * Constructs an iterator that applies the specified mapping function to
-	 * the given traversal. 
+	 * Constructs an iterator that applies the specified mapping function to the
+	 * given traversal.
 	 * 
-	 * @param mapper the mapping function
-	 * @param iterator the traversal to map
+	 * @param mapper
+	 *            the mapping function
+	 * @param iterator
+	 *            the traversal to map
 	 */
-	public MappingIterator(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
+	public MappingIterator(Mapper<? super T, ? extends U> mapper,
+		Iterator<? extends T> iterator) {
 		if(iterator == null)
 			throw new IllegalArgumentException("Can't map null iterator.");
 		if(mapper == null)
@@ -43,7 +48,7 @@ public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
 		this.mapper = mapper;
 		reset();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -67,7 +72,7 @@ public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
 	public boolean isDone() {
 		return iterator.isDone();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */

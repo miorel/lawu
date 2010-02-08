@@ -20,30 +20,32 @@ package com.googlecode.lawu.dp;
  * names have been modified from those given by the Gang of Four but the
  * behavior is the same.
  * </p>
- *
  * <p>
  * Use an iterator as follows:
- *
+ * 
  * <pre>
  * Iterator&lt;SomeType&gt; iter = someMethod();
  * for(iter.reset(); !iter.isDone(); iter.advance()) {
- *    // do something with iter.current()
+ *  // do something with iter.current()
  * }
  * </pre>
+ * 
  * </p>
  * 
  * @author Miorel-Lucian Palii
- * @param <T> type over which the iteration takes place
+ * @param <T>
+ *            type over which the iteration takes place
  */
 public interface Iterator<T> {
 	/**
 	 * Moves this iterator to the beginning of the traversal. Some iterators
-	 * cannot be reset once the iteration started. For example, an iterator
-	 * over the lines of an input stream probably can't reread old lines. But
-	 * all iterators should allow exception-less calls to <code>reset()</code>
-	 * before any calls to <code>advance()</code>.  
+	 * cannot be reset once the iteration started. For example, an iterator over
+	 * the lines of an input stream probably can't reread old lines. But all
+	 * iterators should allow exception-less calls to <code>reset()</code>
+	 * before any calls to <code>advance()</code>.
 	 * 
-	 * @throws IllegalStateException if resetting this iterator is impossible
+	 * @throws IllegalStateException
+	 *             if resetting this iterator is impossible
 	 */
 	public void reset() throws IllegalStateException;
 
@@ -56,8 +58,8 @@ public interface Iterator<T> {
 	public boolean isDone();
 
 	/**
-	 * Advances this iterator to the next element in the traversal. Behavior
-	 * is undefined if the iterator is done.
+	 * Advances this iterator to the next element in the traversal. Behavior is
+	 * undefined if the iterator is done.
 	 */
 	public void advance();
 
