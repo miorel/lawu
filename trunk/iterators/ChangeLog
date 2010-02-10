@@ -1,3 +1,46 @@
+2010-02-09  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* com/googlecode/lawu/dp/ReversibleIterator.java:
+	  created interface with one method
+	* com/googlecode/lawu/util/iterators/ListIterator.java:
+	  made reversible
+	* com/googlecode/lawu/util/Iterators.java:
+	  sprinkled some instanceof in the adapt() method family, to avoid creating
+	  unnecessary adapter objects... is this a good idea? I can't say I like it
+	  completely, but the danger of a maintenance nightmare is minimal here;
+	  also removed the null check in the adapt() for UniversalIterator 
+
+2010-02-09  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* com/googlecode/lawu/math/Quaternion.java,
+	  com/googlecode/lawu/math/Vector.java,
+	  com/googlecode/lawu/util/CloneableObject.java,
+	  com/googlecode/lawu/util/Pair.java,
+	  com/googlecode/lawu/util/Strings.java,
+	  com/googlecode/lawu/util/Triple.java,
+	  com/googlecode/lawu/util/Wrapper.java,
+	  com/googlecode/lawu/util/event/EventAdapter.java:
+	  reviewed old code and copied into project, guess this is becoming less and
+	  less just an iterators framework
+	* com/googlecode/lawu/util/Iterators.java:
+	  added the reverse() method, considering a ReversibleIterator interface
+	  for efficiency, or is it still too early, Donald?
+
+2010-02-08  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* com/googlecode/lawu/util/iterators/ScannerIterator.java,
+	  com/googlecode/lawu/util/iterators/MappingIterator.java,
+	  com/googlecode/lawu/util/iterators/MatchResultIterator.java,
+	  com/googlecode/lawu/util/iterators/StreamIterator.java,
+	  com/googlecode/lawu/util/iterators/CharacterIterator.java,
+	  com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  com/googlecode/lawu/util/iterators/FilteredIterator.java,
+	  com/googlecode/lawu/util/iterators/UniversalIterator.java,
+	  com/googlecode/lawu/util/iterators/NodeListIterator.java,
+	  com/googlecode/lawu/util/Iterators.java:
+	  undid some of the automated code cleanup changes 
+	* build.xml:
+	  jar manifest will now contain some versioning information
+	* lawu-iterators.properties:
+	  bumped version number to 0.0.2
+
 2010-02-08  Miorel-Lucian Palii <mlpalii@gmail.com>
 	* src/com/googlecode/lawu/dp/Iterator.java,
 	  src/com/googlecode/lawu/util/Mapper.java,
@@ -52,7 +95,6 @@
 	  necessary
 
 2010-01-20  Miorel-Lucian Palii <mlpalii@gmail.com>
-
 	* src/com/googlecode/lawu/util/iterators/GOFIteratorAdapter.java:
 	  refactoring of older IteratorAdapter
 	* src/com/googlecode/lawu/util/iterators/IteratorAdapter.java:
@@ -69,7 +111,6 @@
 	  lines() family of methods to read lines from various input sources
 
 2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
-
 	* src/com/googlecode/lawu/util/iterators/IteratorAdapter.java:
 	  decided I don't need setIterator() after all, incorporated it into
 	  constructor
@@ -91,7 +132,6 @@
 	  reviewed old code and reintroduced into project
 
 2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
-
 	* src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
 	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java:
 	  improved documentation
@@ -111,7 +151,6 @@
 	  reinvention of the old ReaderIterator!
 
 2010-01-19  Miorel-Lucian Palii <mlpalii@gmail.com>
-
 	* src/com/googlecode/lawu/dp/Iterator.java,
 	  src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
 	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java:

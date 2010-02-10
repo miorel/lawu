@@ -38,8 +38,7 @@ public class CharacterIterator extends AbstractUniversalIterator<Character> {
 	 */
 	public CharacterIterator(CharSequence sequence) {
 		if(sequence == null)
-			throw new IllegalArgumentException(
-				"Can't iterate over null sequence.");
+			throw new IllegalArgumentException("Can't iterate over null sequence.");
 		this.sequence = sequence;
 		reset();
 	}

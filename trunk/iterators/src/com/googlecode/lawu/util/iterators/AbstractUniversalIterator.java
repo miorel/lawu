@@ -23,8 +23,7 @@ import java.util.NoSuchElementException;
  * @param <T>
  *            type over which the iteration takes place
  */
-public abstract class AbstractUniversalIterator<T> implements
-	UniversalIterator<T> {
+public abstract class AbstractUniversalIterator<T> implements UniversalIterator<T> {
 	/**
 	 * Default constructor, does nothing.
 	 */
@@ -62,8 +61,7 @@ public abstract class AbstractUniversalIterator<T> implements
 	 */
 	@Override
 	public void remove() throws UnsupportedOperationException {
-		throw new UnsupportedOperationException(
-			"This operation is an abomination.");
+		throw new UnsupportedOperationException("This operation is an abomination.");
 	}
 
 	/**

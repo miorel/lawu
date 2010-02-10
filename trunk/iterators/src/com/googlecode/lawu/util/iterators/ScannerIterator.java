@@ -31,8 +31,7 @@ public class ScannerIterator extends LineIterator {
 	 */
 	public ScannerIterator(Scanner scanner) {
 		if(scanner == null)
-			throw new IllegalArgumentException(
-				"Can't read lines from null scanner.");
+			throw new IllegalArgumentException("Can't read lines from null scanner.");
 		this.scanner = scanner;
 		init();
 	}

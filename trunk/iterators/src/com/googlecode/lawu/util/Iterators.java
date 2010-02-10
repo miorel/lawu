@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
@@ -42,6 +43,7 @@ import com.googlecode.lawu.util.iterators.ListIterator;
 import com.googlecode.lawu.util.iterators.MappingIterator;
 import com.googlecode.lawu.util.iterators.MatchResultIterator;
 import com.googlecode.lawu.util.iterators.NodeListIterator;
+import com.googlecode.lawu.util.iterators.ReversibleIterator;
 import com.googlecode.lawu.util.iterators.ScannerIterator;
 import com.googlecode.lawu.util.iterators.StreamIterator;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
@@ -119,7 +121,7 @@ public class Iterators {
 	 *            the list over which to iterate
 	 * @return an iterator over the list
 	 */
-	public static <T> UniversalIterator<T> iterator(List<T> list) {
+	public static <T> ReversibleIterator<T> iterator(List<T> list) {
 		return new ListIterator<T>(list);
 	}
 
@@ -133,7 +135,7 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterator<T> iterator) {
-		return new GOFIteratorAdapter<T>(iterator);
+		return iterator instanceof UniversalIterator ? (UniversalIterator<T>) iterator : new GOFIteratorAdapter<T>(iterator);
 	}
 
 	/**
@@ -146,7 +148,7 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterable<T> iterable) {
-		return new JIteratorAdapter<T>(iterable);
+		return iterable instanceof UniversalIterator ? (UniversalIterator<T>) iterable : new JIteratorAdapter<T>(iterable);
 	}
 
 	/**
@@ -161,13 +163,12 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(java.util.Iterator<T> iterator) {
-		return new JIteratorAdapter<T>(iterator);
+		return iterator instanceof UniversalIterator ? (UniversalIterator<T>) iterator : new JIteratorAdapter<T>(iterator);
 	}
 
 	/**
-	 * Returns its argument. This method is rather useless, except perhaps as a
-	 * roundabout way of checking for <code>null</code>. It's provided for
-	 * symmetry.
+	 * Returns its argument. This method is rather useless. It's provided for
+	 * orthogonality.
 	 * 
 	 * @param <T>
 	 *            type over which the iteration takes place
@@ -176,8 +177,6 @@ public class Iterators {
 	 * @return the argument
 	 */
 	public static <T> UniversalIterator<T> adapt(UniversalIterator<T> iterator) {
-		if(iterator == null)
-			throw new IllegalArgumentException("Can't adapt null iterator.");
 		return iterator;
 	}
 
@@ -193,7 +192,7 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Enumeration<T> enumeration) {
-		return new JEnumerationAdapter<T>(enumeration);
+		return enumeration instanceof UniversalIterator ? (UniversalIterator<T>) enumeration : new JEnumerationAdapter<T>(enumeration);
 	}
 
 	/**
@@ -286,8 +285,7 @@ public class Iterators {
 	 * @throws FileNotFoundException
 	 *             if the file can't be opened for reading
 	 */
-	public static UniversalIterator<String> lines(File file)
-		throws FileNotFoundException {
+	public static UniversalIterator<String> lines(File file) throws FileNotFoundException {
 		return new StreamIterator(file);
 	}
 
@@ -345,8 +343,7 @@ public class Iterators {
 	 *         which applies the mapping function to each element before
 	 *         returning it
 	 */
-	public static <T, U> UniversalIterator<U> map(
-		Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
+	public static <T, U> UniversalIterator<U> map(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
 		return new MappingIterator<T, U>(mapper, iterator);
 	}
 
@@ -362,8 +359,7 @@ public class Iterators {
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
 	 */
-	public static <T> UniversalIterator<T> filter(Filter<? super T> filter,
-		Iterator<? extends T> iterator) {
+	public static <T> UniversalIterator<T> filter(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		return new FilteredIterator<T>(filter, iterator);
 	}
 
@@ -379,8 +375,7 @@ public class Iterators {
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
 	 */
-	public static <T> UniversalIterator<T> grep(Filter<? super T> filter,
-		Iterator<? extends T> iterator) {
+	public static <T> UniversalIterator<T> grep(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		return filter(filter, iterator);
 	}
 
@@ -394,8 +389,7 @@ public class Iterators {
 	 *            the iterator to unfold
 	 * @return an iterator over all the elements of the given iterators
 	 */
-	public static <T> UniversalIterator<T> join(
-		Iterator<? extends Iterator<? extends T>> iterator) {
+	public static <T> UniversalIterator<T> join(Iterator<? extends Iterator<? extends T>> iterator) {
 		return new JoiningIterator<T>(iterator);
 	}
 
@@ -408,8 +402,7 @@ public class Iterators {
 	 *            the iterators to join
 	 * @return an iterator over all the elements of the given iterators
 	 */
-	public static <T> UniversalIterator<T> join(
-		Iterator<? extends T>... iterators) {
+	public static <T> UniversalIterator<T> join(Iterator<? extends T>... iterators) {
 		return join(iterator(iterators));
 	}
 
@@ -427,7 +420,7 @@ public class Iterators {
 	public static <T extends Comparable<T>> UniversalIterator<T> sort(
 		Iterator<? extends T> iterator) {
 		List<T> list = new ArrayList<T>();
-		for(T element : adapt(iterator))
+		for(T element: adapt(iterator))
 			list.add(element);
 		Collections.sort(list);
 		return iterator(list);
@@ -445,10 +438,9 @@ public class Iterators {
 	 * @return an iterator which gives the same elements as the input but sorted
 	 *         in order according to the given comparison method
 	 */
-	public static <T> UniversalIterator<T> sort(
-		Comparator<? super T> comparator, Iterator<? extends T> iterator) {
+	public static <T> UniversalIterator<T> sort(Comparator<? super T> comparator, Iterator<? extends T> iterator) {
 		List<T> list = new ArrayList<T>();
-		for(T element : adapt(iterator))
+		for(T element: adapt(iterator))
 			list.add(element);
 		Collections.sort(list, comparator);
 		return iterator(list);
@@ -463,7 +455,29 @@ public class Iterators {
 	 *            the iterator to traverse
 	 */
 	public static void traverse(Iterator<?> iterator) {
-		for(iterator.reset(); !iterator.isDone(); iterator.advance())
-			;
+		for(iterator.reset(); !iterator.isDone(); iterator.advance());
+	}
+	
+	/**
+	 * Reverses a traversal. Note that this will probably require actually
+	 * going through the entire traversal, so avoid calling with never-ending
+	 * iterators unless you like infinite loops.
+	 * 
+	 * @param iterator
+	 *            the traversal to reverse
+	 * @return an iterator which gives the same elements as the input but in
+	 *         reverse order
+	 */
+	public static <T> ReversibleIterator<T> reverse(Iterator<T> iterator) {
+		ReversibleIterator<T> ret;
+		if(iterator instanceof ReversibleIterator)
+			ret = ((ReversibleIterator<T>) iterator).reverse();
+		else {
+			LinkedList<T> list = new LinkedList<T>();
+			for(T element: adapt(iterator))
+				list.addFirst(element);
+			return iterator(list);	
+		}
+		return ret;
 	}
 }

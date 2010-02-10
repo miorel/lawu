@@ -52,6 +52,10 @@
 	<target name="bin-dist" description="creates a binary distribution" depends="bin">
 		<mkdir dir="${dist.dir}"/>
 		<jar destfile="${dist.dir}/${dist.name}.jar">
+			<manifest>
+				<attribute name="Implementation-Title" value="${ant.project.name}"/>
+				<attribute name="Implementation-Version" value="${project.version}"/>
+			</manifest>
 			<fileset dir="${bin.dir}" includes="**/*.class"/>
 			<fileset dir="${res.dir}"/>
 		</jar>

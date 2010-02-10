@@ -41,8 +41,7 @@ public class StreamIterator extends LineIterator {
 	 */
 	public StreamIterator(BufferedReader reader) {
 		if(reader == null)
-			throw new IllegalArgumentException(
-				"Can't read lines from null reader.");
+			throw new IllegalArgumentException("Can't read lines from null reader.");
 		this.reader = reader;
 		init();
 	}
@@ -55,8 +54,7 @@ public class StreamIterator extends LineIterator {
 	 */
 	public StreamIterator(Reader reader) {
 		if(reader == null)
-			throw new IllegalArgumentException(
-				"Can't read lines from null reader.");
+			throw new IllegalArgumentException("Can't read lines from null reader.");
 		this.reader = new BufferedReader(reader);
 		init();
 	}
@@ -69,8 +67,7 @@ public class StreamIterator extends LineIterator {
 	 */
 	public StreamIterator(InputStream stream) {
 		if(stream == null)
-			throw new IllegalArgumentException(
-				"Can't read lines from null stream.");
+			throw new IllegalArgumentException("Can't read lines from null stream.");
 		this.reader = new BufferedReader(new InputStreamReader(stream));
 		init();
 	}
@@ -85,8 +82,7 @@ public class StreamIterator extends LineIterator {
 	 */
 	public StreamIterator(File file) throws FileNotFoundException {
 		if(file == null)
-			throw new IllegalArgumentException(
-				"Can't read lines from null file.");
+			throw new IllegalArgumentException("Can't read lines from null file.");
 		this.reader = new BufferedReader(new FileReader(file));
 		init();
 	}
@@ -99,8 +95,7 @@ public class StreamIterator extends LineIterator {
 	 */
 	public StreamIterator(FileDescriptor fd) {
 		if(fd == null)
-			throw new IllegalArgumentException(
-				"Can't read lines from null file descriptor.");
+			throw new IllegalArgumentException("Can't read lines from null file descriptor.");
 		this.reader = new BufferedReader(new FileReader(fd));
 		init();
 	}
@@ -115,8 +110,7 @@ public class StreamIterator extends LineIterator {
 	 */
 	public StreamIterator(String file) throws FileNotFoundException {
 		if(file == null)
-			throw new IllegalArgumentException(
-				"Can't read lines from null file.");
+			throw new IllegalArgumentException("Can't read lines from null file.");
 		this.reader = new BufferedReader(new FileReader(file));
 		init();
 	}

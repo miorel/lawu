@@ -13,22 +13,20 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-import java.util.Enumeration;
-
-import com.googlecode.lawu.dp.Iterator;
 
 /**
- * Interface combining Java's <code>Iterator</code>, <code>Iterable</code>,
- * and <code>Enumeration</code> with the Gang of Four iterator.
+ * Interface for an iterator that can be reversed.
  * 
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
  */
-public interface UniversalIterator<T> extends Iterator<T>, java.util.Iterator<T>, Iterable<T>, Enumeration<T> {
+public interface ReversibleIterator<T> extends UniversalIterator<T> {
 	/**
-	 * {@inheritDoc}
+	 * Gives a copy of this iterator that visits exactly the same elements but
+	 * in reverse order.
+	 * 
+	 * @return the reverse of this iterator
 	 */
-	@Override
-	public UniversalIterator<T> iterator();
+	public ReversibleIterator<T> reverse();
 }

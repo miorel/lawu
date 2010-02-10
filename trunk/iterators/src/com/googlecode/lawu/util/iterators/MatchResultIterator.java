@@ -33,8 +33,7 @@ public class MatchResultIterator extends AbstractUniversalIterator<String> {
 	 */
 	public MatchResultIterator(MatchResult match) {
 		if(match == null)
-			throw new IllegalArgumentException(
-				"Can't iterate over null match result.");
+			throw new IllegalArgumentException("Can't iterate over null match result.");
 		this.match = match;
 		reset();
 	}

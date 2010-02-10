@@ -38,8 +38,7 @@ public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
 	 * @param iterator
 	 *            the traversal to map
 	 */
-	public MappingIterator(Mapper<? super T, ? extends U> mapper,
-		Iterator<? extends T> iterator) {
+	public MappingIterator(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
 		if(iterator == null)
 			throw new IllegalArgumentException("Can't map null iterator.");
 		if(mapper == null)

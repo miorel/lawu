@@ -29,9 +29,13 @@ import java.util.List;
  * @param <T>
  *            type of elements in the list
  */
-public class ListIterator<T> extends AbstractUniversalIterator<T> {
+public class ListIterator<T> extends AbstractUniversalIterator<T> implements ReversibleIterator<T>, Cloneable {
 	private final List<T> list;
 	private int pointer;
+	
+	private final int increment;
+	private final int begin;
+	private final int end;
 
 	/**
 	 * Constructs an iterator over the specified list.
@@ -40,18 +44,34 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> {
 	 *            list over which to iterate
 	 */
 	public ListIterator(List<T> list) {
-		if(list == null)
-			throw new IllegalArgumentException("Can't iterate over null list.");
 		this.list = list;
+		this.increment = 1;
+		this.begin = 0;
+		this.end = list.size();
 		reset();
 	}
 
+	private ListIterator(ListIterator<T> iterator, boolean reverse) {
+		this.list = iterator.list;
+		if(!reverse) {
+			this.increment = iterator.increment;
+			this.begin = iterator.begin;
+			this.end = iterator.end;
+		}
+		else {
+			this.increment = -iterator.increment;
+			this.begin = iterator.end;
+			this.end = iterator.begin;			
+		}
+	}
+	
 	/**
 	 * Advances this iterator to the next position in the list.
 	 */
 	@Override
 	public void advance() {
-		++pointer;
+		if(!isDone())
+			pointer += increment;
 	}
 
 	/**
@@ -71,7 +91,7 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public boolean isDone() {
-		return pointer >= list.size();
+		return pointer == end;
 	}
 
 	/**
@@ -79,6 +99,14 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void reset() {
-		pointer = 0;
+		pointer = begin;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public ListIterator<T> reverse() {
+		return new ListIterator<T>(this, true);
 	}
 }

@@ -37,8 +37,7 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	 * @param iterator
 	 *            the traversal to filter
 	 */
-	public FilteredIterator(Filter<? super T> filter,
-		Iterator<? extends T> iterator) {
+	public FilteredIterator(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		if(iterator == null)
 			throw new IllegalArgumentException("Can't filter null iterator.");
 		if(filter == null)
