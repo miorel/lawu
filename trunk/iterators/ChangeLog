@@ -1,40 +1,97 @@
-2010-02-09  Miorel-Lucian Palii <mlpalii@gmail.com>
-	* com/googlecode/lawu/dp/ReversibleIterator.java:
+2010-02-14  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/util/IteratorAdapter.java,
+	  src/com/googlecode/lawu/util/JEnumerationAdapter.java,
+	  src/com/googlecode/lawu/util/JIteratorAdapter.java:
+	  fixed bug in how empty iterators were dealt with
+	* src/com/googlecode/lawu/util/DelegatingList.java,
+	  src/com/googlecode/lawu/util/DelegatingMap.java:
+	  use composition for lists and maps without code repetition
+	* src/com/googlecode/lawu/json/AbstractJsonValue.java,
+	  src/com/googlecode/lawu/json/JsonArray.java,
+	  src/com/googlecode/lawu/json/JsonBoolean.java,
+	  src/com/googlecode/lawu/json/JsonNull.java,
+	  src/com/googlecode/lawu/json/JsonNumber.java,
+	  src/com/googlecode/lawu/json/JsonObject.java,
+	  src/com/googlecode/lawu/json/JsonString.java,
+	  src/com/googlecode/lawu/json/JsonValue.java:
+	  JSON (JavaScript Object Notation) data types
+	* src/com/googlecode/lawu/json/JsonParser.java:
+	  a (rather ugly) JSON parser, definitely needs to be improved
+
+2010-02-12  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/thread/SpecializedThread.java,
+	  src/com/googlecode/lawu/nio/SelectingThread.java:
+	  thread subclass around selector and abstracted superclass for specialized
+	  threads
+
+2010-02-11  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/util/ListIterator.java:
+	  recreated as reversible abstract iterator for traversing lists and
+	  list-like structures
+	* src/com/googlecode/lawu/util/JListIterator.java:
+	  refactoring of the old ListIterator as a subclass of the new ListIterator
+	* src/com/googlecode/lawu/util/ArrayIterator.java,
+	  src/com/googlecode/lawu/util/CharacterIterator.java,
+	  src/com/googlecode/lawu/util/MatchResultIterator.java,
+	  src/com/googlecode/lawu/util/NodeListIterator.java:
+	  now redone as subclasses of ListIterator
+	* src/com/googlecode/lawu/dp/Iterator.java:
+	  minor improvements to documentation
+	* src/com/googlecode/lawu/util/iterators/TreeIterator.java:
+	  abstract iterator for traversing trees and tree-like structures, largely
+	  based on FileHierarchyIterator in old code
+	* src/com/googlecode/lawu/util/iterators/FileHierarchyIterator.java,
+	  src/com/googlecode/lawu/util/iterators/NodeHierarchyIterator.java:
+	  tree iterators over a file and a DOM node hierarchy, respectively
+	* src/com/googlecode/lawu/util/Iterators.java:
+	  introduced tree() family of methods for iterating over tree-like object
+	  hierarchies (using the aforementioned as the backing classes); relabeled
+	  the applicable methods as returning ReversibleIterators
+	* build.xml:
+	  a project name of lawu is now more appropriate, guess I'll have to
+	  refactor the Subversion repository as well at some point
+	* lawu.properties:
+	  rename of lawu-iterators.properties
+	* src/com/googlecode/lawu/util/event/JEventAdapter.java:
+	  rename of EventAdapter
+
+2010-02-10  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/util/iterators/ReversibleIterator.java:
 	  created interface with one method
-	* com/googlecode/lawu/util/iterators/ListIterator.java:
+	* src/com/googlecode/lawu/util/iterators/ListIterator.java:
 	  made reversible
-	* com/googlecode/lawu/util/Iterators.java:
+	* src/com/googlecode/lawu/util/Iterators.java:
 	  sprinkled some instanceof in the adapt() method family, to avoid creating
 	  unnecessary adapter objects... is this a good idea? I can't say I like it
 	  completely, but the danger of a maintenance nightmare is minimal here;
 	  also removed the null check in the adapt() for UniversalIterator 
 
 2010-02-09  Miorel-Lucian Palii <mlpalii@gmail.com>
-	* com/googlecode/lawu/math/Quaternion.java,
-	  com/googlecode/lawu/math/Vector.java,
-	  com/googlecode/lawu/util/CloneableObject.java,
-	  com/googlecode/lawu/util/Pair.java,
-	  com/googlecode/lawu/util/Strings.java,
-	  com/googlecode/lawu/util/Triple.java,
-	  com/googlecode/lawu/util/Wrapper.java,
-	  com/googlecode/lawu/util/event/EventAdapter.java:
+	* src/com/googlecode/lawu/math/Quaternion.java,
+	  src/com/googlecode/lawu/math/Vector.java,
+	  src/com/googlecode/lawu/util/CloneableObject.java,
+	  src/com/googlecode/lawu/util/Pair.java,
+	  src/com/googlecode/lawu/util/Strings.java,
+	  src/com/googlecode/lawu/util/Triple.java,
+	  src/com/googlecode/lawu/util/Wrapper.java,
+	  src/com/googlecode/lawu/util/event/EventAdapter.java:
 	  reviewed old code and copied into project, guess this is becoming less and
 	  less just an iterators framework
-	* com/googlecode/lawu/util/Iterators.java:
+	* src/com/googlecode/lawu/util/Iterators.java:
 	  added the reverse() method, considering a ReversibleIterator interface
 	  for efficiency, or is it still too early, Donald?
 
 2010-02-08  Miorel-Lucian Palii <mlpalii@gmail.com>
-	* com/googlecode/lawu/util/iterators/ScannerIterator.java,
-	  com/googlecode/lawu/util/iterators/MappingIterator.java,
-	  com/googlecode/lawu/util/iterators/MatchResultIterator.java,
-	  com/googlecode/lawu/util/iterators/StreamIterator.java,
-	  com/googlecode/lawu/util/iterators/CharacterIterator.java,
-	  com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
-	  com/googlecode/lawu/util/iterators/FilteredIterator.java,
-	  com/googlecode/lawu/util/iterators/UniversalIterator.java,
-	  com/googlecode/lawu/util/iterators/NodeListIterator.java,
-	  com/googlecode/lawu/util/Iterators.java:
+	* src/com/googlecode/lawu/util/iterators/ScannerIterator.java,
+	  src/com/googlecode/lawu/util/iterators/MappingIterator.java,
+	  src/com/googlecode/lawu/util/iterators/MatchResultIterator.java,
+	  src/com/googlecode/lawu/util/iterators/StreamIterator.java,
+	  src/com/googlecode/lawu/util/iterators/CharacterIterator.java,
+	  src/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/FilteredIterator.java,
+	  src/com/googlecode/lawu/util/iterators/UniversalIterator.java,
+	  src/com/googlecode/lawu/util/iterators/NodeListIterator.java,
+	  src/com/googlecode/lawu/util/Iterators.java:
 	  undid some of the automated code cleanup changes 
 	* build.xml:
 	  jar manifest will now contain some versioning information

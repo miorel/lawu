@@ -13,25 +13,26 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import java.util.List;
 
 /**
- * An iterator over the nodes of a <code>NodeList</code>.
- *
+ * An iterator over a Java <code>List</code>.
+ * 
  * @author Miorel-Lucian Palii
+ * @param <T>
+ *            type of elements in the list
  */
-public class NodeListIterator extends ListIterator<Node> {
-	private final NodeList list;
+public class JListIterator<T> extends ListIterator<T> {
+	private final List<T> list;
 
 	/**
-	 * Constructs an iterator over the nodes of the specified list.
+	 * Constructs an iterator over the specified list.
 	 * 
 	 * @param list
 	 *            list over which to iterate
 	 */
-	public NodeListIterator(NodeList list) {
-		super(0, list.getLength());
+	public JListIterator(List<T> list) {
+		super(0, list.size());
 		this.list = list;
 	}
 
@@ -39,7 +40,7 @@ public class NodeListIterator extends ListIterator<Node> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Node get(int position) {
-		return list.item(position);
+	protected T get(int position) {
+		return list.get(position);
 	}
 }

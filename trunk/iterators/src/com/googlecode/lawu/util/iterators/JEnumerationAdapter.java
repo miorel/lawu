@@ -46,8 +46,9 @@ public class JEnumerationAdapter<T> extends IteratorAdapter<T> {
 	 */
 	@Override
 	protected void doAdvance() {
-		setCurrent(enumeration.nextElement());
-		if(!enumeration.hasMoreElements())
+		if(enumeration.hasMoreElements())
+			setCurrent(enumeration.nextElement());
+		else
 			markAsDone();
 	}
 }

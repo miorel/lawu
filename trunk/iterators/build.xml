@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="bin-dist" name="lawu-iterators">
+<project default="bin-dist" name="lawu">
 	<description>
 		Ant build file for the ${ant.project.name} project
 	</description>

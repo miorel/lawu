@@ -13,60 +13,50 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-import java.util.List;
-
 /**
  * <p>
- * An iterator over a list.
+ * Abstract, template method-based iterator over a list or list-like structure.
  * </p>
  * <p>
- * There is no defense mechanism preventing modification of the underlying list
- * while this iterator is in use. Any changes will therefore propagate through
- * to users of this iterator. Taking advantage of this is discouraged.
+ * Subclasses need only to define the starting and ending positions in the list,
+ * as well as the mechanism for accessing the element at a given position. 
+ * </p>
+ * <p>
+ * In general, there is no defense mechanism preventing modification of any
+ * underlying list while this iterator is in use. Any changes will therefore
+ * propagate through to users of this iterator. Taking advantage of this is
+ * discouraged.
  * </p>
  * 
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type of elements in the list
  */
-public class ListIterator<T> extends AbstractUniversalIterator<T> implements ReversibleIterator<T>, Cloneable {
-	private final List<T> list;
+public abstract class ListIterator<T> extends AbstractUniversalIterator<T> implements Cloneable, ReversibleIterator<T> {
+	private int begin;
+	private int end;
+	private int increment;	
+
 	private int pointer;
-	
-	private final int increment;
-	private final int begin;
-	private final int end;
 
 	/**
-	 * Constructs an iterator over the specified list.
+	 * Constructs an iterator that will traverse the list values in the
+	 * specified range of positions. The first position is inclusive, the
+	 * last position is not inclusive.
 	 * 
-	 * @param list
-	 *            list over which to iterate
+	 * @param begin the first position in the range
+	 * @param end the position after the last position in the range
 	 */
-	public ListIterator(List<T> list) {
-		this.list = list;
-		this.increment = 1;
-		this.begin = 0;
-		this.end = list.size();
+	public ListIterator(int begin, int end) {
+		this.begin = begin;
+		this.end = end;
+		this.increment = begin < end ? 1 : -1;
 		reset();
 	}
-
-	private ListIterator(ListIterator<T> iterator, boolean reverse) {
-		this.list = iterator.list;
-		if(!reverse) {
-			this.increment = iterator.increment;
-			this.begin = iterator.begin;
-			this.end = iterator.end;
-		}
-		else {
-			this.increment = -iterator.increment;
-			this.begin = iterator.end;
-			this.end = iterator.begin;			
-		}
-	}
 	
 	/**
-	 * Advances this iterator to the next position in the list.
+	 * Advances this iterator to the next position in the underlying list or
+	 * list-like structure.
 	 */
 	@Override
 	public void advance() {
@@ -75,19 +65,29 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> implements Rev
 	}
 
 	/**
-	 * Retrieves the current element in the list.
+	 * Defines how this iterator accesses the element at the specified position
+	 * in the underlying list or list-like structure.
+	 * 
+	 * @param position index of the element to return
+	 * @return the element at the specified position in the list
+	 */
+	protected abstract T get(int position);
+	
+	/**
+	 * Retrieves the current element in the underlying list or list-like
+	 * structure.
 	 * 
 	 * @return the current list element
 	 */
 	@Override
 	public T current() {
-		return list.get(pointer);
+		return get(pointer);
 	}
-
+	
 	/**
-	 * Checks whether this iterator has reached the end of the list.
+	 * Checks whether this iterator has reached the end of the list traversal.
 	 * 
-	 * @return whether the end of the list has been reached
+	 * @return whether the end of the list traversal has been reached
 	 */
 	@Override
 	public boolean isDone() {
@@ -95,11 +95,27 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> implements Rev
 	}
 
 	/**
-	 * Moves this iterator to the beginning of the list.
+	 * Moves this iterator to the beginning of its list traversal.
 	 */
 	@Override
 	public void reset() {
 		pointer = begin;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	protected ListIterator<T> clone() {
+		ListIterator<T> ret = null;
+		try {
+			ret = (ListIterator<T>) super.clone();
+		}
+		catch(CloneNotSupportedException e) {
+			throw new Error("A cloneable object threw a CNSE!", e);
+		}
+		return ret;
 	}
 
 	/**
@@ -107,6 +123,11 @@ public class ListIterator<T> extends AbstractUniversalIterator<T> implements Rev
 	 */
 	@Override
 	public ListIterator<T> reverse() {
-		return new ListIterator<T>(this, true);
-	}
+		ListIterator<T> ret = clone();
+		ret.begin = end - increment;
+		ret.end = begin - increment;
+		ret.increment = -increment;
+		ret.reset();
+		return ret;
+	}	
 }

@@ -14,20 +14,12 @@
 package com.googlecode.lawu.util.iterators;
 
 /**
- * <p>
  * An iterator over the characters of a <code>CharSequence</code>.
- * </p>
- * <p>
- * There is no defense mechanism preventing modification of the underlying
- * sequence while this iterator is in use. Any changes will therefore propagate
- * through to users of this iterator. Taking advantage of this is discouraged.
- * </p>
  * 
  * @author Miorel-Lucian Palii
  */
-public class CharacterIterator extends AbstractUniversalIterator<Character> {
+public class CharacterIterator extends ListIterator<Character> {
 	private final CharSequence sequence;
-	private int pointer;
 
 	/**
 	 * Constructs an iterator over the characters of the specified
@@ -37,45 +29,15 @@ public class CharacterIterator extends AbstractUniversalIterator<Character> {
 	 *            sequence over whose characters to iterate
 	 */
 	public CharacterIterator(CharSequence sequence) {
-		if(sequence == null)
-			throw new IllegalArgumentException("Can't iterate over null sequence.");
+		super(0, sequence.length());
 		this.sequence = sequence;
-		reset();
 	}
 
 	/**
-	 * Advances this iterator to the next position in the sequence.
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void advance() {
-		++pointer;
-	}
-
-	/**
-	 * Retrieves the current character in the sequence.
-	 * 
-	 * @return the current character
-	 */
-	@Override
-	public Character current() {
-		return Character.valueOf(sequence.charAt(pointer));
-	}
-
-	/**
-	 * Checks whether this iterator has reached the end of the sequence.
-	 * 
-	 * @return whether the end of the sequence has been reached
-	 */
-	@Override
-	public boolean isDone() {
-		return pointer >= sequence.length();
-	}
-
-	/**
-	 * Moves this iterator to the beginning of the sequence.
-	 */
-	@Override
-	public void reset() {
-		pointer = 0;
+	protected Character get(int position) {
+		return Character.valueOf(sequence.charAt(position));
 	}
 }

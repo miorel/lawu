@@ -69,10 +69,8 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public final void advance() {
-		if(!isDone()) {
-			doAdvance();
-			fresh = false;
-		}
+		doAdvance();
+		fresh = false;
 	}
 
 	/**

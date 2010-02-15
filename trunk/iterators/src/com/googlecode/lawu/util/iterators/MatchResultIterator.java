@@ -20,9 +20,8 @@ import java.util.regex.MatchResult;
  * 
  * @author Miorel-Lucian Palii
  */
-public class MatchResultIterator extends AbstractUniversalIterator<String> {
+public class MatchResultIterator extends ListIterator<String> {
 	private final MatchResult match;
-	private int pointer;
 
 	/**
 	 * Constructs an iterator over the captured groups of the specified match
@@ -32,45 +31,12 @@ public class MatchResultIterator extends AbstractUniversalIterator<String> {
 	 *            the match result
 	 */
 	public MatchResultIterator(MatchResult match) {
-		if(match == null)
-			throw new IllegalArgumentException("Can't iterate over null match result.");
+		super(1, match.groupCount() + 1);
 		this.match = match;
-		reset();
 	}
 
-	/**
-	 * Advances this iterator to the next captured group.
-	 */
 	@Override
-	public void advance() {
-		++pointer;
-	}
-
-	/**
-	 * Retrieves the current captured group.
-	 * 
-	 * @return the current captured group
-	 */
-	@Override
-	public String current() {
-		return match.group(pointer);
-	}
-
-	/**
-	 * Checks whether there are any more captured groups.
-	 * 
-	 * @return whether there are any more captured groups
-	 */
-	@Override
-	public boolean isDone() {
-		return pointer > match.groupCount();
-	}
-
-	/**
-	 * Moves this iterator to the first captured group.
-	 */
-	@Override
-	public void reset() {
-		pointer = 1;
+	protected String get(int position) {
+		return match.group(position);
 	}
 }

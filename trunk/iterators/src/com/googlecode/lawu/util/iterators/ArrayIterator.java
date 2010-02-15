@@ -14,22 +14,14 @@
 package com.googlecode.lawu.util.iterators;
 
 /**
- * <p>
  * An iterator over an array.
- * </p>
- * <p>
- * There is no defense mechanism preventing modification of the underlying array
- * while this iterator is in use. Any changes will therefore propagate through
- * to users of this iterator. Taking advantage of this is discouraged.
- * </p>
  * 
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type of elements in the array
  */
-public class ArrayIterator<T> extends AbstractUniversalIterator<T> {
+public class ArrayIterator<T> extends ListIterator<T> {
 	private final T[] array;
-	private int pointer;
 
 	/**
 	 * Constructs an iterator over the specified array. The varargs parameter
@@ -39,45 +31,15 @@ public class ArrayIterator<T> extends AbstractUniversalIterator<T> {
 	 *            array over which to iterate
 	 */
 	public ArrayIterator(T... array) {
-		if(array == null)
-			throw new IllegalArgumentException("Can't iterate over null array.");
+		super(0, array.length);
 		this.array = array;
-		reset();
 	}
 
 	/**
-	 * Advances this iterator to the next position in the array.
+	 * {@inheritDoc}
 	 */
 	@Override
-	public void advance() {
-		++pointer;
-	}
-
-	/**
-	 * Retrieves the current element in the array.
-	 * 
-	 * @return the current array element
-	 */
-	@Override
-	public T current() {
-		return array[pointer];
-	}
-
-	/**
-	 * Checks whether this iterator has reached the end of the array.
-	 * 
-	 * @return whether the end of the array has been reached
-	 */
-	@Override
-	public boolean isDone() {
-		return pointer >= array.length;
-	}
-
-	/**
-	 * Moves this iterator to the beginning of the array.
-	 */
-	@Override
-	public void reset() {
-		pointer = 0;
+	protected T get(int position) {
+		return array[position];
 	}
 }

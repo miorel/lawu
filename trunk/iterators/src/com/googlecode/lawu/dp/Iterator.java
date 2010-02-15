@@ -26,7 +26,7 @@ package com.googlecode.lawu.dp;
  * <pre>
  * Iterator&lt;SomeType&gt; iter = someMethod();
  * for(iter.reset(); !iter.isDone(); iter.advance()) {
- *  // do something with iter.current()
+ * &nbsp;&nbsp;&nbsp;&nbsp;// do something with iter.current()
  * }
  * </pre>
  * 
@@ -51,7 +51,7 @@ public interface Iterator<T> {
 
 	/**
 	 * Checks whether this iterator has exhausted all the elements of its
-	 * underlying structure.
+	 * underlying traversal.
 	 * 
 	 * @return whether all elements have been exhausted
 	 */

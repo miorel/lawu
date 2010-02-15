@@ -13,7 +13,6 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-
 /**
  * Interface for an iterator that can be reversed.
  * 

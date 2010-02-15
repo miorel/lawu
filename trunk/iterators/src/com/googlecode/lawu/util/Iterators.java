@@ -34,14 +34,16 @@ import org.w3c.dom.NodeList;
 import com.googlecode.lawu.dp.Iterator;
 import com.googlecode.lawu.util.iterators.ArrayIterator;
 import com.googlecode.lawu.util.iterators.CharacterIterator;
+import com.googlecode.lawu.util.iterators.FileHierarchyIterator;
 import com.googlecode.lawu.util.iterators.FilteredIterator;
 import com.googlecode.lawu.util.iterators.GOFIteratorAdapter;
 import com.googlecode.lawu.util.iterators.JEnumerationAdapter;
 import com.googlecode.lawu.util.iterators.JIteratorAdapter;
+import com.googlecode.lawu.util.iterators.JListIterator;
 import com.googlecode.lawu.util.iterators.JoiningIterator;
-import com.googlecode.lawu.util.iterators.ListIterator;
 import com.googlecode.lawu.util.iterators.MappingIterator;
 import com.googlecode.lawu.util.iterators.MatchResultIterator;
+import com.googlecode.lawu.util.iterators.NodeHierarchyIterator;
 import com.googlecode.lawu.util.iterators.NodeListIterator;
 import com.googlecode.lawu.util.iterators.ReversibleIterator;
 import com.googlecode.lawu.util.iterators.ScannerIterator;
@@ -108,7 +110,7 @@ public class Iterators {
 	 *            the elements over which to iterate
 	 * @return an iterator over the elements
 	 */
-	public static <T> UniversalIterator<T> iterator(T... array) {
+	public static <T> ReversibleIterator<T> iterator(T... array) {
 		return new ArrayIterator<T>(array);
 	}
 
@@ -122,7 +124,7 @@ public class Iterators {
 	 * @return an iterator over the list
 	 */
 	public static <T> ReversibleIterator<T> iterator(List<T> list) {
-		return new ListIterator<T>(list);
+		return new JListIterator<T>(list);
 	}
 
 	/**
@@ -202,7 +204,7 @@ public class Iterators {
 	 *            the node list
 	 * @return a node iterator
 	 */
-	public static UniversalIterator<Node> iterator(NodeList list) {
+	public static ReversibleIterator<Node> iterator(NodeList list) {
 		return new NodeListIterator(list);
 	}
 
@@ -214,7 +216,7 @@ public class Iterators {
 	 *            the character sequence
 	 * @return a character iterator
 	 */
-	public static UniversalIterator<Character> iterator(CharSequence sequence) {
+	public static ReversibleIterator<Character> iterator(CharSequence sequence) {
 		return new CharacterIterator(sequence);
 	}
 
@@ -226,7 +228,7 @@ public class Iterators {
 	 *            the match result
 	 * @return a match result iterator
 	 */
-	public static UniversalIterator<String> iterator(MatchResult match) {
+	public static ReversibleIterator<String> iterator(MatchResult match) {
 		return new MatchResultIterator(match);
 	}
 
@@ -300,27 +302,35 @@ public class Iterators {
 		return new ScannerIterator(scanner);
 	}
 
-	// TODO actually make this work
-	// /**
-	// * Returns an iterator over all the files in the directory hierarchy with
-	// * the specified root. That is, this method is similar to the Unix
-	// * <code>find</code> utility: if the <code>File</code> given to this
-	// method
-	// * is a directory, the returned iterator will recurse through the
-	// directory
-	// * tree in a depth-first manner. If the argument represents a normal file,
-	// * the iterator will have a single element, the <code>File</code> itself.
-	// * Directory tree nodes on the same level will be traversed in
-	// * lexicographical order based on path, in a system-dependent manner
-	// * (case-sensitive on Windows, case-insensitive on Unix).
-	// *
-	// * @param file root of the directory hierarchy to traverse
-	// * @return an iterator over the directory hierarchy
-	// */
-	// public static UniversalIterator<File> iterator(File file) {
-	// return new FileHierarchyIterator(file);
-	// }
+	/**
+	 * Returns an iterator over all the files in the directory hierarchy with
+	 * the specified root. That is, this method is similar to the Unix
+	 * <code>find</code> utility: if the <code>File</code> given to this method
+	 * is a directory, the returned iterator will recurse through the directory
+	 * tree in a depth-first manner. If the argument represents a normal file,
+	 * the iterator will have a single element, the <code>File</code> itself.
+	 * Directory tree nodes on the same level will be traversed in
+	 * lexicographical order based on path, in a system-dependent manner
+	 * (case-sensitive on Windows, case-insensitive on Unix).
+	 *
+	 * @param file root of the directory hierarchy to traverse
+	 * @return an iterator over the directory hierarchy
+	 */
+	public static UniversalIterator<File> tree(File file) {
+		return new FileHierarchyIterator(file);
+	}
 
+	/**
+	 * Returns an iterator over all the nodes in the node tree with the
+	 * specified root.
+	 * 
+	 * @param node root of the node hierarchy to traverse
+	 * @return an iterator over the node hierarchy
+	 */
+	public static UniversalIterator<Node> tree(Node node) {
+		return new NodeHierarchyIterator(node);
+	}
+	
 	/**
 	 * Maps the elements of a traversal using the specified mapping function.
 	 * The mapping is done lazily, i.e. the backing mapper does not get to see

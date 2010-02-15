@@ -62,8 +62,9 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	 */
 	@Override
 	protected void doAdvance() {
-		setCurrent(iterator.next());
-		if(!iterator.hasNext())
+		if(iterator.hasNext())
+			setCurrent(iterator.next());
+		else
 			markAsDone();
 	}
 }

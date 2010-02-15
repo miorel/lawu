@@ -30,11 +30,11 @@ import java.awt.event.WindowListener;
  * 
  * @author Miorel-Lucian Palii
  */
-public abstract class EventAdapter implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, WindowListener, WindowFocusListener {
+public abstract class JEventAdapter implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, WindowListener, WindowFocusListener {
 	/**
 	 * Default constructor, does nothing special.
 	 */
-	public EventAdapter() {
+	public JEventAdapter() {
 	}
 	
 	/**
