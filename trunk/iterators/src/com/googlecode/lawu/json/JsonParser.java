@@ -1,3 +1,16 @@
+/*
+ * Copyright (C) 2010 Miorel-Lucian Palii
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package com.googlecode.lawu.json;
 
 import java.math.BigDecimal;
@@ -77,7 +90,7 @@ public class JsonParser {
 			}
 			while(position + len < json.length() && Character.isWhitespace(json.charAt(position + len)))
 				++len;
-			return new Pair<T, Integer>(getValue(), len);
+			return new Pair<T, Integer>(getValue(), Integer.valueOf(len));
 		}
 	}
 	
@@ -134,12 +147,16 @@ public class JsonParser {
 	
 	protected Pair<JsonNumber, Integer> readNumber(CharSequence json, int position) {
 		int len = 0;
+		while(Character.isWhitespace(json.charAt(position + len)))
+			++len;
 		for(char c; position + len < json.length(); ++len) {
 			c = Character.toLowerCase(json.charAt(position + len));
 			if(c != '+' && c != '-' && c != 'e' && c != '.' && !('0' <= c && c <= '9'))
 				break;
 		}
-		return new Pair<JsonNumber, Integer>(new JsonNumber(new BigDecimal(json.subSequence(position, position + len).toString().toLowerCase())), Integer.valueOf(len));
+		while(position + len < json.length() && Character.isWhitespace(json.charAt(position + len)))
+			++len;
+		return new Pair<JsonNumber, Integer>(new JsonNumber(new BigDecimal(json.subSequence(position, position + len).toString().trim().toLowerCase())), Integer.valueOf(len));
 	}
 	
 	protected Pair<JsonNull, Integer> readNull(CharSequence json, int position) {
@@ -151,7 +168,7 @@ public class JsonParser {
 		len += 4;
 		while(position + len < json.length() && Character.isWhitespace(json.charAt(position + len)))
 			++len;
-		return new Pair<JsonNull, Integer>(JsonNull.getInstance(), len);
+		return new Pair<JsonNull, Integer>(JsonNull.getInstance(), Integer.valueOf(len));
 	}
 	
 	protected Pair<JsonBoolean, Integer> readBoolean(CharSequence json, int position) {

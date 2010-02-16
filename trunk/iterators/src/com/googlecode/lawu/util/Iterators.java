@@ -17,13 +17,14 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
@@ -61,13 +62,13 @@ import com.googlecode.lawu.util.iterators.UniversalIterator;
  * numerous flavors. Its intent is to give the most logical iterator based on
  * the argument(s). The method not only supports "obvious" iterables, such as
  * <code>List</code>s and arrays, but can also be used to iterate over the
- * matching groups of a <code>MatchResult</code>, the characters of a
- * <code>CharSequence</code>, the <code>Node</code>s in a <code>NodeList</code>,
- * and hopefully (eventually) anything else over which it may be philosophically
- * desirable to iterate. Design pattern addicts rejoice: calling
- * <code>iterator()</code> with no arguments will return a null iterator (not
- * <code>null</code>, silly, just an iterator which has no elements). Similarly,
- * calling it with a single element will return a single element iterator.
+ * matching groups of a <code>MatchResult</code>, the <code>Node</code>s in a
+ * <code>NodeList</code>, and hopefully (eventually) anything else over which it
+ * may be philosophically desirable to iterate. Design pattern addicts rejoice:
+ * calling <code>iterator()</code> with no arguments will return a null iterator
+ * (not <code>null</code>, silly, just an iterator which has no elements).
+ * Similarly, calling it with a single element will return a single element
+ * iterator.
  * </p>
  * <p>
  * In addition to providing a variety of iterators, this class comes with
@@ -216,7 +217,7 @@ public class Iterators {
 	 *            the character sequence
 	 * @return a character iterator
 	 */
-	public static ReversibleIterator<Character> iterator(CharSequence sequence) {
+	public static ReversibleIterator<Character> chars(CharSequence sequence) {
 		return new CharacterIterator(sequence);
 	}
 
@@ -290,6 +291,19 @@ public class Iterators {
 	public static UniversalIterator<String> lines(File file) throws FileNotFoundException {
 		return new StreamIterator(file);
 	}
+	
+	/**
+	 * Returns an iterator over the lines of the resource at the specified URL.
+	 * 
+	 * @param url
+	 *            the input source
+	 * @return a line iterator
+	 * @throws IOException 
+	 *             if an I/O exception occurs
+	 */
+	public static UniversalIterator<String> lines(URL url) throws IOException {
+		return new StreamIterator(url);
+	}
 
 	/**
 	 * Returns an iterator over the lines of the specified <code>Scanner</code>.
@@ -330,7 +344,7 @@ public class Iterators {
 	public static UniversalIterator<Node> tree(Node node) {
 		return new NodeHierarchyIterator(node);
 	}
-	
+
 	/**
 	 * Maps the elements of a traversal using the specified mapping function.
 	 * The mapping is done lazily, i.e. the backing mapper does not get to see
@@ -427,11 +441,8 @@ public class Iterators {
 	 *         in order according to the default comparison method of the input
 	 *         type
 	 */
-	public static <T extends Comparable<T>> UniversalIterator<T> sort(
-		Iterator<? extends T> iterator) {
-		List<T> list = new ArrayList<T>();
-		for(T element: adapt(iterator))
-			list.add(element);
+	public static <T extends Comparable<T>> ReversibleIterator<T> sort(Iterator<? extends T> iterator) {
+		List<T> list = list(iterator);
 		Collections.sort(list);
 		return iterator(list);
 	}
@@ -448,14 +459,46 @@ public class Iterators {
 	 * @return an iterator which gives the same elements as the input but sorted
 	 *         in order according to the given comparison method
 	 */
-	public static <T> UniversalIterator<T> sort(Comparator<? super T> comparator, Iterator<? extends T> iterator) {
-		List<T> list = new ArrayList<T>();
-		for(T element: adapt(iterator))
-			list.add(element);
+	public static <T> ReversibleIterator<T> sort(Comparator<? super T> comparator, Iterator<? extends T> iterator) {
+		List<T> list = list(iterator);
 		Collections.sort(list, comparator);
 		return iterator(list);
 	}
 
+	/**
+	 * Returns a list containing the elements of an iterator.
+	 * 
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the iterator to transform to a list
+	 * @return a list containing the same elements as the iterator
+	 */
+	public static <T> List<T> list(Iterator<? extends T> iterator) {
+		List<T> list = new ArrayList<T>();
+		for(T element: adapt(iterator))
+			list.add(element);
+		return list;
+	}
+	
+	/**
+	 * Returns a copy of the given iterator, that is, another iterator
+	 * containing the same elements. This is useful if you have an iterator
+	 * that's backed by another structure (e.g. a list) that might be modified
+	 * while the iterator is in existence. Cloning will copy the references in
+	 * (i.e. make a shallow copy of) the input. Note that this method requires
+	 * traversing the input.
+	 * 
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the iterator to copy
+	 * @return an iterator containing the same elements as the input
+	 */
+	public static <T> ReversibleIterator<T> copy(Iterator<? extends T> iterator) {
+		return iterator(list(iterator));
+	}
+	
 	/**
 	 * Traverses all the elements of an iterator from the beginning, doing
 	 * nothing. This might be useful for forcing evaluation of lazy methods,
@@ -465,29 +508,23 @@ public class Iterators {
 	 *            the iterator to traverse
 	 */
 	public static void traverse(Iterator<?> iterator) {
-		for(iterator.reset(); !iterator.isDone(); iterator.advance());
+		for(iterator.reset(); !iterator.isDone(); iterator.advance())
+			;
 	}
-	
+
 	/**
-	 * Reverses a traversal. Note that this will probably require actually
-	 * going through the entire traversal, so avoid calling with never-ending
+	 * Reverses a traversal. Note that this will probably require actually going
+	 * through the entire traversal, so avoid calling with never-ending
 	 * iterators unless you like infinite loops.
 	 * 
+	 * @param <T>
+	 *            type over which the iteration takes place
 	 * @param iterator
 	 *            the traversal to reverse
 	 * @return an iterator which gives the same elements as the input but in
 	 *         reverse order
 	 */
 	public static <T> ReversibleIterator<T> reverse(Iterator<T> iterator) {
-		ReversibleIterator<T> ret;
-		if(iterator instanceof ReversibleIterator)
-			ret = ((ReversibleIterator<T>) iterator).reverse();
-		else {
-			LinkedList<T> list = new LinkedList<T>();
-			for(T element: adapt(iterator))
-				list.addFirst(element);
-			return iterator(list);	
-		}
-		return ret;
+		return (iterator instanceof ReversibleIterator ? ((ReversibleIterator<T>) iterator) : iterator(list(iterator))).reverse();
 	}
 }

@@ -1,2 +1,8 @@
 "And miles to go before I sleep."
     -- Robert Frost
+
+The following quality assurances should be met:
+ - consistent new line usage
+ - GPL header and Javadocs in all source files
+ - toLowerCase() and toUpperCase() problems guarded against
+ - toString(), hashCode(), equals() verified  

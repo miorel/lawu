@@ -14,9 +14,12 @@
 package com.googlecode.lawu.util;
 
 import static com.googlecode.lawu.util.Iterators.adapt;
+import static com.googlecode.lawu.util.Iterators.chars;
 import static com.googlecode.lawu.util.Iterators.iterator;
 import static com.googlecode.lawu.util.Iterators.map;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -273,7 +276,7 @@ public class Strings {
 	 */
 	public static boolean isSingleLine(CharSequence charSeq) {
 		boolean ret = true;
-		for(Character c: iterator(charSeq))
+		for(Character c: chars(charSeq))
 			if(Character.getType(c.charValue()) == Character.LINE_SEPARATOR) {
 				ret = false;
 				break;
@@ -297,5 +300,29 @@ public class Strings {
 			m.appendReplacement(sb, XML_ESCAPE_MAP.get(m.group()));
 		m.appendTail(sb);
 		return sb.toString();
+	}
+
+	/**
+	 * <p>
+	 * Convenience method for building URL objects from character sequences that
+	 * doesn't throw a <code>MalformedURLException</code>.
+	 * </p>
+	 * 
+	 * <p>
+	 * If the URL is guaranteed to be valid, calling this method is terser than
+	 * wrapping in a try-catch block. Avoid this method if you don't have that
+	 * guarantee. 
+	 * </p>
+	 * 
+	 * @param charSeq the character sequence representation of the URL 
+	 * @return an object representation of the URL 
+	 */
+	public static URL getUrl(CharSequence charSeq) {
+		try {
+			return new URL(charSeq.toString());
+		}
+		catch(MalformedURLException e) {
+			throw new Error("A verified URL generated a MalformedURLException.", e);
+		}
 	}
 }

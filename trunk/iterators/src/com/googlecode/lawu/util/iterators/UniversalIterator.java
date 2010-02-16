@@ -18,8 +18,8 @@ import java.util.Enumeration;
 import com.googlecode.lawu.dp.Iterator;
 
 /**
- * Interface combining Java's <code>Iterator</code>, <code>Iterable</code>,
- * and <code>Enumeration</code> with the Gang of Four iterator.
+ * Interface combining Java's <code>Iterator</code>, <code>Iterable</code>, and
+ * <code>Enumeration</code> with the Gang of Four iterator.
  * 
  * @author Miorel-Lucian Palii
  * @param <T>

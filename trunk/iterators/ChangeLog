@@ -1,3 +1,41 @@
+2010-02-16  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* lib/hamcrest-core.jar, lib/junit.jar, build.xml, lawu.properties,
+	  test/com/googlecode/lawu/test/StandardTestCases.java,
+	  test/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  test/com/googlecode/lawu/util/iterators/ArrayIteratorTest.java:
+	  started testing using JUnit
+
+2010-02-15  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/util/Iterators.java:
+	  added list() method for grabbing all the elements of an iterator as a
+	  list, modified sort() and reverse() to use this method; added copy()
+	  method
+	* src/com/googlecode/lawu/spoj/Language.java,
+	  src/com/googlecode/lawu/spoj/Submission.java,
+	  src/com/googlecode/lawu/spoj/User.java:
+	  initial SPOJ framework
+	* lawu.properties:
+	  bumped up version to 0.0.3
+
+2010-02-14  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/json/JsonString.java:
+	  decided I won't escape / anymore, because it's optional
+	* src/com/googlecode/lawu/json/JsonObject.java:
+	  added convenience method for getting nested values 
+	* src/com/googlecode/lawu/json/JsonParser.java:
+	  fix in how numbers are read, code still incredibly ugly
+	* src/com/googlecode/lawu/net/Bitly.java,
+	  src/com/googlecode/lawu/net/Isgd.java,
+	  src/com/googlecode/lawu/net/TinyUrl.java,
+	  src/com/googlecode/lawu/net/UrlShortener.java:
+	  created URL shortener abstract class and three concrete implementations
+	* src/com/googlecode/lawu/util/Strings.java:
+	  added getUrl() method to simplify dealing with URLs that are guaranteed to
+	  be valid 
+	* src/com/googlecode/lawu/util/Iterators.java,
+	  src/com/googlecode/lawu/util/iterators/StreamIterator.java:
+	  added methods for reading lines from a URL
+
 2010-02-14  Miorel-Lucian Palii <mlpalii@gmail.com>
 	* src/com/googlecode/lawu/util/IteratorAdapter.java,
 	  src/com/googlecode/lawu/util/JEnumerationAdapter.java,

@@ -5,25 +5,57 @@
 	</description>
 	
 	<property file="${ant.project.name}.properties"/>
-	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**"/>
+	
 	<property name="dist.name" value="${ant.project.name}-${project.version}"/>
+	
+	<fileset id="src.fileset" dir="." excludes="${dist.dir}/**,${bin.dir}/**,${tmp.dir}"/>
 	
 	<target name="clean-bin" description="removes the build directory">
 		<delete dir="${bin.dir}"/>
 	</target>
 
+	<target name="clean-tmp" description="removes the temporary file directory">
+		<delete dir="${tmp.dir}"/>
+	</target>
+	
 	<target name="clean-dist" description="removes the distribution directory">
 		<delete dir="${dist.dir}"/>
 	</target>
 	
 	<target name="clean" description="removes all rebuildable files"
-		depends="clean-bin,clean-dist"/> 
+		depends="clean-bin,clean-tmp,clean-dist"/> 
 	
 	<target name="bin" description="compiles the project">
 		<mkdir dir="${bin.dir}"/>
 		<depend srcdir="${src.dir}" destdir="${bin.dir}" closure="yes"/>
 		<javac srcdir="${src.dir}" destdir="${bin.dir}"/>
 	</target>	
+
+	<target name="test-bin" description="compiles the project test files" depends="bin">
+		<mkdir dir="${test.bin.dir}"/>
+		<depend srcdir="${test.dir}" destdir="${test.bin.dir}" closure="yes"/>
+		<javac srcdir="${test.dir}" destdir="${test.bin.dir}">
+			<classpath>
+				<fileset dir="${lib.dir}"/>
+				<pathelement path="${bin.dir}"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="test" description="tests the project" depends="bin,test-bin">
+		<mkdir dir="${test.report.dir}"/>
+		<junit printsummary="yes" showoutput="yes" haltonfailure="yes">
+			<formatter type="plain"/>
+			<classpath>
+				<fileset dir="${lib.dir}"/>
+				<pathelement path="${bin.dir}"/>
+				<pathelement path="${test.bin.dir}"/>
+			</classpath>
+			<batchtest fork="yes" todir="${test.report.dir}">
+				<fileset dir="${test.dir}" includes="**/*Test.java"/>
+			</batchtest>
+		</junit>
+	</target>
 	
 	<target name="src-dist-tgz" description="creates a gzipped tarball source distribution">
 		<mkdir dir="${dist.dir}"/>

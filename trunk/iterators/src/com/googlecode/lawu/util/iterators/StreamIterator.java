@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.URL;
 
 /**
  * A line iterator that can read from an <code>InputStream</code> and related
@@ -115,6 +116,18 @@ public class StreamIterator extends LineIterator {
 		init();
 	}
 
+	/**
+	 * Constructs an iterator that reads from the specified URL.
+	 * 
+	 * @param url
+	 *            the input source
+	 * @throws IOException
+	 *             if an I/O exception occurs
+	 */
+	public StreamIterator(URL url) throws IOException {
+		this(url.openStream());
+	}
+	
 	/**
 	 * Reads and returns the contents of the next line, or <code>null</code> if
 	 * there are no more lines.

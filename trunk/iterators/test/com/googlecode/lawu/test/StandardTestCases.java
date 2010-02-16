@@ -11,11 +11,24 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.json;
+package com.googlecode.lawu.test;
 
-public abstract class AbstractJsonValue implements JsonValue {
-	@Override
-	public String toString() {
-		return String.format("JSON %s: %s", getType().toString().toLowerCase(), toJson());
+public class StandardTestCases {
+	@SuppressWarnings("boxing")
+	public static final Integer[][] INTEGER_ARRAYS = {
+		{},
+		{42},
+		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+		{3, 1, 4, 1, 5, 9},
+		{1, 3, 3, 7},
+		{10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
+		{0},
+		{-29},
+		{Integer.MIN_VALUE},
+		{Integer.MAX_VALUE},
+		{4, -27, 999, 0, 0, 4, 4, 2, 4, Integer.MIN_VALUE, -5, -1, -2, -4, 4, Integer.MAX_VALUE},
+	};
+	
+	private StandardTestCases() {
 	}
 }

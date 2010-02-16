@@ -1,3 +1,16 @@
+/*
+ * Copyright (C) 2010 Miorel-Lucian Palii
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package com.googlecode.lawu.json;
 
 import java.util.HashMap;
@@ -32,6 +45,13 @@ public class JsonObject extends DelegatingMap<String, JsonValue> implements Json
 		return Type.OBJECT;
 	}
 
+	public JsonValue get(String... keys) {
+		JsonValue ret = this;
+		for(String key: keys)
+			ret = ((JsonObject) ret).get(key);
+		return ret;
+	}
+	
 	@Override
 	protected Map<String, JsonValue> getDelegate() {
 		return map;

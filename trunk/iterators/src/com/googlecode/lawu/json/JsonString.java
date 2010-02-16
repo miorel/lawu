@@ -1,6 +1,19 @@
+/*
+ * Copyright (C) 2010 Miorel-Lucian Palii
+ *
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ * details.
+ */
 package com.googlecode.lawu.json;
 
-import static com.googlecode.lawu.util.Iterators.iterator;
+import static com.googlecode.lawu.util.Iterators.chars;
 
 public class JsonString extends AbstractJsonValue {
 	private String value;
@@ -40,16 +53,13 @@ public class JsonString extends AbstractJsonValue {
 	public String toJson() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\"");
-		for(char c: iterator(value)) {
+		for(char c: chars(value)) {
 			switch(c) {
 			case '"':
 				sb.append("\\\"");
 				break;
 			case '\\':
 				sb.append("\\\\");
-				break;
-			case '/':
-				sb.append("\\/");
 				break;
 			case '\b':
 				sb.append("\\b");
@@ -68,7 +78,7 @@ public class JsonString extends AbstractJsonValue {
 				break;
 			default:
 				if(Character.getType(c) == Character.CONTROL)
-					sb.append(String.format("\\u%04x", (int) c));
+					sb.append(String.format("\\u%04x", Integer.valueOf(c)));
 				else
 					sb.append(c);
 				break;

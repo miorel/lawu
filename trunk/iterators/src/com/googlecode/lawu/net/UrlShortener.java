@@ -11,11 +11,11 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.json;
+package com.googlecode.lawu.net;
 
-public abstract class AbstractJsonValue implements JsonValue {
-	@Override
-	public String toString() {
-		return String.format("JSON %s: %s", getType().toString().toLowerCase(), toJson());
+public abstract class UrlShortener {
+	public UrlShortener() {
 	}
+	
+	public abstract String shorten(String longUrl);
 }
