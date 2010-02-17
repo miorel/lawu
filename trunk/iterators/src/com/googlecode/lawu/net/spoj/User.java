@@ -28,7 +28,7 @@ public class User {
 	private final String username;
 	private final List<Submission> submissions = new ArrayList<Submission>();
 	
-	private long lastReadSubmissions = -1;
+	private boolean readSubmissions = false;
 	
 	public User(String username) {
 		username = username.toLowerCase(Locale.ENGLISH);
@@ -37,28 +37,22 @@ public class User {
 		this.username = username;
 	}
 	
-	public String getUsername() {
+	public final String getUsername() {
 		return username;
 	}
 	
 	public URL getSubmissionsUrl() {
-		return Strings.getUrl("http://www.spoj.pl/status/" + getUsername() + "/signedlist/");
+		return Strings.getUrl("http://www.spoj.pl/status/" + username + "/signedlist/");
 	}
 
 	public URL getUserPageUrl() {
-		return Strings.getUrl("http://www.spoj.pl/users/" + getUsername() + "/");
+		return Strings.getUrl("http://www.spoj.pl/users/" + username + "/");
 	}
 	
 	public ReversibleIterator<Submission> getSubmissions() throws IOException {
-		return getSubmissions(Long.MAX_VALUE);
-	}
-	
-	public ReversibleIterator<Submission> getSubmissions(long maximumAge) throws IOException {
 		ReversibleIterator<Submission> ret;
 		synchronized(submissions) {
-			long now = System.currentTimeMillis();
-			if(lastReadSubmissions < 0 || now - lastReadSubmissions > maximumAge) {
-				lastReadSubmissions = now;
+			if(!readSubmissions) {
 				submissions.clear();
 				UniversalIterator<String> lines = lines(getSubmissionsUrl());
 				while(!lines.isDone() && !lines.current().matches("\\s*(?:\\|-+){7}\\|\\s*"))
@@ -70,6 +64,7 @@ public class User {
 						break;
 					submissions.add(Submission.parse(this, line));
 				}
+				readSubmissions = true;
 			}
 			ret = copy(iterator(submissions)).reverse();
 		}

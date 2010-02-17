@@ -14,42 +14,24 @@
 package com.googlecode.lawu.util.iterators;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
+import java.util.List;
 
 import org.junit.Test;
 
 import com.googlecode.lawu.test.TestCases;
 
-public class AbstractUniversalIteratorTest extends UniversalIteratorTest {
+public class JListIteratorTest extends ReversibleIteratorTest {	
+	@Test(expected=NullPointerException.class)
+	public void testConstructorWithNull() {
+		new JListIterator<Object>(null);
+	}
+	
 	@Test
 	public void testInterfaces() {
 		TestCases tc = new TestCases();
-		for(final Integer[] integers: tc.getIntegerArrays())
-			this.testUniversalIterator(new AbstractUniversalIterator<Integer>() {
-				private int pointer = 0;
-	
-				@Override
-				public void advance() {
-					++pointer;
-				}
-	
-				@Override
-				public Integer current() {
-					if(isDone())
-						throw new NoSuchElementException();
-					return integers[pointer];
-				}
-	
-				@Override
-				public boolean isDone() {
-					return pointer >= integers.length;
-				}
-				
-				@Override
-				public void reset() {
-					pointer = 0;
-				}
-			}, Arrays.asList(integers));
+		for(Integer[] integers: tc.getIntegerArrays()) {
+			List<Integer> list = Arrays.asList(integers); 
+			testReversibleIterator(new JListIterator<Integer>(list), list); 
+		}
 	}
-
 }

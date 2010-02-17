@@ -40,12 +40,11 @@ public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
 	 */
 	public MappingIterator(Mapper<? super T, ? extends U> mapper, Iterator<? extends T> iterator) {
 		if(iterator == null)
-			throw new IllegalArgumentException("Can't map null iterator.");
+			throw new NullPointerException("Can't map null iterator.");
 		if(mapper == null)
-			throw new IllegalArgumentException("Can't use null mapper.");
+			throw new NullPointerException("Can't use null mapper.");
 		this.iterator = iterator;
 		this.mapper = mapper;
-		reset();
 	}
 
 	/**
@@ -53,7 +52,7 @@ public class MappingIterator<T, U> extends AbstractUniversalIterator<U> {
 	 */
 	@Override
 	public void advance() {
-		this.iterator.advance();
+		iterator.advance();
 	}
 
 	/**

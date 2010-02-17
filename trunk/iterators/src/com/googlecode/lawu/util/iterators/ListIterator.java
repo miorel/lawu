@@ -45,7 +45,7 @@ public abstract class ListIterator<T> extends AbstractUniversalIterator<T> imple
 	 * last position is not inclusive.
 	 * 
 	 * @param begin the first position in the range
-	 * @param end the position after the last position in the range
+	 * @param end the position immediately after the last position in the range
 	 */
 	public ListIterator(int begin, int end) {
 		this.begin = begin;
@@ -122,7 +122,7 @@ public abstract class ListIterator<T> extends AbstractUniversalIterator<T> imple
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ListIterator<T> reverse() {
+	public ReversibleIterator<T> reverse() {
 		ListIterator<T> ret = clone();
 		ret.begin = end - increment;
 		ret.end = begin - increment;

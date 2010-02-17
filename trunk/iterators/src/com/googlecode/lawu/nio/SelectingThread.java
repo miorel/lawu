@@ -39,31 +39,35 @@ public abstract class SelectingThread extends SpecializedThread {
 	 * during the open operation
 	 */
 	public SelectingThread() throws IOException {
-		this(null, null, null);
+		this((SelectorProvider) null);
 	}
 
 	/**
 	 * Allocates a new selecting thread that will have the given name. The
 	 * thread will use the system-wide default selector provider.
 	 * 
-	 * @param name the name of the new thread
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param name
+	 *            the name of the new thread
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(String name) throws IOException {
-		this(null, null, name);
+		this((SelectorProvider) null, name);
 	}
 
 	/**
 	 * Allocates a new selecting thread that will belong to the specified thread
 	 * group. The thread will use the system-wide default selector provider.
 	 * 
-	 * @param group the thread group
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param group
+	 *            the thread group
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(ThreadGroup group) throws IOException {
-		this(null, group);
+		this((SelectorProvider) null, group);
 	}
 
 	/**
@@ -71,13 +75,16 @@ public abstract class SelectingThread extends SpecializedThread {
 	 * group and have the given name. The thread will use the system-wide
 	 * default selector provider.
 	 * 
-	 * @param group the thread group
-	 * @param name the name of the new thread
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param group
+	 *            the thread group
+	 * @param name
+	 *            the name of the new thread
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(ThreadGroup group, String name) throws IOException {
-		this(null, group, name);
+		this((SelectorProvider) null, group, name);
 	}
 	
 	/**
@@ -85,38 +92,48 @@ public abstract class SelectingThread extends SpecializedThread {
 	 * group and have the given name and stack size. The thread will use the
 	 * system-wide default selector provider.
 	 * 
-	 * @param group the thread group
-	 * @param name the name of the new thread
-	 * @param stackSize the desired stack size, or zero to ignore this parameter
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param group
+	 *            the thread group
+	 * @param name
+	 *            the name of the new thread
+	 * @param stackSize
+	 *            the desired stack size, or zero to ignore this parameter
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(ThreadGroup group, String name, long stackSize) throws IOException {
-		this(null, group, name, stackSize);
+		this((SelectorProvider) null, group, name, stackSize);
 	}
 
 	/**
 	 * Allocates a new selecting thread that will use the specified selector
-	 * provider. 
+	 * provider.
 	 * 
-	 * @param provider the selector provider to use, or null to use the
-	 * system-wide default
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param provider
+	 *            the selector provider to use, or null to use the system-wide
+	 *            default
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(SelectorProvider provider) throws IOException {
-		this(provider, null, null);
+		super();
+		this.selector = (provider != null ? provider : SelectorProvider.provider()).openSelector();
 	}
 
 	/**
 	 * Allocates a new selecting thread that will use the specified selector
-	 * provider and have the given name. 
+	 * provider and have the given name.
 	 * 
-	 * @param provider the selector provider to use, or null to use the
-	 * system-wide default
-	 * @param name the name of the new thread
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param provider
+	 *            the selector provider to use, or null to use the system-wide
+	 *            default
+	 * @param name
+	 *            the name of the new thread
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(SelectorProvider provider, String name) throws IOException {
 		this(provider, null, name);
@@ -124,53 +141,64 @@ public abstract class SelectingThread extends SpecializedThread {
 
 	/**
 	 * Allocates a new selecting thread that will use the specified selector
-	 * provider and belong to the specified thread group. 
+	 * provider and belong to the specified thread group.
 	 * 
-	 * @param provider the selector provider to use, or null to use the
-	 * system-wide default
-	 * @param group the thread group
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param provider
+	 *            the selector provider to use, or null to use the system-wide
+	 *            default
+	 * @param group
+	 *            the thread group
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(SelectorProvider provider, ThreadGroup group) throws IOException {
-		this(provider, group, null);
+		super(group);
+		this.selector = (provider != null ? provider : SelectorProvider.provider()).openSelector();
 	}
 
 	/**
 	 * Allocates a new selecting thread that will use the specified selector
-	 * provider, belong to the specified thread group, and have the given name. 
+	 * provider, belong to the specified thread group, and have the given name.
 	 * 
-	 * @param provider the selector provider to use, or null to use the
-	 * system-wide default
-	 * @param group the thread group
-	 * @param name the name of the new thread
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param provider
+	 *            the selector provider to use, or null to use the system-wide
+	 *            default
+	 * @param group
+	 *            the thread group
+	 * @param name
+	 *            the name of the new thread
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(SelectorProvider provider, ThreadGroup group, String name) throws IOException {
 		this(provider, group, name, 0);
 	}
-	
+
 	/**
 	 * Allocates a new selecting thread that will use the specified selector
 	 * provider, belong to the specified thread group, and have the given name
-	 * and stack size. 
+	 * and stack size.
 	 * 
-	 * @param provider the selector provider to use, or null to use the
-	 * system-wide default
-	 * @param group the thread group
-	 * @param name the name of the new thread
-	 * @param stackSize the desired stack size, or zero to ignore this parameter
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @param provider
+	 *            the selector provider to use, or <code>null</code> to use the
+	 *            system-wide default
+	 * @param group
+	 *            the thread group
+	 * @param name
+	 *            the name of the new thread
+	 * @param stackSize
+	 *            the desired stack size, or zero to ignore this parameter
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread(SelectorProvider provider, ThreadGroup group, String name, long stackSize) throws IOException {
 		super(group, name, stackSize);
-		if(provider == null)
-			provider = SelectorProvider.provider();
-		this.selector = provider.openSelector();
+		this.selector = (provider != null ? provider : SelectorProvider.provider()).openSelector();
 	}
-	
+
 	/**
 	 * Selects channels that are ready for I/O operations and handles them.
 	 * Stops when the thread is interrupted.
@@ -212,13 +240,14 @@ public abstract class SelectingThread extends SpecializedThread {
 			handleCloseException(e);
 		}
 	}
-	
+
 	/**
 	 * Defines how this thread deals with an I/O exception thrown during the
 	 * select process. The default behavior is to <code>report()</code> it and
 	 * interrupt the thread. Subclasses should override this if needed.
-	 *   
-	 * @param e the thrown exception
+	 * 
+	 * @param e
+	 *            the thrown exception
 	 */
 	protected void handleSelectException(IOException e) {
 		report(e);
@@ -228,27 +257,30 @@ public abstract class SelectingThread extends SpecializedThread {
 	/**
 	 * Defines how this thread deals with an I/O exception thrown during the
 	 * close process. The default behavior is to <code>report()</code> it.
-	 *   
-	 * @param e the thrown exception
+	 * 
+	 * @param e
+	 *            the thrown exception
 	 */
 	protected void handleCloseException(IOException e) {
 		report(e);
 	}
-	
+
 	/**
 	 * Defines how this thread handles a key that's ready for accepting. Default
 	 * implementation does nothing.
 	 * 
-	 * @param key the key to handle
+	 * @param key
+	 *            the key to handle
 	 */
 	protected void accept(SelectionKey key) {
 	}
 
 	/**
 	 * Defines how this thread handles a key that's ready for connection.
-	 * Default implementation does nothing. 
+	 * Default implementation does nothing.
 	 * 
-	 * @param key the key to handle
+	 * @param key
+	 *            the key to handle
 	 */
 	protected void connect(SelectionKey key) {
 	}
@@ -257,16 +289,18 @@ public abstract class SelectingThread extends SpecializedThread {
 	 * Defines how this thread handles a key that's ready for reading. Default
 	 * implementation does nothing.
 	 * 
-	 * @param key the key to handle
+	 * @param key
+	 *            the key to handle
 	 */
 	protected void read(SelectionKey key) {
 	}
 	
 	/**
 	 * Defines how this thread handles a key that's ready for writing. Default
-	 * implementation does nothing. 
+	 * implementation does nothing.
 	 * 
-	 * @param key the key to handle
+	 * @param key
+	 *            the key to handle
 	 */
 	protected void write(SelectionKey key) {
 	}
@@ -275,10 +309,13 @@ public abstract class SelectingThread extends SpecializedThread {
 	 * Registers a channel with this thread's selector, returning a selection
 	 * key with the specified interest set and a <code>null</code> attachment.
 	 * 
-	 * @param channel the channel to register
-	 * @param ops the desired interest set for the resulting key
+	 * @param channel
+	 *            the channel to register
+	 * @param ops
+	 *            the desired interest set for the resulting key
 	 * @return a key representing the registration
-	 * @throws ClosedChannelException if the channel is closed
+	 * @throws ClosedChannelException
+	 *             if the channel is closed
 	 */
 	public SelectionKey register(SelectableChannel channel, int ops) throws ClosedChannelException {
 		return register(channel, ops, null);
@@ -288,11 +325,15 @@ public abstract class SelectingThread extends SpecializedThread {
 	 * Registers a channel with this thread's selector, returning a selection
 	 * key with the specified interest set and attachment.
 	 * 
-	 * @param channel the channel to register
-	 * @param ops the desired interest set for the resulting key
-	 * @param attachment the attachment for the resulting key, may be <code>null</code>
+	 * @param channel
+	 *            the channel to register
+	 * @param ops
+	 *            the desired interest set for the resulting key
+	 * @param attachment
+	 *            the attachment for the resulting key, may be <code>null</code>
 	 * @return a key representing the registration
-	 * @throws ClosedChannelException if the channel is closed
+	 * @throws ClosedChannelException
+	 *             if the channel is closed
 	 */
 	public SelectionKey register(SelectableChannel channel, int ops, Object attachment) throws ClosedChannelException {
 		boolean wakeUp = true; // we should wake up if there are changes to the selector

@@ -34,13 +34,56 @@ package com.googlecode.lawu.thread;
  */
 public abstract class SpecializedThread extends Thread {
 	/**
-	 * Allocates a new specialized thread that will use the specified selector
-	 * provider, belong to the specified thread group, and have the given name
-	 * and stack size. 
+	 * Allocates a new specialized thread.
+	 */
+	public SpecializedThread() {
+		super();
+	}
+
+	/**
+	 * Allocates a new specialized thread that will have the given name.
 	 * 
-	 * @param group the thread group
-	 * @param name the name of the new thread
-	 * @param stackSize the desired stack size, or zero to ignore this parameter
+	 * @param name
+	 *            the name of the new thread
+	 */
+	public SpecializedThread(String name) {
+		this(null, name);
+	}
+
+	/**
+	 * Allocates a new specialized thread that will belong to the specified
+	 * thread group.
+	 * 
+	 * @param group
+	 *            the thread group
+	 */
+	public SpecializedThread(ThreadGroup group) {
+		super(group, (Runnable) null);
+	}
+	
+	/**
+	 * Allocates a new specialized thread that will belong to the specified
+	 * thread group and have the given name.
+	 * 
+	 * @param group
+	 *            the thread group
+	 * @param name
+	 *            the name of the new thread
+	 */
+	public SpecializedThread(ThreadGroup group, String name) {
+		this(group, name, 0);
+	}
+	
+	/**
+	 * Allocates a new specialized thread that will belong to the specified
+	 * thread group and have the given name and stack size.
+	 * 
+	 * @param group
+	 *            the thread group
+	 * @param name
+	 *            the name of the new thread
+	 * @param stackSize
+	 *            the desired stack size, or zero to ignore this parameter
 	 */
 	public SpecializedThread(ThreadGroup group, String name, long stackSize) {
 		super(group, null, name, stackSize);
@@ -49,9 +92,10 @@ public abstract class SpecializedThread extends Thread {
 	/**
 	 * Defines how this thread reports exceptions or other
 	 * <code>Throwable</code>s. The default is to print a stack trace to the
-	 * standard error stream. 
+	 * standard error stream.
 	 * 
-	 * @param t the <code>Throwable</code> to report
+	 * @param t
+	 *            the <code>Throwable</code> to report
 	 */
 	protected void report(Throwable t) {
 		t.printStackTrace();
@@ -63,7 +107,7 @@ public abstract class SpecializedThread extends Thread {
 	@Override
 	public void run() {
 		prepare();
-		while(!Thread.interrupted())
+		while(!interrupted())
 			work();
 		cleanUp();
 	}

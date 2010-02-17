@@ -14,42 +14,31 @@
 package com.googlecode.lawu.util.iterators;
 
 import java.util.Arrays;
-import java.util.NoSuchElementException;
+import java.util.Vector;
 
 import org.junit.Test;
 
 import com.googlecode.lawu.test.TestCases;
+import com.googlecode.lawu.util.Factory;
 
-public class AbstractUniversalIteratorTest extends UniversalIteratorTest {
+public class JEnumerationAdapterTest extends UniversalIteratorTest {
+	@Test(expected=NullPointerException.class)
+	public void testConstructorWithNull() {
+		new JEnumerationAdapter<Object>(null);
+	}
+	
 	@Test
 	public void testInterfaces() {
 		TestCases tc = new TestCases();
-		for(final Integer[] integers: tc.getIntegerArrays())
-			this.testUniversalIterator(new AbstractUniversalIterator<Integer>() {
-				private int pointer = 0;
-	
+		for(Integer[] integers: tc.getIntegerArrays()) {
+			final Vector<Integer> vector = new Vector<Integer>(Arrays.asList(integers));
+			testUniversalIterator(new Factory<UniversalIterator<Integer>>() {
 				@Override
-				public void advance() {
-					++pointer;
-				}
-	
-				@Override
-				public Integer current() {
-					if(isDone())
-						throw new NoSuchElementException();
-					return integers[pointer];
-				}
-	
-				@Override
-				public boolean isDone() {
-					return pointer >= integers.length;
+				public UniversalIterator<Integer> build() {
+					return new JEnumerationAdapter<Integer>(vector.elements());
 				}
 				
-				@Override
-				public void reset() {
-					pointer = 0;
-				}
-			}, Arrays.asList(integers));
+			}, vector);
+		}
 	}
-
 }

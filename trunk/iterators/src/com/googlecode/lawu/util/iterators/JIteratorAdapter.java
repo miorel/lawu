@@ -36,7 +36,7 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	 */
 	public JIteratorAdapter(Iterator<T> iterator) {
 		if(iterator == null)
-			throw new IllegalArgumentException("Can't adapt null iterator.");
+			throw new NullPointerException("Can't adapt null iterator.");
 		this.iterator = iterator;
 		init();
 	}
@@ -48,13 +48,7 @@ public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	 *            the adaptee
 	 */
 	public JIteratorAdapter(Iterable<T> iterable) {
-		if(iterable == null)
-			throw new IllegalArgumentException("Can't adapt null iterable.");
-		Iterator<T> iterator = iterable.iterator();
-		if(iterator == null)
-			throw new IllegalArgumentException("Can't adapt null iterator.");
-		this.iterator = iterator;
-		init();
+		this(iterable.iterator());
 	}
 
 	/**

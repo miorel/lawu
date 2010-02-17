@@ -1,7 +1,38 @@
 2010-02-16  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* test/com/googlecode/lawu/net/spoj/SpojTest.java,
+	  test/com/googlecode/lawu/util/iterators/AbstractUniversalIteratorTest.java,
+	  test/com/googlecode/lawu/util/iterators/ArrayIteratorTest.java,
+	  test/com/googlecode/lawu/util/iterators/CharacterIteratorTest.java,
+	  test/com/googlecode/lawu/util/iterators/GOFIteratorAdapterTest.java,
+	  test/com/googlecode/lawu/util/iterators/JEnumerationAdapterTest.java,
+	  test/com/googlecode/lawu/util/iterators/JIteratorAdapterTest.java,
+	  test/com/googlecode/lawu/util/iterators/JListIteratorAdapterTest.java,
+	  test/com/googlecode/lawu/util/iterators/ReversibleIteratorTest.java,
+	  test/com/googlecode/lawu/util/iterators/UniversalIteratorTest.java:
+	  more tests!
+	* test/com/googlecode/lawu/test/TestCases.java:
+	  refactoring and modification of StandardTestCases.java
+	* src/com/googlecode/lawu/thread/SpecializedThread.java,
+	  src/com/googlecode/lawu/nio/SelectingThread.java:
+	  realized that null name does not get replaced with automatically generated
+	  one, had to fix constructors in light of this fact
+	* src/com/googlecode/lawu/thread/WorkerThread.java:
+	  specialized thread that runs tasks from a queue
+	* src/com/googlecode/lawu/chem/Element.java,
+	  res/com/googlecode/lawu/chem/PeriodicTableInfo.properties,
+	  test/com/googlecode/lawu/chem/ElementTest.java,
+	  util/scripts/periodic_table.pl:
+	  class, data, JUnit test, and data extractor for periodic table info
+	  (mostly based on old existing code)
+	* util/scripts/license.pl:
+	  copy of old code for adding GPLv3 license info to Java files
+	* build.xml, lawu.properties:
+	  modified in light of the addition of scripts and resources 
+
+2010-02-16  Miorel-Lucian Palii <mlpalii@gmail.com>
 	* lib/hamcrest-core.jar, lib/junit.jar, build.xml, lawu.properties,
 	  test/com/googlecode/lawu/test/StandardTestCases.java,
-	  test/com/googlecode/lawu/util/iterators/AbstractUniversalIterator.java,
+	  test/com/googlecode/lawu/util/iterators/AbstractUniversalIteratorTest.java,
 	  test/com/googlecode/lawu/util/iterators/ArrayIteratorTest.java:
 	  started testing using JUnit
 

@@ -13,43 +13,23 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-import java.util.Arrays;
-import java.util.NoSuchElementException;
+import static com.googlecode.lawu.util.Arrays.box;
+import static java.util.Arrays.asList;
 
 import org.junit.Test;
 
 import com.googlecode.lawu.test.TestCases;
 
-public class AbstractUniversalIteratorTest extends UniversalIteratorTest {
+public class CharacterIteratorTest extends ReversibleIteratorTest {	
+	@Test(expected=NullPointerException.class)
+	public void testConstructorWithNull() {
+		new CharacterIterator(null);
+	}
+	
 	@Test
 	public void testInterfaces() {
 		TestCases tc = new TestCases();
-		for(final Integer[] integers: tc.getIntegerArrays())
-			this.testUniversalIterator(new AbstractUniversalIterator<Integer>() {
-				private int pointer = 0;
-	
-				@Override
-				public void advance() {
-					++pointer;
-				}
-	
-				@Override
-				public Integer current() {
-					if(isDone())
-						throw new NoSuchElementException();
-					return integers[pointer];
-				}
-	
-				@Override
-				public boolean isDone() {
-					return pointer >= integers.length;
-				}
-				
-				@Override
-				public void reset() {
-					pointer = 0;
-				}
-			}, Arrays.asList(integers));
+		for(String string: tc.getStrings())
+			testReversibleIterator(new CharacterIterator(string), asList(box(string.toCharArray()))); 
 	}
-
 }

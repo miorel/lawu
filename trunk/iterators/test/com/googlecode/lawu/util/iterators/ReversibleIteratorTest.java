@@ -13,22 +13,24 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.junit.Test;
+import org.junit.Ignore;
 
-import com.googlecode.lawu.test.TestCases;
-
-public class ArrayIteratorTest extends ReversibleIteratorTest {	
-	@Test(expected=NullPointerException.class)
-	public void testConstructorWithNull() {
-		new ArrayIterator<Object>((Object[]) null);
+@Ignore
+public class ReversibleIteratorTest extends UniversalIteratorTest {
+	public ReversibleIteratorTest() {
 	}
 	
-	@Test
-	public void testInterfaces() {
-		TestCases tc = new TestCases();
-		for(Integer[] integers: tc.getIntegerArrays())
-			testReversibleIterator(new ArrayIterator<Integer>(integers), Arrays.asList(integers)); 
+	protected <T> void testReversibleIterator(ReversibleIterator<T> iterator, List<T> list) {
+		testUniversalIterator(iterator, list);
+		
+		List<T> reverseList = new ArrayList<T>();
+		for(T element: list)
+			reverseList.add(0, element);
+		testUniversalIterator(iterator.reverse(), reverseList);
+		
+		testUniversalIterator(iterator.reverse().reverse(), list);
 	}
 }

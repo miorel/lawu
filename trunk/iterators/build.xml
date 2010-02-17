@@ -43,16 +43,16 @@
 	</target>
 	
 	<target name="test" description="tests the project" depends="bin,test-bin">
-		<mkdir dir="${test.report.dir}"/>
-		<junit printsummary="yes" showoutput="yes" haltonfailure="yes">
-			<formatter type="plain"/>
+		<junit haltonfailure="yes" showoutput="withOutAndErr">
+			<formatter type="plain" usefile="false"/>
 			<classpath>
 				<fileset dir="${lib.dir}"/>
 				<pathelement path="${bin.dir}"/>
+				<pathelement path="${res.dir}"/>
 				<pathelement path="${test.bin.dir}"/>
 			</classpath>
-			<batchtest fork="yes" todir="${test.report.dir}">
-				<fileset dir="${test.dir}" includes="**/*Test.java"/>
+			<batchtest fork="yes">
+				<fileset dir="${test.dir}" includes="**/*.java"/>
 			</batchtest>
 		</junit>
 	</target>

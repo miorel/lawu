@@ -14,7 +14,6 @@
 package com.googlecode.lawu.util.iterators;
 
 import java.io.File;
-import java.util.Arrays;
 
 import com.googlecode.lawu.dp.Iterator;
 import com.googlecode.lawu.util.Iterators;
@@ -26,12 +25,13 @@ import com.googlecode.lawu.util.Iterators;
  */
 public class FileHierarchyIterator extends TreeIterator<File> {
 	private final File root;
-	
+
 	/**
 	 * Prepares an iterator that will do a depth-first traversal of the file
 	 * hierarchy that has the given root.
 	 * 
-	 * @param root root of the file hierarchy
+	 * @param root
+	 *            root of the file hierarchy
 	 */
 	public FileHierarchyIterator(File root) {
 		if(root == null)
@@ -39,21 +39,18 @@ public class FileHierarchyIterator extends TreeIterator<File> {
 		this.root = root;
 		reset();
 	}
-	
+
 	/**
 	 * Returns an iterator over the subfiles of the given file. If the file is
 	 * not a directory, this will be an iterator with no elements.
 	 * 
-	 * @param file parent of the files to iterate over
+	 * @param file
+	 *            parent of the files to iterate over
 	 * @return an iterator over the file's subfiles
 	 */
 	@Override
 	protected Iterator<File> childIterator(File file) {
-		File[] files = file.listFiles();
-		if(files == null)
-			files = new File[0];
-		Arrays.sort(files);
-		return Iterators.iterator(files);
+		return Iterators.children(file);
 	}
 
 	/**

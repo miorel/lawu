@@ -33,8 +33,6 @@ public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 *            the adaptee
 	 */
 	public GOFIteratorAdapter(Iterator<T> iterator) {
-		if(iterator == null)
-			throw new IllegalArgumentException("Can't adapt null iterator.");
 		this.iterator = iterator;
 		iterator.reset();
 	}

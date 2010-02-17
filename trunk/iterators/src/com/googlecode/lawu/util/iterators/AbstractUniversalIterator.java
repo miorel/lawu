@@ -27,14 +27,14 @@ public abstract class AbstractUniversalIterator<T> implements UniversalIterator<
 	/**
 	 * Default constructor, does nothing.
 	 */
-	public AbstractUniversalIterator() {
+	protected AbstractUniversalIterator() {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean hasNext() {
+	public final boolean hasNext() {
 		return !isDone();
 	}
 
@@ -42,7 +42,7 @@ public abstract class AbstractUniversalIterator<T> implements UniversalIterator<
 	 * {@inheritDoc}
 	 */
 	@Override
-	public T next() {
+	public final T next() {
 		if(isDone())
 			throw new NoSuchElementException("The iterator is done.");
 		T ret = current();
@@ -76,7 +76,7 @@ public abstract class AbstractUniversalIterator<T> implements UniversalIterator<
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean hasMoreElements() {
+	public final boolean hasMoreElements() {
 		return hasNext();
 	}
 
@@ -84,7 +84,7 @@ public abstract class AbstractUniversalIterator<T> implements UniversalIterator<
 	 * {@inheritDoc}
 	 */
 	@Override
-	public T nextElement() {
+	public final T nextElement() {
 		return next();
 	}
 }

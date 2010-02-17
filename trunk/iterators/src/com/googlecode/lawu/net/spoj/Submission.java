@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Submission {
+public final class Submission {
 	private static final Pattern SUBMISSION_LINE = Pattern.compile("\\s*([^\\|]+?)\\s*(?=\\|)");
 	private static final DateFormat DATE_PARSER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss zzz");
 	private static final String SPOJ_TZ = "CET";
@@ -91,24 +91,62 @@ public class Submission {
 		return ret;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public int hashCode() {
 		return id;
 	}
 
+	/**
+	 * <p>
+	 * Indicates whether another object is equal to this submission.
+	 * </p>
+	 * <p>
+	 * To be equal, the object must also be a submission and have the same ID as
+	 * this one. Though submission objects have other fields, checking them all
+	 * would defeat the purpose of having a unique ID field. If your submission
+	 * objects are from a trusted source, this should suffice. If they're not,
+	 * you've got bigger problems, and a paranoid <code>equals()</code>
+	 * implementation won't fix them.
+	 * </p>
+	 * 
+	 * @param o
+	 *            the object to check
+	 * @return <code>true</code> if the object equals this submission,
+	 *         <code>false</code> otherwise
+	 */
 	@Override
 	public boolean equals(Object o) {
+		super.equals(o);
 		return this == o || (o instanceof Submission && this.id == ((Submission) o).id);
 	}
 
+	/**
+	 * Returns the user to whom this submission belongs.
+	 * 
+	 * @return the user to whom this submission belongs
+	 */
 	public User getUser() {
 		return user;
 	}
-	
+
+	/**
+	 * Returns this submission's ID. Two submissions should have the same ID iff
+	 * they are equal.
+	 * 
+	 * @return this submission's ID
+	 */
 	public int getId() {
 		return id;
 	}
 	
+	/**
+	 * Returns the submission time. 
+	 * 
+	 * @return the submission time
+	 */
 	public Date getDate() {
 		return date;
 	}
@@ -125,19 +163,19 @@ public class Submission {
 		return time;
 	}
 
-	public double getTimeSeconds() {
+	public final double getTimeSeconds() {
 		return 0.001 * getTime();
 	}
 	
-	public int getMemory() {
+	public final int getMemory() {
 		return memory;
 	}
 
-	public int getMemoryMegabytes() {
+	public final int getMemoryMegabytes() {
 		return getMemory() >> 10;
 	}
 	
-	public Language getLanguage() {
+	public final Language getLanguage() {
 		return language;
 	}
 }

@@ -11,24 +11,18 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.util.iterators;
-
-import java.util.Arrays;
+package com.googlecode.lawu.chem;
 
 import org.junit.Test;
 
-import com.googlecode.lawu.test.TestCases;
-
-public class ArrayIteratorTest extends ReversibleIteratorTest {	
+public class ElementTest {
 	@Test(expected=NullPointerException.class)
-	public void testConstructorWithNull() {
-		new ArrayIterator<Object>((Object[]) null);
+	public void testElementRetrievalWithNull() {
+		Element.forSymbol(null);
 	}
 	
 	@Test
-	public void testInterfaces() {
-		TestCases tc = new TestCases();
-		for(Integer[] integers: tc.getIntegerArrays())
-			testReversibleIterator(new ArrayIterator<Integer>(integers), Arrays.asList(integers)); 
+	public void testElementRetrieval() {
+		Element.forSymbol("H");
 	}
 }

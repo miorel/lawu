@@ -202,14 +202,19 @@ public class Vector {
 	 * to do comparisons by looking at the magnitude of the difference of two
 	 * vectors.
 	 * </p>
+	 * 
+	 * @param o
+	 *            the object to check
+	 * @return <code>true</code> if the object equals this vector,
+	 *         <code>false</code> otherwise
 	 */
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object o) {
 		boolean ret = false;
-		if(this == obj)
+		if(this == o)
 			ret = true;
-		else if(obj instanceof Vector) {
-			Vector other = (Vector) obj;
+		else if(o instanceof Vector) {
+			Vector other = (Vector) o;
 			ret = Double.valueOf(this.x).equals(Double.valueOf(other.x))
 				&& Double.valueOf(this.y).equals(Double.valueOf(other.y))
 				&& Double.valueOf(this.z).equals(Double.valueOf(other.z));

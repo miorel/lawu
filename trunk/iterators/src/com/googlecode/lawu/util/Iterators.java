@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -210,8 +211,38 @@ public class Iterators {
 	}
 
 	/**
-	 * Returns an iterator over the characters of the specified
-	 * <code>CharSequence</code>.
+	 * Returns an iterator over the children of the node.
+	 * 
+	 * @param node
+	 *            parent of the nodes over which to iterate
+	 * @return a node iterator
+	 */
+	public static ReversibleIterator<Node> children(Node node) {
+		return new NodeListIterator(node);
+	}
+
+	/**
+	 * Returns an iterator over the given file's subfiles. A non-directory will
+	 * not crash this method, it will simply result in an iterator with no
+	 * elements. The iterator gives files in lexicographical order based on
+	 * path, in a system-dependent manner (case-sensitive on Windows,
+	 * case-insensitive on Unix).
+	 * 
+	 * @param file
+	 *            parent of the nodes over which to iterate
+	 * @return a file iterator
+	 */
+	public static ReversibleIterator<File> children(File file) {
+		File[] files = file.listFiles();
+		if(files == null)
+			files = new File[0];
+		Arrays.sort(files);
+		return iterator(files);
+	}
+	
+	/**
+	 * Returns an iterator over the characters of the specified character
+	 * sequence.
 	 * 
 	 * @param sequence
 	 *            the character sequence
@@ -291,14 +322,14 @@ public class Iterators {
 	public static UniversalIterator<String> lines(File file) throws FileNotFoundException {
 		return new StreamIterator(file);
 	}
-	
+
 	/**
 	 * Returns an iterator over the lines of the resource at the specified URL.
 	 * 
 	 * @param url
 	 *            the input source
 	 * @return a line iterator
-	 * @throws IOException 
+	 * @throws IOException
 	 *             if an I/O exception occurs
 	 */
 	public static UniversalIterator<String> lines(URL url) throws IOException {
@@ -322,12 +353,13 @@ public class Iterators {
 	 * <code>find</code> utility: if the <code>File</code> given to this method
 	 * is a directory, the returned iterator will recurse through the directory
 	 * tree in a depth-first manner. If the argument represents a normal file,
-	 * the iterator will have a single element, the <code>File</code> itself.
-	 * Directory tree nodes on the same level will be traversed in
-	 * lexicographical order based on path, in a system-dependent manner
-	 * (case-sensitive on Windows, case-insensitive on Unix).
-	 *
-	 * @param file root of the directory hierarchy to traverse
+	 * the iterator will have a single element, the <code>File</code> itself. A
+	 * file's children will be traversed in lexicographical order based on path,
+	 * in a system-dependent manner (case-sensitive on Windows, case-insensitive
+	 * on Unix).
+	 * 
+	 * @param file
+	 *            root of the directory hierarchy to traverse
 	 * @return an iterator over the directory hierarchy
 	 */
 	public static UniversalIterator<File> tree(File file) {
@@ -480,7 +512,7 @@ public class Iterators {
 			list.add(element);
 		return list;
 	}
-	
+
 	/**
 	 * Returns a copy of the given iterator, that is, another iterator
 	 * containing the same elements. This is useful if you have an iterator
@@ -498,7 +530,7 @@ public class Iterators {
 	public static <T> ReversibleIterator<T> copy(Iterator<? extends T> iterator) {
 		return iterator(list(iterator));
 	}
-	
+
 	/**
 	 * Traverses all the elements of an iterator from the beginning, doing
 	 * nothing. This might be useful for forcing evaluation of lazy methods,

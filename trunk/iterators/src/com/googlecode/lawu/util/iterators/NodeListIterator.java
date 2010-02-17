@@ -36,6 +36,16 @@ public class NodeListIterator extends ListIterator<Node> {
 	}
 
 	/**
+	 * Constructs an iterator over the children of the specified node.
+	 * 
+	 * @param node
+	 *            parent of the nodes over which to iterate
+	 */
+	public NodeListIterator(Node node) {
+		this(node.getChildNodes());
+	}
+	
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override

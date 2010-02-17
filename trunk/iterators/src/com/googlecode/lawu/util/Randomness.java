@@ -11,24 +11,24 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.test;
+package com.googlecode.lawu.util;
 
-public class StandardTestCases {
-	@SuppressWarnings("boxing")
-	public static final Integer[][] INTEGER_ARRAYS = {
-		{},
-		{42},
-		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-		{3, 1, 4, 1, 5, 9},
-		{1, 3, 3, 7},
-		{10, 9, 8, 7, 6, 5, 4, 3, 2, 1},
-		{0},
-		{-29},
-		{Integer.MIN_VALUE},
-		{Integer.MAX_VALUE},
-		{4, -27, 999, 0, 0, 4, 4, 2, 4, Integer.MIN_VALUE, -5, -1, -2, -4, 4, Integer.MAX_VALUE},
-	};
+import java.util.Random;
+
+public class Randomness {
+	private static final Random RANDOM = new Random();
 	
-	private StandardTestCases() {
+	private Randomness() {
+	}
+	
+	public static int[] nextInts(int count) {
+		int[] ret = new int[count];
+		for(int i = 0; i != count; ++i)
+			ret[i] = RANDOM.nextInt();
+		return ret;
+	}
+	
+	public static int nextInt(int min, int max) {
+		return RANDOM.nextInt(max - min + 1) + min;
 	}
 }
