@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.spoj;
+package com.googlecode.lawu.net.www.spoj;
 
 public enum Language {
 	ADA("Ada"),

@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net;
+package com.googlecode.lawu.net.www;
 
 public abstract class UrlShortener {
 	public UrlShortener() {

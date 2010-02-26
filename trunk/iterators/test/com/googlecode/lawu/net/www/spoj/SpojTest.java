@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.spoj;
+package com.googlecode.lawu.net.www.spoj;
 
 import static com.googlecode.lawu.util.Iterators.iterator;
 
@@ -20,6 +20,8 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.junit.Test;
+
+import com.googlecode.lawu.net.www.spoj.User;
 
 public class SpojTest {
 	@Test(expected=NullPointerException.class)

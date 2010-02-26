@@ -13,17 +13,12 @@
  */
 package com.googlecode.lawu.thread;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * A thread that runs tasks from a queue, in order.
  * 
  * @author Miorel-Lucian Palii
  */
-public class WorkerThread extends SpecializedThread {	
-	private final Queue<Runnable> taskQueue = new LinkedList<Runnable>();
-
+public class WorkerThread extends QueueThread<Runnable> {	
 	/**
 	 * Allocates a new worker thread.
 	 */
@@ -81,80 +76,30 @@ public class WorkerThread extends SpecializedThread {
 	}
 
 	/**
-	 * Executes a task from the queue (unless interrupted while waiting for a
-	 * task to be queued).
+	 * Runs the task.
+	 * 
+	 * @param task the task to run
 	 */
 	@Override
-	protected void work() {
-		Runnable task = null; 
-		synchronized(taskQueue) {
-			boolean runTask = true; // without this variable, the thread would run one more task after being interrupted
-			if(interrupted()) {
-				runTask = false;
-				interrupt();
-			}
-			else 
-				while(taskQueue.isEmpty())
-					try {
-						taskQueue.wait(); // I'll wake when a task is queued
-					}
-					catch(InterruptedException e) {
-						runTask = false;
-						interrupt();
-						break;
-					}
-			if(runTask)
-				task = taskQueue.poll();
+	protected void process(Runnable task) {
+		try {
+			task.run();
 		}
-		if(task != null) 
-			try {
-				task.run();
-			}
-			catch(Throwable t) {
-				report(t);
-			}
-	}
-	
-	/**
-	 * Empties the task queue so that remaining task objects can be garbage
-	 * collected.
-	 */
-	@Override
-	protected void cleanUp() {
-		clearTasks();	
+		catch(Throwable t) {
+			report(t);
+		}
 	}
 
 	/**
-	 * Adds a task to this worker thread's queue.
+	 * Adds a task to this thread's queue.
 	 * 
 	 * @param task
-	 *            the task to queue
-	 */
-	public void queueTask(Runnable task) {
-		if(task == null)
-			throw new NullPointerException("Can't queue null task.");
-		synchronized(taskQueue) {
-			taskQueue.add(task);
-			taskQueue.notify(); // this thread is the only one that might be wait()-ing
-		}
-	}
-	
-	/**
-	 * Empties this worker thread's task queue.
-	 */
-	public void clearTasks() {
-		synchronized(taskQueue) {
-			taskQueue.clear();
-		}
-	}
-	
-	/**
-	 * {@inheritDoc}
+	 *            the task to add
 	 */
 	@Override
-	public void interrupt() {
-		synchronized(taskQueue) {
-			super.interrupt();
-		}
+	public void enqueue(Runnable task) {
+		if(task == null)
+			throw new IllegalArgumentException("Can't queue null task.");
+		super.enqueue(task);
 	}
 }

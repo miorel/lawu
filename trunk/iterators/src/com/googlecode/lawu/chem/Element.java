@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 import com.googlecode.lawu.util.Strings;
 
 public final class Element {
-	private final static ResourceBundle PERIODIC_TABLE = ResourceBundle.getBundle("com.googlecode.lawu.chem.PeriodicTableInfo");
+	private final static ResourceBundle PERIODIC_TABLE = ResourceBundle.getBundle(Element.class.getPackage().getName() + ".ElementInfo");
 	private final static HashMap<String, Element> bySymbol = new HashMap<String, Element>();
 	
 	private final String symbol;
@@ -48,9 +48,7 @@ public final class Element {
 					ret = new Element(sym, arr[0], Integer.parseInt(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]));
 				}
 				catch(MissingResourceException e) {
-					//throw new NoSuchElementException()?
-					// It's too strangely entertaining to pass up...
-					// But let's just return null for now
+					// it would be a lot of fun to throw a NoSuchElementException, but let's just return null for now
 				}
 				bySymbol.put(sym, ret);
 			}

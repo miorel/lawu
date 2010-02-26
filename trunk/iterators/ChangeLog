@@ -1,3 +1,21 @@
+2010-02-25  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/net/irc/Entity.java:
+	  object representation of an IRC entity (user or server)
+	* src/com/googlecode/lawu/lex/Token.java,
+	  src/com/googlecode/lawu/lex/TokenPattern.java:
+	  very basic classes for lexing framework
+	* src/com/googlecode/lawu/net/www/spoj/Language.java,
+	  src/com/googlecode/lawu/net/www/spoj/Submission.java,
+	  src/com/googlecode/lawu/net/www/spoj/User.java,
+	  test/com/googlecode/lawu/net/www/spoj/SpojTest.java:
+	  refactoring into a different package
+	* src/com/googlecode/lawu/thread/QueueThread.java:
+	  abstracted superclass of WorkerThread
+	* src/com/googlecode/lawu/thread/WorkerThread.java:
+	  rewrote as subclass of QueueThread
+	* src/com/googlecode/lawu/thread/ScheduledThread.java:
+	  another QueueThread subclass, this one runs tasks based on time
+
 2010-02-16  Miorel-Lucian Palii <mlpalii@gmail.com>
 	* test/com/googlecode/lawu/net/spoj/SpojTest.java,
 	  test/com/googlecode/lawu/util/iterators/AbstractUniversalIteratorTest.java,

@@ -11,7 +11,7 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net;
+package com.googlecode.lawu.net.www;
 
 import java.net.URL;
 import java.net.URLEncoder;
