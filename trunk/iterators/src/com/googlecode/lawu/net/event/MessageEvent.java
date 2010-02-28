@@ -11,23 +11,19 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.lex;
+package com.googlecode.lawu.net.event;
 
-public class Token<P extends TokenPattern> {
-	private final P type;
-	private final String value;
+import java.net.InetSocketAddress;
+
+public abstract class MessageEvent extends AbstractNetworkEvent {
+	private final String message;
 	
-	public Token(P type, String value) {
-		this.type = type;
-		this.value = value;
+	public MessageEvent(InetSocketAddress address, String message) {
+		super(address);
+		this.message = message;
 	}
 	
-	public P getType() {
-		return type;
-	}
-	
-	public String getValue() {
-		return value;
+	public String getMessage() {
+		return message;
 	}
 }
-

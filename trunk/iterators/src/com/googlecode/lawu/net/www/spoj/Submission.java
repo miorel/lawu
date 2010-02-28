@@ -32,12 +32,21 @@ public final class Submission {
 	private final int id;
 	private final Date date;
 	private final String problem;
-	private final String result;
+	private final Result result;
+	private final double score;
 	private final int time;
 	private final int memory;
 	private final Language language;
 	
-	public Submission(User user, int id, Date date, String problem, String result, int time, int memory, Language language) {
+	public Submission(User user, int id, Date date, String problem, double score, int time, int memory, Language language) {
+		this(user, id, date, problem, Result.AC, score, time, memory, language);
+	}
+	
+	public Submission(User user, int id, Date date, String problem, Result result, int time, int memory, Language language) {
+		this(user, id, date, problem, result, Double.NaN, time, memory, language);
+	}
+	
+	private Submission(User user, int id, Date date, String problem, Result result, double score, int time, int memory, Language language) {
 		if(user == null)
 			throw new IllegalArgumentException("The user may not be null.");
 		if(id < 0)
@@ -46,15 +55,16 @@ public final class Submission {
 			throw new IllegalArgumentException("The date may not be null.");
 		if(problem == null || problem.isEmpty())
 			throw new IllegalArgumentException("The problem code may not be null or zero length.");
-		if(result == null || result.isEmpty())
-			throw new IllegalArgumentException("The result code may not be null or zero length.");
+		if(result == null)
+			throw new IllegalArgumentException("The result code may not be null.");
 		if(language == null)
 			throw new IllegalArgumentException("The language may not be null.");
 		this.user = user;
 		this.id = id;
 		this.date = date;
 		this.problem = problem.toUpperCase(Locale.ENGLISH);
-		this.result = result.toUpperCase(Locale.ENGLISH);			
+		this.result = result;
+		this.score = score;
 		this.time = time < 0 ? 0 : time;
 		this.memory = memory < 0 ? 0 : memory;
 		this.language = language;
@@ -68,21 +78,25 @@ public final class Submission {
 			tokens.add(m.group(1).trim());
 		if(tokens.size() != 7)
 			throw new RuntimeException("Expected 7 tokens, found " + tokens.size() + ".");
-		Submission ret;
+		Submission ret = null;
 		try {
 			int id = Integer.parseInt(tokens.get(0));
 			Date date = DATE_PARSER.parse(tokens.get(1) + " " + SPOJ_TZ);
 			String problem = tokens.get(2);
-			String result = tokens.get(3);
 			int time = (int) Math.round(1000 * Double.parseDouble(tokens.get(4)));
 			int memory = Integer.parseInt(tokens.get(5));
 			Language language = Language.forSpojName(tokens.get(6));
-			ret = new Submission(user, id, date, problem, result, time, memory, language);
+			String result = tokens.get(3);
+			if(result.matches("\\d*\\.?\\d*(?:[Ee][+-]?\\d+)?"))
+				ret = new Submission(user, id, date, problem, Double.parseDouble(result), time, memory, language);
+			else
+				ret = new Submission(user, id, date, problem, Result.forAbbreviation(result), time, memory, language);
 		}
 		catch(NumberFormatException e) {
 			throw new RuntimeException("Error parsing numeric value.", e);
 		}
 		catch(IllegalArgumentException e) {
+			System.err.println(tokens.get(3));
 			throw new RuntimeException("Error constructing: " + e.getMessage(), e);
 		}
 		catch(ParseException e) {
@@ -155,27 +169,43 @@ public final class Submission {
 		return problem;
 	}
 	
-	public String getResult() {
+	public Result getResult() {
 		return result;
+	}
+	
+	public double getScore() {
+		return score;
+	}
+	
+	public boolean isBinary() {
+		return Double.isNaN(getScore());
+	}
+
+	public boolean isJudged() {
+		return getResult() != Result.PENDING;
+	}
+	
+	public boolean isAccepted() {
+		return getResult() == Result.AC;
 	}
 	
 	public int getTime() {
 		return time;
 	}
 
-	public final double getTimeSeconds() {
+	public double getTimeSeconds() {
 		return 0.001 * getTime();
 	}
 	
-	public final int getMemory() {
+	public int getMemory() {
 		return memory;
 	}
 
-	public final int getMemoryMegabytes() {
+	public int getMemoryMegabytes() {
 		return getMemory() >> 10;
 	}
 	
-	public final Language getLanguage() {
+	public Language getLanguage() {
 		return language;
 	}
 }

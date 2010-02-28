@@ -11,23 +11,16 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.lex;
+package com.googlecode.lawu.net.event;
 
-public class Token<P extends TokenPattern> {
-	private final P type;
-	private final String value;
+import com.googlecode.lawu.event.EventListener;
+
+public interface NetworkEventListener extends EventListener {
+	public void connected(ConnectedEvent event);
 	
-	public Token(P type, String value) {
-		this.type = type;
-		this.value = value;
-	}
+	public void disconnected(DisconnectedEvent event);
+
+	public void reading(ReadingEvent event);
 	
-	public P getType() {
-		return type;
-	}
-	
-	public String getValue() {
-		return value;
-	}
+	public void writing(WritingEvent event);
 }
-

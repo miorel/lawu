@@ -11,23 +11,22 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.lex;
+package com.googlecode.lawu.net.event;
 
-public class Token<P extends TokenPattern> {
-	private final P type;
-	private final String value;
-	
-	public Token(P type, String value) {
-		this.type = type;
-		this.value = value;
+public abstract class AbstractNetworkEventListener implements NetworkEventListener {
+	@Override
+	public void connected(ConnectedEvent event) {	
+	}
+
+	@Override
+	public void disconnected(DisconnectedEvent event) {	
 	}
 	
-	public P getType() {
-		return type;
+	@Override
+	public void writing(WritingEvent event) {	
 	}
-	
-	public String getValue() {
-		return value;
+
+	@Override
+	public void reading(ReadingEvent event) {
 	}
 }
-

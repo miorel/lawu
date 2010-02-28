@@ -24,19 +24,20 @@ import java.util.Set;
 import com.googlecode.lawu.thread.SpecializedThread;
 
 /**
- * A selector-backed thread for managing channels. 
+ * A selector-backed thread for managing channels.
  * 
  * @author Miorel-Lucian Palii
  */
-public abstract class SelectingThread extends SpecializedThread {
+public abstract class SelectingThread extends SpecializedThread implements Registrar {
 	private final Selector selector;
-	
+
 	/**
 	 * Allocates a new selecting thread. The thread will use the system-wide
 	 * default selector provider.
 	 * 
-	 * @throws IOException if the selector provider propagates an I/O error
-	 * during the open operation
+	 * @throws IOException
+	 *             if the selector provider propagates an I/O error during the
+	 *             open operation
 	 */
 	public SelectingThread() throws IOException {
 		this((SelectorProvider) null);

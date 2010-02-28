@@ -1,3 +1,43 @@
+2010-02-27  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/nio/Registrar.java:
+	  interface that can register selectable channels
+	* src/com/googlecode/lawu/nio/AbstractRegistrar.java:
+	  stub implementation that provides one of the methods of Registrar
+	* src/com/googlecode/lawu/nio/SelectingThread.java:
+	  made implement Registrar
+	* src/com/googlecode/lawu/net/Client.java:
+	  a wrapper for a socket channel
+	* src/com/googlecode/lawu/net/LineOrientedClient.java:
+	  a client that uses lines as the communication "atom"
+	* src/com/googlecode/lawu/net/ClientsThread.java:
+	  subclass of SelectingThread that manages clients
+	* src/com/googlecode/lawu/net/event/AbstractNetworkEvent.java,
+	  src/com/googlecode/lawu/net/event/AbstractNetworkEventListener.java,
+	  src/com/googlecode/lawu/net/event/ConnectedEvent.java,
+	  src/com/googlecode/lawu/net/event/DisconnectedEvent.java,
+	  src/com/googlecode/lawu/net/event/MessageEvent.java,
+	  src/com/googlecode/lawu/net/event/ReadingEvent.java,
+	  src/com/googlecode/lawu/net/event/WritingEvent.java:
+	  copied from IRC bot code with only minor refactoring
+
+2010-02-26  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/nio/SelectingThread.java:
+	  made abstract
+	* src/com/googlecode/lawu/www/spoj/Result.java:
+	  created enum for submission results
+	* src/com/googlecode/lawu/www/spoj/Submission.java:
+	  modified submission in light of the above
+	* src/com/googlecode/lawu/www/projecteuler/User.java:
+	  created, largely based on SPOJ user
+	* src/com/googlecode/lawu/event/AbstractEvent.java,
+	  src/com/googlecode/lawu/event/Event.java,
+	  src/com/googlecode/lawu/event/EventListener.java:
+	  beginnings of an event framework
+	* src/com/googlecode/lawu/net/event/AbstractNetworkEvent.java,
+	  src/com/googlecode/lawu/net/event/NetworkEvent.java,
+	  src/com/googlecode/lawu/net/event/NetworkEventListener.java:
+	  beginnings of an event framework
+
 2010-02-25  Miorel-Lucian Palii <mlpalii@gmail.com>
 	* src/com/googlecode/lawu/net/irc/Entity.java:
 	  object representation of an IRC entity (user or server)
