@@ -11,21 +11,33 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.event;
+package com.googlecode.lawu.net.irc.cmd;
 
-import com.googlecode.lawu.net.Client;
+import static com.googlecode.lawu.util.Iterators.iterator;
 
-public abstract class MessageEvent extends AbstractNetworkEvent {
+import com.googlecode.lawu.util.iterators.UniversalIterator;
+
+public abstract class IrcTargetMessageCommand extends AbstractIrcCommand {
+	private final String target;
 	private final String message;
 	
-	public MessageEvent(Client client, String message) {
-		super(client);
-		if(message == null)
-			throw new IllegalArgumentException("The message may not be null.");
+	public IrcTargetMessageCommand(String target, String message) {
+		validateString("target", target, false, false);
+		validateMessage(message, true);
+		this.target = target;
 		this.message = message;
+	}
+	
+	public String getTarget() {
+		return target;
 	}
 	
 	public String getMessage() {
 		return message;
+	}
+	
+	@Override
+	public UniversalIterator<String> getArguments() {
+		return iterator(target, message);
 	}
 }

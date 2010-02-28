@@ -13,18 +13,19 @@
  */
 package com.googlecode.lawu.net.event;
 
-import java.net.InetSocketAddress;
-
 import com.googlecode.lawu.event.AbstractEvent;
+import com.googlecode.lawu.net.Client;
 
 public abstract class AbstractNetworkEvent extends AbstractEvent<NetworkEventListener> implements NetworkEvent {
-	private final InetSocketAddress address;
+	private final Client client;
 	
-	public AbstractNetworkEvent(InetSocketAddress address) {
-		this.address = address;
+	public AbstractNetworkEvent(Client client) {
+		if(client == null)
+			throw new IllegalArgumentException("The client may not be null.");
+		this.client = client;
 	}
 	
-	public InetSocketAddress getAddress() {
-		return address;
+	public Client getClient() {
+		return client;
 	}
 }

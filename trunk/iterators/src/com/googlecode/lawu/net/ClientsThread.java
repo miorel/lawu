@@ -24,7 +24,7 @@ import com.googlecode.lawu.nio.SelectingThread;
  * 
  * @author Miorel-Lucian Palii
  */
-public abstract class ClientsThread extends SelectingThread {
+public class ClientsThread extends SelectingThread {
 
 	/**
 	 * Allocates a new clients thread. The thread will use the system-wide
@@ -206,7 +206,7 @@ public abstract class ClientsThread extends SelectingThread {
 		}
 		catch(IOException e) {
 			report(e);
-			client.disconnect();
+			client.stop();
 		}
 	}
 	
@@ -223,7 +223,7 @@ public abstract class ClientsThread extends SelectingThread {
 		}
 		catch(IOException e) {
 			report(e);
-			client.disconnect();
+			client.stop();
 		}
 	}
 	
@@ -241,7 +241,7 @@ public abstract class ClientsThread extends SelectingThread {
 		}
 		catch(IOException e) {
 			report(e);
-			client.disconnect();
+			client.stop();
 		}
 	}
 }

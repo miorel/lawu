@@ -67,6 +67,10 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 		return iterator.current();
 	}
 
+	/**
+	 * {inheritDoc}
+	 */
+	@Override	
 	public boolean isDone() {
 		return iterator.isDone();
 	}

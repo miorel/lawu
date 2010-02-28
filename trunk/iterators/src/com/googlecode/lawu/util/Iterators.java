@@ -17,8 +17,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,6 +37,7 @@ import org.w3c.dom.NodeList;
 
 import com.googlecode.lawu.dp.Iterator;
 import com.googlecode.lawu.util.iterators.ArrayIterator;
+import com.googlecode.lawu.util.iterators.BufferedReaderIterator;
 import com.googlecode.lawu.util.iterators.CharacterIterator;
 import com.googlecode.lawu.util.iterators.FileHierarchyIterator;
 import com.googlecode.lawu.util.iterators.FilteredIterator;
@@ -49,7 +52,6 @@ import com.googlecode.lawu.util.iterators.NodeHierarchyIterator;
 import com.googlecode.lawu.util.iterators.NodeListIterator;
 import com.googlecode.lawu.util.iterators.ReversibleIterator;
 import com.googlecode.lawu.util.iterators.ScannerIterator;
-import com.googlecode.lawu.util.iterators.StreamIterator;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
 /**
@@ -218,7 +220,7 @@ public class Iterators {
 	 * @return a node iterator
 	 */
 	public static ReversibleIterator<Node> children(Node node) {
-		return new NodeListIterator(node);
+		return iterator(node.getChildNodes());
 	}
 
 	/**
@@ -272,7 +274,7 @@ public class Iterators {
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(Reader reader) {
-		return new StreamIterator(reader);
+		return lines(new BufferedReader(reader));
 	}
 
 	/**
@@ -284,7 +286,7 @@ public class Iterators {
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(BufferedReader reader) {
-		return new StreamIterator(reader);
+		return new BufferedReaderIterator(reader);
 	}
 
 	/**
@@ -296,7 +298,7 @@ public class Iterators {
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(InputStream stream) {
-		return new StreamIterator(stream);
+		return lines(new InputStreamReader(stream));
 	}
 
 	/**
@@ -307,7 +309,7 @@ public class Iterators {
 	 * @return a line iterator
 	 */
 	public static UniversalIterator<String> lines(FileDescriptor fd) {
-		return new StreamIterator(fd);
+		return lines(new FileReader(fd));
 	}
 
 	/**
@@ -320,7 +322,7 @@ public class Iterators {
 	 *             if the file can't be opened for reading
 	 */
 	public static UniversalIterator<String> lines(File file) throws FileNotFoundException {
-		return new StreamIterator(file);
+		return lines(new FileReader(file));
 	}
 
 	/**
@@ -333,7 +335,7 @@ public class Iterators {
 	 *             if an I/O exception occurs
 	 */
 	public static UniversalIterator<String> lines(URL url) throws IOException {
-		return new StreamIterator(url);
+		return lines(url.openStream());
 	}
 
 	/**

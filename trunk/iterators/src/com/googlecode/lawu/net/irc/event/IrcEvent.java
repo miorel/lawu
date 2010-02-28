@@ -11,11 +11,17 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.event;
+package com.googlecode.lawu.net.irc.event;
 
 import com.googlecode.lawu.event.Event;
-import com.googlecode.lawu.net.Client;
+import com.googlecode.lawu.net.irc.Entity;
+import com.googlecode.lawu.net.irc.IrcClient;
+import com.googlecode.lawu.net.irc.cmd.IncomingIrcCommand;
 
-public interface NetworkEvent extends Event<NetworkEventListener> {
-	public Client getClient();
+public interface IrcEvent<C extends IncomingIrcCommand> extends Event<IrcEventListener> {
+	public IrcClient getClient();
+	
+	public Entity getOrigin();
+	
+	public C getCommand();
 }

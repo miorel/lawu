@@ -1,3 +1,20 @@
+2010-02-28  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* a lot of refactoring and addition of IRC code
+
+2010-02-27  Miorel-Lucian Palii <mlpalii@gmail.com>
+	* src/com/googlecode/lawu/nio/Registrar.java:
+	  added deregister method definition
+	* src/com/googlecode/lawu/nio/SelectingThread.java:
+	  implemented deregister method
+	* src/com/googlecode/lawu/net/ClientsThread.java:
+	  made concrete
+	* src/com/googlecode/lawu/net/Client.java:
+	  added event support
+	* src/com/googlecode/lawu/net/LineOrientedClient.java:
+	  created empty process method and made concrete 
+	* src/com/googlecode/lawu/net/log/NetworkLogger.java:
+	  created simple logger of network events
+
 2010-02-27  Miorel-Lucian Palii <mlpalii@gmail.com>
 	* src/com/googlecode/lawu/nio/Registrar.java:
 	  interface that can register selectable channels

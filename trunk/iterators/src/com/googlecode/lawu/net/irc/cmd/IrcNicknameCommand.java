@@ -11,11 +11,26 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.event;
+package com.googlecode.lawu.net.irc.cmd;
 
-import com.googlecode.lawu.event.Event;
-import com.googlecode.lawu.net.Client;
+import static com.googlecode.lawu.util.Iterators.iterator;
 
-public interface NetworkEvent extends Event<NetworkEventListener> {
-	public Client getClient();
+import com.googlecode.lawu.util.iterators.UniversalIterator;
+
+public abstract class IrcNicknameCommand extends AbstractIrcCommand {
+	private final String nick;
+	
+	public IrcNicknameCommand(String nick) {
+		validateNick(nick);
+		this.nick = nick;
+	}
+	
+	public String getNick() {
+		return nick;
+	}
+	
+	@Override
+	public UniversalIterator<String> getArguments() {
+		return iterator(nick);
+	}
 }

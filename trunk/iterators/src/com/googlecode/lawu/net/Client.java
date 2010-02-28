@@ -14,7 +14,7 @@
 package com.googlecode.lawu.net;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.ClosedChannelException;
@@ -24,19 +24,27 @@ import java.nio.channels.spi.SelectorProvider;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CharsetEncoder;
+import java.nio.charset.CodingErrorAction;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.googlecode.lawu.event.EventManager;
+import com.googlecode.lawu.net.event.ConnectedEvent;
+import com.googlecode.lawu.net.event.DisconnectedEvent;
+import com.googlecode.lawu.net.event.NetworkEvent;
+import com.googlecode.lawu.net.event.NetworkEventListener;
+import com.googlecode.lawu.net.event.ReadingEvent;
+import com.googlecode.lawu.net.event.WritingEvent;
 import com.googlecode.lawu.nio.Registrar;
 
 public abstract class Client {
-	public static final String CHARSET_NAME = "US-ASCII";
+	public static final String CHARSET_NAME = "ISO-8859-1";
 	public static final int BUFFER_SIZE = 1 << 12;
 	public static final long CONNECTION_TIMEOUT = 10000;
 	
 	private final Registrar registrar;
 	private final SelectorProvider provider;
-	private final InetSocketAddress address;
+	private final SocketAddress address;
 	private SocketChannel channel;
 	
 	private final Queue<String> outputQueue;
@@ -47,12 +55,14 @@ public abstract class Client {
 
 	private final CharsetDecoder decoder;
 	private final CharsetEncoder encoder;
-
-	public Client(InetSocketAddress address, Registrar registrar) {
+	
+	private final EventManager<NetworkEventListener> networkEventManager;
+	
+	public Client(SocketAddress address, Registrar registrar) {
 		this(address, registrar, null);
 	}
 	
-	public Client(InetSocketAddress address, Registrar registrar, SelectorProvider provider) {
+	public Client(SocketAddress address, Registrar registrar, SelectorProvider provider) {
 		if(address == null)
 			throw new IllegalArgumentException("The address may not be null.");
 		if(registrar == null)
@@ -65,11 +75,12 @@ public abstract class Client {
 		this.charBuffer = CharBuffer.allocate(BUFFER_SIZE);
 		this.stringBuffer = new StringBuilder();
 		Charset charset = Charset.forName(CHARSET_NAME);
-		this.decoder = charset.newDecoder();
-		this.encoder = charset.newEncoder();
+		this.decoder = charset.newDecoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
+		this.encoder = charset.newEncoder().onMalformedInput(CodingErrorAction.REPLACE).onUnmappableCharacter(CodingErrorAction.REPLACE);
+		this.networkEventManager = new EventManager<NetworkEventListener>();
 	}
 	
-	public InetSocketAddress getAddress() {
+	public SocketAddress getAddress() {
 		return address;
 	}
 
@@ -91,12 +102,12 @@ public abstract class Client {
 		setChannelInterest(SelectionKey.OP_READ | SelectionKey.OP_WRITE);
 	}
 	
-	public void prepare() throws IOException {
+	public void start() throws IOException {
 		synchronized(stringBuffer) {
 			synchronized(outputQueue) {
 				outputQueue.clear();
 			}
-			disconnect();
+			stop();
 			channel = provider.openSocketChannel();
 			channel.configureBlocking(false);
 			channel.connect(address);
@@ -106,22 +117,26 @@ public abstract class Client {
 	
 	public void connect() throws IOException {
 		synchronized(stringBuffer) {
-			if(channel.isConnectionPending() && channel.finishConnect())
+			if(channel.isConnectionPending() && channel.finishConnect()) {
 				listenForReadWrite();
+				distributeNetworkEvent(new ConnectedEvent(this));
+			}
 		}
 	}
 	
-	public void disconnect() {
+	public void stop() {
 		synchronized(stringBuffer) {
-			try {
-				SocketChannel tmp = channel;
-				if(tmp != null) {
-					channel = null;
+			SocketChannel tmp = channel;
+			if(tmp != null) {
+				channel = null;
+				registrar.deregister(tmp);
+				try {
 					tmp.socket().close();
 				}
-			}
-			catch(IOException e) {
-				report(e);
+				catch(IOException e) {
+					report(e);
+				}
+				distributeNetworkEvent(new DisconnectedEvent(this));
 			}
 		}
 	}
@@ -133,7 +148,7 @@ public abstract class Client {
 	public void read() throws IOException {
 		synchronized(stringBuffer) {
 			if(channel.read(byteBuffer) < 0)
-				disconnect();
+				stop();
 			else {
 				byteBuffer.flip();
 				decoder.decode(byteBuffer, charBuffer, false);
@@ -160,16 +175,18 @@ public abstract class Client {
 					}
 				}
 			}
-			if(message != null)
+			if(message != null) {
+				raiseWritingEvent(message);
 				channel.write(encoder.encode(CharBuffer.wrap(message)));
+			}
 		}
 	}
 	
 	protected abstract void scanBuffer(StringBuilder buffer);
 	
-	public void send(String message) {
+	protected void send(CharSequence message) {
 		synchronized(outputQueue) {
-			outputQueue.add(message);
+			outputQueue.add(message.toString());
 			try {
 				listenForReadWrite();
 			}
@@ -177,5 +194,25 @@ public abstract class Client {
 				report(e);
 			}
 		}
+	}
+	
+	public void addNetworkEventListener(NetworkEventListener listener) {
+		networkEventManager.addListener(listener);
+	}
+
+	protected void distributeNetworkEvent(NetworkEvent event) {
+		networkEventManager.distribute(event);
+	}
+
+	public void removeNetworkEventListener(NetworkEventListener listener) {
+		networkEventManager.removeListener(listener);
+	}
+
+	protected void raiseReadingEvent(String message) {
+		distributeNetworkEvent(new ReadingEvent(this, message));
+	}
+	
+	protected void raiseWritingEvent(String message) {
+		distributeNetworkEvent(new WritingEvent(this, message));
 	}
 }

@@ -13,11 +13,11 @@
  */
 package com.googlecode.lawu.net.event;
 
-import java.net.InetSocketAddress;
+import com.googlecode.lawu.net.Client;
 
 public class ReadingEvent extends MessageEvent {
-	public ReadingEvent(InetSocketAddress address, String message) {
-		super(address, message);
+	public ReadingEvent(Client client, String message) {
+		super(client, message);
 	}
 	
 	@Override

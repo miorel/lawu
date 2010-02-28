@@ -11,11 +11,17 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.event;
+package com.googlecode.lawu.net.irc.cmd;
 
-import com.googlecode.lawu.event.Event;
-import com.googlecode.lawu.net.Client;
+import com.googlecode.lawu.dp.Iterator;
 
-public interface NetworkEvent extends Event<NetworkEventListener> {
-	public Client getClient();
+public class PongCommand extends IrcTargetsCommand {
+	public PongCommand(Iterator<String> targets) {
+		super(targets);
+	}
+	
+	@Override
+	public String getCommand() {
+		return "PONG";
+	}
 }

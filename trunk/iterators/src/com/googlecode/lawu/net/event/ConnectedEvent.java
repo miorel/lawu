@@ -13,11 +13,11 @@
  */
 package com.googlecode.lawu.net.event;
 
-import java.net.InetSocketAddress;
+import com.googlecode.lawu.net.Client;
 
 public class ConnectedEvent extends AbstractNetworkEvent {
-	public ConnectedEvent(InetSocketAddress address) {
-		super(address);
+	public ConnectedEvent(Client client) {
+		super(client);
 	}
 	
 	@Override

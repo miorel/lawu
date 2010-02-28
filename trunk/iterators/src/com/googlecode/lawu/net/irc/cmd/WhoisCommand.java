@@ -11,11 +11,15 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.event;
+package com.googlecode.lawu.net.irc.cmd;
 
-import com.googlecode.lawu.event.Event;
-import com.googlecode.lawu.net.Client;
-
-public interface NetworkEvent extends Event<NetworkEventListener> {
-	public Client getClient();
+public class WhoisCommand extends IrcNicknameCommand {	
+	public WhoisCommand(String nick) {
+		super(nick);
+	}
+	
+	@Override
+	public String getCommand() {
+		return "WHOIS";
+	}
 }

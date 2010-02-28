@@ -13,22 +13,27 @@
  */
 package com.googlecode.lawu.net;
 
-import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.channels.spi.SelectorProvider;
 
 import com.googlecode.lawu.nio.Registrar;
 
 public abstract class LineOrientedClient extends Client {
-	public LineOrientedClient(InetSocketAddress address, Registrar registrar, SelectorProvider provider) {
+	public LineOrientedClient(SocketAddress address, Registrar registrar, SelectorProvider provider) {
 		super(address, registrar, provider);
 	}
 
-	public LineOrientedClient(InetSocketAddress address, Registrar registrar) {
+	public LineOrientedClient(SocketAddress address, Registrar registrar) {
 		super(address, registrar);
 	}
 
 	@Override
-	public void send(String message) {
+	protected void raiseWritingEvent(String message) {
+		super.raiseWritingEvent(message.substring(0, message.length() - 2));
+	}
+	
+	@Override
+	protected void send(CharSequence message) {
 		super.send(message + "\r\n");
 	}
 	
@@ -42,6 +47,7 @@ public abstract class LineOrientedClient extends Client {
 				while(i < buffer.length() && (buffer.charAt(i) == '\r' || buffer.charAt(i) == '\n'));
 				buffer.delete(0, i);
 				i = -1;
+				raiseReadingEvent(line);
 				process(line);
 			}
 		}

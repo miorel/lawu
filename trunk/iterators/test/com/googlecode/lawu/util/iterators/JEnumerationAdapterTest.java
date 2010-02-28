@@ -37,7 +37,6 @@ public class JEnumerationAdapterTest extends UniversalIteratorTest {
 				public UniversalIterator<Integer> build() {
 					return new JEnumerationAdapter<Integer>(vector.elements());
 				}
-				
 			}, vector);
 		}
 	}

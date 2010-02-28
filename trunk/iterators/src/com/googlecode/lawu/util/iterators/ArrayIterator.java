@@ -24,13 +24,12 @@ public class ArrayIterator<T> extends ListIterator<T> {
 	private final T[] array;
 
 	/**
-	 * Constructs an iterator over the specified array. The varargs parameter
-	 * makes for some syntactic sugar.
+	 * Constructs an iterator over the specified array.
 	 * 
 	 * @param array
 	 *            array over which to iterate
 	 */
-	public ArrayIterator(T... array) {
+	public ArrayIterator(T[] array) {
 		super(0, array.length);
 		this.array = array;
 	}

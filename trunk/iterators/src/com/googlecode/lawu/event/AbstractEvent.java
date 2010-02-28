@@ -24,19 +24,28 @@ package com.googlecode.lawu.event;
 public abstract class AbstractEvent<T extends EventListener> implements Event<T> {
 	private boolean consumed = false;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public final void consume() {
+	public void consume() {
 		consumed = true;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean isConsumed() {
 		return consumed;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public final void trigger(T listener) {
-		if(!isConsumed())
+	public void trigger(T listener) {
+		if(!consumed)
 			doTrigger(listener);
 	}
 

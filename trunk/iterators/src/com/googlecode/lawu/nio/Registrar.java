@@ -19,5 +19,8 @@ import java.nio.channels.SelectionKey;
 
 public interface Registrar {
 	public SelectionKey register(SelectableChannel channel, int ops) throws ClosedChannelException;
+	
 	public SelectionKey register(SelectableChannel channel, int ops, Object attachment) throws ClosedChannelException;
+	
+	public void deregister(SelectableChannel channel);
 }

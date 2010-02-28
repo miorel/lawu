@@ -13,11 +13,11 @@
  */
 package com.googlecode.lawu.net.event;
 
-import java.net.InetSocketAddress;
+import com.googlecode.lawu.net.Client;
 
 public class DisconnectedEvent extends AbstractNetworkEvent {
-	public DisconnectedEvent(InetSocketAddress address) {
-		super(address);
+	public DisconnectedEvent(Client client) {
+		super(client);
 	}
 
 	@Override

@@ -14,25 +14,25 @@
 package com.googlecode.lawu.net.irc;
 
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Entity {
 	private static final Pattern ENTITY_INFO_FIELD; 
 	private static final Pattern ENTITY_INFO;
-	
 	static {
 		String eifr = "[^!@]+";
 		ENTITY_INFO_FIELD = Pattern.compile(eifr);
 		ENTITY_INFO = Pattern.compile(String.format("(?:(%1$s)!)?(?:(%1$s)@)?(%1$s)", eifr));	
 	}
 	
-	private final InetSocketAddress address;
+	private final SocketAddress address;
 	private final String nick;
 	private final String ident;
 	private final String host;
 
-	public Entity(String nick, String ident, String host, InetSocketAddress address) {
+	public Entity(String nick, String ident, String host, SocketAddress address) {
 		if(nick != null) {
 			if(nick.isEmpty())
 				throw new IllegalArgumentException("The nickname may not be zero-length, use null instead.");
@@ -49,7 +49,7 @@ public class Entity {
 			throw new IllegalArgumentException("The host may not be zero-length.");
 		if(!ENTITY_INFO_FIELD.matcher(host).matches())
 			throw new IllegalArgumentException("The host must be a valid entity info field.");
-		if(address != null && address.getAddress().isAnyLocalAddress())
+		if(address != null && address instanceof InetSocketAddress && ((InetSocketAddress) address).getAddress().isAnyLocalAddress())
 			throw new IllegalArgumentException("The address may not be a wildcard, use null instead.");
 		this.nick = nick;
 		this.ident = ident;
@@ -57,7 +57,7 @@ public class Entity {
 		this.address = address;
 	}
 	
-	public static Entity forInfo(String entityInfo, InetSocketAddress address) {
+	public static Entity forInfo(String entityInfo, SocketAddress address) {
 		if(entityInfo == null)
 			throw new IllegalArgumentException("Can't parse null string.");
 		Matcher m = ENTITY_INFO.matcher(entityInfo);
@@ -70,7 +70,7 @@ public class Entity {
 		return forInfo(entityInfo, null);
 	}
 	
-	public InetSocketAddress getAddress() {
+	public SocketAddress getAddress() {
 		return address;
 	}
 	

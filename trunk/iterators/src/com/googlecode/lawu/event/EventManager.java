@@ -14,12 +14,7 @@
 package com.googlecode.lawu.event;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import com.googlecode.lawu.util.Iterators;
-import com.googlecode.lawu.util.iterators.ReversibleIterator;
 
 /**
  * Keeps a set of event listeners and distributes events to them.
@@ -29,61 +24,51 @@ import com.googlecode.lawu.util.iterators.ReversibleIterator;
  *            type of listeners managed
  */
 public class EventManager<L extends EventListener> {
-	private final Set<L> listenerSet;
-	private final List<L> listenerList;
-	private boolean listenersChanged = false;
+	private final List<L> listeners;
 
 	/**
-	 * Prepares a new event manager, initialized with an empty listener set. 
+	 * Prepares a new event manager, initialized with an empty listener set.
 	 */
 	public EventManager() {
-		this.listenerSet = new HashSet<L>();
-		this.listenerList = new ArrayList<L>();
+		this.listeners = new ArrayList<L>();
 	}
 
 	/**
 	 * Adds the specified listener to this manager's listener set.
 	 * 
-	 * @param listener listener to add
+	 * @param listener
+	 *            listener to add
 	 */
 	public void addListener(L listener) {
-		synchronized(listenerSet) {
-			if(listenerSet.add(listener))
-				listenerList.add(listener);
+		synchronized(listeners) {
+			if(!listeners.contains(listener))
+				listeners.add(listener);
 		}
 	}
 
 	/**
 	 * Removes the specified listener from this manager's listener set.
 	 * 
-	 * @param listener listener to remove
+	 * @param listener
+	 *            listener to remove
 	 */
 	public void removeListener(L listener) {
-		synchronized(listenerSet) {
-			if(listenerSet.remove(listener))
-				listenersChanged = true;
+		synchronized(listeners) {
+			listeners.remove(listener);
 		}
-	}
-
-	protected ReversibleIterator<L> getListeners() {
-		ReversibleIterator<L> ret;
-		synchronized(listenerSet) {
-			if(listenersChanged) {
-				listenerList.clear();
-				listenerList.addAll(listenerSet);
-			}
-			ret = Iterators.iterator(listenerList);
-		}
-		return ret;
 	}
 
 	/**
-	 * Distributes the given event by triggering it on all managed listeners in the order in which they were added to this manager.
+	 * Distributes the given event by triggering it on all managed listeners in
+	 * the order in which they were added to this manager.
 	 * 
-	 * @param event event to trigger
+	 * @param event
+	 *            event to trigger
 	 */
 	public void distribute(Event<L> event) {
-		for(L listener: getListeners())
-			event.trigger(listener);
+		synchronized(listeners) {
+			for(L listener: listeners)
+				event.trigger(listener);
+		}
 	}
 }

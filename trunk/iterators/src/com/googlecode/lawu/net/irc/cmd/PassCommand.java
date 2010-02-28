@@ -11,17 +11,30 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.event;
+package com.googlecode.lawu.net.irc.cmd;
 
-import com.googlecode.lawu.net.Client;
+import static com.googlecode.lawu.util.Iterators.*;
+import com.googlecode.lawu.util.iterators.UniversalIterator;
 
-public class WritingEvent extends MessageEvent {	
-	public WritingEvent(Client client, String message) {
-		super(client, message);
+public class PassCommand extends AbstractIrcCommand {
+	private final String password;
+	
+	public PassCommand(String password) {
+		validateString("password", password, false, false);
+		this.password = password;
 	}
 	
+	public String getPassword() {
+		return password;
+	}
+
 	@Override
-	protected void doTrigger(NetworkEventListener listener) {
-		listener.writing(this);
+	public UniversalIterator<String> getArguments() {
+		return iterator(password);
+	}
+
+	@Override
+	public String getCommand() {
+		return "PASS";
 	}
 }

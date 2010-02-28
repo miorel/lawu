@@ -215,7 +215,7 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 		}
 		if(s > 0) {
 			Set<SelectionKey> keys = selector.selectedKeys();
-			for(SelectionKey key: keys) { 
+			for(SelectionKey key: keys) {
 				if(key.isValid() && key.isAcceptable())
 					accept(key);
 				if(key.isValid() && key.isConnectable())
@@ -346,5 +346,15 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 		if(wakeUp)
 			selector.wakeup();
 		return newKey;
+	}
+
+	/**
+	 * Cancels the given channel's registration.
+	 * 
+	 * @param channel
+	 *            the channel to deregister
+	 */
+	public void deregister(SelectableChannel channel) {
+		channel.keyFor(selector).cancel();
 	}
 }
