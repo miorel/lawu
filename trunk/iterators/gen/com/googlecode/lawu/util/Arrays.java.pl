@@ -31,6 +31,8 @@ METHOD
 
 print "}\n";
 
+1;
+
 __DATA__
 public class Arrays {
 	private Arrays() {

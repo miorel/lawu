@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2010 Miorel-Lucian Palii
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- */
-package com.googlecode.lawu.math;
-
 import java.util.Comparator;
 
 /**
@@ -21,9 +6,9 @@ import java.util.Comparator;
  * @author Miorel-Lucian Palii
  */
 public class Vector {
-	private final double x;
-	private final double y;
-	private final double z;
+	private final double x; // DATA the x-coordinate
+	private final double y; // DATA the y-coordinate
+	private final double z; // DATA the z-coordinate
 
 	/**
 	 * A comparator that orders vectors by their magnitude. There is no breaking
@@ -80,33 +65,6 @@ public class Vector {
 	 */
 	public Vector(Vector vector) {
 		this(vector.getX(), vector.getY(), vector.getZ());
-	}
-	
-	/**
-	 * Retrieves the x-coordinate of this vector.
-	 * 
-	 * @return the x-coordinate
-	 */
-	public double getX() {
-		return this.x;
-	}
-
-	/**
-	 * Retrieves the y-coordinate of this vector.
-	 * 
-	 * @return the y-coordinate
-	 */
-	public double getY() {
-		return this.y;
-	}
-
-	/**
-	 * Retrieves the z-coordinate of this vector.
-	 * 
-	 * @return the z-coordinate
-	 */
-	public double getZ() {
-		return this.z;
 	}
 
 	/**

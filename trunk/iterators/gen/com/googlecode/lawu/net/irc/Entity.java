@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2010 Miorel-Lucian Palii
- *
- * This program is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License as published by the Free Software
- * Foundation, either version 3 of the License, or (at your option) any later
- * version.
- *
- * This program is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
- * details.
- */
-package com.googlecode.lawu.net.irc;
-
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.util.regex.Matcher;
@@ -27,10 +12,10 @@ public class Entity {
 		ENTITY_INFO = Pattern.compile(String.format("(?:(%1$s)!)?(?:(%1$s)@)?(%1$s)", eifr));	
 	}
 	
-	private final SocketAddress address;
-	private final String nick;
-	private final String ident;
-	private final String host;
+	private final SocketAddress address; // DATA the address
+	private final String nick; // DATA the nickname
+	private final String ident; // DATA the ident
+	private final String host; // DATA the host
 
 	public Entity(String nick, String ident, String host, SocketAddress address) {
 		if(nick != null) {
@@ -68,22 +53,6 @@ public class Entity {
 
 	public static Entity forInfo(String entityInfo) {
 		return forInfo(entityInfo, null);
-	}
-	
-	public SocketAddress getAddress() {
-		return address;
-	}
-	
-	public String getNick() {
-		return nick;
-	}
-
-	public String getIdent() {
-		return ident;
-	}
-
-	public String getHost() {
-		return host;
 	}
 
 	public boolean isUser() {
