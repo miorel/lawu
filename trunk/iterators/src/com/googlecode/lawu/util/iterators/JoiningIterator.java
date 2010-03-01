@@ -19,7 +19,7 @@ import com.googlecode.lawu.dp.Iterator;
  * An iterator that joins the traversals of a group of iterators into one.
  * 
  * @author Miorel-Lucian Palii
- * @param <T>
+ * @param <T> 
  */
 public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	private final Iterator<? extends Iterator<? extends T>> iterator;
@@ -42,11 +42,13 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void advance() {
-		while(iterator.current().isDone() && !iterator.isDone()) {
+		iterator.current().advance();
+		while(iterator.current().isDone()) {
 			iterator.advance();
+			if(iterator.isDone())
+				break;
 			iterator.current().reset();
 		}
-		iterator.current().advance();
 	}
 
 	/**
@@ -71,7 +73,14 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	@Override
 	public void reset() {
 		iterator.reset();
-		if(!iterator.isDone())
+		if(!iterator.isDone()) {
 			iterator.current().reset();
+			while(iterator.current().isDone()) {
+				iterator.advance();
+				if(iterator.isDone())
+					break;
+				iterator.current().reset();
+			}
+		}
 	}
 }

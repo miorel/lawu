@@ -44,7 +44,7 @@ public enum Language {
 	PROLOG("PRL", "Prolog"), 
 	PYTHON("PYT", "Python"),
 	RUBY("RUB", "Ruby"),
-//	SCALA("SCAL", "Scala"),
+	SCALA("SCA", "Scala"),
 	SCHEME("SCM", "Scheme"),
 	SMALLTALK("ST", "Smalltalk"),
 	TCL("Tcl"),

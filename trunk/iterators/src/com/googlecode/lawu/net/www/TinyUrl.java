@@ -16,8 +16,7 @@ package com.googlecode.lawu.net.www;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import com.googlecode.lawu.util.Iterators;
-import com.googlecode.lawu.util.Strings;
+import com.googlecode.lawu.util.Streams;
 
 public class TinyUrl extends UrlShortener {
 	public TinyUrl() {
@@ -35,7 +34,7 @@ public class TinyUrl extends UrlShortener {
 		}
 		String text = null;
 		try {
-			text = Strings.join("\n", Iterators.lines(new URL(requestUrl).openStream()));
+			text = Streams.slurp(new URL(requestUrl)).toString();
 		}
 		catch(Exception e) {
 			throw new RuntimeException();

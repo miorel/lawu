@@ -13,14 +13,14 @@
  */
 package com.googlecode.lawu.net.www;
 
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
 
 import com.googlecode.lawu.json.JsonObject;
 import com.googlecode.lawu.json.JsonParser;
 import com.googlecode.lawu.json.JsonString;
-import com.googlecode.lawu.util.Iterators;
-import com.googlecode.lawu.util.Strings;
+import com.googlecode.lawu.util.Streams;
 
 public class Bitly extends UrlShortener {
 	private final String login;
@@ -56,11 +56,11 @@ public class Bitly extends UrlShortener {
 		catch(Exception e) {
 			throw new RuntimeException();
 		}
-		String json = null;
+		CharSequence json = null;
 		try {
-			json = Strings.join("\n", Iterators.lines(new URL(requestUrl).openStream()));
+			json = Streams.slurp(new URL(requestUrl));
 		}
-		catch(Exception e) {
+		catch(IOException e) {
 			throw new RuntimeException();
 		}
 		JsonObject jsonObj = (JsonObject) parser.parse(json); 

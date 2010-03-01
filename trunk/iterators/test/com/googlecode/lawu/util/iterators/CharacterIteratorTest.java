@@ -13,10 +13,11 @@
  */
 package com.googlecode.lawu.util.iterators;
 
-import static com.googlecode.lawu.util.Arrays.box;
 import static java.util.Arrays.asList;
 
 import org.junit.Test;
+
+import static com.googlecode.lawu.util.Arrays.box;
 
 import com.googlecode.lawu.test.TestCases;
 
