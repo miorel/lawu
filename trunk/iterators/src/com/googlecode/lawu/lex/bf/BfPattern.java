@@ -42,13 +42,13 @@ public enum BfPattern implements TokenPattern {
 	}
 	
 	private BfPattern() {
-		this.cmd = '\0';
+		this('\0');
 	}
 	
 	@Override
 	public int matchLength(CharSequence text) {
 		if(text == null) 
 			throw new IllegalArgumentException("The text may not be null.");
-		return text.length() != 0 && text.charAt(0) == this.cmd ? 1 : 0;
+		return text.length() != 0 && text.charAt(0) == cmd ? 1 : 0;
 	}
 }
