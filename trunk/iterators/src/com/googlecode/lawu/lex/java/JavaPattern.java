@@ -33,31 +33,31 @@ public enum JavaPattern implements TokenPattern {
 			return "[ \t\f]+";
 		}
 	},
-	COMMENT_MARKER_BEGIN(true, false) {
+	COMMENT_BLOCK_BEGIN(true, false) {
 		@Override
 		protected String getMatchRegex() {
 			return Pattern.quote("/*");
 		}
 	},
-	COMMENT_MARKER_END(true, false) {
+	COMMENT_BLOCK_END(true, false) {
 		@Override
 		protected String getMatchRegex() {
 			return Pattern.quote("*/");
 		}
 	},
-	COMMENT(false, false) {
+	COMMENT_BLOCK(false, false) {
 		@Override
 		protected String getExcludeRegex() {
-			return COMMENT_MARKER_END.getMatchRegex();
+			return COMMENT_BLOCK_END.getMatchRegex();
 		}
 	},
-    EOL_COMMENT_MARKER(true, false) {
+    COMMENT_EOL_BEGIN(true, false) {
 		@Override
 		protected String getMatchRegex() {
 			return Pattern.quote("//");
 		}
 	},
-	EOL_COMMENT(false, false) {
+	COMMENT_EOL(false, false) {
 		@Override
 		protected String getExcludeRegex() {
 			return LINE_TERMINATOR.getMatchRegex();
@@ -87,7 +87,7 @@ public enum JavaPattern implements TokenPattern {
 			return makeIdentifiers("null");
 		}
 	},
-	LITERAL_CHARACTER_MARKER(true) {
+	LITERAL_CHARACTER_DELIM(true) {
 		@Override
 		protected String getMatchRegex() {
 			return Pattern.quote("'");
@@ -99,7 +99,7 @@ public enum JavaPattern implements TokenPattern {
 			return "(?:[^" + Pattern.quote("\r\n\'\\") + "]|" + getEscapeSequences() + ")";
 		}
 	},
-	LITERAL_STRING_MARKER(true) {
+	LITERAL_STRING_DELIM(true) {
 		@Override
 		protected String getMatchRegex() {
 			return Pattern.quote("\"");
@@ -138,7 +138,7 @@ public enum JavaPattern implements TokenPattern {
 			return "\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*";
 		}
 	},
-	ANNOTATION_MARKER(true) {
+	ANNOTATION_BEGIN(true) {
 		@Override
 		protected String getMatchRegex() {
 			return Pattern.quote("@");
@@ -167,7 +167,7 @@ public enum JavaPattern implements TokenPattern {
 		this.pattern = Pattern.compile(anchor ? "\\A" + getMatchRegex() : getExcludeRegex());
 	}
 
-	protected boolean isTerminal() {
+	public boolean isTerminal() {
 		return terminal;
 	}
 	

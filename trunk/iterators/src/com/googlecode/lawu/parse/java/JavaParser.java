@@ -1,74 +1,69 @@
 package com.googlecode.lawu.parse.java;
 
-import static com.googlecode.lawu.lex.java.JavaPattern.TERMINALS;
+import static com.googlecode.lawu.lex.java.JavaPattern.SEPARATOR;
 import static com.googlecode.lawu.util.Iterators.adapt;
-import static com.googlecode.lawu.util.Iterators.grep;
 import static com.googlecode.lawu.util.Iterators.iterator;
-import static com.googlecode.lawu.util.Iterators.list;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
+import java.util.Stack;
 
 import com.googlecode.lawu.dp.Iterator;
 import com.googlecode.lawu.lex.Token;
 import com.googlecode.lawu.lex.java.JavaLexer;
 import com.googlecode.lawu.lex.java.JavaPattern;
-import com.googlecode.lawu.util.Strings;
+import com.googlecode.lawu.parse.java.node.JavaNode;
+import com.googlecode.lawu.util.Streams;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
 public class JavaParser {
-	private final List<Token<JavaPattern>> list;
-	
-	private List<String> imports;
-	
-	public JavaParser(CharSequence text) {
-		this(new JavaLexer(text));
+	public JavaParser() {
 	}
 	
-	public JavaParser(Iterator<Token<JavaPattern>> iterator) {
-		this.list = list(iterator);
+	public JavaNode parse(CharSequence text) {
+		return parse(new JavaLexer(text));
 	}
 	
-	protected UniversalIterator<Token<JavaPattern>> getTerminals() {
-		return grep(TERMINALS, iterator(list));
-	}
-	
-	protected UniversalIterator<String> getImports() {
-		synchronized(list) {
-			if(imports == null) {
-				imports = new ArrayList<String>();
-				UniversalIterator<Token<JavaPattern>> iter = getTerminals();
-				for(Token<JavaPattern> token: iter)
-					if(token.getType() == JavaPattern.KEYWORD && token.getValue().equals("import")) {
-						Queue<String> q = new LinkedList<String>();
-						for(Token<JavaPattern> succ: iter) {
-							if(succ.getType() == JavaPattern.SEPARATOR && succ.getValue().equals(";"))
-								break;
-							q.add(succ.getValue());
-						}
-						boolean isStatic = false;
-						if(!q.isEmpty() && q.peek().equals("static")) {
-							isStatic = true;
-							q.poll();
-						}
-						String imp = Strings.join("", adapt(q));
-						if(isStatic)
-							imp = "static " + imp;
-						imports.add(imp);
+	public JavaNode parse(Iterator<Token<JavaPattern>> tokens) {
+		JavaNode root = new JavaNode();
+		Stack<Token<JavaPattern>> stack = new Stack<Token<JavaPattern>>(); 
+		for(tokens.reset(); !tokens.isDone(); tokens.advance()) {
+			JavaNode cur = new JavaNode();
+			Token<JavaPattern> token = tokens.current();
+			JavaPattern type = token.getType();
+			String value = token.getValue();
+			cur.token = token;
+			switch(type) {
+			case KEYWORD:
+				if(value.matches("(?:package|import)")) {
+					tokens.advance();
+					for(Token<JavaPattern> t: readLine(tokens)) {
+						JavaNode node = new JavaNode();
+						node.token = t;
+						cur.children.add(node);
 					}
+				}
+				break;
+			default:
 			}
+			root.children.add(cur);
 		}
-		return iterator(imports);
+		return root;
+	}
+	
+	protected UniversalIterator<Token<JavaPattern>> readLine(Iterator<Token<JavaPattern>> tokens) {
+		List<Token<JavaPattern>> ret = new ArrayList<Token<JavaPattern>>();
+		for(Token<JavaPattern> token: adapt(tokens)) {
+			ret.add(token);
+			if(token.getType() == SEPARATOR && token.getValue().equals(";"))
+				break;
+		}
+		return iterator(ret);
 	}
 	
 	public static void main(String[] arg) throws Throwable {
-		/*StringBuilder sb = Streams.slurp(System.in);
-		JavaParser parser = new JavaParser(sb);
-		for(String imp: parser.getImports())
-			System.out.println(imp);
-		for(Token<JavaPattern> token: parser.getTerminals())
-			System.out.printf("%25s %4d %s%n", token.getType(), Integer.valueOf(token.getValue().length()), token.getValue());*/
+		StringBuilder sb = Streams.slurp(System.in);
+		JavaParser parser = new JavaParser();
+		parser.parse(sb).print();
 	}
 }
