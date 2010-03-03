@@ -10,39 +10,22 @@ import com.googlecode.lawu.util.Iterators;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
 public enum JavaPattern implements TokenPattern {
-	SUBSTITUTE_CHARACTER(true) {
-		@Override
-		protected String getMatchRegex() {
-			return Pattern.quote("\u001a") + "\\z";
-		}
-	},
-	LINE_TERMINATOR(true) {
-		@Override
-		protected String getMatchRegex() {
-			// allowed line terminators are: "\n", "\r\n", "\r"
-			return "(?:\\n|\\r\\n?)";
-		}
-	},
-	WHITESPACE(true) {
-		@Override
-		protected String getMatchRegex() {
-			// allowed (non line terminator) whitespace is " ", "\t", "\f"
-			return "[ \t\f]+";
-		}
-	},
+	SUBSTITUTE_CHARACTER(Pattern.quote("\u001a") + "\\z", false),
+	LINE_TERMINATOR("(?:\\n|\\r\\n?)", false),
+	WHITESPACE("[ \t\f]+", false),
 	COMMENT_BLOCK_BEGIN("/*"),
 	COMMENT_BLOCK_END("*/"),
 	COMMENT_BLOCK(false) {
 		@Override
 		protected String getExcludeRegex() {
-			return COMMENT_BLOCK_END.getPattern().pattern();
+			return COMMENT_BLOCK_END.getPattern().pattern().replaceFirst("\\A\\\\A", "");
 		}
 	},
     COMMENT_EOL_BEGIN("//"),
 	COMMENT_EOL(false) {
 		@Override
 		protected String getExcludeRegex() {
-			return LINE_TERMINATOR.getMatchRegex();
+			return LINE_TERMINATOR.getPattern().pattern().replaceFirst("\\A\\\\A", "");
 		}
 	},
 	KEYWORD_ABSTRACT("abstract"),
@@ -145,25 +128,10 @@ public enum JavaPattern implements TokenPattern {
 	LITERAL_BOOLEAN_FALSE("false"),
 	LITERAL_NULL("null"),
 	LITERAL_CHARACTER_DELIM("'"),
-	LITERAL_CHARACTER(true) {
-		@Override
-		protected String getMatchRegex() {
-			return "(?:[^" + Pattern.quote("\r\n\'\\") + "]|" + getEscapeSequences() + ")";
-		}
-	},
+	LITERAL_CHARACTER("(?:[^" + Pattern.quote("\r\n\'\\") + "]|" + getEscapeSequences() + ")", false),
 	LITERAL_STRING_DELIM("\""),
-	LITERAL_STRING(true) {
-		@Override
-		protected String getMatchRegex() {
-			return "(?:[^" + Pattern.quote("\r\n\"\\") + "]|" + getEscapeSequences() + ")+";
-		}
-	},
-	LITERAL_INTEGER(true) {
-		@Override
-		protected String getMatchRegex() {
-			return "(?:0[0-7]*|[1-9]\\d+|0[xX]\\p{XDigit}+)[lL]?(?!\\p{javaJavaIdentifierPart})";
-		}
-	},
+	LITERAL_STRING("(?:[^" + Pattern.quote("\r\n\"\\") + "]|" + getEscapeSequences() + ")+", false),
+	LITERAL_INTEGER("(?:0[0-7]*|[1-9]\\d+|0[xX]\\p{XDigit}+)[lL]?(?!\\p{javaJavaIdentifierPart})", false),
 	LITERAL_FLOATING_POINT(true) {
 		@Override
 		protected String getMatchRegex() {
@@ -173,12 +141,7 @@ public enum JavaPattern implements TokenPattern {
 			return "(?:(?:" + dec + ")|(?:" + hex + "))[fFdD]?(?!\\p{javaJavaIdentifierPart})";
 		}
 	},
-	IDENTIFIER(true) {
-		@Override
-		protected String getMatchRegex() {
-			return "\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*";
-		}
-	},
+	IDENTIFIER("\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*", false),
 	ANNOTATION_BEGIN("@"),
 	;
 	
@@ -186,16 +149,24 @@ public enum JavaPattern implements TokenPattern {
 	private final boolean anchor;
 	
 	private JavaPattern(boolean anchor) {
+		System.out.println("Initializing " + this);
 		this.anchor = anchor; // if anchored, we look for the match regex at the beginning, otherwise we get everything until the exclude regex
 		this.pattern = Pattern.compile(anchor ? "\\A" + getMatchRegex() : getExcludeRegex());
 	}
 	
 	private JavaPattern(String literal) {
+		this(literal, true);
+	}
+	
+	private JavaPattern(String pattern, boolean quote) {
 		this.anchor = true;
-		String regex = "\\A" + Pattern.quote(literal);
-		if(literal.matches("\\p{javaJavaIdentifierPart}$"))
-			regex += "(?!\\p{javaJavaIdentifierPart})";
-		this.pattern = Pattern.compile(regex);
+		String regex = pattern;
+		if(quote) {
+			regex = Pattern.quote(regex);
+			if(Character.isJavaIdentifierPart(pattern.charAt(pattern.length() - 1)))
+				regex += "(?!\\p{javaJavaIdentifierPart})";	
+		}
+		this.pattern = Pattern.compile("\\A" + regex);
 	}
 	
 	protected Pattern getPattern() {
