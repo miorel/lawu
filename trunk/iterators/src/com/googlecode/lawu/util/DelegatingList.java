@@ -205,8 +205,7 @@ public abstract class DelegatingList<T> implements List<T> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	@SuppressWarnings("hiding")
-	public <T> T[] toArray(T[] a) {
+	public <U> U[] toArray(U[] a) {
 		return getDelegate().toArray(a);
 	}
 }

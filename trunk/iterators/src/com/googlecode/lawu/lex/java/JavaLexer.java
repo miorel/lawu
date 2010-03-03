@@ -1,26 +1,6 @@
 package com.googlecode.lawu.lex.java;
 
-import static com.googlecode.lawu.lex.java.JavaPattern.ANNOTATION_BEGIN;
-import static com.googlecode.lawu.lex.java.JavaPattern.COMMENT_BLOCK;
-import static com.googlecode.lawu.lex.java.JavaPattern.COMMENT_BLOCK_BEGIN;
-import static com.googlecode.lawu.lex.java.JavaPattern.COMMENT_BLOCK_END;
-import static com.googlecode.lawu.lex.java.JavaPattern.COMMENT_EOL;
-import static com.googlecode.lawu.lex.java.JavaPattern.COMMENT_EOL_BEGIN;
-import static com.googlecode.lawu.lex.java.JavaPattern.IDENTIFIER;
-import static com.googlecode.lawu.lex.java.JavaPattern.KEYWORD;
-import static com.googlecode.lawu.lex.java.JavaPattern.LINE_TERMINATOR;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_BOOLEAN;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_CHARACTER;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_CHARACTER_DELIM;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_FLOATING_POINT;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_INTEGER;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_NULL;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_STRING;
-import static com.googlecode.lawu.lex.java.JavaPattern.LITERAL_STRING_DELIM;
-import static com.googlecode.lawu.lex.java.JavaPattern.OPERATOR;
-import static com.googlecode.lawu.lex.java.JavaPattern.SEPARATOR;
-import static com.googlecode.lawu.lex.java.JavaPattern.SUBSTITUTE_CHARACTER;
-import static com.googlecode.lawu.lex.java.JavaPattern.WHITESPACE;
+import static com.googlecode.lawu.lex.java.JavaPattern.*;
 
 import com.googlecode.lawu.lex.AbstractLexer;
 import com.googlecode.lawu.util.Iterators;
@@ -29,25 +9,27 @@ import com.googlecode.lawu.util.iterators.UniversalIterator;
 public class JavaLexer extends AbstractLexer<JavaPattern> {
 	private enum State {
 		NORMAL {
+			@SuppressWarnings("unchecked")
 			@Override
 			protected UniversalIterator<JavaPattern> patterns() {
-				return Iterators.iterator(
-					COMMENT_BLOCK_BEGIN,
-					COMMENT_EOL_BEGIN,
-					LINE_TERMINATOR,
-					WHITESPACE,
-					LITERAL_CHARACTER_DELIM,
-					LITERAL_STRING_DELIM,
-					LITERAL_BOOLEAN,
-					LITERAL_NULL,
-					LITERAL_INTEGER,
-					LITERAL_FLOATING_POINT,
-					KEYWORD,
-					OPERATOR,
-					SEPARATOR,
-					IDENTIFIER,
-					ANNOTATION_BEGIN,
-					SUBSTITUTE_CHARACTER
+				return Iterators.join(
+					Iterators.iterator(COMMENT_BLOCK_BEGIN, COMMENT_EOL_BEGIN),
+					JavaPattern.getKeywords(),
+					JavaPattern.getOperators(),
+					JavaPattern.getSeparators(),
+					Iterators.iterator(
+						LINE_TERMINATOR,
+						WHITESPACE,
+						LITERAL_CHARACTER_DELIM,
+						LITERAL_STRING_DELIM,
+						LITERAL_BOOLEAN_TRUE,
+						LITERAL_BOOLEAN_FALSE,
+						LITERAL_NULL,
+						LITERAL_INTEGER,
+						LITERAL_FLOATING_POINT,
+						IDENTIFIER,
+						ANNOTATION_BEGIN,
+						SUBSTITUTE_CHARACTER)
 				);
 			}
 			
