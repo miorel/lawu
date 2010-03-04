@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class CharacterMapper<T> implements Mapper<T,Character> {
 	private final Map<T,Character> map;
+	
 	private char max = Character.MIN_VALUE;
 	
 	public CharacterMapper() {

@@ -11,8 +11,8 @@ import com.googlecode.lawu.util.Filter;
 import com.googlecode.lawu.util.Mapper;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
-public class Bf2c {
-	public Bf2c() {
+public class Bf2CTranslator {
+	public Bf2CTranslator() {
 	}
 	
 	public UniversalIterator<String> translate(CharSequence text) {

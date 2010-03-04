@@ -18,9 +18,25 @@ import com.googlecode.lawu.util.CharacterMapper;
 import com.googlecode.lawu.util.Mapper;
 import com.googlecode.lawu.util.Pair;
 import com.googlecode.lawu.util.Streams;
-import com.googlecode.lawu.util.iterators.UniversalIterator;
 
 public class JavaParser {
+	protected final static CharacterMapper<String> charMapper = new CharacterMapper<String>();
+	private final static List<Pair<String,Pattern>> rules = new ArrayList<Pair<String,Pattern>>();
+	
+	static {
+		for(String line: lines(JavaParser.class.getResourceAsStream("JavaRules.txt"))) {
+			String[] rule = line.split("\\s*=\\s*", 2);
+			StringBuffer sb = new StringBuffer();
+			Matcher m = Pattern.compile("(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|\\s+").matcher(rule[1]);
+			while(m.find()) {
+				String match = m.group(1);
+				m.appendReplacement(sb, match == null ? "" : "\\\\Q" + charMapper.map(match).toString().replaceAll("([\\Q\\$\\E])", "\\\\$1") + "\\\\E");
+			}
+			m.appendTail(sb);
+			rules.add(new Pair<String,Pattern>(rule[0], Pattern.compile(sb.toString(), Pattern.DOTALL)));
+		}		
+	}
+	
 	public JavaParser() {
 	}
 
@@ -29,64 +45,59 @@ public class JavaParser {
 	}
 	
 	public void parse(Iterator<Token<JavaPattern>> tokens) {
-		UniversalIterator<Node> iter = map(
-			new Mapper<Token<JavaPattern>,Node>() {
+		parse(list(map(
+			new Mapper<Token<JavaPattern>,JavaNode>() {
 				@Override
-				public Node map(Token<JavaPattern> token) {
-					Node ret = new Node();
-					JavaPattern type = token.getType();
-					String value = token.getValue();
-					ret.type = type.toString();
-					ret.value = value;
+				public JavaNode map(Token<JavaPattern> token) {
+					JavaNode ret = new JavaNode();
+					ret.type = token.getType().toString();
+					ret.value = token.getValue();
 					return ret;
 				}
 			},
 			tokens
-		);
-		List<Node> nodeList = list(iter);
-		
-		List<String> stringList = new ArrayList<String>();
-		for(Node node: nodeList)
-			stringList.add(node.type);
-		CharacterMapper<String> cm = new CharacterMapper<String>();
-		//CharSequenceList<String> charSeq = new CharSequenceList<String>(cm, stringList);
-		
-		List<Pair<String,Pattern>> rules = new ArrayList<Pair<String,Pattern>>();
-		for(String line: lines(JavaParser.class.getResourceAsStream("JavaRules.txt"))) {
-			String[] comp = line.split("\\s*=\\s*", 2);
-			System.out.println(comp[1]);
-			StringBuffer sb = new StringBuffer();
-			Matcher m = Pattern.compile("(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)|\\s+").matcher(comp[1]);
-			while(m.find()) {
-				String match = m.group(1);
-				if(match != null)
-					System.out.println("Building rule for " + comp[0] + " with element " + match);
-				m.appendReplacement(sb, match == null ? "" : "\\\\Q" + cm.map(match).toString().replaceAll("[\\Q$\\\\E]", "\\\\$1") + "\\\\E");
+		)));
+	}
+	
+	private void parse(List<JavaNode> list) {
+		CharSequence charSeq = new CharSequenceList<JavaNode>(new Mapper<JavaNode,Character>() {
+			@Override
+			public Character map(JavaNode node) {
+				return charMapper.map(node.type);
 			}
-			m.appendTail(sb);
-			System.out.println("Regex: " + "\\A" + sb.toString());
-			rules.add(new Pair<String,Pattern>(comp[0], Pattern.compile("\\A" + sb.toString(), Pattern.DOTALL)));
-		}
+		}, list);
 		
-		for(int pos = 0; pos < stringList.size();) {
-			CharSequenceList<String> charSeq = new CharSequenceList<String>(cm, stringList, pos, stringList.size());
-			//System.out.println("Looking at position " + pos + ": " + new StringBuilder(charSeq));
+		while(list.size() > 1) {
+			System.out.println("The list size is " + list.size());
+			System.out.println(list);
+			System.out.println();
+			
+//			DECLARATION_PACKAGE = KEYWORD_PACKAGE IDENTIFIER (SEPARATOR_PERIOD IDENTIFIER)* SEPARATOR_SEMICOLON
+//			DECLARATION_IMPORT = KEYWORD_IMPORT KEYWORD_STATIC? IDENTIFIER (SEPARATOR_PERIOD IDENTIFIER)* (SEPARATOR_PERIOD OPERATOR)? SEPARATOR_SEMICOLON
+			
 			boolean good = false;
+			int position = 0;
+			
 			for(Pair<String,Pattern> pair: rules) {
 				Matcher m = pair.getSecond().matcher(charSeq);
-				if(m.find()) {
-					System.out.println("Matched " + pair.getFirst() + " from " + pos + " to " + (pos + m.end()) + ".");
-					pos += m.end();
+				while(m.find(position)) {
+					JavaNode newNode = new JavaNode();
+					newNode.type = pair.getFirst();
+					newNode.children.addAll(list.subList(m.start(), m.end()));
+					list.set(m.start(), newNode);
+					list.subList(m.start() + 1, m.end()).clear();
+					position = m.start() + 1;
 					good = true;
-					break;
 				}
 			}
+			
 			if(!good)
-				throw new RuntimeException("Parsing failed.");
-		}
+				throw new RuntimeException("Parsing did not progress.");
+		}		
 		
-		for(Node node: nodeList)
-			System.out.printf("%20s %s%n", node.type, node.value.replaceAll("\\n", "\\\\n"));
+		System.out.println("The list size is " + list.size());
+		System.out.println(list);
+		System.out.println();
 	}
 
 	public static void main(String[] arg) throws Throwable {
@@ -96,7 +107,13 @@ public class JavaParser {
 	}
 }
 
-class Node {
+class JavaNode {
 	public String type;
 	public String value;
+	
+	public final List<JavaNode> children = new ArrayList<JavaNode>();
+	
+	public String toString() {
+		return type;
+	}
 }

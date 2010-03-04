@@ -15,14 +15,14 @@ public enum JavaPattern implements TokenPattern {
 	WHITESPACE("[ \t\f]+", false),
 	COMMENT_BLOCK_BEGIN("/*"),
 	COMMENT_BLOCK_END("*/"),
-	COMMENT_BLOCK(false) {
+	COMMENT_BLOCK_CONTENTS(false) {
 		@Override
 		protected String getExcludeRegex() {
 			return COMMENT_BLOCK_END.getPattern().pattern().replaceFirst("\\A\\\\A", "");
 		}
 	},
     COMMENT_EOL_BEGIN("//"),
-	COMMENT_EOL(false) {
+	COMMENT_EOL_CONTENTS(false) {
 		@Override
 		protected String getExcludeRegex() {
 			return LINE_TERMINATOR.getPattern().pattern().replaceFirst("\\A\\\\A", "");
@@ -128,9 +128,9 @@ public enum JavaPattern implements TokenPattern {
 	LITERAL_BOOLEAN_FALSE("false"),
 	LITERAL_NULL("null"),
 	LITERAL_CHARACTER_DELIM("'"),
-	LITERAL_CHARACTER("(?:[^" + Pattern.quote("\r\n\'\\") + "]|" + getEscapeSequences() + ")", false),
+	LITERAL_CHARACTER_CONTENTS("(?:[^" + Pattern.quote("\r\n\'\\") + "]|" + getEscapeSequences() + ")", false),
 	LITERAL_STRING_DELIM("\""),
-	LITERAL_STRING("(?:[^" + Pattern.quote("\r\n\"\\") + "]|" + getEscapeSequences() + ")+", false),
+	LITERAL_STRING_CONTENTS("(?:[^" + Pattern.quote("\r\n\"\\") + "]|" + getEscapeSequences() + ")+", false),
 	LITERAL_INTEGER("(?:0[0-7]*|[1-9]\\d+|0[xX]\\p{XDigit}+)[lL]?(?!\\p{javaJavaIdentifierPart})", false),
 	LITERAL_FLOATING_POINT(true) {
 		@Override
@@ -149,7 +149,6 @@ public enum JavaPattern implements TokenPattern {
 	private final boolean anchor;
 	
 	private JavaPattern(boolean anchor) {
-		System.out.println("Initializing " + this);
 		this.anchor = anchor; // if anchored, we look for the match regex at the beginning, otherwise we get everything until the exclude regex
 		this.pattern = Pattern.compile(anchor ? "\\A" + getMatchRegex() : getExcludeRegex());
 	}

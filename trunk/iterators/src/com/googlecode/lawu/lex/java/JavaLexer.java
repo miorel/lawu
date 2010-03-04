@@ -59,7 +59,7 @@ public class JavaLexer extends AbstractLexer<JavaPattern> {
 		},
 		IN_COMMENT {
 			protected UniversalIterator<JavaPattern> patterns() {
-				return Iterators.iterator(COMMENT_BLOCK_END, COMMENT_BLOCK);
+				return Iterators.iterator(COMMENT_BLOCK_END, COMMENT_BLOCK_CONTENTS);
 			}
 
 			@Override
@@ -77,7 +77,7 @@ public class JavaLexer extends AbstractLexer<JavaPattern> {
         IN_EOL_COMMENT {
 			@Override
 			public UniversalIterator<JavaPattern> patterns() {
-				return Iterators.iterator(COMMENT_EOL, LINE_TERMINATOR);
+				return Iterators.iterator(COMMENT_EOL_CONTENTS, LINE_TERMINATOR);
 			}
 
 			@Override
@@ -89,12 +89,12 @@ public class JavaLexer extends AbstractLexer<JavaPattern> {
 		IN_LITERAL_CHARACTER {
 			@Override
 			public UniversalIterator<JavaPattern> patterns() {
-				return Iterators.iterator(LITERAL_CHARACTER);
+				return Iterators.iterator(LITERAL_CHARACTER_CONTENTS);
 			}
 
 			@Override
 			public void trigger(JavaLexer lexer, JavaPattern pattern) {
-				if(pattern == LITERAL_CHARACTER)
+				if(pattern == LITERAL_CHARACTER_CONTENTS)
 					lexer.setState(ENDING_LITERAL_CHARACTER);
 			}
 		},
@@ -113,7 +113,7 @@ public class JavaLexer extends AbstractLexer<JavaPattern> {
 		IN_LITERAL_STRING {
 			@Override
 			public UniversalIterator<JavaPattern> patterns() {
-				return Iterators.iterator(LITERAL_STRING, LITERAL_STRING_DELIM);
+				return Iterators.iterator(LITERAL_STRING_CONTENTS, LITERAL_STRING_DELIM);
 			}
 
 			@Override
