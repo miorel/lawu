@@ -84,7 +84,7 @@ public class Triple<T, U, V> {
 		boolean ret = false;
 		if(this == obj)
 			ret = true;
-		else if(obj instanceof Triple) {
+		else if(obj instanceof Triple<?, ?, ?>) {
 			Triple<?, ?, ?> triple = (Triple<?, ?, ?>) obj;
 			ret = (this.first == null ? triple.first == null : this.first.equals(triple.first))
 				&& (this.second == null ? triple.second == null : this.second.equals(triple.second))

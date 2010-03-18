@@ -1,0 +1,147 @@
+import java.util.*;
+
+public final class Parser {
+	private enum State {
+%s		;
+		
+		private final Map<String,Action> actionMap;
+		
+		private State() {
+			actionMap = getActionMap();
+		}
+		
+		protected abstract Map<String,Action> getActionMap();
+		
+		public void parse(Parser parser, Node node) {
+			Action action = actionMap.get(node.type);
+			if(action != null)
+				action.perform(parser, node);
+			else
+				throw new RuntimeException("Parsing failed at node: " + node.type);
+		}
+	}
+	
+	private static class ReduceAction implements Action {
+		private final String symbol;
+		private final int count;
+		
+		public ReduceAction(int count, String symbol) {
+			this.count = count;
+			this.symbol = symbol;
+		}
+		
+		@Override
+		public void perform(Parser parser, Node node) {
+			parser.reduce(node, count, symbol);
+		}
+	}
+	
+	private static class PushAction implements Action {
+		private final int state;
+		
+		public PushAction(int state) {
+			this.state = state;
+		}
+		
+		@Override
+		public void perform(Parser parser, Node node) {
+			parser.push(node, state);
+		}
+	}	
+	
+	private static interface Action {
+		public void perform(Parser parser, Node node);
+	}
+	
+	private static class Node {
+		public final String type;
+		public final List<Node> children = new LinkedList<Node>();
+		
+		public Node(String type) {
+			this.type = type;
+		}  
+	}
+	
+	public static class ParseStackEntry {
+		public Node node;
+		public int state;
+		
+		public ParseStackEntry(Node node, int state) {
+			this.node = node;
+			this.state = state;
+		}
+		
+		public String toString() {
+			return node == null ? "null" : node.type;
+		}
+	}
+	
+	private final static Set<String> TERMINALS = new HashSet<String>();
+	static {
+%s	}
+	
+	private Stack<ParseStackEntry> stack;
+	
+	public Parser() {
+	}
+	
+	public Node parse(Node... nodes) {
+		stack = new Stack<ParseStackEntry>();
+		push(null, 0);
+		for(Node node: nodes)
+			parse(node);
+		if(stack.size() > 2)
+			throw new RuntimeException("Exhausted tokens, but couldn't get single parse tree.");
+		return stack.pop().node;
+	}
+	
+	protected void parse(Node node) {
+		System.out.println("Asked to parse " + node.type + " with stack " + stack);
+		State.values()[stack.peek().state].parse(this, node);
+	}
+	
+	protected void reduce(Node node, int count, String symbol) {
+		Node newNode = new Node(symbol);
+		push(node, -1);
+		for(int c = count; c > 0; --c)
+			newNode.children.add(0, stack.pop().node);
+		parse(newNode);
+	}
+	
+	protected void push(Node node, int state) {
+		stack.push(new ParseStackEntry(node, state));		
+	}
+
+	private static void print(Node node, String indent) {
+		System.out.println(indent + node.type);
+		for(Node n: node.children)
+			print(n, indent + "  ");
+	}
+	
+	public static void main(String[] arg) {
+		Scanner sc = new Scanner(System.in);
+		List<Node> nodes = new ArrayList<Node>();
+		while(sc.hasNextLine())
+			for(String token: sc.nextLine().trim().split("\\s+"))
+				if(!TERMINALS.contains(token)) {
+					System.err.println("Encountered non-terminal: " + token);
+					System.exit(1);
+				}
+				else
+					nodes.add(new Node(token));
+		Parser parser = new Parser();
+		Node node = null;
+		try {
+			node = parser.parse(nodes.toArray(new Node[0]));
+		}
+		catch(Exception e) {
+			String msg = e.getMessage();
+			if(msg == null)
+				msg = "Caught " + e.getClass();
+			System.err.println(msg);
+			System.exit(1);
+		}
+		if(node != null)
+			print(node, "");
+	}
+}

@@ -71,7 +71,7 @@ public class Pair<T, U> {
 		boolean ret = false;
 		if(this == obj)
 			ret = true;
-		else if(obj instanceof Pair) {
+		else if(obj instanceof Pair<?, ?>) {
 			Pair<?, ?> pair = (Pair<?, ?>) obj;
 			ret = (this.first == null ? pair.first == null : this.first.equals(pair.first))
 				&& (this.second == null ? pair.second == null : this.second.equals(pair.second));

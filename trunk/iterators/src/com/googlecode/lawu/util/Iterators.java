@@ -141,7 +141,7 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterator<T> iterator) {
-		return iterator instanceof UniversalIterator ? (UniversalIterator<T>) iterator : new GOFIteratorAdapter<T>(iterator);
+		return iterator instanceof UniversalIterator<?> ? (UniversalIterator<T>) iterator : new GOFIteratorAdapter<T>(iterator);
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterable<T> iterable) {
-		return iterable instanceof UniversalIterator ? (UniversalIterator<T>) iterable : new JIteratorAdapter<T>(iterable);
+		return iterable instanceof UniversalIterator<?> ? (UniversalIterator<T>) iterable : new JIteratorAdapter<T>(iterable);
 	}
 
 	/**
@@ -169,7 +169,7 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(java.util.Iterator<T> iterator) {
-		return iterator instanceof UniversalIterator ? (UniversalIterator<T>) iterator : new JIteratorAdapter<T>(iterator);
+		return iterator instanceof UniversalIterator<?> ? (UniversalIterator<T>) iterator : new JIteratorAdapter<T>(iterator);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class Iterators {
 	 * @return a universal iterator
 	 */
 	public static <T> UniversalIterator<T> adapt(Enumeration<T> enumeration) {
-		return enumeration instanceof UniversalIterator ? (UniversalIterator<T>) enumeration : new JEnumerationAdapter<T>(enumeration);
+		return enumeration instanceof UniversalIterator<?> ? (UniversalIterator<T>) enumeration : new JEnumerationAdapter<T>(enumeration);
 	}
 
 	/**
@@ -559,6 +559,6 @@ public class Iterators {
 	 *         reverse order
 	 */
 	public static <T> ReversibleIterator<T> reverse(Iterator<T> iterator) {
-		return (iterator instanceof ReversibleIterator ? ((ReversibleIterator<T>) iterator) : iterator(list(iterator))).reverse();
+		return (iterator instanceof ReversibleIterator<?> ? ((ReversibleIterator<T>) iterator) : iterator(list(iterator))).reverse();
 	}
 }
