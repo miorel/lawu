@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="make-binary-distribution" name="example">
+	<description>Ant build file for the ${ant.project.name} project</description>
+	
+	<property file="${ant.project.name}.properties"/>
+	
+	<fileset id="ant.project.source.fileset" dir="${basedir}" excludes="${ant.project.binary.dir}/**,${ant.project.distribution.dir}/**"/>
+	
+	<target name="clean-binary" description="removes the compiled project directory">
+		<delete dir="${ant.project.binary.dir}"/>
+	</target>
+	
+	<target name="clean-distribution" description="removes the distribution directory">
+		<delete dir="${ant.project.distribution.dir}"/>
+	</target>
+	
+	<target name="clean-all" description="removes all rebuildable files"
+		depends="clean-binary,clean-distribution"/>
+	
+	<target name="compile" description="compiles the project">
+		<mkdir dir="${ant.project.binary.dir}"/>
+		<javac destdir="${ant.project.binary.dir}" includeAntRuntime="no">
+			<src>
+				<pathelement path="${ant.project.source.dir}"/>
+			</src>
+		</javac>
+	</target>	
+	
+	<target name="make-source-distribution-tgz" description="creates a gzipped tarball source distribution">
+		<mkdir dir="${ant.project.distribution.dir}"/>
+		<tar destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}-src.tar.gz" compression="gzip">
+			<tarfileset refid="ant.project.source.fileset" prefix="${ant.project.distribution.name}"/>
+		</tar>
+	</target>
+
+	<target name="make-source-distribution-tbz2" description="creates a bzip2-compressed tarball source distribution">
+		<mkdir dir="${ant.project.distribution.dir}"/>
+		<tar destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}-src.tar.bz2" compression="bzip2">
+			<tarfileset refid="ant.project.source.fileset" prefix="${ant.project.distribution.name}"/>
+		</tar>
+	</target>
+	
+	<target name="make-source-distribution-zip" description="creates a zipped source distribution">	
+		<mkdir dir="${ant.project.distribution.dir}"/>
+		<zip destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}-src.zip">
+			<zipfileset refid="ant.project.source.fileset" prefix="${ant.project.distribution.name}"/>
+		</zip>
+	</target>
+	
+	<target name="make-source-distribution-all" description="creates all the source distribution bundles"
+		depends="make-source-distribution-tgz,make-source-distribution-tbz2,make-source-distribution-zip"/> 
+	
+	<target name="make-binary-distribution" description="creates a binary distribution" depends="compile">
+		<mkdir dir="${ant.project.distribution.dir}"/>
+		<jar destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}.jar">
+			<manifest>
+				<attribute name="Implementation-Title" value="${ant.project.name}"/>
+				<attribute name="Implementation-Version" value="${ant.project.version}"/>
+			</manifest>
+			<fileset dir="${ant.project.binary.dir}" includes="**/*.class"/>
+			<fileset dir="${ant.project.resources.dir}"/>
+		</jar>
+	</target>
+
+	<target name="make-distribution-all" description="creates all distribution files"
+		depends="make-source-distribution-all,make-binary-distribution"/>
+</project>
