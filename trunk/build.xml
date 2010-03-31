@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="make-binary-distribution" name="lawu-iterators">
+<project default="make-binary-distribution" name="lawu">
 	<description>Ant build file for the ${ant.project.name} project</description>
 	
 	<property file="${ant.project.name}.properties"/>
@@ -23,6 +23,9 @@
 			<src>
 				<pathelement path="${ant.project.source.dir}"/>
 			</src>
+			<classpath>
+				<pathelement path="${java.home}/../lib/tools.jar"/>
+			</classpath>
 		</javac>
 	</target>	
 	
@@ -64,4 +67,27 @@
 
 	<target name="make-distribution-all" description="creates all distribution files"
 		depends="make-source-distribution-all,make-binary-distribution"/>
+	
+	<target name="doc" description="generates Javadocs for the project" depends="compile">
+		<javadoc
+			access="package"
+			author="true"
+			destdir="doc"
+			doctitle="Title goes here"
+			nodeprecated="false"
+			nodeprecatedlist="false"
+			noindex="false"
+			nonavbar="false"
+			notree="false"
+			overview="${ant.project.source.dir}/overview.html"
+			packagenames="com.googlecode.lawu.*"
+			source="1.6"
+			sourcepath="${ant.project.source.dir}:${ant.project.library.dir}/openjdk/jdk/src/share/classes"
+			splitindex="true"
+			use="true"
+			version="false">
+			<link href="http://java.sun.com/javase/6/docs/api/"/>
+		</javadoc>
+	</target>
 </project>
+
