@@ -1,93 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project default="make-binary-distribution" name="lawu">
-	<description>Ant build file for the ${ant.project.name} project</description>
+<project default="dist" name="lawu">
+	<description>Ant build file for the lawu project</description>
 	
-	<property file="${ant.project.name}.properties"/>
+	<property file="lawu.properties"/>
 	
-	<fileset id="ant.project.source.fileset" dir="${basedir}" excludes="${ant.project.binary.dir}/**,${ant.project.distribution.dir}/**"/>
+	<fileset id="lawu.src.fileset" dir="${basedir}" excludes="${lawu.bin.dir}/**,${lawu.dist.dir}/**,${lawu.doc.dir}/**"/>
 	
-	<target name="clean-binary" description="removes the compiled project directory">
-		<delete dir="${ant.project.binary.dir}"/>
+	<target name="clean-bin" description="removes the compiled project directory">
+		<delete dir="${lawu.bin.dir}"/>
 	</target>
 	
-	<target name="clean-distribution" description="removes the distribution directory">
-		<delete dir="${ant.project.distribution.dir}"/>
+	<target name="clean-dist" description="removes the distribution directory">
+		<delete dir="${lawu.dist.dir}"/>
+	</target>
+
+	<target name="clean-doc" description="removes the documentation directory">
+		<delete dir="${lawu.doc.dir}"/>
 	</target>
 	
-	<target name="clean-all" description="removes all rebuildable files"
-		depends="clean-binary,clean-distribution"/>
+	<target name="clean" description="removes all rebuildable files"
+		depends="clean-bin,clean-doc,clean-dist"/>
 	
-	<target name="compile" description="compiles the project">
-		<mkdir dir="${ant.project.binary.dir}"/>
-		<javac destdir="${ant.project.binary.dir}" includeAntRuntime="no">
+	<target name="bin" description="compiles the project">
+		<mkdir dir="${lawu.bin.dir}"/>
+		<javac destdir="${lawu.bin.dir}" includeAntRuntime="no">
+			<include name="**/*.java"/>
+			<exclude name="**/package-info.java"/>
 			<src>
-				<pathelement path="${ant.project.source.dir}"/>
+				<pathelement path="${lawu.src.dir}"/>
 			</src>
-			<classpath>
-				<pathelement path="${java.home}/../lib/tools.jar"/>
-			</classpath>
 		</javac>
 	</target>	
 	
-	<target name="make-source-distribution-tgz" description="creates a gzipped tarball source distribution">
-		<mkdir dir="${ant.project.distribution.dir}"/>
-		<tar destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}-src.tar.gz" compression="gzip">
-			<tarfileset refid="ant.project.source.fileset" prefix="${ant.project.distribution.name}"/>
+	<target name="dist-src-tgz" description="creates a gzipped tarball source distribution">
+		<mkdir dir="${lawu.dist.dir}"/>
+		<tar destfile="${lawu.dist.dir}/${lawu.dist.name}-src.tar.gz" compression="gzip">
+			<tarfileset refid="lawu.src.fileset" prefix="${lawu.dist.name}"/>
 		</tar>
 	</target>
 
-	<target name="make-source-distribution-tbz2" description="creates a bzip2-compressed tarball source distribution">
-		<mkdir dir="${ant.project.distribution.dir}"/>
-		<tar destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}-src.tar.bz2" compression="bzip2">
-			<tarfileset refid="ant.project.source.fileset" prefix="${ant.project.distribution.name}"/>
+	<target name="dist-src-tbz2" description="creates a bzip2-compressed tarball source distribution">
+		<mkdir dir="${lawu.dist.dir}"/>
+		<tar destfile="${lawu.dist.dir}/${lawu.dist.name}-src.tar.bz2" compression="bzip2">
+			<tarfileset refid="lawu.src.fileset" prefix="${lawu.dist.name}"/>
 		</tar>
 	</target>
 	
-	<target name="make-source-distribution-zip" description="creates a zipped source distribution">	
-		<mkdir dir="${ant.project.distribution.dir}"/>
-		<zip destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}-src.zip">
-			<zipfileset refid="ant.project.source.fileset" prefix="${ant.project.distribution.name}"/>
+	<target name="dist-src-zip" description="creates a zipped source distribution">	
+		<mkdir dir="${lawu.dist.dir}"/>
+		<zip destfile="${lawu.dist.dir}/${lawu.dist.name}-src.zip">
+			<zipfileset refid="lawu.src.fileset" prefix="lawu.dist.name}"/>
 		</zip>
 	</target>
 	
-	<target name="make-source-distribution-all" description="creates all the source distribution bundles"
-		depends="make-source-distribution-tgz,make-source-distribution-tbz2,make-source-distribution-zip"/> 
+	<target name="dist-src" description="creates all the source distribution bundles"
+		depends="dist-src-tgz,dist-src-tbz2,dist-src-zip"/> 
 	
-	<target name="make-binary-distribution" description="creates a binary distribution" depends="compile">
-		<mkdir dir="${ant.project.distribution.dir}"/>
-		<jar destfile="${ant.project.distribution.dir}/${ant.project.distribution.name}.jar">
+	<target name="dist-bin" description="creates a binary distribution" depends="bin">
+		<mkdir dir="${lawu.dist.dir}"/>
+		<jar destfile="${lawu.dist.dir}/${lawu.dist.name}.jar">
 			<manifest>
-				<attribute name="Implementation-Title" value="${ant.project.name}"/>
-				<attribute name="Implementation-Version" value="${ant.project.version}"/>
+				<attribute name="Implementation-Title" value="lawu"/>
+				<attribute name="Implementation-Version" value="${lawu.version}"/>
 			</manifest>
-			<fileset dir="${ant.project.binary.dir}" includes="**/*.class"/>
-			<fileset dir="${ant.project.resources.dir}"/>
+			<fileset dir="${lawu.bin.dir}" includes="**/*.class"/>
+			<fileset dir="${lawu.res.dir}"/>
 		</jar>
 	</target>
-
-	<target name="make-distribution-all" description="creates all distribution files"
-		depends="make-source-distribution-all,make-binary-distribution"/>
 	
-	<target name="doc" description="generates Javadocs for the project" depends="compile">
+	<target name="doc" description="generates project documentation">
 		<javadoc
 			access="package"
 			author="true"
 			destdir="doc"
-			doctitle="Title goes here"
+			doctitle="Documentation for the Lawu project"
 			nodeprecated="false"
 			nodeprecatedlist="false"
 			noindex="false"
 			nonavbar="false"
 			notree="false"
-			overview="${ant.project.source.dir}/overview.html"
+			overview="${lawu.src.dir}/overview.html"
 			packagenames="com.googlecode.lawu.*"
 			source="1.6"
-			sourcepath="${ant.project.source.dir}:${ant.project.library.dir}/openjdk/jdk/src/share/classes"
+			sourcepath="${lawu.src.dir}:${lawu.lib.dir}/openjdk/jdk/src/share/classes"
 			splitindex="true"
 			use="true"
 			version="false">
 			<link href="http://java.sun.com/javase/6/docs/api/"/>
 		</javadoc>
 	</target>
+	
+	<target name="dist-doc" description="creates a zip archive of the project documentation" depends="doc">	
+		<mkdir dir="${lawu.dist.dir}"/>
+		<zip destfile="${lawu.dist.dir}/${lawu.dist.name}-doc.zip">
+			<zipfileset dir="${lawu.doc.dir}" prefix="${lawu.dist.name}-doc"/>
+		</zip>
+	</target>
+	
+	<target name="dist" description="creates all distribution files"
+		depends="dist-src,dist-doc,dist-bin"/>
 </project>
-
