@@ -11,8 +11,24 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
+package com.googlecode.lawu.util.iterators;
 
 /**
- * Various utilities.
+ * Interface for an iterator whose traversal order can be reversed.
+ * 
+ * @author Miorel-Lucian Palii
+ * @param <T>
+ *            type over which the iteration takes place
  */
-package com.googlecode.lawu.util;
+public interface ReversibleIterator<T> extends UniversalIterator<T> {
+	/**
+	 * Gives a copy of this iterator that visits exactly the same elements but
+	 * in reverse order.
+	 * 
+	 * @return the reverse of this iterator
+	 */
+	public ReversibleIterator<T> reverse();
+	
+	@Override
+	public ReversibleIterator<T> iterator();
+}

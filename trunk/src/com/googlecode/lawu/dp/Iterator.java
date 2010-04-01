@@ -24,13 +24,11 @@ package com.googlecode.lawu.dp;
  * Use an iterator as follows:
  * 
  * <pre>
- * Iterator&lt;SomeType&gt; iter = someMethod();
+ * Iterator&lt;ExampleType&gt; iter = getAnIterator();
  * for(iter.{@link #reset()}; !iter.{@link #isDone()}; iter.{@link #advance()}) {
- * &nbsp;&nbsp;&nbsp;&nbsp;// do something with iter.{@link #current()}
+ * 	// do something with iter.{@link #current()}
  * }
- * </pre>
- * 
- * </p>
+ * </pre></p>
  * 
  * @author Miorel-Lucian Palii
  * @param <T>
@@ -59,7 +57,7 @@ public interface Iterator<T> {
 
 	/**
 	 * Advances this iterator to the next element in the traversal. Behavior is
-	 * undefined if the iterator {@link #isDone()}.
+	 * undefined if the iterator {@linkplain #isDone() is done}.
 	 */
 	public void advance();
 

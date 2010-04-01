@@ -13,6 +13,6 @@
  */
 
 /**
- * Various utilities.
+ * All kinds of iterators.
  */
-package com.googlecode.lawu.util;
+package com.googlecode.lawu.util.iterators;

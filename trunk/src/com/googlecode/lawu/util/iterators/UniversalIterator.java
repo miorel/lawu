@@ -11,8 +11,22 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
+package com.googlecode.lawu.util.iterators;
+
+import java.util.Enumeration;
+
+import com.googlecode.lawu.dp.Iterator;
 
 /**
- * Various utilities.
+ * Interface combining {@linkplain java.util.Iterator Java's iterator},
+ * {@link Iterable}, and {@link Enumeration} with the {@linkplain Iterator Gang
+ * of Four iterator}.
+ * 
+ * @author Miorel-Lucian Palii
+ * @param <T>
+ *            type over which the iteration takes place
  */
-package com.googlecode.lawu.util;
+public interface UniversalIterator<T> extends Iterator<T>, java.util.Iterator<T>, Iterable<T>, Enumeration<T> {
+	@Override
+	public UniversalIterator<T> iterator();
+}

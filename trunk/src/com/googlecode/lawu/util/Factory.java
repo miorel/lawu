@@ -11,8 +11,20 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
+package com.googlecode.lawu.util;
 
 /**
- * Various utilities.
+ * An object producer.
+ * 
+ * @author Miorel-Lucian Palii
+ * @param <T>
+ *            type of produced objects
  */
-package com.googlecode.lawu.util;
+public interface Factory<T> {
+	/**
+	 * Builds and returns an object.
+	 * 
+	 * @return a newly-built object 
+	 */
+	public T build();
+}
