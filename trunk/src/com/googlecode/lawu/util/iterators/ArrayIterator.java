@@ -13,12 +13,15 @@
  */
 package com.googlecode.lawu.util.iterators;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * An iterator over an array.
  * 
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type of elements in the array
+ * @see Iterators#iterator(Object...)
  */
 public class ArrayIterator<T> extends ListIterator<T> {
 	private final T[] array;

@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2010 Miorel-Lucian Palii
-
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -24,6 +23,8 @@ package com.googlecode.lawu.util;
  *            the second type in the triple
  * @param <V>
  *            the third type in the triple
+ * @see Pair
+ * @see Quadruple
  */
 public final class Triple<T,U,V> {
 	private final T first;
@@ -75,8 +76,6 @@ public final class Triple<T,U,V> {
 	
 	/**
 	 * Returns a string representation of the values in the triple.
-	 * 
-	 * @return a string representation of the triple
 	 */
 	@Override
 	public String toString() {

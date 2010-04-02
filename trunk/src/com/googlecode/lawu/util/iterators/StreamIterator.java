@@ -12,6 +12,7 @@
  * details.
  */
 package com.googlecode.lawu.util.iterators;
+import com.googlecode.lawu.util.Iterators;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,6 +30,12 @@ import java.net.URL;
  * objects.
  * 
  * @author Miorel-Lucian Palii
+ * @see Iterators#lines(BufferedReader)
+ * @see Iterators#lines(File)
+ * @see Iterators#lines(FileDescriptor)
+ * @see Iterators#lines(InputStream)
+ * @see Iterators#lines(Reader)
+ * @see Iterators#lines(URL)
  */
 public class StreamIterator extends LineIterator {
 	private final BufferedReader reader;

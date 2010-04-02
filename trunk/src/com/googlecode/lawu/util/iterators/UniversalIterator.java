@@ -16,6 +16,7 @@ package com.googlecode.lawu.util.iterators;
 import java.util.Enumeration;
 
 import com.googlecode.lawu.dp.Iterator;
+import com.googlecode.lawu.util.Iterators;
 
 /**
  * Interface combining {@linkplain java.util.Iterator Java's iterator},
@@ -25,6 +26,7 @@ import com.googlecode.lawu.dp.Iterator;
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
+ * @see Iterators
  */
 public interface UniversalIterator<T> extends Iterator<T>, java.util.Iterator<T>, Iterable<T>, Enumeration<T> {
 	@Override

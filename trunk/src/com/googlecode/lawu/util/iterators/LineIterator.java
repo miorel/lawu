@@ -13,7 +13,16 @@
  */
 package com.googlecode.lawu.util.iterators;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.net.URL;
+import java.util.Scanner;
+
+import com.googlecode.lawu.util.Iterators;
 
 /**
  * <p>
@@ -25,6 +34,13 @@ import java.io.IOException;
  * </p>
  * 
  * @author Miorel-Lucian Palii
+ * @see Iterators#lines(BufferedReader)
+ * @see Iterators#lines(File)
+ * @see Iterators#lines(FileDescriptor)
+ * @see Iterators#lines(InputStream)
+ * @see Iterators#lines(Reader)
+ * @see Iterators#lines(Scanner)
+ * @see Iterators#lines(URL)
  */
 public abstract class LineIterator extends IteratorAdapter<String> {
 	/**

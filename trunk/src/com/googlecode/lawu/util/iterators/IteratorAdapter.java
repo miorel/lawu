@@ -101,11 +101,25 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 		current = element;
 	}
 
+	// had to actually copy documentation because of a silly bug in javadoc
+	/**
+	 * Retrieves the current element in the traversal represented by this
+	 * iterator.
+	 * 
+	 * @return the current element in the traversal
+	 */
 	@Override
 	public T current() {
 		return current;
 	}
 
+	// had to actually copy documentation because of a silly bug in javadoc
+	/**
+	 * Checks whether this iterator has exhausted all the elements of its
+	 * underlying traversal.
+	 * 
+	 * @return whether all elements have been exhausted
+	 */
 	@Override
 	public boolean isDone() {
 		return done;

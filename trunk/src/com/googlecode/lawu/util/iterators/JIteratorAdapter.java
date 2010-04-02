@@ -15,6 +15,8 @@ package com.googlecode.lawu.util.iterators;
 
 import java.util.Iterator;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * Adapter for a {@linkplain Iterator Java iterator}. Because Java's
  * <code>Iterator</code>s do not provide a {@link #reset()}-like operation, the
@@ -23,6 +25,8 @@ import java.util.Iterator;
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
+ * @see Iterators#adapt(Iterable)
+ * @see Iterators#adapt(Iterator)
  */
 public class JIteratorAdapter<T> extends IteratorAdapter<T> {
 	private final Iterator<T> iterator;

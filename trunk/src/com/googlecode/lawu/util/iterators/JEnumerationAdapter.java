@@ -15,6 +15,8 @@ package com.googlecode.lawu.util.iterators;
 
 import java.util.Enumeration;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * Adapter for an {@link Enumeration}. Because <code>Enumeration</code>s do not
  * provide a {@link #reset()}-like operation, the returned iterator will not be
@@ -23,6 +25,7 @@ import java.util.Enumeration;
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
+ * @see Iterators#adapt(Enumeration)
  */
 public class JEnumerationAdapter<T> extends IteratorAdapter<T> {
 	private final Enumeration<T> enumeration;

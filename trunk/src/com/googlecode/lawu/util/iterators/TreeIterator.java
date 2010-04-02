@@ -13,9 +13,13 @@
  */
 package com.googlecode.lawu.util.iterators;
 
+import java.io.File;
 import java.util.Stack;
 
+import org.w3c.dom.Node;
+
 import com.googlecode.lawu.dp.Iterator;
+import com.googlecode.lawu.util.Iterators;
 
 /**
  * <p>
@@ -35,6 +39,8 @@ import com.googlecode.lawu.dp.Iterator;
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
+ * @see Iterators#tree(File)
+ * @see Iterators#tree(Node)
  */
 public abstract class TreeIterator<T> extends AbstractUniversalIterator<T> {
 	private final Stack<Iterator<T>> iterators = new Stack<Iterator<T>>();

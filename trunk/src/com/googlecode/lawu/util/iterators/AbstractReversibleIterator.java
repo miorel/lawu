@@ -13,6 +13,9 @@
  */
 package com.googlecode.lawu.util.iterators;
 
+import com.googlecode.lawu.dp.Iterator;
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * Subclass of {@link AbstractUniversalIterator} with a more specific return
  * type for the {@link #iterator() iterator()} method.
@@ -20,6 +23,7 @@ package com.googlecode.lawu.util.iterators;
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
+ * @see Iterators#reverse(Iterator)
  */
 public abstract class AbstractReversibleIterator<T> extends AbstractUniversalIterator<T> implements ReversibleIterator<T> {
 	/**

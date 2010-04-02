@@ -13,6 +13,8 @@
  */
 
 /**
- * All kinds of iterators.
+ * More iterator classes than you ever wanted to wrap your mind around. Rather
+ * than using classes in this package directly, it's recommended that you use
+ * the methods of the {@link com.googlecode.lawu.util.Iterators} class.
  */
 package com.googlecode.lawu.util.iterators;

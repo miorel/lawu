@@ -15,10 +15,13 @@ package com.googlecode.lawu.util.iterators;
 
 import java.util.Scanner;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * A line iterator that reads from a {@link Scanner}.
  * 
  * @author Miorel-Lucian Palii
+ * @see Iterators#lines(Scanner)
  */
 public class ScannerIterator extends LineIterator {
 	private final Scanner scanner;
@@ -31,7 +34,7 @@ public class ScannerIterator extends LineIterator {
 	 */
 	public ScannerIterator(Scanner scanner) {
 		if(scanner == null)
-			throw new IllegalArgumentException("Can't read lines from null scanner.");
+			throw new NullPointerException("Can't read lines from null scanner.");
 		this.scanner = scanner;
 		init();
 	}

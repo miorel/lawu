@@ -13,10 +13,13 @@
  */
 package com.googlecode.lawu.util.iterators;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * An iterator over the characters of a {@link CharSequence}.
  * 
  * @author Miorel-Lucian Palii
+ * @see Iterators#chars(CharSequence)
  */
 public class CharacterIterator extends ListIterator<Character> {
 	private final CharSequence sequence;

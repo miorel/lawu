@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.regex.MatchResult;
 
@@ -36,6 +37,7 @@ import org.w3c.dom.NodeList;
 import com.googlecode.lawu.dp.Iterator;
 import com.googlecode.lawu.util.iterators.ArrayIterator;
 import com.googlecode.lawu.util.iterators.CharacterIterator;
+import com.googlecode.lawu.util.iterators.ContinuousIterator;
 import com.googlecode.lawu.util.iterators.FileHierarchyIterator;
 import com.googlecode.lawu.util.iterators.FilteredIterator;
 import com.googlecode.lawu.util.iterators.GOFIteratorAdapter;
@@ -77,9 +79,7 @@ import com.googlecode.lawu.util.iterators.UniversalIterator;
  * filtering, joining multiple iterators, or defining a mapping involving all
  * elements of a traversal. A neat trick is to:
  * 
- * <pre>
- * import static lawu.util.iterator.Iterators.*;
- * </pre>
+ * <pre>import static lawu.util.iterator.Iterators.*;</pre>
  * 
  * ...and then you can <code>map()</code>, <code>grep()</code>, or
  * <code>join()</code> to your heart's desire. You won't win any code brevity
@@ -112,6 +112,7 @@ public class Iterators {
 	 * @param array
 	 *            the elements over which to iterate
 	 * @return an iterator over the elements
+	 * @see #iterator(List)
 	 */
 	public static <T> ReversibleIterator<T> iterator(T... array) {
 		return new ArrayIterator<T>(array);
@@ -125,6 +126,7 @@ public class Iterators {
 	 * @param list
 	 *            the list over which to iterate
 	 * @return an iterator over the list
+	 * @see #iterator(Object...)
 	 */
 	public static <T> ReversibleIterator<T> iterator(List<T> list) {
 		return new JListIterator<T>(list);
@@ -138,6 +140,9 @@ public class Iterators {
 	 * @param iterator
 	 *            the adaptee
 	 * @return a universal iterator
+	 * @see #adapt(Enumeration)
+	 * @see #adapt(Iterable)
+	 * @see #adapt(java.util.Iterator)
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterator<T> iterator) {
 		return iterator instanceof UniversalIterator<?> ? (UniversalIterator<T>) iterator : new GOFIteratorAdapter<T>(iterator);
@@ -151,6 +156,9 @@ public class Iterators {
 	 * @param iterable
 	 *            the adaptee
 	 * @return a universal iterator
+	 * @see #adapt(Enumeration)
+	 * @see #adapt(java.util.Iterator)
+	 * @see #adapt(Iterator)
 	 */
 	public static <T> UniversalIterator<T> adapt(Iterable<T> iterable) {
 		return iterable instanceof UniversalIterator<?> ? (UniversalIterator<T>) iterable : new JIteratorAdapter<T>(iterable);
@@ -166,6 +174,9 @@ public class Iterators {
 	 * @param iterator
 	 *            the adaptee
 	 * @return a universal iterator
+	 * @see #adapt(Enumeration)
+	 * @see #adapt(Iterable)
+	 * @see #adapt(Iterator)
 	 */
 	public static <T> UniversalIterator<T> adapt(java.util.Iterator<T> iterator) {
 		return iterator instanceof UniversalIterator<?> ? (UniversalIterator<T>) iterator : new JIteratorAdapter<T>(iterator);
@@ -180,6 +191,10 @@ public class Iterators {
 	 * @param iterator
 	 *            the "adaptee"
 	 * @return the argument
+	 * @see #adapt(Enumeration)
+	 * @see #adapt(Iterable)
+	 * @see #adapt(java.util.Iterator)
+	 * @see #adapt(Iterator)
 	 */
 	public static <T> UniversalIterator<T> adapt(UniversalIterator<T> iterator) {
 		return iterator;
@@ -187,15 +202,17 @@ public class Iterators {
 
 	/**
 	 * Adapts an <code>Enumeration</code> to a <code>UniversalIterator</code>.
-	 * Because <code>Enumeration</code>s do not provide a
-	 * <code>reset()</code>-like method, the returned iterator will not be
-	 * resettable.
+	 * Because <code>Enumeration</code>s do not provide a <code>reset()</code>
+	 * -like method, the returned iterator will not be resettable.
 	 * 
 	 * @param <T>
 	 *            type over which the iteration takes place
 	 * @param enumeration
 	 *            the adaptee
 	 * @return a universal iterator
+	 * @see #adapt(Iterable)
+	 * @see #adapt(java.util.Iterator)
+	 * @see #adapt(Iterator)
 	 */
 	public static <T> UniversalIterator<T> adapt(Enumeration<T> enumeration) {
 		return enumeration instanceof UniversalIterator<?> ? (UniversalIterator<T>) enumeration : new JEnumerationAdapter<T>(enumeration);
@@ -249,10 +266,32 @@ public class Iterators {
 	 * @param sequence
 	 *            the character sequence
 	 * @return a character iterator
+	 * @see #chars(Iterator)
 	 */
 	public static ReversibleIterator<Character> chars(CharSequence sequence) {
 		return new CharacterIterator(sequence);
 	}
+
+	/**
+	 * Returns an iterator over the characters of the specified character
+	 * sequences. This might be useful in combination with the
+	 * <code>lines()</code> family of methods because it allows code like
+	 * {@code chars(lines(System.in))} (assuming you've statically imported the
+	 * needed methods). 
+	 * 
+	 * @param sequences
+	 *            an iterator of character sequences
+	 * @return a character iterator
+	 * @see #chars(CharSequence)
+	 */
+	public static UniversalIterator<Character> chars(Iterator<? extends CharSequence> sequences) {
+		return join(map(new Mapper<CharSequence,Iterator<Character>>() {
+			@Override
+			public Iterator<Character> map(CharSequence sequence) {
+				return chars(sequence);
+			}
+		}, sequences));
+	}	
 
 	/**
 	 * Returns an iterator over the capturing groups of the specified
@@ -272,6 +311,13 @@ public class Iterators {
 	 * @param reader
 	 *            the input source
 	 * @return a line iterator
+	 * @see Streams#slurp(Reader)
+	 * @see #lines(BufferedReader)
+	 * @see #lines(File)
+	 * @see #lines(FileDescriptor)
+	 * @see #lines(InputStream)
+	 * @see #lines(Scanner)
+	 * @see #lines(URL)
 	 */
 	public static UniversalIterator<String> lines(Reader reader) {
 		return new StreamIterator(reader);
@@ -284,6 +330,13 @@ public class Iterators {
 	 * @param reader
 	 *            the input source
 	 * @return a line iterator
+	 * @see Streams#slurp(Reader)
+	 * @see #lines(File)
+	 * @see #lines(FileDescriptor)
+	 * @see #lines(InputStream)
+	 * @see #lines(Reader)
+	 * @see #lines(Scanner)
+	 * @see #lines(URL)
 	 */
 	public static UniversalIterator<String> lines(BufferedReader reader) {
 		return new StreamIterator(reader);
@@ -296,6 +349,13 @@ public class Iterators {
 	 * @param stream
 	 *            the input source
 	 * @return a line iterator
+	 * @see Streams#slurp(InputStream)
+	 * @see #lines(BufferedReader)
+	 * @see #lines(File)
+	 * @see #lines(FileDescriptor)
+	 * @see #lines(Reader)
+	 * @see #lines(Scanner)
+	 * @see #lines(URL)
 	 */
 	public static UniversalIterator<String> lines(InputStream stream) {
 		return new StreamIterator(stream);
@@ -307,6 +367,13 @@ public class Iterators {
 	 * @param fd
 	 *            the input source
 	 * @return a line iterator
+	 * @see Streams#slurp(FileDescriptor)
+	 * @see #lines(BufferedReader)
+	 * @see #lines(File)
+	 * @see #lines(InputStream)
+	 * @see #lines(Reader)
+	 * @see #lines(Scanner)
+	 * @see #lines(URL)
 	 */
 	public static UniversalIterator<String> lines(FileDescriptor fd) {
 		return new StreamIterator(fd);
@@ -320,6 +387,13 @@ public class Iterators {
 	 * @return a line iterator
 	 * @throws FileNotFoundException
 	 *             if the file can't be opened for reading
+	 * @see Streams#slurp(File)
+	 * @see #lines(BufferedReader)
+	 * @see #lines(FileDescriptor)
+	 * @see #lines(InputStream)
+	 * @see #lines(Reader)
+	 * @see #lines(Scanner)
+	 * @see #lines(URL)
 	 */
 	public static UniversalIterator<String> lines(File file) throws FileNotFoundException {
 		return new StreamIterator(file);
@@ -333,6 +407,13 @@ public class Iterators {
 	 * @return a line iterator
 	 * @throws IOException
 	 *             if an I/O exception occurs
+	 * @see Streams#slurp(URL)
+	 * @see #lines(BufferedReader)
+	 * @see #lines(File)
+	 * @see #lines(FileDescriptor)
+	 * @see #lines(InputStream)
+	 * @see #lines(Reader)
+	 * @see #lines(Scanner)
 	 */
 	public static UniversalIterator<String> lines(URL url) throws IOException {
 		return new StreamIterator(url);
@@ -344,6 +425,12 @@ public class Iterators {
 	 * @param scanner
 	 *            the input source
 	 * @return a line iterator
+	 * @see #lines(BufferedReader)
+	 * @see #lines(File)
+	 * @see #lines(FileDescriptor)
+	 * @see #lines(InputStream)
+	 * @see #lines(Reader)
+	 * @see #lines(URL)
 	 */
 	public static UniversalIterator<String> lines(Scanner scanner) {
 		return new ScannerIterator(scanner);
@@ -417,6 +504,7 @@ public class Iterators {
 	 *            the traversal to filter
 	 * @return an iterator that gives only those elements of the input which
 	 *         pass the specified filter
+	 * @see #grep(Filter, Iterator)
 	 */
 	public static <T> UniversalIterator<T> filter(Filter<? super T> filter, Iterator<? extends T> iterator) {
 		return new FilteredIterator<T>(filter, iterator);
@@ -447,6 +535,7 @@ public class Iterators {
 	 * @param iterator
 	 *            the iterator to unfold
 	 * @return an iterator over all the elements of the given iterators
+	 * @see #join(Iterator...)
 	 */
 	public static <T> UniversalIterator<T> join(Iterator<? extends Iterator<? extends T>> iterator) {
 		return new JoiningIterator<T>(iterator);
@@ -460,6 +549,7 @@ public class Iterators {
 	 * @param iterators
 	 *            the iterators to join
 	 * @return an iterator over all the elements of the given iterators
+	 * @see #join(Iterator)
 	 */
 	public static <T> UniversalIterator<T> join(Iterator<? extends T>... iterators) {
 		return join(iterator(iterators));
@@ -475,6 +565,7 @@ public class Iterators {
 	 * @return an iterator which gives the same elements as the input but sorted
 	 *         in order according to the default comparison method of the input
 	 *         type
+	 * @see #sort(Comparator,Iterator)
 	 */
 	public static <T extends Comparable<T>> ReversibleIterator<T> sort(Iterator<? extends T> iterator) {
 		List<T> list = list(iterator);
@@ -493,6 +584,7 @@ public class Iterators {
 	 *            the traversal to sort
 	 * @return an iterator which gives the same elements as the input but sorted
 	 *         in order according to the given comparison method
+	 * @see #sort(Iterator)
 	 */
 	public static <T> ReversibleIterator<T> sort(Comparator<? super T> comparator, Iterator<? extends T> iterator) {
 		List<T> list = list(iterator);
@@ -500,6 +592,45 @@ public class Iterators {
 		return iterator(list);
 	}
 
+	/**
+	 * Randomly permutes the elements of a traversal.
+	 * 
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the traversal to permute
+	 * @param rnd
+	 *            the source of randomness, or <code>null</code> to use a
+	 *            default source
+	 * @return an iterator which gives the same elements as the input but
+	 *         randomly permuted
+	 * @see #shuffle(Iterator)
+	 */
+	public static <T> ReversibleIterator<T> shuffle(Iterator<? extends T> iterator, Random rnd) {
+		List<T> list = list(iterator);
+		if(rnd == null)
+			Collections.shuffle(list);
+		else
+			Collections.shuffle(list, rnd);
+		return iterator(list);
+	}
+
+	/**
+	 * Randomly permutes the elements of a traversal. This method is equivalent
+	 * to calling
+	 * <code>Iterators.{@linkplain #shuffle(Iterator, Random) shuffle}(iterator, null)</code>.
+	 * 
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the traversal to permute
+	 * @return an iterator which gives the same elements as the input but
+	 *         randomly permuted
+	 */
+	public static <T> ReversibleIterator<T> shuffle(Iterator<? extends T> iterator) {
+		return shuffle(iterator, null);
+	}
+	
 	/**
 	 * Returns a list containing the elements of an iterator.
 	 * 
@@ -533,6 +664,23 @@ public class Iterators {
 		return iterator(list(iterator));
 	}
 
+	/**
+	 * Returns an iterator that continuously loops over the elements of a
+	 * traversal. This does not immediately traverse the elements of the input,
+	 * so it's safe to call with never-ending iterators (though it would serve
+	 * no purpose).
+	 * 
+	 * @param <T>
+	 *            type over which the iteration takes place
+	 * @param iterator
+	 *            the iterator to traverse
+	 * @return an iterator that continuously loops over the elements of the
+	 *         input
+	 */
+	public static <T> UniversalIterator<T> loop(Iterator<T> iterator) {
+		return new ContinuousIterator<T>(iterator);
+	}	
+	
 	/**
 	 * Traverses all the elements of an iterator from the beginning, doing
 	 * nothing. This might be useful for forcing evaluation of lazy methods,

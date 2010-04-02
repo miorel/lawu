@@ -16,6 +16,7 @@ package com.googlecode.lawu.util.iterators;
 import java.util.NoSuchElementException;
 
 import com.googlecode.lawu.dp.Iterator;
+import com.googlecode.lawu.util.Iterators;
 
 /**
  * Skeleton implementation of a {@link UniversalIterator}. Subclasses need only
@@ -24,6 +25,7 @@ import com.googlecode.lawu.dp.Iterator;
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
+ * @see Iterators
  */
 public abstract class AbstractUniversalIterator<T> implements UniversalIterator<T> {
 	/**

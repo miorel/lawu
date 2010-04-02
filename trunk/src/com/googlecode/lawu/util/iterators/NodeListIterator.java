@@ -16,10 +16,13 @@ package com.googlecode.lawu.util.iterators;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * An iterator over the nodes of a {@link NodeList}.
  *
  * @author Miorel-Lucian Palii
+ * @see Iterators#iterator(NodeList)
  */
 public class NodeListIterator extends ListIterator<Node> {
 	private final NodeList list;

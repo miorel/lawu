@@ -15,10 +15,13 @@ package com.googlecode.lawu.util.iterators;
 
 import java.util.regex.MatchResult;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * An iterator over the captured groups of a {@link MatchResult}.
  * 
  * @author Miorel-Lucian Palii
+ * @see Iterators#iterator(MatchResult)
  */
 public class MatchResultIterator extends ListIterator<String> {
 	private final MatchResult match;

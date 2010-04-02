@@ -45,7 +45,7 @@ public interface Iterator<T> {
 	 * @throws IllegalStateException
 	 *             if resetting this iterator is impossible
 	 */
-	public void reset() throws IllegalStateException;
+	public void reset();
 
 	/**
 	 * Checks whether this iterator has exhausted all the elements of its

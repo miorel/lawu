@@ -13,6 +13,6 @@
  */
 
 /**
- * Various utilities.
+ * Various utility classes.
  */
 package com.googlecode.lawu.util;

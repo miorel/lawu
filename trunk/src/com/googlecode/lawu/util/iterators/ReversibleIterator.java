@@ -13,12 +13,16 @@
  */
 package com.googlecode.lawu.util.iterators;
 
+import com.googlecode.lawu.dp.Iterator;
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * Interface for an iterator whose traversal order can be reversed.
  * 
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type over which the iteration takes place
+ * @see Iterators#reverse(Iterator)
  */
 public interface ReversibleIterator<T> extends UniversalIterator<T> {
 	/**

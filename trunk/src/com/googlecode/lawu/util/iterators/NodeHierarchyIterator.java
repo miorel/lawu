@@ -22,6 +22,7 @@ import com.googlecode.lawu.util.Iterators;
  * An iterator over a Document Object Model node hierarchy.
  * 
  * @author Miorel-Lucian Palii
+ * @see Iterators#tree(Node)
  */
 public class NodeHierarchyIterator extends TreeIterator<Node> {
 	private final Node root;

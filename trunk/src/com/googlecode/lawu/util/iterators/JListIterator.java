@@ -15,12 +15,15 @@ package com.googlecode.lawu.util.iterators;
 
 import java.util.List;
 
+import com.googlecode.lawu.util.Iterators;
+
 /**
  * An iterator over a {@linkplain List Java list}.
  * 
  * @author Miorel-Lucian Palii
  * @param <T>
  *            type of elements in the list
+ * @see Iterators#iterator(List)
  */
 public class JListIterator<T> extends ListIterator<T> {
 	private final List<T> list;

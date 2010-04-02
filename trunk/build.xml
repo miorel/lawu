@@ -73,7 +73,7 @@
 			access="package"
 			author="true"
 			destdir="doc"
-			doctitle="Documentation for the Lawu project"
+			doctitle="Documentation for the lawu project, version ${lawu.version}"
 			nodeprecated="false"
 			nodeprecatedlist="false"
 			noindex="false"

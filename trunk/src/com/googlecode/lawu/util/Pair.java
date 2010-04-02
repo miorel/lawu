@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2010 Miorel-Lucian Palii
-
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -22,6 +21,8 @@ package com.googlecode.lawu.util;
  *            the first type in the pair
  * @param <U>
  *            the second type in the pair
+ * @see Triple
+ * @see Quadruple
  */
 public final class Pair<T,U> {
 	private final T first;
@@ -60,8 +61,6 @@ public final class Pair<T,U> {
 	
 	/**
 	 * Returns a string representation of the values in the pair.
-	 * 
-	 * @return a string representation of the pair
 	 */
 	@Override
 	public String toString() {

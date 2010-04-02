@@ -25,6 +25,7 @@ package com.googlecode.lawu.util;
  * </p>
  * 
  * @author Miorel-Lucian Palii
+ * @see Cloneable
  */
 public class CloneableObject implements Cloneable {
 	/**
@@ -35,8 +36,6 @@ public class CloneableObject implements Cloneable {
 
 	/**
 	 * Creates and returns a copy of the object.
-	 * 
-	 * @return a clone of this instance
 	 */
 	@Override
 	protected CloneableObject clone() {

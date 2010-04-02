@@ -22,6 +22,7 @@ import com.googlecode.lawu.util.Iterators;
  * An iterator over a file hierarchy.
  * 
  * @author Miorel-Lucian Palii
+ * @see Iterators#tree(File)
  */
 public class FileHierarchyIterator extends TreeIterator<File> {
 	private final File root;

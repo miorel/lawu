@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2010 Miorel-Lucian Palii
-
  *
  * This program is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
@@ -26,6 +25,8 @@ package com.googlecode.lawu.util;
  *            the third type in the quadruple
  * @param <W>
  *            the fourth type in the quadruple
+ * @see Pair
+ * @see Triple
  */
 public final class Quadruple<T,U,V,W> {
 	private final T first;
@@ -90,8 +91,6 @@ public final class Quadruple<T,U,V,W> {
 	
 	/**
 	 * Returns a string representation of the values in the quadruple.
-	 * 
-	 * @return a string representation of the quadruple
 	 */
 	@Override
 	public String toString() {
