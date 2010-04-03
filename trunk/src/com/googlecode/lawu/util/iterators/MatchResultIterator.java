@@ -53,11 +53,11 @@ public class MatchResultIterator extends ListIterator<String> {
 
 	@Override
 	protected String get(int position) {
-		return match.group(position);
+		return this.match.group(position);
 	}
 
 	@Override
 	public ReversibleIterator<String> reverse() {
-		return new MatchResultIterator(match, true);
+		return new MatchResultIterator(this.match, true);
 	}
 }

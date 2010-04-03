@@ -53,11 +53,11 @@ public class NodeListIterator extends ListIterator<Node> {
 	
 	@Override
 	protected Node get(int position) {
-		return list.item(position);
+		return this.list.item(position);
 	}
 
 	@Override
 	public ReversibleIterator<Node> reverse() {
-		return new NodeListIterator(list, true);
+		return new NodeListIterator(this.list, true);
 	}
 }

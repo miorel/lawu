@@ -48,7 +48,7 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void advance() {
-		iterator.current().advance();
+		this.iterator.current().advance();
 		validateState();
 	}
 
@@ -61,7 +61,7 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public T current() {
-		return iterator.current().current();
+		return this.iterator.current().current();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -73,7 +73,7 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public boolean isDone() {
-		return iterator.isDone();
+		return this.iterator.isDone();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -89,19 +89,19 @@ public class JoiningIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void reset() {
-		iterator.reset();
-		if(!iterator.isDone()) {
-			iterator.current().reset();
+		this.iterator.reset();
+		if(!this.iterator.isDone()) {
+			this.iterator.current().reset();
 			validateState();
 		}
 	}
 	
 	private void validateState() {
-		while(iterator.current().isDone()) {
-			iterator.advance();
-			if(iterator.isDone())
+		while(this.iterator.current().isDone()) {
+			this.iterator.advance();
+			if(this.iterator.isDone())
 				break;
-			iterator.current().reset();
+			this.iterator.current().reset();
 		}	
 	}
 }

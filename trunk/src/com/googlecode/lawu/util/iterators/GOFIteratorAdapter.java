@@ -47,7 +47,7 @@ public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void advance() {
-		iterator.advance();
+		this.iterator.advance();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -59,7 +59,7 @@ public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public T current() {
-		return iterator.current();
+		return this.iterator.current();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -71,7 +71,7 @@ public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public boolean isDone() {
-		return iterator.isDone();
+		return this.iterator.isDone();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -87,6 +87,6 @@ public class GOFIteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void reset() throws IllegalStateException {
-		iterator.reset();
+		this.iterator.reset();
 	}
 }

@@ -45,6 +45,6 @@ public abstract class MessageEvent extends AbstractNetworkEvent {
 	 * @return the message associated with this event
 	 */
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 }

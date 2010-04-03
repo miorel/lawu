@@ -52,7 +52,7 @@ public class ContinuousIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void advance() {
-		iterator.advance();
+		this.iterator.advance();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -64,7 +64,7 @@ public class ContinuousIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public T current() {
-		return iterator.current();
+		return this.iterator.current();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -76,7 +76,7 @@ public class ContinuousIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public boolean isDone() {
-		if(iterator.isDone())
+		if(this.iterator.isDone())
 			reset();
 		return false;
 	}
@@ -94,8 +94,8 @@ public class ContinuousIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void reset() {
-		iterator.reset();
-		if(iterator.isDone())
+		this.iterator.reset();
+		if(this.iterator.isDone())
 			throw new NoSuchElementException("Can't loop over empty iterator.");
 	}
 }

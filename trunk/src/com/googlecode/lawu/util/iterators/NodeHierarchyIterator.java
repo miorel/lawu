@@ -54,6 +54,6 @@ public class NodeHierarchyIterator extends TreeIterator<Node> {
 
 	@Override
 	protected Iterator<Node> getInitialIterator() {
-		return Iterators.iterator(root);
+		return Iterators.iterator(this.root);
 	}
 }

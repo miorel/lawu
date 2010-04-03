@@ -24,7 +24,7 @@ package com.googlecode.lawu.util;
  * @see Triple
  * @see Quadruple
  */
-public final class Pair<T,U> {
+public class Pair<T,U> {
 	private final T first;
 	private final U second;
 
@@ -46,8 +46,8 @@ public final class Pair<T,U> {
 	 * 
 	 * @return the first value in the pair
 	 */
-	public T getFirst() {
-		return first;
+	public final T getFirst() {
+		return this.first;
 	}
 
 	/**
@@ -55,8 +55,8 @@ public final class Pair<T,U> {
 	 * 
 	 * @return the second value in the pair
 	 */
-	public U getSecond() {
-		return second;
+	public final U getSecond() {
+		return this.second;
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public final class Pair<T,U> {
 	 */
 	@Override
 	public String toString() {
-		return String.format("(%s, %s)", first, second);
+		return String.format("(%s, %s)", this.first, this.second);
 	}
 
 	@Override
@@ -83,8 +83,8 @@ public final class Pair<T,U> {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int f = first == null ? 0 : first.hashCode();
-		int s = second == null ? 0 : second.hashCode();
+		int f = this.first == null ? 0 : this.first.hashCode();
+		int s = this.second == null ? 0 : this.second.hashCode();
 		return f * prime + s;
 	}
 }

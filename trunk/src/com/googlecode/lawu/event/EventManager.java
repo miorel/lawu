@@ -40,9 +40,9 @@ public class EventManager<L extends EventListener> {
 	 *            the listener to add
 	 */
 	public void addListener(L listener) {
-		synchronized(listeners) {
-			if(!listeners.contains(listener))
-				listeners.add(listener);
+		synchronized(this.listeners) {
+			if(!this.listeners.contains(listener))
+				this.listeners.add(listener);
 		}
 	}
 
@@ -53,8 +53,8 @@ public class EventManager<L extends EventListener> {
 	 *            the listener to remove
 	 */
 	public void removeListener(L listener) {
-		synchronized(listeners) {
-			listeners.remove(listener);
+		synchronized(this.listeners) {
+			this.listeners.remove(listener);
 		}
 	}
 
@@ -66,8 +66,8 @@ public class EventManager<L extends EventListener> {
 	 *            the event to trigger
 	 */
 	public void distribute(Event<L> event) {
-		synchronized(listeners) {
-			for(L listener: listeners)
+		synchronized(this.listeners) {
+			for(L listener: this.listeners)
 				event.trigger(listener);
 		}
 	}

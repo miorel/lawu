@@ -51,11 +51,11 @@ public class CharacterIterator extends ListIterator<Character> {
 	
 	@Override
 	protected Character get(int position) {
-		return Character.valueOf(sequence.charAt(position));
+		return Character.valueOf(this.sequence.charAt(position));
 	}
 
 	@Override
 	public ReversibleIterator<Character> reverse() {
-		return new CharacterIterator(sequence, true);
+		return new CharacterIterator(this.sequence, true);
 	}
 }

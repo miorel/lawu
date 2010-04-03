@@ -56,7 +56,7 @@ public class MappingIterator<T,U> extends AbstractUniversalIterator<U> {
 	 */
 	@Override
 	public void advance() {
-		iterator.advance();
+		this.iterator.advance();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -68,7 +68,7 @@ public class MappingIterator<T,U> extends AbstractUniversalIterator<U> {
 	 */
 	@Override
 	public U current() {
-		return mapper.map(iterator.current());
+		return this.mapper.map(this.iterator.current());
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -80,7 +80,7 @@ public class MappingIterator<T,U> extends AbstractUniversalIterator<U> {
 	 */
 	@Override
 	public boolean isDone() {
-		return iterator.isDone();
+		return this.iterator.isDone();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -96,6 +96,6 @@ public class MappingIterator<T,U> extends AbstractUniversalIterator<U> {
 	 */
 	@Override
 	public void reset() {
-		iterator.reset();
+		this.iterator.reset();
 	}
 }

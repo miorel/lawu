@@ -58,8 +58,8 @@ public final class Quadruple<T,U,V,W> {
 	 * 
 	 * @return the first value in the quadruple
 	 */
-	public T getFirst() {
-		return first;
+	public final T getFirst() {
+		return this.first;
 	}
 
 	/**
@@ -67,8 +67,8 @@ public final class Quadruple<T,U,V,W> {
 	 * 
 	 * @return the second value in the quadruple
 	 */
-	public U getSecond() {
-		return second;
+	public final U getSecond() {
+		return this.second;
 	}
 
 	/**
@@ -76,8 +76,8 @@ public final class Quadruple<T,U,V,W> {
 	 * 
 	 * @return the third value in the quadruple
 	 */
-	public V getThird() {
-		return third;
+	public final V getThird() {
+		return this.third;
 	}
 	
 	/**
@@ -85,8 +85,8 @@ public final class Quadruple<T,U,V,W> {
 	 * 
 	 * @return the fourth value in the quadruple
 	 */
-	public W getFourth() {
-		return fourth;
+	public final W getFourth() {
+		return this.fourth;
 	}
 	
 	/**
@@ -94,7 +94,7 @@ public final class Quadruple<T,U,V,W> {
 	 */
 	@Override
 	public String toString() {
-		return String.format("(%s, %s, %s, %s)", first, second, third, fourth);
+		return String.format("(%s, %s, %s, %s)", this.first, this.second, this.third, this.fourth);
 	}
 
 	@Override
@@ -115,10 +115,10 @@ public final class Quadruple<T,U,V,W> {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int f = first == null ? 0 : first.hashCode();
-		int s = second == null ? 0 : second.hashCode();
-		int t = third == null ? 0 : third.hashCode();
-		int g = fourth == null ? 0 : fourth.hashCode();
+		int f = this.first == null ? 0 : this.first.hashCode();
+		int s = this.second == null ? 0 : this.second.hashCode();
+		int t = this.third == null ? 0 : this.third.hashCode();
+		int g = this.fourth == null ? 0 : this.fourth.hashCode();
 		return ((f * prime + s) * prime + t) * prime + g;
 	}
 }

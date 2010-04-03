@@ -58,10 +58,10 @@ public abstract class TreeIterator<T> extends AbstractUniversalIterator<T> {
 	public void advance() {
 		if(!isDone()) {
 			T current = current();
-			iterators.peek().advance();
-			iterators.push(childIterator(current));
-			while(!isDone() && iterators.peek().isDone())
-				iterators.pop();
+			this.iterators.peek().advance();
+			this.iterators.push(childIterator(current));
+			while(!isDone() && this.iterators.peek().isDone())
+				this.iterators.pop();
 		}
 	}
 	
@@ -76,12 +76,12 @@ public abstract class TreeIterator<T> extends AbstractUniversalIterator<T> {
 
 	@Override
 	public T current() {
-		return iterators.peek().current();
+		return this.iterators.peek().current();
 	}
 
 	@Override
 	public boolean isDone() {
-		return iterators.isEmpty();
+		return this.iterators.isEmpty();
 	}
 
 	/**
@@ -89,8 +89,8 @@ public abstract class TreeIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void reset() {
-		iterators.clear();
-		iterators.add(getInitialIterator());
+		this.iterators.clear();
+		this.iterators.add(getInitialIterator());
 	}
 	
 	/**

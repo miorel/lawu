@@ -96,7 +96,7 @@ public class Entity {
 	 * @return the address
 	 */
 	public SocketAddress getAddress() {
-		return address;
+		return this.address;
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class Entity {
 	 * @return the nickname
 	 */
 	public String getNick() {
-		return nick;
+		return this.nick;
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class Entity {
 	 * @return the ident
 	 */
 	public String getIdent() {
-		return ident;
+		return this.ident;
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class Entity {
 	 * @return the host
 	 */
 	public String getHost() {
-		return host;
+		return this.host;
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class Entity {
 	 *         user
 	 */
 	public boolean isUser() {
-		return nick != null && ident != null;
+		return this.nick != null && this.ident != null;
 	}
 	
 	@Override
@@ -218,10 +218,10 @@ public class Entity {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		if(isUser())
-			sb.append(nick).append('!').append(ident).append('@');
-		sb.append(host);
-		if(address != null)
-			sb.append(" on ").append(address);
+			sb.append(this.nick).append('!').append(this.ident).append('@');
+		sb.append(this.host);
+		if(this.address != null)
+			sb.append(" on ").append(this.address);
 		return sb.toString();
 	}
 }

@@ -48,6 +48,6 @@ public class ScannerIterator extends LineIterator {
 	 */
 	@Override
 	protected String getNextLine() {
-		return scanner.hasNextLine() ? scanner.nextLine() : null;
+		return this.scanner.hasNextLine() ? this.scanner.nextLine() : null;
 	}
 }

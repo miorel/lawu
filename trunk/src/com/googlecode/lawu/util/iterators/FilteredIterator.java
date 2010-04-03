@@ -58,10 +58,10 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void advance() {
-		beginning = false;
+		this.beginning = false;
 		do
-			iterator.advance();
-		while(!iterator.isDone() && !filter.keep(iterator.current()));
+			this.iterator.advance();
+		while(!this.iterator.isDone() && !this.filter.keep(this.iterator.current()));
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -73,7 +73,7 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public T current() {
-		return iterator.current();
+		return this.iterator.current();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -85,7 +85,7 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override	
 	public boolean isDone() {
-		return iterator.isDone();
+		return this.iterator.isDone();
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -101,11 +101,11 @@ public class FilteredIterator<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public void reset() {
-		if(!beginning) {
-			iterator.reset();
-			if(!filter.keep(iterator.current()))
+		if(!this.beginning) {
+			this.iterator.reset();
+			if(!this.filter.keep(this.iterator.current()))
 				advance();
-			beginning = true;
+			this.beginning = true;
 		}
 	}
 }

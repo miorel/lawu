@@ -208,13 +208,13 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 	protected void work() {
 		int s = 0;
 		try {
-			s = selector.select();
+			s = this.selector.select();
 		}
 		catch(IOException e) {
 			handleSelectException(e);
 		}
 		if(s > 0) {
-			Set<SelectionKey> keys = selector.selectedKeys();
+			Set<SelectionKey> keys = this.selector.selectedKeys();
 			for(SelectionKey key: keys) {
 				if(key.isValid() && key.isAcceptable())
 					accept(key);
@@ -235,7 +235,7 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 	@Override
 	protected void cleanUp() {
 		try {
-			selector.close();
+			this.selector.close();
 		}
 		catch(IOException e) {
 			handleCloseException(e);
@@ -244,8 +244,9 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 
 	/**
 	 * Defines how this thread deals with an I/O exception thrown during the
-	 * select process. The default behavior is to <code>report()</code> it and
-	 * interrupt the thread. Subclasses should override this if needed.
+	 * select process. The default behavior is to
+	 * {@linkplain #report(Throwable) report} it and interrupt the thread.
+	 * Subclasses should override this if needed.
 	 * 
 	 * @param e
 	 *            the thrown exception
@@ -257,10 +258,10 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 
 	/**
 	 * Defines how this thread deals with an I/O exception thrown during the
-	 * close process. The default behavior is to <code>report()</code> it.
+	 * close process. The default behavior is to {@linkplain #report(Throwable)
+	 * report} it.
 	 * 
-	 * @param e
-	 *            the thrown exception
+	 * @param e the thrown exception
 	 */
 	protected void handleCloseException(IOException e) {
 		report(e);
@@ -309,15 +310,10 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 	/**
 	 * Registers a channel with this thread's selector, returning a selection
 	 * key with the specified interest set and a <code>null</code> attachment.
-	 * 
-	 * @param channel
-	 *            the channel to register
-	 * @param ops
-	 *            the desired interest set for the resulting key
-	 * @return a key representing the registration
-	 * @throws ClosedChannelException
-	 *             if the channel is closed
+	 * This method is equivalent to calling
+	 * <code>{@linkplain #register(SelectableChannel,int,Object) register}(channel, ops, null)</code>.
 	 */
+	@Override
 	public SelectionKey register(SelectableChannel channel, int ops) throws ClosedChannelException {
 		return register(channel, ops, null);
 	}
@@ -325,36 +321,25 @@ public abstract class SelectingThread extends SpecializedThread implements Regis
 	/**
 	 * Registers a channel with this thread's selector, returning a selection
 	 * key with the specified interest set and attachment.
-	 * 
-	 * @param channel
-	 *            the channel to register
-	 * @param ops
-	 *            the desired interest set for the resulting key
-	 * @param attachment
-	 *            the attachment for the resulting key, may be <code>null</code>
-	 * @return a key representing the registration
-	 * @throws ClosedChannelException
-	 *             if the channel is closed
 	 */
+	@Override
 	public SelectionKey register(SelectableChannel channel, int ops, Object attachment) throws ClosedChannelException {
 		boolean wakeUp = true; // we should wake up if there are changes to the selector
-		SelectionKey oldKey = channel.keyFor(selector);
+		SelectionKey oldKey = channel.keyFor(this.selector);
 		if(oldKey != null && oldKey.interestOps() == ops) // check the old key
 			wakeUp = attachment == null ? oldKey.attachment() != null : !oldKey.attachment().equals(attachment);
-		SelectionKey newKey = channel.register(selector, ops);
+		SelectionKey newKey = channel.register(this.selector, ops);
 		newKey.attach(attachment); // need this separate call to handle null attachment correctly
 		if(wakeUp)
-			selector.wakeup();
+			this.selector.wakeup();
 		return newKey;
 	}
 
 	/**
 	 * Cancels the given channel's registration.
-	 * 
-	 * @param channel
-	 *            the channel to deregister
 	 */
+	@Override
 	public void deregister(SelectableChannel channel) {
-		channel.keyFor(selector).cancel();
+		channel.keyFor(this.selector).cancel();
 	}
 }

@@ -56,6 +56,6 @@ public class FileHierarchyIterator extends TreeIterator<File> {
 
 	@Override
 	protected Iterator<File> getInitialIterator() {
-		return Iterators.iterator(root);
+		return Iterators.iterator(this.root);
 	}
 }

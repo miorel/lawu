@@ -26,35 +26,34 @@ import java.nio.channels.Selector;
 public interface Registrar {
 
 	/**
-	 * Registers this channel with this registrar's backing selector, returning
-	 * a selection key. This method is equivalent to calling
+	 * Registers a channel with this registrar's backing selector, returning a
+	 * selection key with the specified interest set and a <code>null</code>
+	 * attachment. This method is equivalent to calling
 	 * <code>{@linkplain #register(SelectableChannel,int,Object) register}(channel, ops, null)</code>.
 	 * 
 	 * @param channel
 	 *            the channel to register
 	 * @param ops
-	 *            the interest set for the resulting key
+	 *            the desired interest set for the resulting key
+	 * @return a key representing the registration
 	 * @throws ClosedChannelException
 	 *             if the channel is closed
-	 * @return a key representing the channel's registration
 	 */
 	public SelectionKey register(SelectableChannel channel, int ops) throws ClosedChannelException;
 
 	/**
-	 * Registers this channel with this registrar's backing selector, returning
-	 * a selection key. This method also allows setting the interest set and
-	 * attachment for the resulting selection key.
+	 * Registers a channel with this registrar's backing selector, returning a
+	 * selection key with the specified interest set and attachment.
 	 * 
 	 * @param channel
 	 *            the channel to register
 	 * @param ops
-	 *            the interest set for the resulting key
+	 *            the desired interest set for the resulting key
 	 * @param attachment
-	 *            the attachment for the resulting key; may be <code>null</code>
+	 *            the attachment for the resulting key, may be <code>null</code>
+	 * @return a key representing the registration
 	 * @throws ClosedChannelException
 	 *             if the channel is closed
-	 * @return a key representing the channel's registration
-	 * @see #register(SelectableChannel, int)
 	 */
 	public SelectionKey register(SelectableChannel channel, int ops, Object attachment) throws ClosedChannelException;
 

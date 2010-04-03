@@ -31,17 +31,17 @@ public abstract class AbstractEvent<T extends EventListener> implements Event<T>
 	
 	@Override
 	public void consume() {
-		consumed = true;
+		this.consumed = true;
 	}
 
 	@Override
 	public boolean isConsumed() {
-		return consumed;
+		return this.consumed;
 	}
 
 	@Override
 	public void trigger(T listener) {
-		if(!consumed)
+		if(!this.consumed)
 			doTrigger(listener);
 	}
 

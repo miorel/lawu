@@ -54,11 +54,11 @@ public class JListIterator<T> extends ListIterator<T> {
 
 	@Override
 	protected T get(int position) {
-		return list.get(position);
+		return this.list.get(position);
 	}
 
 	@Override
 	public ReversibleIterator<T> reverse() {
-		return new JListIterator<T>(list, true);
+		return new JListIterator<T>(this.list, true);
 	}
 }

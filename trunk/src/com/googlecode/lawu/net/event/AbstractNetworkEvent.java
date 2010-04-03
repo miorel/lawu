@@ -38,6 +38,6 @@ public abstract class AbstractNetworkEvent extends AbstractEvent<NetworkEventLis
 	
 	@Override
 	public SocketClient getClient() {
-		return client;
+		return this.client;
 	}
 }

@@ -93,7 +93,7 @@ public class Quaternion {
 	 * @return the w-coordinate
 	 */
 	public double getW() {
-		return w;
+		return this.w;
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class Quaternion {
 	 * @return the x-coordinate
 	 */
 	public double getX() {
-		return x;
+		return this.x;
 	}
 
 	/**
@@ -111,7 +111,7 @@ public class Quaternion {
 	 * @return the y-coordinate
 	 */
 	public double getY() {
-		return y;
+		return this.y;
 	}
 
 	/**
@@ -120,17 +120,17 @@ public class Quaternion {
 	 * @return the z-coordinate
 	 */
 	public double getZ() {
-		return z;
+		return this.z;
 	}
 	
 	/**
 	 * Gets the vector portion of this quaternion.
 	 * 
-	 * @return a vector (x, y, z)
+	 * @return a vector &lt;x, y, z&gt;
 	 * @see #getScalar()
 	 */
 	public Vector getVector() {
-		return new Vector(getX(), getY(), getZ());
+		return new Vector(this.x, this.y, this.z);
 	}
 	
 	/**
@@ -140,7 +140,7 @@ public class Quaternion {
 	 * @return the w-coordinate
 	 */
 	public double getScalar() {
-		return getW();
+		return this.w;
 	}
 	
 	/**
@@ -148,11 +148,11 @@ public class Quaternion {
 	 * this quaternion and the argument.
 	 * 
 	 * @param quaternion
-	 *            addend
-	 * @return this + quaternion
+	 *            the addend
+	 * @return <code>this + quaternion</code>
 	 */
 	public Quaternion add(Quaternion quaternion) {
-		return new Quaternion(getW() + quaternion.getW(), getX() + quaternion.getX(), getY() + quaternion.getY(), getZ() + quaternion.getZ());
+		return new Quaternion(this.w + quaternion.w, this.x + quaternion.x, this.y + quaternion.y, this.z + quaternion.z);
 	}
 
 	/**
@@ -160,11 +160,11 @@ public class Quaternion {
 	 * subtracting the argument from this quaternion.
 	 * 
 	 * @param quaternion
-	 *            subtrahend
-	 * @return this - quaternion
+	 *            the subtrahend
+	 * @return <code>this - quaternion</code>
 	 */
 	public Quaternion subtract(Quaternion quaternion) {
-		return new Quaternion(getW() - quaternion.getW(), getX() - quaternion.getX(), getY() - quaternion.getY(), getZ() - quaternion.getZ());
+		return new Quaternion(this.w - quaternion.w, this.x - quaternion.x, this.y - quaternion.y, this.z - quaternion.z);
 	}
 
 	/**
@@ -172,11 +172,11 @@ public class Quaternion {
 	 * multiplying this quaternion by the scalar passed as an argument.
 	 * 
 	 * @param scalar
-	 *            factor
-	 * @return this * scalar
+	 *            the factor
+	 * @return <code>this * scalar</code>
 	 */
 	public Quaternion multiply(double scalar) {
-		return new Quaternion(getW() * scalar, getX() * scalar, getY() * scalar, getZ() * scalar);
+		return new Quaternion(this.w * scalar, this.x * scalar, this.y * scalar, this.z * scalar);
 	}
 
 	/**
@@ -185,21 +185,21 @@ public class Quaternion {
 	 * argument.
 	 * 
 	 * @param scalar
-	 *            divisor
-	 * @return this / scalar
+	 *            the divisor
+	 * @return <code>this / scalar</code>
 	 */
 	public Quaternion divide(double scalar) {
-		return new Quaternion(getW() / scalar, getX() / scalar, getY() / scalar, getZ() / scalar);
+		return new Quaternion(this.w / scalar, this.x / scalar, this.y / scalar, this.z / scalar);
 	}
 	
 	/**
 	 * Returns a new quaternion object which has the same magnitude as this one
 	 * but the opposite direction.
 	 * 
-	 * @return -this
+	 * @return <code>-this</code>
 	 */
 	public Quaternion negate() {
-		return new Quaternion(-getW(), -getX(), -getY(), -getZ());
+		return new Quaternion(-this.w, -this.x, -this.y, -this.z);
 	}
 
 	/**
@@ -208,7 +208,7 @@ public class Quaternion {
 	 * @return the magnitude of this quaternion
 	 */
 	public double magnitude() {
-		return Math.hypot(getW(), getVector().magnitude());
+		return Math.hypot(Math.hypot(this.w, this.x), Math.hypot(this.y, this.z));
 	}
 	
 	@Override
@@ -216,13 +216,13 @@ public class Quaternion {
 		final int prime = 31;
 		int result = 1;
 		long temp;
-		temp = Double.doubleToLongBits(w);
+		temp = Double.doubleToLongBits(this.w);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(x);
+		temp = Double.doubleToLongBits(this.x);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(y);
+		temp = Double.doubleToLongBits(this.y);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(z);
+		temp = Double.doubleToLongBits(this.z);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
@@ -233,7 +233,7 @@ public class Quaternion {
 	 * </p>
 	 * <p>
 	 * To be equal, the object must also be a quaternion and have the same
-	 * coordinates as this one (according to <code>Double.equals()</code>).
+	 * coordinates as this one (according to {@link Double#equals(Object)}).
 	 * There are a couple of cases in which this could get you into trouble, a
 	 * subtle one being positive vs. negative zero. A more obvious one would be
 	 * rounding error. Therefore, in general, it would probably be more useful
@@ -247,11 +247,11 @@ public class Quaternion {
 		if(this == obj)
 			ret = true;
 		else if(obj instanceof Quaternion) {
-			Quaternion other = (Quaternion) obj;
-			ret = Double.valueOf(this.w).equals(Double.valueOf(other.w))
-				&& Double.valueOf(this.x).equals(Double.valueOf(other.x))
-				&& Double.valueOf(this.y).equals(Double.valueOf(other.y))
-				&& Double.valueOf(this.z).equals(Double.valueOf(other.z));
+			Quaternion q = (Quaternion) obj;
+			ret = Double.valueOf(this.w).equals(Double.valueOf(q.w))
+				&& Double.valueOf(this.x).equals(Double.valueOf(q.x))
+				&& Double.valueOf(this.y).equals(Double.valueOf(q.y))
+				&& Double.valueOf(this.z).equals(Double.valueOf(q.z));
 		}
 		return ret;
 	}
@@ -261,6 +261,6 @@ public class Quaternion {
 	 */
 	@Override
 	public String toString() {
-		return String.format("<%.3f, %.3f, %.3f, %.3f>", Double.valueOf(getW()), Double.valueOf(getX()), Double.valueOf(getY()), Double.valueOf(getZ()));
+		return String.format("<%.3f, %.3f, %.3f, %.3f>", Double.valueOf(this.w), Double.valueOf(this.x), Double.valueOf(this.y), Double.valueOf(this.z));
 	}
 }

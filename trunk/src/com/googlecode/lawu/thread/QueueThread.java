@@ -90,15 +90,15 @@ public abstract class QueueThread<T> extends SpecializedThread {
 	protected void work() {
 		T element = null; 
 		boolean process = true; // without this variable, the thread would process one more element after being interrupted
-		synchronized(queue) {
+		synchronized(this.queue) {
 			if(interrupted()) {
 				process = false;
 				interrupt();
 			}
 			else 
-				while(queue.isEmpty())
+				while(this.queue.isEmpty())
 					try {
-						queue.wait(); // I'll wake when an element is queued
+						this.queue.wait(); // I'll wake when an element is queued
 					}
 					catch(InterruptedException e) {
 						process = false;
@@ -106,13 +106,13 @@ public abstract class QueueThread<T> extends SpecializedThread {
 						break;
 					}
 			if(process) {
-				long nap = getTimeBeforeProcessing(queue.peek());
+				long nap = getTimeBeforeProcessing(this.queue.peek());
 				if(nap <= 0)
-					element = queue.poll();
+					element = this.queue.poll();
 				else {
 					process = false;
 					try {
-						queue.wait(nap);
+						this.queue.wait(nap);
 					}
 					catch(InterruptedException e) {
 						interrupt();
@@ -140,9 +140,9 @@ public abstract class QueueThread<T> extends SpecializedThread {
 	 *            the element to add
 	 */
 	public void enqueue(T element) {
-		synchronized(queue) {
-			queue.add(element);
-			queue.notify(); // this thread is the only one that might be wait()-ing
+		synchronized(this.queue) {
+			this.queue.add(element);
+			this.queue.notify(); // this thread is the only one that might be wait()-ing
 		}
 	}
 	
@@ -150,14 +150,14 @@ public abstract class QueueThread<T> extends SpecializedThread {
 	 * Empties this thread's queue.
 	 */
 	public void clear() {
-		synchronized(queue) {
-			queue.clear();
+		synchronized(this.queue) {
+			this.queue.clear();
 		}
 	}
 	
 	@Override
 	public void interrupt() {
-		synchronized(queue) {
+		synchronized(this.queue) {
 			super.interrupt();
 		}
 	}

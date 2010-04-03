@@ -80,7 +80,7 @@ public class Vector {
 	 *            the coordinates
 	 */
 	public Vector(Vector vector) {
-		this(vector.getX(), vector.getY(), vector.getZ());
+		this(vector.x, vector.y, vector.z);
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class Vector {
 	 * @return the x-coordinate
 	 */
 	public double getX() {
-		return x;
+		return this.x;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class Vector {
 	 * @return the y-coordinate
 	 */
 	public double getY() {
-		return y;
+		return this.y;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class Vector {
 	 * @return the z-coordinate
 	 */
 	public double getZ() {
-		return z;
+		return this.z;
 	}
 	
 	/**
@@ -115,11 +115,11 @@ public class Vector {
 	 * vector and the argument.
 	 * 
 	 * @param vector
-	 *            addend
-	 * @return this + vector
+	 *            the addend
+	 * @return <code>this + vector</code>
 	 */
 	public Vector add(Vector vector) {
-		return new Vector(getX() + vector.getX(), getY() + vector.getY(), getZ() + vector.getZ());
+		return new Vector(this.x + vector.x, this.y + vector.y, this.z + vector.z);
 	}
 
 	/**
@@ -127,11 +127,11 @@ public class Vector {
 	 * the argument from this vector.
 	 * 
 	 * @param vector
-	 *            subtrahend
-	 * @return this - vector
+	 *            the subtrahend
+	 * @return <code>this - vector</code>
 	 */
 	public Vector subtract(Vector vector) {
-		return new Vector(getX() - vector.getX(), getY() - vector.getY(), getZ() - vector.getZ());
+		return new Vector(this.x - vector.x, this.y - vector.y, this.z - vector.z);
 	}
 
 	/**
@@ -139,11 +139,11 @@ public class Vector {
 	 * this vector by the scalar passed as an argument.
 	 * 
 	 * @param scalar
-	 *            factor
-	 * @return this * scalar
+	 *            the factor
+	 * @return <code>this * scalar</code>
 	 */
 	public Vector multiply(double scalar) {
-		return new Vector(getX() * scalar, getY() * scalar, getZ() * scalar);
+		return new Vector(this.x * scalar, this.y * scalar, this.z * scalar);
 	}
 
 	/**
@@ -151,21 +151,21 @@ public class Vector {
 	 * this vector by the inverse of the scalar passed as an argument.
 	 * 
 	 * @param scalar
-	 *            divisor
-	 * @return this / scalar
+	 *            the divisor
+	 * @return <code>this / scalar</code>
 	 */
 	public Vector divide(double scalar) {
-		return new Vector(getX() / scalar, getY() / scalar, getZ() / scalar);
+		return new Vector(this.x / scalar, this.y / scalar, this.z / scalar);
 	}
 	
 	/**
 	 * Returns a new vector object which has the same magnitude as this one but
 	 * the opposite direction. 
 	 * 
-	 * @return -this
+	 * @return <code>-this</code>
 	 */
 	public Vector negate() {
-		return new Vector(-getX(), -getY(), -getZ());
+		return new Vector(-this.x, -this.y, -this.z);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class Vector {
 	 * @return the magnitude of this vector
 	 */
 	public double magnitude() {
-		return Math.hypot(Math.hypot(getX(), getY()), getZ());
+		return Math.hypot(Math.hypot(this.x, this.y), this.z);
 	}
 	
 	@Override
@@ -182,11 +182,11 @@ public class Vector {
 		final int prime = 31;
 		int result = 1;
 		long tmp;
-		tmp = Double.doubleToLongBits(x);
+		tmp = Double.doubleToLongBits(this.x);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(y);
+		tmp = Double.doubleToLongBits(this.y);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
-		tmp = Double.doubleToLongBits(z);
+		tmp = Double.doubleToLongBits(this.z);
 		result = prime * result + (int) (tmp ^ (tmp >>> 32));
 		return result;
 	}
@@ -197,7 +197,7 @@ public class Vector {
 	 * </p>
 	 * <p>
 	 * To be equal, the object must also be a vector and have the same
-	 * coordinates as this one (according to <code>Double.equals()</code>).
+	 * coordinates as this one (according to {@link Double#equals(Object)}).
 	 * There are a couple of cases in which this could get you into trouble, a
 	 * subtle one being positive vs. negative zero. A more obvious one would be
 	 * rounding error. Therefore, in general, it would probably be more useful
@@ -211,10 +211,10 @@ public class Vector {
 		if(this == obj)
 			ret = true;
 		else if(obj instanceof Vector) {
-			Vector other = (Vector) obj;
-			ret = Double.valueOf(this.x).equals(Double.valueOf(other.x))
-				&& Double.valueOf(this.y).equals(Double.valueOf(other.y))
-				&& Double.valueOf(this.z).equals(Double.valueOf(other.z));
+			Vector v = (Vector) obj;
+			ret = Double.valueOf(this.x).equals(Double.valueOf(v.x))
+				&& Double.valueOf(this.y).equals(Double.valueOf(v.y))
+				&& Double.valueOf(this.z).equals(Double.valueOf(v.z));
 		}
 		return ret;
 	}
@@ -224,6 +224,6 @@ public class Vector {
 	 */
 	@Override
 	public String toString() {
-		return String.format("<%.3f, %.3f, %.3f>", Double.valueOf(getX()), Double.valueOf(getY()), Double.valueOf(getZ()));
+		return String.format("<%.3f, %.3f, %.3f>", Double.valueOf(this.x), Double.valueOf(this.y), Double.valueOf(this.z));
 	}
 }

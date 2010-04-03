@@ -92,7 +92,7 @@ public final class Element {
 	 * @return this element's symbol
 	 */
 	public String getSymbol() {
-		return symbol;
+		return this.symbol;
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public final class Element {
 	 * @return this element's full name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -110,7 +110,7 @@ public final class Element {
 	 * @return this element's atomic number
 	 */
 	public int getAtomicNumber() {
-		return atomicNumber;
+		return this.atomicNumber;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public final class Element {
 	 * @return this element's atomic radius
 	 */
 	public double getAtomicRadius() {
-		return atomicRadius;
+		return this.atomicRadius;
 	}
 
 	/**
@@ -128,17 +128,17 @@ public final class Element {
 	 * @return this element's covalent radius
 	 */
 	public double getCovalentRadius() {
-		return covalentRadius;
+		return this.covalentRadius;
 	}
 	
 	@Override
 	public String toString() {
-		return symbol;
+		return this.symbol;
 	}
 	
 	@Override
 	public int hashCode() {
-		return atomicNumber;
+		return this.atomicNumber;
 	}
 	
 	@Override

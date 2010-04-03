@@ -53,7 +53,7 @@ public final class Triple<T,U,V> {
 	 * @return the first value in the triple
 	 */
 	public T getFirst() {
-		return first;
+		return this.first;
 	}
 
 	/**
@@ -62,7 +62,7 @@ public final class Triple<T,U,V> {
 	 * @return the second value in the triple
 	 */
 	public U getSecond() {
-		return second;
+		return this.second;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public final class Triple<T,U,V> {
 	 * @return the third value in the triple
 	 */
 	public V getThird() {
-		return third;
+		return this.third;
 	}
 	
 	/**
@@ -79,7 +79,7 @@ public final class Triple<T,U,V> {
 	 */
 	@Override
 	public String toString() {
-		return String.format("(%s, %s, %s)", first, second, third);
+		return String.format("(%s, %s, %s)", this.first, this.second, this.third);
 	}
 
 	@Override
@@ -99,9 +99,9 @@ public final class Triple<T,U,V> {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int f = first == null ? 0 : first.hashCode();
-		int s = second == null ? 0 : second.hashCode();
-		int t = third == null ? 0 : third.hashCode();
+		int f = this.first == null ? 0 : this.first.hashCode();
+		int s = this.second == null ? 0 : this.second.hashCode();
+		int t = this.third == null ? 0 : this.third.hashCode();
 		return (f * prime + s) * prime + t;
 	}
 }

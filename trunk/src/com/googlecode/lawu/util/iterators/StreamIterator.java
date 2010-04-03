@@ -131,6 +131,6 @@ public class StreamIterator extends LineIterator {
 	 */
 	@Override
 	protected String getNextLine() throws IOException {
-		return reader.readLine();
+		return this.reader.readLine();
 	}
 }

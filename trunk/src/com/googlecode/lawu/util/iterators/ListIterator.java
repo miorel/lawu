@@ -91,7 +91,7 @@ public abstract class ListIterator<T> extends AbstractReversibleIterator<T> {
 	@Override
 	public void advance() {
 		if(!isDone())
-			pointer += increment;
+			this.pointer += this.increment;
 	}
 
 	/**
@@ -112,7 +112,7 @@ public abstract class ListIterator<T> extends AbstractReversibleIterator<T> {
 	 */
 	@Override
 	public T current() {
-		return get(pointer);
+		return get(this.pointer);
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public abstract class ListIterator<T> extends AbstractReversibleIterator<T> {
 	 */
 	@Override
 	public boolean isDone() {
-		return pointer == end;
+		return this.pointer == this.end;
 	}
 
 	/**
@@ -130,6 +130,6 @@ public abstract class ListIterator<T> extends AbstractReversibleIterator<T> {
 	 */
 	@Override
 	public void reset() {
-		pointer = begin;
+		this.pointer = this.begin;
 	}
 }

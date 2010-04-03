@@ -52,11 +52,11 @@ public class ArrayIterator<T> extends ListIterator<T> {
 
 	@Override
 	protected T get(int position) {
-		return array[position];
+		return this.array[position];
 	}
 
 	@Override
 	public ReversibleIterator<T> reverse() {
-		return new ArrayIterator<T>(array, true);
+		return new ArrayIterator<T>(this.array, true);
 	}
 }

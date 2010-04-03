@@ -150,12 +150,12 @@ public abstract class SocketClient {
 	 * @return this client's address
 	 */
 	public SocketAddress getAddress() {
-		return address;
+		return this.address;
 	}
 
 	private void setChannelInterest(int ops) throws ClosedChannelException {
-		synchronized(stringBuffer) {
-			registrar.register(channel, ops, this);
+		synchronized(this.stringBuffer) {
+			this.registrar.register(this.channel, ops, this);
 		}
 	}
 
@@ -179,11 +179,11 @@ public abstract class SocketClient {
 	 *             if an I/O error occurs
 	 */
 	public void start() throws IOException {
-		synchronized(stringBuffer) {
+		synchronized(this.stringBuffer) {
 			stop(); // stop first
-			channel = provider.openSocketChannel();
-			channel.configureBlocking(false);
-			if(channel.connect(address))
+			this.channel = this.provider.openSocketChannel();
+			this.channel.configureBlocking(false);
+			if(this.channel.connect(this.address))
 				connect();
 			else
 				listenForConnect();
@@ -200,11 +200,11 @@ public abstract class SocketClient {
 	 *             if an I/O error occurs
 	 */
 	public void connect() throws IOException {
-		synchronized(stringBuffer) {
-			if(channel == null)
+		synchronized(this.stringBuffer) {
+			if(this.channel == null)
 				throw new IllegalStateException("This client is stopped or not yet started.");
 			try {
-				if(channel.finishConnect()) {
+				if(this.channel.finishConnect()) {
 					listenForReadWrite();
 					distributeNetworkEvent(new ConnectedEvent(this));
 				}
@@ -223,14 +223,14 @@ public abstract class SocketClient {
 	 * disconnection.
 	 */
 	public void stop() {
-		synchronized(stringBuffer) {
-			synchronized(outputQueue) {
-				outputQueue.clear();
+		synchronized(this.stringBuffer) {
+			synchronized(this.outputQueue) {
+				this.outputQueue.clear();
 			}
-			SocketChannel tmp = channel;
+			SocketChannel tmp = this.channel;
 			if(tmp != null) {
-				channel = null;
-				registrar.deregister(tmp);
+				this.channel = null;
+				this.registrar.deregister(tmp);
 				try {
 					tmp.socket().close();
 				}
@@ -263,19 +263,19 @@ public abstract class SocketClient {
 	 *             if an I/O error occurs
 	 */
 	public void read() throws IOException {
-		synchronized(stringBuffer) {
-			if(channel == null)
+		synchronized(this.stringBuffer) {
+			if(this.channel == null)
 				throw new IllegalStateException("This client is stopped or not yet started.");
-			if(channel.read(byteBuffer) < 0)
+			if(this.channel.read(this.byteBuffer) < 0)
 				stop();
 			else {
-				byteBuffer.flip();
-				decoder.decode(byteBuffer, charBuffer, false);
-				charBuffer.flip();
-				stringBuffer.append(charBuffer);
-				byteBuffer.clear();
-				charBuffer.clear();
-				scanBuffer(stringBuffer);
+				this.byteBuffer.flip();
+				this.decoder.decode(this.byteBuffer, this.charBuffer, false);
+				this.charBuffer.flip();
+				this.stringBuffer.append(this.charBuffer);
+				this.byteBuffer.clear();
+				this.charBuffer.clear();
+				scanBuffer(this.stringBuffer);
 			}
 		}
 	}
@@ -289,16 +289,16 @@ public abstract class SocketClient {
 	 *             if an I/O error occurs
 	 */
 	public void write() throws IOException {
-		synchronized(stringBuffer) {
-			if(channel == null)
+		synchronized(this.stringBuffer) {
+			if(this.channel == null)
 				throw new IllegalStateException("This client is stopped or not yet started.");
-			if(outgoingBuffer != null)
+			if(this.outgoingBuffer != null)
 				doWrite();
 			else {
 				String message;
-				synchronized(outputQueue) {
-					message = outputQueue.poll();
-					if(outputQueue.isEmpty())
+				synchronized(this.outputQueue) {
+					message = this.outputQueue.poll();
+					if(this.outputQueue.isEmpty())
 						try {
 							listenForRead();
 						}
@@ -308,7 +308,7 @@ public abstract class SocketClient {
 				}
 				if(message != null) {
 					raiseWritingEvent(message);
-					outgoingBuffer = encoder.encode(CharBuffer.wrap(message));
+					this.outgoingBuffer = this.encoder.encode(CharBuffer.wrap(message));
 					doWrite();
 				}
 			}
@@ -316,10 +316,10 @@ public abstract class SocketClient {
 	}
 	
 	private void doWrite() throws IOException {
-		synchronized(stringBuffer) {
-			channel.write(outgoingBuffer);
-			if(outgoingBuffer.remaining() == 0)
-				outgoingBuffer = null;
+		synchronized(this.stringBuffer) {
+			this.channel.write(this.outgoingBuffer);
+			if(this.outgoingBuffer.remaining() == 0)
+				this.outgoingBuffer = null;
 		}
 	}
 
@@ -342,8 +342,8 @@ public abstract class SocketClient {
 	 *            the messages to queue
 	 */
 	protected void send(CharSequence message) {
-		synchronized(outputQueue) {
-			outputQueue.add(message.toString());
+		synchronized(this.outputQueue) {
+			this.outputQueue.add(message.toString());
 			try {
 				listenForReadWrite();
 			}
@@ -360,7 +360,7 @@ public abstract class SocketClient {
 	 *            the listener to add
 	 */
 	public void addNetworkEventListener(NetworkEventListener listener) {
-		networkEventManager.addListener(listener);
+		this.networkEventManager.addListener(listener);
 	}
 
 	/**
@@ -370,7 +370,7 @@ public abstract class SocketClient {
 	 *            the event to distribute
 	 */
 	protected void distributeNetworkEvent(NetworkEvent event) {
-		networkEventManager.distribute(event);
+		this.networkEventManager.distribute(event);
 	}
 
 	/**
@@ -380,7 +380,7 @@ public abstract class SocketClient {
 	 *            the listener to remove
 	 */
 	public void removeNetworkEventListener(NetworkEventListener listener) {
-		networkEventManager.removeListener(listener);
+		this.networkEventManager.removeListener(listener);
 	}
 
 	/**

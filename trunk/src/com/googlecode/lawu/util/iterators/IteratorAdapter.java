@@ -75,7 +75,7 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	@Override
 	public final void advance() {
 		doAdvance();
-		fresh = false;
+		this.fresh = false;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 * subsequent calls to {@link #isDone()} will return <code>true</code>.
 	 */
 	protected void markAsDone() {
-		done = true;
+		this.done = true;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 *            the new current element
 	 */
 	protected void setCurrent(T element) {
-		current = element;
+		this.current = element;
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -110,7 +110,7 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public T current() {
-		return current;
+		return this.current;
 	}
 
 	// had to actually copy documentation because of a silly bug in javadoc
@@ -122,7 +122,7 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 */
 	@Override
 	public boolean isDone() {
-		return done;
+		return this.done;
 	}
 
 	/**
@@ -133,7 +133,7 @@ public abstract class IteratorAdapter<T> extends AbstractUniversalIterator<T> {
 	 * @return whether this iterator is "fresh"
 	 */
 	protected boolean isFresh() {
-		return fresh;
+		return this.fresh;
 	}
 
 	/**
