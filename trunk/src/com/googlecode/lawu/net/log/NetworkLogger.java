@@ -22,18 +22,29 @@ import com.googlecode.lawu.net.event.NetworkEventListener;
 import com.googlecode.lawu.net.event.ReadingEvent;
 import com.googlecode.lawu.net.event.WritingEvent;
 
+/**
+ * A logger of network events.
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public class NetworkLogger implements NetworkEventListener {
 	private final Appendable appendable;
-	
+
+	/**
+	 * Constructs a logger that will write events to the specified destination.
+	 * 
+	 * @param appendable
+	 *            the destination of log messages
+	 */
 	public NetworkLogger(Appendable appendable) {
 		if(appendable == null)
-			throw new IllegalArgumentException("Can't append to null.");
+			throw new NullPointerException("Can't append to null.");
 		this.appendable = appendable;
 	}
 	
-	protected void log(NetworkEvent event, char identifier, String message) {
+	private void log(NetworkEvent event, char identifier, String message) {
 		try {
-			appendable.append(String.format("%1$d %2$s %3$s%3$s%3$s %4$s%n", Long.valueOf(System.currentTimeMillis()), event.getClient().getAddress(), Character.valueOf(identifier), message));
+			this.appendable.append(String.format("%1$d %2$s %3$s%3$s%3$s %4$s%n", Long.valueOf(System.currentTimeMillis()), event.getClient().getAddress(), Character.valueOf(identifier), message));
 		}
 		catch(IOException e) {
 			e.printStackTrace();

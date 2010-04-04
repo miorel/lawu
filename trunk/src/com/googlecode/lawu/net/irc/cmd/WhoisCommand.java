@@ -13,28 +13,19 @@
  */
 package com.googlecode.lawu.net.irc.cmd;
 
-import static com.googlecode.lawu.util.Iterators.*;
-import com.googlecode.lawu.util.iterators.UniversalIterator;
-
-public class PassCommand extends AbstractIrcCommand {
-	private final String password;
-	
-	public PassCommand(String password) {
-		validateString("password", password, false, false);
-		this.password = password;
+public class WhoisCommand extends IrcNicknameCommand {
+	/**
+	 * Build a whois query on the specified nick.
+	 * 
+	 * @param nick
+	 *            the user to whois
+	 */
+	public WhoisCommand(String nick) {
+		super(nick);
 	}
 	
-	public String getPassword() {
-		return password;
-	}
-
-	@Override
-	public UniversalIterator<String> getArguments() {
-		return iterator(password);
-	}
-
 	@Override
 	public String getCommand() {
-		return "PASS";
+		return "WHOIS";
 	}
 }

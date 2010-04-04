@@ -24,22 +24,82 @@ import com.googlecode.lawu.net.irc.cmd.PrivmsgCommand;
 import com.googlecode.lawu.net.irc.cmd.QuitCommand;
 import com.googlecode.lawu.net.irc.cmd.UnknownCommand;
 
+/**
+ * A listener for IRC protocol events (commands).
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public interface IrcEventListener extends EventListener {
+	/**
+	 * Invoked when someone changes IRC nicks.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void nickEvent(IrcEvent<NickCommand> event);
 	
+	/**
+	 * Invoked on a ping.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void pingEvent(IrcEvent<PingCommand> event);
 
+	/**
+	 * Invoked on receipt of a notice.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void noticeEvent(IrcEvent<NoticeCommand> event);
-	
+
+	/**
+	 * Invoked on receipt of a private message. This is a misnomer, since IRC
+	 * private messages can be sent to an entire channel.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void privmsgEvent(IrcEvent<PrivmsgCommand> event);
 
+	/**
+	 * Invoked on receipt of an invitation to join a channel.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void inviteEvent(IrcEvent<InviteCommand> event);
 
+	/**
+	 * Invoked when someone quits the IRC network.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void quitEvent(IrcEvent<QuitCommand> event);
 
+	/**
+	 * Invoked when someone gets kicked from a channel.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void kickEvent(IrcEvent<KickCommand> event);
 
+	/**
+	 * Invoked when an unrecognized command is received.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void unknownCommandEvent(IrcEvent<UnknownCommand> event);
 
+	/**
+	 * Invoked when someone joins a channel.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
 	public void joinEvent(IrcEvent<JoinCommand> event);
 }

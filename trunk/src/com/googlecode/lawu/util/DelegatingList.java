@@ -20,13 +20,8 @@ import java.util.ListIterator;
 import com.googlecode.lawu.util.iterators.ReversibleIterator;
 
 /**
- * <p>
- * A list that delegates to another list.
- * </p>
- * <p>
- * Extend this class if you want to get a {@link List} view of a structure but, like me,
- * you're too lazy to actually implement any methods. 
- * </p>
+ * A list that delegates its list-related methods to another list. The goal is
+ * to make it easier to use composition to build lists.
  * 
  * @author Miorel-Lucian Palii
  * @param <T>

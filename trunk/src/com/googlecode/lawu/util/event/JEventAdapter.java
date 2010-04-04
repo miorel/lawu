@@ -32,168 +32,208 @@ import java.awt.event.WindowListener;
  */
 public abstract class JEventAdapter implements KeyListener, MouseListener, MouseMotionListener, MouseWheelListener, WindowListener, WindowFocusListener {
 	/**
-	 * Default constructor, does nothing special.
+	 * Default constructor, does nothing.
 	 */
 	public JEventAdapter() {
 	}
-	
+
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void keyPressed(KeyEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void keyReleased(KeyEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mouseExited(MouseEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mousePressed(MouseEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mouseReleased(MouseEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mouseDragged(MouseEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mouseMoved(MouseEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowActivated(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowClosed(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowClosing(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowDeactivated(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowDeiconified(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowIconified(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowOpened(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowGainedFocus(WindowEvent e) {
 	}
 
 	/**
 	 * Ignores the event.
 	 * 
-	 * @param e the event
+	 * @param e
+	 *            the event
 	 */
+	@Override
 	public void windowLostFocus(WindowEvent e) {
 	}
 }

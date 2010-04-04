@@ -23,6 +23,12 @@ import com.googlecode.lawu.net.irc.cmd.PrivmsgCommand;
 import com.googlecode.lawu.net.irc.cmd.QuitCommand;
 import com.googlecode.lawu.net.irc.cmd.UnknownCommand;
 
+/**
+ * Basic implementation of the {@link IrcEventListener} interface providing
+ * empty implementations for all the methods.
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public abstract class AbstractIrcEventListener implements IrcEventListener {
 	@Override
 	public void pingEvent(IrcEvent<PingCommand> event) {

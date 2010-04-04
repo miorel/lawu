@@ -13,13 +13,25 @@
  */
 package com.googlecode.lawu.net.irc.cmd;
 
-public class WhoisCommand extends IrcNicknameCommand {	
-	public WhoisCommand(String nick) {
-		super(nick);
-	}
+import com.googlecode.lawu.util.iterators.UniversalIterator;
+
+/**
+ * Object representation of an IRC command.
+ * 
+ * @author Miorel-Lucian Palii
+ */
+public interface IrcCommand {
+	/**
+	 * Returns the command's identifying string.
+	 * 
+	 * @return the command's identifier
+	 */
+	public String getCommand();
 	
-	@Override
-	public String getCommand() {
-		return "WHOIS";
-	}
+	/**
+	 * Returns an iterator over the command's arguments.
+	 * 
+	 * @return the command's arguments
+	 */
+	public UniversalIterator<String> getArguments();
 }

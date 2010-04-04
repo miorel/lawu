@@ -11,26 +11,8 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.irc.cmd;
 
-import static com.googlecode.lawu.util.Iterators.iterator;
-
-import com.googlecode.lawu.util.iterators.UniversalIterator;
-
-public abstract class IrcNicknameCommand extends AbstractIrcCommand {
-	private final String nick;
-	
-	public IrcNicknameCommand(String nick) {
-		validateNick(nick);
-		this.nick = nick;
-	}
-	
-	public String getNick() {
-		return nick;
-	}
-	
-	@Override
-	public UniversalIterator<String> getArguments() {
-		return iterator(nick);
-	}
-}
+/**
+ * Network logging classes.
+ */
+package com.googlecode.lawu.net.log;

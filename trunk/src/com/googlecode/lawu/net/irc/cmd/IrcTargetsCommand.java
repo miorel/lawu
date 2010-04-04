@@ -24,6 +24,11 @@ import com.googlecode.lawu.dp.Iterator;
 import com.googlecode.lawu.util.Strings;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
+/**
+ * An IRC command that is directed at a list of targets.
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public abstract class IrcTargetsCommand extends AbstractIrcCommand {
 	private final String[] targets;
 	
@@ -36,16 +41,26 @@ public abstract class IrcTargetsCommand extends AbstractIrcCommand {
 		this.targets = targetsList.toArray(new String[targetsList.size()]);
 	}
 	
+	/**
+	 * Retrieves a string description of the action this command represents.
+	 * 
+	 * @return the command's verb
+	 */
 	protected String getVerb() {
 		return getCommand().toLowerCase(Locale.ENGLISH);
 	}
 	
+	/**
+	 * Returns an iterator over this command's targets.
+	 * 
+	 * @return this command's targets
+	 */
 	public UniversalIterator<String> getTargets() {
-		return iterator(targets);
+		return iterator(this.targets);
 	}
 	
 	@Override
 	public UniversalIterator<String> getArguments() {
-		return iterator(new String[] {Strings.join(" ", getTargets())});
+		return iterator(Strings.join(" ", this.targets));
 	}
 }

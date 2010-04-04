@@ -20,26 +20,26 @@ import java.nio.channels.spi.SelectorProvider;
 import com.googlecode.lawu.nio.SelectingThread;
 
 /**
- * A selector-backed thread for managing channel clients.
+ * A selector-backed thread for managing socket clients.
  * 
  * @author Miorel-Lucian Palii
  */
-public class ClientsThread extends SelectingThread {
+public class SocketClientsThread extends SelectingThread {
 
 	/**
-	 * Allocates a new clients thread. The thread will use the system-wide
+	 * Allocates a new socket clients thread. The thread will use the system-wide
 	 * default selector provider.
 	 * 
 	 * @throws IOException
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread() throws IOException {
+	public SocketClientsThread() throws IOException {
 		super();
 	}
 
 	/**
-	 * Allocates a new clients thread that will have the given name. The
+	 * Allocates a new socket clients thread that will have the given name. The
 	 * thread will use the system-wide default selector provider.
 	 * 
 	 * @param name
@@ -48,12 +48,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(String name) throws IOException {
+	public SocketClientsThread(String name) throws IOException {
 		super(name);
 	}
 
 	/**
-	 * Allocates a new clients thread that will belong to the specified thread
+	 * Allocates a new socket clients thread that will belong to the specified thread
 	 * group. The thread will use the system-wide default selector provider.
 	 * 
 	 * @param group
@@ -62,12 +62,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(ThreadGroup group) throws IOException {
+	public SocketClientsThread(ThreadGroup group) throws IOException {
 		super(group);
 	}
 
 	/**
-	 * Allocates a new clients thread that will belong to the specified thread
+	 * Allocates a new socket clients thread that will belong to the specified thread
 	 * group and have the given name. The thread will use the system-wide
 	 * default selector provider.
 	 * 
@@ -79,12 +79,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(ThreadGroup group, String name) throws IOException {
+	public SocketClientsThread(ThreadGroup group, String name) throws IOException {
 		super(group, name);
 	}
 	
 	/**
-	 * Allocates a new clients thread that will belong to the specified thread
+	 * Allocates a new socket clients thread that will belong to the specified thread
 	 * group and have the given name and stack size. The thread will use the
 	 * system-wide default selector provider.
 	 * 
@@ -98,12 +98,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(ThreadGroup group, String name, long stackSize) throws IOException {
+	public SocketClientsThread(ThreadGroup group, String name, long stackSize) throws IOException {
 		super(group, name, stackSize);
 	}
 
 	/**
-	 * Allocates a new clients thread that will use the specified selector
+	 * Allocates a new socket clients thread that will use the specified selector
 	 * provider.
 	 * 
 	 * @param provider
@@ -113,12 +113,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(SelectorProvider provider) throws IOException {
+	public SocketClientsThread(SelectorProvider provider) throws IOException {
 		super(provider);
 	}
 
 	/**
-	 * Allocates a new clients thread that will use the specified selector
+	 * Allocates a new socket clients thread that will use the specified selector
 	 * provider and have the given name.
 	 * 
 	 * @param provider
@@ -130,12 +130,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(SelectorProvider provider, String name) throws IOException {
+	public SocketClientsThread(SelectorProvider provider, String name) throws IOException {
 		super(provider, name);
 	}
 
 	/**
-	 * Allocates a new clients thread that will use the specified selector
+	 * Allocates a new socket clients thread that will use the specified selector
 	 * provider and belong to the specified thread group.
 	 * 
 	 * @param provider
@@ -147,12 +147,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(SelectorProvider provider, ThreadGroup group) throws IOException {
+	public SocketClientsThread(SelectorProvider provider, ThreadGroup group) throws IOException {
 		super(provider, group);
 	}
 
 	/**
-	 * Allocates a new clients thread that will use the specified selector
+	 * Allocates a new socket clients thread that will use the specified selector
 	 * provider, belong to the specified thread group, and have the given name.
 	 * 
 	 * @param provider
@@ -166,12 +166,12 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(SelectorProvider provider, ThreadGroup group, String name) throws IOException {
+	public SocketClientsThread(SelectorProvider provider, ThreadGroup group, String name) throws IOException {
 		super(provider, group, name);
 	}
 
 	/**
-	 * Allocates a new clients thread that will use the specified selector
+	 * Allocates a new socket clients thread that will use the specified selector
 	 * provider, belong to the specified thread group, and have the given name
 	 * and stack size.
 	 * 
@@ -188,19 +188,16 @@ public class ClientsThread extends SelectingThread {
 	 *             if the selector provider propagates an I/O error during the
 	 *             open operation
 	 */
-	public ClientsThread(SelectorProvider provider, ThreadGroup group, String name, long stackSize) throws IOException {
+	public SocketClientsThread(SelectorProvider provider, ThreadGroup group, String name, long stackSize) throws IOException {
 		super(provider, group, name, stackSize);
 	}
 
 	/**
-	 * Tells the client attached to the given key to finish connecting.
-	 * 
-	 * @param key
-	 *            the key to handle
+	 * Tells the socket client attached to the given key to finish connecting.
 	 */
 	@Override
 	protected void connect(SelectionKey key) {
-		Client client = (Client) key.attachment(); 
+		SocketClient client = (SocketClient) key.attachment(); 
 		try {
 			client.connect();
 		}
@@ -211,13 +208,11 @@ public class ClientsThread extends SelectingThread {
 	}
 	
 	/**
-	 * Tells the client attached to the given key to read from its channel.
-	 * 
-	 * @param key
-	 *            the key to handle
+	 * Tells the socket client attached to the given key to read from its channel.
 	 */
+	@Override
 	protected void read(SelectionKey key) {
-		Client client = (Client) key.attachment(); 
+		SocketClient client = (SocketClient) key.attachment(); 
 		try {
 			client.read();
 		}
@@ -228,14 +223,11 @@ public class ClientsThread extends SelectingThread {
 	}
 	
 	/**
-	 * Tells the client attached to the given key to write to its channel.
-	 * 
-	 * @param key
-	 *            the key to handle
+	 * Tells the socket client attached to the given key to write to its channel.
 	 */
 	@Override
 	protected void write(SelectionKey key) {
-		Client client = (Client) key.attachment(); 
+		SocketClient client = (SocketClient) key.attachment(); 
 		try {
 			client.write();
 		}

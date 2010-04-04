@@ -38,12 +38,12 @@ public class UnknownCommand extends AbstractIrcCommand implements IncomingIrcCom
 
 	@Override
 	public UniversalIterator<String> getArguments() {
-		return iterator(param);
+		return iterator(this.param);
 	}
 
 	@Override
 	public String getCommand() {
-		return command;
+		return this.command;
 	}
 
 	@Override
