@@ -19,7 +19,18 @@ import com.googlecode.lawu.net.irc.event.AbstractIrcEvent;
 import com.googlecode.lawu.net.irc.event.IrcEvent;
 import com.googlecode.lawu.net.irc.event.IrcEventListener;
 
+/**
+ * A command to change IRC nicknames.
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public class NickCommand extends IrcNicknameCommand implements IncomingIrcCommand {
+	/**
+	 * Builds a command to change the IRC nickname to the specified one.
+	 * 
+	 * @param nick
+	 *            the desired IRC nickname
+	 */
 	public NickCommand(String nick) {
 		super(nick);
 	}
@@ -39,6 +50,13 @@ public class NickCommand extends IrcNicknameCommand implements IncomingIrcComman
 		};
 	}
 	
+	/**
+	 * Builds a nick change command using the specified parameters.
+	 * 
+	 * @param param
+	 *            the command parameters
+	 * @return a nick change command
+	 */
 	public static NickCommand build(String[] param) {
 		validateParam(param, 1);
 		return new NickCommand(param[0]);

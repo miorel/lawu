@@ -18,13 +18,19 @@ import static com.googlecode.lawu.util.Iterators.iterator;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
 /**
- * An IRC command associated with a nick (nickname).
+ * An IRC command that takes a nick (nickname) as parameter.
  * 
  * @author Miorel-Lucian Palii
  */
 public abstract class IrcNicknameCommand extends AbstractIrcCommand {
 	private final String nick;
-	
+
+	/**
+	 * Builds a command with the specified nick as parameter.
+	 * 
+	 * @param nick
+	 *            the nick
+	 */
 	public IrcNicknameCommand(String nick) {
 		validateNick(nick);
 		this.nick = nick;

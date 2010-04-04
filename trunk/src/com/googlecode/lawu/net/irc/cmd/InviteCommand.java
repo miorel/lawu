@@ -22,28 +22,52 @@ import com.googlecode.lawu.net.irc.event.IrcEvent;
 import com.googlecode.lawu.net.irc.event.IrcEventListener;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
+/**
+ * A channel invitation command.
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public class InviteCommand extends AbstractIrcCommand implements IncomingIrcCommand {
 	private final String nick;
 	private final String channel;
-	
+
+	/**
+	 * Builds a command indicating that the specified nick was invited to the
+	 * specified channel.
+	 * 
+	 * @param nick
+	 *            the nick of the user being invited
+	 * @param channel
+	 *            the channel the user is being invited to
+	 */
 	public InviteCommand(String nick, String channel) {
 		validateNick(nick);
 		validateChannel(channel);
 		this.nick = nick;
 		this.channel = channel;
 	}
-	
+
+	/**
+	 * Gets the channel the user is being invited to.
+	 * 
+	 * @return the channel the user is being invited to
+	 */
 	public String getChannel() {
-		return channel;
+		return this.channel;
 	}
-	
+
+	/**
+	 * Gets the nick of the user being invited.
+	 * 
+	 * @return the invited user
+	 */
 	public String getNick() {
-		return nick;
+		return this.nick;
 	}
 
 	@Override
 	public UniversalIterator<String> getArguments() {
-		return iterator(nick, channel);
+		return iterator(this.nick, this.channel);
 	}
 
 	@Override
@@ -60,7 +84,14 @@ public class InviteCommand extends AbstractIrcCommand implements IncomingIrcComm
 			}		
 		};
 	}
-	
+
+	/**
+	 * Builds a channel invitation command using the specified parameters.
+	 * 
+	 * @param param
+	 *            the command parameters
+	 * @return a channel invitation command
+	 */
 	public static InviteCommand build(String[] param) {
 		validateParam(param, 2);
 		return new InviteCommand(param[0], param[1]);

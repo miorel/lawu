@@ -35,9 +35,5 @@ public interface IncomingIrcCommand extends IrcCommand {
 	 *            the origin of this command, may be <code>null</code>
 	 * @return an IRC event
 	 */
-	public IrcEvent<? extends IncomingIrcCommand> getEvent(IrcClient client, Entity origin);
-	/*
-	 * the "extends IncomingIrcCommand" isn't really necessary since it's
-	 * already enforced by IrcEvent, but why not
-	 */
+	public IrcEvent<?> getEvent(IrcClient client, Entity origin);
 }

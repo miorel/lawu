@@ -22,6 +22,11 @@ import com.googlecode.lawu.net.irc.event.IrcEvent;
 import com.googlecode.lawu.net.irc.event.IrcEventListener;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
+/**
+ * A command to kick a user from a channel.
+ *  
+ * @author Miorel-Lucian Palii
+ */
 public class KickCommand extends AbstractIrcCommand implements IncomingIrcCommand {
 	private final String channel;
 	private final String nick;
@@ -39,26 +44,46 @@ public class KickCommand extends AbstractIrcCommand implements IncomingIrcComman
 	public KickCommand(String channel, String nick) {
 		this(channel, nick, null);
 	}
-	
+
+	/**
+	 * Gets the channel of the kick.
+	 * 
+	 * @return the channel of the kick
+	 */
 	public String getChannel() {
-		return channel;
+		return this.channel;
 	}
 	
+	/**
+	 * Gets the nick of the kicked user.
+	 * 
+	 * @return the kicked user
+	 */
 	public String getNick() {
-		return nick;
+		return this.nick;
 	}
 	
+	/**
+	 * Gets the kick message.
+	 * 
+	 * @return the kick message
+	 */
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
-	
+
+	/**
+	 * Checks whether there is a message associated with this kick.
+	 * 
+	 * @return whether there is a kick message
+	 */
 	public boolean hasMessage() {
-		return message == null;
+		return this.message == null;
 	}
 	
 	@Override
 	public UniversalIterator<String> getArguments() {
-		return hasMessage() ? iterator(channel, nick, message) : iterator(channel, nick);
+		return hasMessage() ? iterator(this.channel, this.nick, this.message) : iterator(this.channel, this.nick);
 	}
 
 	@Override
@@ -78,6 +103,6 @@ public class KickCommand extends AbstractIrcCommand implements IncomingIrcComman
 	
 	public static KickCommand build(String[] param) {
 		validateParam(param, 2, 3);
-		return param.length == 2 ? new KickCommand(param[0], param[1]) : new KickCommand(param[0], param[1], param[2]);
+		return param.length == 2 || param[2].equals(param[1]) ? new KickCommand(param[0], param[1]) : new KickCommand(param[0], param[1], param[2]);
 	}
 }

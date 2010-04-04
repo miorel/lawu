@@ -17,13 +17,20 @@ import static com.googlecode.lawu.util.Iterators.*;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
 /**
- * An IRC password command.
+ * An IRC server password command.
  * 
  * @author Miorel-Lucian Palii
  */
 public class PassCommand extends AbstractIrcCommand {
 	private final String password;
-	
+
+	/**
+	 * Builds a command to authorize access to the server using the specified
+	 * password.
+	 * 
+	 * @param password
+	 *            the server password
+	 */
 	public PassCommand(String password) {
 		validateString("password", password, false, false);
 		this.password = password;

@@ -354,7 +354,7 @@ public abstract class SocketClient {
 	}
 
 	/**
-	 * Adds a listener to this client's listener set.
+	 * Adds a network listener to this client's listener set.
 	 * 
 	 * @param listener
 	 *            the listener to add
@@ -364,7 +364,8 @@ public abstract class SocketClient {
 	}
 
 	/**
-	 * Distributes a network event to the listeners registered with this client.
+	 * Distributes a network event to the network listeners registered with this
+	 * client.
 	 * 
 	 * @param event
 	 *            the event to distribute
@@ -374,7 +375,7 @@ public abstract class SocketClient {
 	}
 
 	/**
-	 * Removes a listener from this client's listener set.
+	 * Removes a network listener from this client's listener set.
 	 * 
 	 * @param listener
 	 *            the listener to remove

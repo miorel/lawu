@@ -25,13 +25,19 @@ import com.googlecode.lawu.util.Strings;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
 /**
- * An IRC command that is directed at a list of targets.
+ * An IRC command taking a list of targets as parameters.
  * 
  * @author Miorel-Lucian Palii
  */
 public abstract class IrcTargetsCommand extends AbstractIrcCommand {
 	private final String[] targets;
-	
+
+	/**
+	 * Builds an IRC targets command from the given iterator.
+	 * 
+	 * @param targets
+	 *            the command's targets
+	 */
 	public IrcTargetsCommand(Iterator<String> targets) {
 		List<String> targetsList = list(adapt(targets));
 		if(targetsList.isEmpty())

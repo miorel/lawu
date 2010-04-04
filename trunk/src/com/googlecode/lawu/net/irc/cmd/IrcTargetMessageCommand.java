@@ -17,10 +17,23 @@ import static com.googlecode.lawu.util.Iterators.iterator;
 
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
+/**
+ * An IRC command that takes a target and a message.
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public abstract class IrcTargetMessageCommand extends AbstractIrcCommand {
 	private final String target;
 	private final String message;
-	
+
+	/**
+	 * Builds an IRC target/message command.
+	 * 
+	 * @param target
+	 *            the command's target
+	 * @param message
+	 *            the command's message
+	 */
 	public IrcTargetMessageCommand(String target, String message) {
 		validateString("target", target, false, false);
 		validateMessage(message, true);
@@ -28,16 +41,26 @@ public abstract class IrcTargetMessageCommand extends AbstractIrcCommand {
 		this.message = message;
 	}
 	
+	/**
+	 * Gets the command's target.
+	 * 
+	 * @return the command's target
+	 */
 	public String getTarget() {
-		return target;
+		return this.target;
 	}
-	
+
+	/**
+	 * Gets the command's message.
+	 * 
+	 * @return the command's message
+	 */
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 	
 	@Override
 	public UniversalIterator<String> getArguments() {
-		return iterator(target, message);
+		return iterator(this.target, this.message);
 	}
 }

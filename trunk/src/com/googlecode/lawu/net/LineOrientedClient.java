@@ -42,8 +42,9 @@ public abstract class LineOrientedClient extends SocketClient {
 	}
 
 	/**
-	 * Builds a line-oriented client that will connect to the specified address, register with
-	 * the specified registrar, and use a default provider to open channels.
+	 * Builds a line-oriented client that will connect to the specified address,
+	 * register with the specified registrar, and use a default provider to open
+	 * channels.
 	 * 
 	 * @param address
 	 *            the address to connect to

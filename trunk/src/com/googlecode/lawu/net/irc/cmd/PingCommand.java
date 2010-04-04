@@ -22,7 +22,19 @@ import com.googlecode.lawu.net.irc.event.AbstractIrcEvent;
 import com.googlecode.lawu.net.irc.event.IrcEvent;
 import com.googlecode.lawu.net.irc.event.IrcEventListener;
 
+/**
+ * An IRC ping message.
+ * 
+ * @author Miorel-Lucian Palii
+ * @see PongCommand
+ */
 public class PingCommand extends IrcTargetsCommand implements IncomingIrcCommand {	
+	/**
+	 * Builds an IRC ping with the specified targets.
+	 * 
+	 * @param targets
+	 *            the pingers
+	 */
 	public PingCommand(Iterator<String> targets) {
 		super(targets);
 	}
@@ -42,6 +54,13 @@ public class PingCommand extends IrcTargetsCommand implements IncomingIrcCommand
 		};
 	}
 	
+	/**
+	 * Builds an IRC ping using the specified parameters.
+	 * 
+	 * @param param
+	 *            the command parameters
+	 * @return an IRC ping
+	 */
 	public static PingCommand build(String[] param) {
 		validateParam(param, 1);
 		return new PingCommand(iterator(param[0].split("\\s+")));

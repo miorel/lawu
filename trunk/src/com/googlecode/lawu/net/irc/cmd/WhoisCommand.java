@@ -13,6 +13,11 @@
  */
 package com.googlecode.lawu.net.irc.cmd;
 
+/**
+ * A whois query.
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public class WhoisCommand extends IrcNicknameCommand {
 	/**
 	 * Build a whois query on the specified nick.

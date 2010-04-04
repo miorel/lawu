@@ -15,7 +15,19 @@ package com.googlecode.lawu.net.irc.cmd;
 
 import com.googlecode.lawu.dp.Iterator;
 
+/**
+ * An IRC pong message.
+ * 
+ * @author Miorel-Lucian Palii
+ * @see PingCommand
+ */
 public class PongCommand extends IrcTargetsCommand {
+	/**
+	 * Builds an IRC pong with the specified targets.
+	 * 
+	 * @param targets
+	 *            the entities to pong
+	 */
 	public PongCommand(Iterator<String> targets) {
 		super(targets);
 	}
