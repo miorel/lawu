@@ -13,13 +13,48 @@
  */
 package com.googlecode.lawu.net.www.spoj;
 
+/**
+ * Possible results of a submission to the Sphere Online Judge (SPOJ).
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public enum Result {
+	/**
+	 * Accepted: the submission was accepted by the judge.
+	 */
 	AC("accepted"),
+
+	/**
+	 * Compilation Error: the submission was not executed because it did not
+	 * compile.
+	 */
 	CE("compilation error"),
+	
+	/**
+	 * Runtime Error: the submission crashed while running.
+	 */
 	RE("runtime error"),
+
+	/**
+	 * System Error: there was a system error while the submission was running.
+	 */
 	SE("system error"),
+
+	/**
+	 * Time Limit Exceeded: the submission did not finish running in the allowed
+	 * time.
+	 */
 	TLE("time limit exceeded"),
+
+	/**
+	 * Wrong Answer: the submission's output did not match the criteria expected
+	 * by the judge.
+	 */
 	WA("wrong answer"),
+	
+	/**
+	 * Pending: the submission has not yet been judged.
+	 */
 	PENDING("??", "pending");
 	
 	private final String abbreviation;
@@ -34,15 +69,35 @@ public enum Result {
 		this.abbreviation = abbreviation;
 		this.title = title;
 	}
-	
+
+	/**
+	 * Returns the abbreviation of this result, e.g.&nbsp;<code>"TLE"</code>.
+	 * 
+	 * @return an abbreviation
+	 */
 	public String getAbbreviation() {
-		return abbreviation;
+		return this.abbreviation;
 	}
 
+	/**
+	 * Returns a longer description of this result, e.g.&nbsp;
+	 * <code>"time limit exceeded"</code>.
+	 * 
+	 * @return a title
+	 */
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
-	
+
+	/**
+	 * Obtains the <code>Result</code> object corresponding to the given
+	 * abbreviation.
+	 * 
+	 * @param abbreviation
+	 *            the desired abbreviation
+	 * @return a result object (or <code>null</code> if there isn't one with the
+	 *         specified abbreviation)
+	 */
 	public static Result forAbbreviation(String abbreviation) {
 		Result ret = null;
 		for(Result res: Result.values())

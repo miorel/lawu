@@ -31,7 +31,17 @@ public class KickCommand extends AbstractIrcCommand implements IncomingIrcComman
 	private final String channel;
 	private final String nick;
 	private final String message;
-	
+
+	/**
+	 * Builds a new kick command with the specified channel, nick, and message.
+	 * 
+	 * @param channel
+	 *            the channel of the kick
+	 * @param nick
+	 *            the user being kicked
+	 * @param message
+	 *            the kick message
+	 */
 	public KickCommand(String channel, String nick, String message) {
 		validateChannel(channel);
 		validateNick(nick);
@@ -40,7 +50,16 @@ public class KickCommand extends AbstractIrcCommand implements IncomingIrcComman
 		this.nick = nick;
 		this.message = message;
 	}
-	
+
+	/**
+	 * Builds a new kick command with the specified channel and nick, and no
+	 * message.
+	 * 
+	 * @param channel
+	 *            the channel of the kick
+	 * @param nick
+	 *            the user being kicked
+	 */
 	public KickCommand(String channel, String nick) {
 		this(channel, nick, null);
 	}
@@ -78,11 +97,11 @@ public class KickCommand extends AbstractIrcCommand implements IncomingIrcComman
 	 * @return whether there is a kick message
 	 */
 	public boolean hasMessage() {
-		return this.message == null;
+		return this.message != null;
 	}
 	
 	@Override
-	public UniversalIterator<String> getArguments() {
+	public UniversalIterator<String> getArguments() {	
 		return hasMessage() ? iterator(this.channel, this.nick, this.message) : iterator(this.channel, this.nick);
 	}
 
@@ -101,6 +120,13 @@ public class KickCommand extends AbstractIrcCommand implements IncomingIrcComman
 		};
 	}
 	
+	/**
+	 * Builds a kick command using the specified parameters.
+	 * 
+	 * @param param
+	 *            the command parameters
+	 * @return a kick command
+	 */
 	public static KickCommand build(String[] param) {
 		validateParam(param, 2, 3);
 		return param.length == 2 || param[2].equals(param[1]) ? new KickCommand(param[0], param[1]) : new KickCommand(param[0], param[1], param[2]);

@@ -11,11 +11,38 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.net.www;
+package com.googlecode.lawu.json;
 
-public abstract class UrlShortener {
-	public UrlShortener() {
+public class JsonNull implements JsonValue {
+	private static final JsonNull instance = new JsonNull(); 
+	
+	/**
+	 * This shall be a singleton.
+	 */
+	private JsonNull() {
+	}
+
+	public static JsonNull getInstance() {
+		return instance;
+	}
+
+	@Override
+	public String toJson() {
+		return "null";
 	}
 	
-	public abstract String shorten(String longUrl);
+	@Override
+	public String toString() {
+		return "JSON null";
+	}
+	
+	@Override
+	public int hashCode() {
+		return 1;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return obj == this || obj instanceof JsonNull;
+	}
 }

@@ -13,12 +13,11 @@
  */
 package com.googlecode.lawu.json;
 
-public interface JsonValue {
-	public enum Type {
-		STRING, NUMBER, OBJECT, ARRAY, BOOLEAN, NULL
-	}
-	
-	public Type getType();
-	
+/**
+ * Supertype for JavaScript Object Notation (JSON) values.
+ * 
+ * @author Miorel-Lucian Palii
+ */
+public interface JsonValue {	
 	public String toJson();
 }

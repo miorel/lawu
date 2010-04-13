@@ -18,8 +18,10 @@ import static com.googlecode.lawu.util.Iterators.chars;
 import static com.googlecode.lawu.util.Iterators.iterator;
 import static com.googlecode.lawu.util.Iterators.map;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -363,6 +365,23 @@ public class Strings {
 			m.appendReplacement(sb, XML_ESCAPE_MAP.get(m.group()));
 		m.appendTail(sb);
 		return sb.toString();
+	}
+
+	/**
+	 * Translates a string into <code>application/x-www-form-urlencoded</code>
+	 * format using the UTF-8 encoding scheme.
+	 * 
+	 * @param charSeq
+	 *            the text to translate
+	 * @return a translated string
+	 */
+	public static String encodeUtf8(CharSequence charSeq) {
+		try {
+			return URLEncoder.encode(charSeq.toString(), "UTF-8");
+		}
+		catch(UnsupportedEncodingException e) {
+			throw new Error("The UTF-8 encoding is not supported!", e);
+		}
 	}
 
 	/**

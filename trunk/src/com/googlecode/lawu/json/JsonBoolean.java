@@ -13,7 +13,9 @@
  */
 package com.googlecode.lawu.json;
 
-public class JsonBoolean extends AbstractJsonValue {
+import java.util.Locale;
+
+public class JsonBoolean implements JsonValue {
 	private boolean value;
 	
 	public JsonBoolean() {
@@ -29,7 +31,7 @@ public class JsonBoolean extends AbstractJsonValue {
 	}
 	
 	public boolean getValue() {
-		return value;
+		return this.value;
 	}
 	
 	public void setValue(boolean value) {
@@ -37,7 +39,7 @@ public class JsonBoolean extends AbstractJsonValue {
 	}
 	
 	public void setValue(CharSequence value) {
-		value = value.toString().toLowerCase();
+		value = value.toString().toLowerCase(Locale.ENGLISH);
 		if(value.equals("true"))
 			this.value = true;
 		else if(value.equals("false"))
@@ -45,24 +47,24 @@ public class JsonBoolean extends AbstractJsonValue {
 		else
 			throw new IllegalArgumentException("argument is not \"true\" or \"false\"");
 	}
-	
-	@Override
-	public Type getType() {
-		return Type.BOOLEAN;
-	}
 
 	@Override
 	public String toJson() {
-		return value ? "true" : "false";
+		return this.value ? "true" : "false";
 	}
 	
 	@Override
-	public boolean equals(Object o) {
-		return o instanceof JsonBoolean && this.value == ((JsonBoolean) o).value;
+	public boolean equals(Object obj) {
+		return obj == this || (obj instanceof JsonBoolean && this.value == ((JsonBoolean) obj).value);
 	}
 	
 	@Override
 	public int hashCode() {
-		return value ? 3 : 2;
+		return this.value ? 3 : 2;
+	}
+	
+	@Override
+	public String toString() {
+		return "JSON boolean: " + toJson();
 	}
 }

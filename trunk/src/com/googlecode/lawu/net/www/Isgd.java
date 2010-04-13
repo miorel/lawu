@@ -13,32 +13,27 @@
  */
 package com.googlecode.lawu.net.www;
 
+import java.io.IOException;
 import java.net.URL;
-import java.net.URLEncoder;
 
 import com.googlecode.lawu.util.Streams;
+import com.googlecode.lawu.util.Strings;
 
-public class TinyUrl extends UrlShortener {
-	public TinyUrl() {
+/**
+ * A {@link UrlShortener} that uses the <a href="http://is.gd/">is.gd</a>
+ * service.
+ * 
+ * @author Miorel-Lucian Palii
+ */
+public class Isgd implements UrlShortener {
+	/**
+	 * Constructs a new URL shortener.
+	 */
+	public Isgd() {
 	}
 	
-	public String shorten(String longUrl) {
-		if(longUrl.indexOf("://") < 0)
-			longUrl = "http://" + longUrl;
-		String requestUrl = null;
-		try {
-			requestUrl = String.format("http://tinyurl.com/api-create.php?url=%s", URLEncoder.encode(longUrl, "UTF-8"));
-		}
-		catch(Exception e) {
-			throw new RuntimeException();
-		}
-		String text = null;
-		try {
-			text = Streams.slurp(new URL(requestUrl)).toString();
-		}
-		catch(Exception e) {
-			throw new RuntimeException();
-		}
-		return text.trim();
+	public String shorten(String longUrl) throws IOException {
+		String requestUrl = String.format("http://is.gd/api.php?longurl=%s", Strings.encodeUtf8(longUrl));
+		return Streams.slurp(new URL(requestUrl)).toString().trim();
 	}
 }

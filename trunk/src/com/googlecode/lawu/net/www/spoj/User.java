@@ -37,16 +37,16 @@ public class User {
 		this.username = username;
 	}
 	
-	public final String getUsername() {
-		return username;
+	public String getUsername() {
+		return this.username;
 	}
 	
 	public URL getSubmissionsUrl() {
-		return Strings.getUrl("http://www.spoj.pl/status/" + username + "/signedlist/");
+		return Strings.getUrl("http://www.spoj.pl/status/" + this.username + "/signedlist/");
 	}
 
 	public URL getUserPageUrl() {
-		return Strings.getUrl("http://www.spoj.pl/users/" + username + "/");
+		return Strings.getUrl("http://www.spoj.pl/users/" + this.username + "/");
 	}
 	
 	public ReversibleIterator<Submission> getSubmissions() throws IOException {
@@ -73,16 +73,16 @@ public class User {
 	
 	@Override
 	public int hashCode() {
-		return username.hashCode();
+		return this.username.hashCode();
 	}
 	
 	@Override
-	public boolean equals(Object o) {
-		return o == this || (o instanceof User && this.username.equals(((User) o).username)); 
+	public boolean equals(Object obj) {
+		return obj == this || (obj instanceof User && this.username.equals(((User) obj).username)); 
 	}
 	
 	@Override
 	public String toString() {
-		return "SPOJ user " + username;
+		return "SPOJ user " + this.username;
 	}
 }

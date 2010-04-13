@@ -48,17 +48,17 @@ public final class Submission {
 	
 	private Submission(User user, int id, Date date, String problem, Result result, double score, int time, int memory, Language language) {
 		if(user == null)
-			throw new IllegalArgumentException("The user may not be null.");
+			throw new NullPointerException("The user may not be null.");
 		if(id < 0)
 			throw new IllegalArgumentException("The ID may not be negative.");
 		if(date == null)
-			throw new IllegalArgumentException("The date may not be null.");
+			throw new NullPointerException("The date may not be null.");
 		if(problem == null || problem.isEmpty())
 			throw new IllegalArgumentException("The problem code may not be null or zero length.");
 		if(result == null)
-			throw new IllegalArgumentException("The result code may not be null.");
+			throw new NullPointerException("The result code may not be null.");
 		if(language == null)
-			throw new IllegalArgumentException("The language may not be null.");
+			throw new NullPointerException("The language may not be null.");
 		this.user = user;
 		this.id = id;
 		this.date = date;
@@ -96,7 +96,6 @@ public final class Submission {
 			throw new RuntimeException("Error parsing numeric value.", e);
 		}
 		catch(IllegalArgumentException e) {
-			System.err.println(tokens.get(3));
 			throw new RuntimeException("Error constructing: " + e.getMessage(), e);
 		}
 		catch(ParseException e) {
@@ -105,12 +104,9 @@ public final class Submission {
 		return ret;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public int hashCode() {
-		return id;
+		return this.id;
 	}
 
 	/**
@@ -125,16 +121,10 @@ public final class Submission {
 	 * you've got bigger problems, and a paranoid <code>equals()</code>
 	 * implementation won't fix them.
 	 * </p>
-	 * 
-	 * @param o
-	 *            the object to check
-	 * @return <code>true</code> if the object equals this submission,
-	 *         <code>false</code> otherwise
 	 */
 	@Override
-	public boolean equals(Object o) {
-		super.equals(o);
-		return this == o || (o instanceof Submission && this.id == ((Submission) o).id);
+	public boolean equals(Object obj) {
+		return this == obj || (obj instanceof Submission && this.id == ((Submission) obj).id);
 	}
 
 	/**
@@ -143,7 +133,7 @@ public final class Submission {
 	 * @return the user to whom this submission belongs
 	 */
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
 	/**
@@ -153,7 +143,7 @@ public final class Submission {
 	 * @return this submission's ID
 	 */
 	public int getId() {
-		return id;
+		return this.id;
 	}
 	
 	/**
@@ -162,7 +152,7 @@ public final class Submission {
 	 * @return the submission time
 	 */
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 	
 	public String getProblem() {
@@ -190,7 +180,7 @@ public final class Submission {
 	}
 	
 	public int getTime() {
-		return time;
+		return this.time;
 	}
 
 	public double getTimeSeconds() {
@@ -198,7 +188,7 @@ public final class Submission {
 	}
 	
 	public int getMemory() {
-		return memory;
+		return this.memory;
 	}
 
 	public int getMemoryMegabytes() {
@@ -206,6 +196,6 @@ public final class Submission {
 	}
 	
 	public Language getLanguage() {
-		return language;
+		return this.language;
 	}
 }

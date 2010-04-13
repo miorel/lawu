@@ -17,10 +17,18 @@ public enum Language {
 	ADA("Ada"),
 	ASSEMBLY("ASM", "assembly language"),
 	BASH("BAS", "bash"),
+
+	/**
+	 * Constant for brainfuck, an esoteric, minimalist programming language.
+	 */
 	BRAINFUCK("BF", "brainfuck"),
 	C,
 	C_SHARP("C#", "C#"),
 	C_PLUS_PLUS("C++", "C++"),
+	
+	/**
+	 * Constant for the C99 dialect of the C programming language.
+	 */
 	C99,
 	OCAML("CAM", "OCaml"),
 	CLIPS("CLP", "Clips"),
@@ -38,6 +46,11 @@ public enum Language {
 	NEMERLE("NEM", "Nemerle"),
 	NICE("NIC", "Nice"),
 	PASCAL("PAS", "Pascal"),
+
+	/**
+	 * Constant for Larry Wall's Practical Extraction and Report Language
+	 * (Perl).
+	 */
 	PERL("PER", "Perl"),
 	PHP,
 	PIKE("PIK", "Pike"),
@@ -46,6 +59,10 @@ public enum Language {
 	RUBY("RUB", "Ruby"),
 	SCALA("SCA", "Scala"),
 	SCHEME("SCM", "Scheme"),
+
+	/**
+	 * Constant for Smalltalk, a dynamically typed object-oriented language.
+	 */
 	SMALLTALK("ST", "Smalltalk"),
 	TCL("Tcl"),
 //	TECS("TECS"),
@@ -71,11 +88,11 @@ public enum Language {
 	}
 	
 	public String getRealName() {
-		return realName;
+		return this.realName;
 	}
 
 	public String getSpojName() {
-		return spojName;
+		return this.spojName;
 	}
 	
 	public static Language forSpojName(String spojName) {

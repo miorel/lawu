@@ -21,6 +21,11 @@ import com.googlecode.lawu.net.irc.event.IrcEventListener;
 import com.googlecode.lawu.util.Iterators;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
+/**
+ * A command to quit IRC>
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public class QuitCommand extends AbstractIrcCommand implements IncomingIrcCommand {
 	private final String message;
 
@@ -42,11 +47,6 @@ public class QuitCommand extends AbstractIrcCommand implements IncomingIrcComman
 	 */
 	public QuitCommand() {
 		this(null);
-	}
-	
-	public static QuitCommand build(String[] param) {
-		validateParam(param, 0, 1);
-		return new QuitCommand(param.length == 0 ? null : param[0]);
 	}
 
 	/**
@@ -76,6 +76,18 @@ public class QuitCommand extends AbstractIrcCommand implements IncomingIrcComman
 	@Override
 	public String getCommand() {
 		return "QUIT";
+	}
+
+	/**
+	 * Builds an IRC quit command using the specified parameters.
+	 * 
+	 * @param param
+	 *            the command parameters
+	 * @return an IRC quit command
+	 */
+	public static QuitCommand build(String[] param) {
+		validateParam(param, 0, 1);
+		return new QuitCommand(param.length == 0 ? null : param[0]);
 	}
 	
 	@Override

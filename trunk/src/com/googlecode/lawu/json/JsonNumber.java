@@ -16,7 +16,7 @@ package com.googlecode.lawu.json;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public class JsonNumber extends AbstractJsonValue {
+public class JsonNumber implements JsonValue {
 	private BigDecimal value;
 	
 	public JsonNumber() {
@@ -36,8 +36,6 @@ public class JsonNumber extends AbstractJsonValue {
 	}
 	
 	public void setValue(BigDecimal value) {
-		if(value == null)
-			value = BigDecimal.ZERO;
 		this.value = value;
 	}
 
@@ -54,32 +52,32 @@ public class JsonNumber extends AbstractJsonValue {
 	}
 	
 	public int intValue() {
-		return value.intValue();
+		return this.value.intValue();
 	}
 
 	public long longValue() {
-		return value.longValue();
+		return this.value.longValue();
 	}
 
 	public double doubleValue() {
-		return value.doubleValue();
+		return this.value.doubleValue();
 	}
 	
 	public BigInteger bigIntegerValue() {
-		return value.toBigInteger();
+		return this.value.toBigInteger();
 	}
 
 	public BigDecimal bigDecimalValue() {
-		return value;
-	}
-	
-	@Override
-	public Type getType() {
-		return Type.NUMBER;
+		return this.value;
 	}
 
 	@Override
 	public String toJson() {
-		return value.stripTrailingZeros().toString().replaceFirst("[Ee]\\+?", "e");
+		return this.value.stripTrailingZeros().toString().replaceFirst("[Ee]\\+?", "e");
+	}
+	
+	@Override
+	public String toString() {
+		return "JSON number: " + toJson();
 	}
 }

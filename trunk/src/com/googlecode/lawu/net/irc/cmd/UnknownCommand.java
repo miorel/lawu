@@ -25,10 +25,23 @@ import com.googlecode.lawu.net.irc.event.IrcEvent;
 import com.googlecode.lawu.net.irc.event.IrcEventListener;
 import com.googlecode.lawu.util.iterators.UniversalIterator;
 
+/**
+ * The fall-back type to use for unrecognized IRC commands. 
+ * 
+ * @author Miorel-Lucian Palii
+ */
 public class UnknownCommand extends AbstractIrcCommand implements IncomingIrcCommand {
 	private final String command;
 	private final String[] param;
-	
+
+	/**
+	 * Builds an unknown command with the specified name and parameters.
+	 * 
+	 * @param command
+	 *            the command name
+	 * @param param
+	 *            the command parameters
+	 */
 	public UnknownCommand(String command, String[] param) {
 		validateString("command ", command, false, false);
 		validateParam(param, 0, Integer.MAX_VALUE);

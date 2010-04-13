@@ -13,6 +13,7 @@
  */
 package com.googlecode.lawu.net.irc.event;
 
+import com.googlecode.lawu.net.irc.cmd.CtcpCommand;
 import com.googlecode.lawu.net.irc.cmd.InviteCommand;
 import com.googlecode.lawu.net.irc.cmd.JoinCommand;
 import com.googlecode.lawu.net.irc.cmd.KickCommand;
@@ -64,5 +65,9 @@ public abstract class AbstractIrcEventListener implements IrcEventListener {
 
 	@Override
 	public void joinEvent(IrcEvent<JoinCommand> event) {
+	}
+	
+	@Override
+	public void unknwonCtcpEvent(IrcEvent<CtcpCommand> event) {
 	}
 }

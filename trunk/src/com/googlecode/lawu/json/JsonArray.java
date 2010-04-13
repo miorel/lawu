@@ -49,11 +49,6 @@ public class JsonArray extends DelegatingList<JsonValue> implements JsonValue {
 	}
 
 	@Override
-	public Type getType() {
-		return Type.ARRAY;
-	}
-
-	@Override
 	protected List<JsonValue> getDelegate() {
 		return list;
 	}

@@ -13,7 +13,21 @@
  */
 package com.googlecode.lawu.net.irc.cmd;
 
-public class SqueryCommand extends IrcTargetMessageCommand {	
+/**
+ * A query message sent to an IRC service.
+ * 
+ * @author Miorel-Lucian Palii
+ */
+public class SqueryCommand extends IrcTargetMessageCommand {
+	/**
+	 * Builds a service query command with the specified message directed at the
+	 * target.
+	 * 
+	 * @param target
+	 *            the message target
+	 * @param message
+	 *            the query
+	 */
 	public SqueryCommand(String target, String message) {
 		super(target, message);
 	}

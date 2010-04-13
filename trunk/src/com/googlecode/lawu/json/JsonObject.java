@@ -40,11 +40,6 @@ public class JsonObject extends DelegatingMap<String, JsonValue> implements Json
 		this.map = new HashMap<String, JsonValue>(m);
 	}
 
-	@Override
-	public Type getType() {
-		return Type.OBJECT;
-	}
-
 	public JsonValue get(String... keys) {
 		JsonValue ret = this;
 		for(String key: keys)
@@ -53,8 +48,8 @@ public class JsonObject extends DelegatingMap<String, JsonValue> implements Json
 	}
 	
 	@Override
-	protected Map<String, JsonValue> getDelegate() {
-		return map;
+	protected Map<String,JsonValue> getDelegate() {
+		return this.map;
 	}
 
 	@Override
@@ -64,7 +59,7 @@ public class JsonObject extends DelegatingMap<String, JsonValue> implements Json
 			public String map(Entry<String, JsonValue> entry) {
 				return String.format("%s:%s", new JsonString(entry.getKey()).toJson(), entry.getValue().toJson());
 			}
-		}, Iterators.adapt(entrySet().iterator()))));
+		}, Iterators.adapt(entrySet()))));
 	}
 	
 	@Override

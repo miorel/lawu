@@ -11,11 +11,25 @@
  * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
  * details.
  */
-package com.googlecode.lawu.json;
+package com.googlecode.lawu.net.www;
 
-public abstract class AbstractJsonValue implements JsonValue {
-	@Override
-	public String toString() {
-		return String.format("JSON %s: %s", getType().toString().toLowerCase(), toJson());
-	}
+import java.io.IOException;
+
+/**
+ * Takes a URL and returns a (usually) shorter one that redirects to the same
+ * resource.
+ * 
+ * @author Miorel-Lucian Palii
+ */
+public interface UrlShortener {
+	/**
+	 * Shortens the specified URL.
+	 * 
+	 * @param longUrl
+	 *            the URL to shorten
+	 * @return a shortened URL
+	 * @throws IOException
+	 *             if an I/O error occurs
+	 */
+	public String shorten(String longUrl) throws IOException;
 }

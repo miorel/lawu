@@ -29,25 +29,25 @@ public class User {
 	}
 	
 	public String getUsername() {
-		return username;
+		return this.username;
 	}
 
 	public URL getUserPageUrl() {
-		return Strings.getUrl("http://projecteuler.net/index.php?section=profile&profile=" + username);
+		return Strings.getUrl("http://projecteuler.net/index.php?section=profile&profile=" + this.username);
 	}
 	
 	@Override
 	public int hashCode() {
-		return username.hashCode();
+		return this.username.hashCode();
 	}
 	
 	@Override
-	public boolean equals(Object o) {
-		return o == this || (o instanceof User && this.username.equals(((User) o).username)); 
+	public boolean equals(Object obj) {
+		return obj == this || (obj instanceof User && this.username.equals(((User) obj).username)); 
 	}
 	
 	@Override
 	public String toString() {
-		return "Project Euler user " + username;
+		return "Project Euler user " + this.username;
 	}
 }

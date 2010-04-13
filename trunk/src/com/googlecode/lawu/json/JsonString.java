@@ -15,7 +15,7 @@ package com.googlecode.lawu.json;
 
 import static com.googlecode.lawu.util.Iterators.chars;
 
-public class JsonString extends AbstractJsonValue {
+public class JsonString implements JsonValue {
 	private String value;
 	
 	public JsonString() {
@@ -27,33 +27,28 @@ public class JsonString extends AbstractJsonValue {
 	}
 	
 	public void setValue(CharSequence value) {
-		this.value = value == null ? "" : value.toString();
+		this.value = value.toString();
 	}
 	
 	public String getValue() {
-		return value;
-	}
-	
-	@Override
-	public Type getType() {
-		return Type.STRING;
+		return this.value;
 	}
 
 	@Override
 	public int hashCode() {
-		return value.hashCode();
+		return this.value.hashCode();
 	}
 	
 	@Override
-	public boolean equals(Object o) {
-		return o instanceof JsonString && this.value.equals(((JsonString) o).value);
+	public boolean equals(Object obj) {
+		return obj == this || (obj instanceof JsonString && this.value.equals(((JsonString) obj).value));
 	}
 	
 	@Override
 	public String toJson() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("\"");
-		for(char c: chars(value)) {
+		for(char c: chars(this.value))
 			switch(c) {
 			case '"':
 				sb.append("\\\"");
@@ -83,8 +78,12 @@ public class JsonString extends AbstractJsonValue {
 					sb.append(c);
 				break;
 			}
-		}
 		sb.append("\"");
 		return sb.toString();
+	}
+
+	@Override
+	public String toString() {
+		return "JSON string: " + toJson();
 	}
 }

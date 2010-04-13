@@ -14,6 +14,7 @@
 package com.googlecode.lawu.net.irc.event;
 
 import com.googlecode.lawu.event.EventListener;
+import com.googlecode.lawu.net.irc.cmd.CtcpCommand;
 import com.googlecode.lawu.net.irc.cmd.InviteCommand;
 import com.googlecode.lawu.net.irc.cmd.JoinCommand;
 import com.googlecode.lawu.net.irc.cmd.KickCommand;
@@ -102,4 +103,13 @@ public interface IrcEventListener extends EventListener {
 	 *            an event object
 	 */
 	public void joinEvent(IrcEvent<JoinCommand> event);
+
+	/**
+	 * Invoked when an unrecognized client-to-client protocol (CTCP) command is
+	 * received.
+	 * 
+	 * @param event
+	 *            an event object
+	 */
+	public void unknwonCtcpEvent(IrcEvent<CtcpCommand> event);
 }
